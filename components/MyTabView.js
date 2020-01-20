@@ -16,13 +16,13 @@ export default function MyTabView(props) {
         first: () => 
             <View style={[styles.scene]} >
                 <Text>
-                    111
+                    {props.mnemonic_zh}
                 </Text>
             </View>,
         second: () => 
             <View style={[styles.scene]} >
                 <Text>
-                    111
+                {props.mnemonic_en}
                 </Text>
             </View>
     })

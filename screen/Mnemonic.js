@@ -11,7 +11,8 @@ import Title from '../components/Title'
 import Copyright from '../components/Copyright'
 import MyTabView from '../components/MyTabView'
 import MyButton from '../components/MyButton'
-//import bip39 from 'react-native-bip39'
+import bip39 from 'react-native-bip39'
+var chinese_simplified = require('../assets/chinese_simplified.json')
 
 
 const screenWidth = Dimensions.get('window').width
@@ -39,20 +40,26 @@ export default class Open extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            //mnemonic_zh: bip39.generateMnemonic(128, null, bip39.wordlists.chinese_simplified),
-            //mnemonic_en: bip39.generateMnemonic(128, null, bip39.wordlists.english)
+            mnemonic_zh: '',
+            mnemonic_en: ''
         }
     }
     componentDidMount() {
-
+        bip39.generateMnemonic(128, null, bip39.wordlists.EN).then((res)=>{
+            this.setState({mnemonic_en:res})
+        })
+        bip39.generateMnemonic(128, null, chinese_simplified).then((res)=>{
+            this.setState({mnemonic_zh:res})
+        })
     }//
     handleSubmit = () => {
         console.log('ok')
     }
     render() {
         const walletLogo = require(`../assets/bishen-wallet2x.png`)
-
-        return (
+        bip39.generateMnemonic(128, null, bip39.wordlists.EN).then(console.log)
+        bip39.generateMnemonic(128, null, chinese_simplified).then(console.log)
+        return (        //generateMnemonic
             <ScrollView>
                 <View style={styles.container} >
                     <Logo />
