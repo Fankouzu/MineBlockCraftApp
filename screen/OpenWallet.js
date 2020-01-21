@@ -65,6 +65,7 @@ export default class Open extends React.Component {
                 <MyButton 
                     screenWidth={screenWidth}
                     handleSubmit={this.handleSubmit}
+                    text='打开钱包'
                 />
                 <View style={styles.bottom}>
                     <Text style={styles.bottomLink}>导入钱包</Text>

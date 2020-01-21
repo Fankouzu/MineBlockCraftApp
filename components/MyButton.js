@@ -4,8 +4,6 @@ import AwesomeButton from "react-native-really-awesome-button"
 
 export default function MyButton(props) {
 
-
-
     return (
         <View>
             <AwesomeButton
@@ -22,7 +20,7 @@ export default function MyButton(props) {
                 height={60}
                 width={props.screenWidth*0.8}
             >
-                <Text style={[styles.buttonText, { fontFamily: 'RuiZiBiGeQingChun'}]}>打开钱包</Text>
+<Text style={[styles.buttonText, { fontFamily: 'RuiZiBiGeQingChun'}]}>{props.text}</Text>
             </AwesomeButton>
         </View>
     )

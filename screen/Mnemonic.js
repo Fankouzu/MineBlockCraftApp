@@ -56,10 +56,7 @@ export default class Open extends React.Component {
         console.log('ok')
     }
     render() {
-        const walletLogo = require(`../assets/bishen-wallet2x.png`)
-        bip39.generateMnemonic(128, null, bip39.wordlists.EN).then(console.log)
-        bip39.generateMnemonic(128, null, chinese_simplified).then(console.log)
-        return (        //generateMnemonic
+        return (        
             <ScrollView>
                 <View style={styles.container} >
                     <Logo />
@@ -68,10 +65,10 @@ export default class Open extends React.Component {
                         mnemonic_zh={this.state.mnemonic_zh}
                         mnemonic_en={this.state.mnemonic_en}
                     />
-
                     <MyButton
                         screenWidth={screenWidth}
                         handleSubmit={this.handleSubmit}
+                        text='下一步'
                     />
                     <View style={styles.bottom}>
                         <Text style={styles.bottomLink}>导入钱包</Text>

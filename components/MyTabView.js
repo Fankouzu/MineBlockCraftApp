@@ -14,15 +14,15 @@ export default function MyTabView(props) {
 
     const renderScene = SceneMap({
         first: () => 
-            <View style={[styles.scene]} >
-                <Text>
+            <View style={styles.scene}>
+                <Text style={styles.mnemonic_zh}>
                     {props.mnemonic_zh}
                 </Text>
             </View>,
         second: () => 
-            <View style={[styles.scene]} >
-                <Text>
-                {props.mnemonic_en}
+            <View style={styles.scene} >
+                <Text style={styles.mnemonic_en}>
+                {props.mnemonic_en.replace(/ /g,'    ')}
                 </Text>
             </View>
     })
@@ -53,11 +53,26 @@ export default function MyTabView(props) {
 
 const styles = StyleSheet.create({
     scene: {
-        flex: 1,
+        flex: 1
+    },
+    mnemonic_zh: {
+        fontSize:24,
+        letterSpacing:18,
+        textAlign:'center',
+        alignContent:'space-between',
+        lineHeight:52
+    },
+    mnemonic_en: {
+        fontSize:20,
+        textAlign:'center',
+        justifyContent:'space-evenly',
+        lineHeight:40,
+        paddingLeft:10,
+        paddingRight:10
     },
     MonemonicView: {
         backgroundColor: 'white',
-        height: 200,
+        height: 220,
         elevation: 5,
         shadowColor: 'black',
         shadowOpacity: 1,
