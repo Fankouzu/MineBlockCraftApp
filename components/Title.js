@@ -5,7 +5,7 @@ export default function Title(props) {
 
     return (
         <View style={styles.title} >
-            <Text style={[styles.titleText, { fontFamily: 'RuiZiBiGeQingChun'}]}>{props.titleText}</Text>
+            <Text style={[styles.titleText, { fontFamily: 'BigYoungMediumGB2.0'}]}>{props.titleText}</Text>
         </View>
     )
 }

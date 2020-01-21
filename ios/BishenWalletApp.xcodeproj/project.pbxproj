@@ -20,6 +20,7 @@
 		5BA86E269717E45BEC407731 /* libPods-BishenWalletApp-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5CD772F679AFD7F7A329A23B /* libPods-BishenWalletApp-tvOS.a */; };
 		69A7DC09261BB89236829644 /* libPods-BishenWalletApp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B4623A82D2B3A6DA61307F1B /* libPods-BishenWalletApp.a */; };
 		9ABF8DF44A6217B0E5981CCE /* libPods-BishenWalletApp-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D7D4393A0B7ED635E3427A95 /* libPods-BishenWalletApp-tvOSTests.a */; };
+		A34ED97023D6DB62003B03AD /* RuiZiBiGeQingChun.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A34ED96F23D6DB62003B03AD /* RuiZiBiGeQingChun.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -58,6 +59,7 @@
 		4767006BEDED01940D5CA20F /* Pods-BishenWalletApp-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BishenWalletApp-tvOSTests.release.xcconfig"; path = "Target Support Files/Pods-BishenWalletApp-tvOSTests/Pods-BishenWalletApp-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
 		5CD772F679AFD7F7A329A23B /* libPods-BishenWalletApp-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-BishenWalletApp-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9EC6BAAB5058EB7CE30D6CA0 /* Pods-BishenWalletAppTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BishenWalletAppTests.debug.xcconfig"; path = "Target Support Files/Pods-BishenWalletAppTests/Pods-BishenWalletAppTests.debug.xcconfig"; sourceTree = "<group>"; };
+		A34ED96F23D6DB62003B03AD /* RuiZiBiGeQingChun.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = RuiZiBiGeQingChun.ttf; path = ../../assets/RuiZiBiGeQingChun.ttf; sourceTree = "<group>"; };
 		A6A0F14C9AFD3003DAE678EC /* Pods-BishenWalletApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BishenWalletApp.debug.xcconfig"; path = "Target Support Files/Pods-BishenWalletApp/Pods-BishenWalletApp.debug.xcconfig"; sourceTree = "<group>"; };
 		B4623A82D2B3A6DA61307F1B /* libPods-BishenWalletApp.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-BishenWalletApp.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C5007175B7DFC666F220C391 /* Pods-BishenWalletApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BishenWalletApp.release.xcconfig"; path = "Target Support Files/Pods-BishenWalletApp/Pods-BishenWalletApp.release.xcconfig"; sourceTree = "<group>"; };
@@ -152,6 +154,7 @@
 		668887FBF7CCB577834133C5 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
+				A34ED96F23D6DB62003B03AD /* RuiZiBiGeQingChun.ttf */,
 				A6A0F14C9AFD3003DAE678EC /* Pods-BishenWalletApp.debug.xcconfig */,
 				C5007175B7DFC666F220C391 /* Pods-BishenWalletApp.release.xcconfig */,
 				040709424E8BFD8DEE0AB40D /* Pods-BishenWalletApp-tvOS.debug.xcconfig */,
@@ -161,7 +164,6 @@
 				9EC6BAAB5058EB7CE30D6CA0 /* Pods-BishenWalletAppTests.debug.xcconfig */,
 				DE4ABB72208E5FD298BE6F73 /* Pods-BishenWalletAppTests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -308,6 +310,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 				Base,
 			);
@@ -336,6 +339,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A34ED97023D6DB62003B03AD /* RuiZiBiGeQingChun.ttf in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
 			);

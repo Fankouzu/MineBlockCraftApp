@@ -20,7 +20,7 @@ export default function MyButton(props) {
                 height={60}
                 width={props.screenWidth*0.8}
             >
-<Text style={[styles.buttonText, { fontFamily: 'RuiZiBiGeQingChun'}]}>{props.text}</Text>
+<Text style={[styles.buttonText, { fontFamily: 'BigYoungMediumGB2.0'}]}>{props.text}</Text>
             </AwesomeButton>
         </View>
     )
