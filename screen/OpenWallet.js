@@ -4,26 +4,21 @@ import {
     View,
     Dimensions,
     TouchableOpacity,
-    Text
+    Text,
+    ImageBackground,
+    Animated
 } from 'react-native'
 import Copyright from '../components/Copyright'
-import Logo from '../components/Logo'
-import Title from '../components/Title'
 import MyTextInput from '../components/MyTextInput'
 import MyCheckBox from '../components/MyCheckBox'
 import MyButton from '../components/MyButton'
+import MyCard from '../components/MyCard'
 
 const screenWidth = Dimensions.get('window').width
 const styles = StyleSheet.create({
-    container: {
-        width: 0.8 * screenWidth,
-        marginLeft: 0.1 * screenWidth,
-        marginRight: 0.1 * screenWidth,
-    },
     bottom: {
         flexDirection: 'row',
         justifyContent: 'space-between',
-        marginTop: 20,
         padding: 5,
     },
     bottomLink: {
@@ -35,46 +30,69 @@ export default class Open extends React.Component {
         super(props)
         this.state = {
             password: '',
-            checked:false
+            checked: false,
+            top: new Animated.Value(100)
         }
     }
     componentDidMount() {
-        
+
     }
     handleTypePassword = (password) => {
-        this.setState({password:password})
+        this.setState({ password: password })
     }
     handleCheck = (checked) => {
-        this.setState({checked:checked})
+        this.setState({ checked: checked })
     }
     handleSubmit = () => {
         console.log('ok')
     }
+    handleKeybordMargin = (action) => {
+        Animated.timing(this.state.top, {
+            toValue: action === 'up' ? 50 : 100,
+            duration: 200
+        }).start()
+    }
     render() {
         const { navigate } = this.props.navigation
         return (
-            <View style={styles.container} >
-                <Logo/>
-                <Title titleText='币神钱包'/>
-                <MyTextInput 
-                    handleTypePassword={this.handleTypePassword}
-                />
-                <MyCheckBox 
-                    handleCheck={this.handleCheck}
-                />
-                <MyButton 
-                    screenWidth={screenWidth}
-                    handleSubmit={this.handleSubmit}
-                    text='打开钱包'
-                />
-                <View style={styles.bottom}>
-                    <Text style={styles.bottomLink}>导入钱包</Text>
-                    <TouchableOpacity onPress={() => navigate('Mnemonic')}>
-                        <Text style={styles.bottomLink}>创建钱包</Text>
-                    </TouchableOpacity>
-                </View>
+            <ImageBackground source={require('../assets/welcome3x.png')} style={{ width: '100%', height: '100%' }}>
+                <Animated.View
+                    style={{ marginTop: this.state.top }}
+                >
+                    <MyCard
+                        screenWidth={screenWidth}
+                        margin={0.05}
+                    >
+                        <MyTextInput
+                            handleTypePassword={this.handleTypePassword}
+                            handleKeybordMargin={this.handleKeybordMargin}
+                            borderColor='#390'
+                        />
+                        <MyCheckBox
+                            handleCheck={this.handleCheck}
+                            checkedCheckBoxColor='#390'
+                        />
+                        <MyButton
+                            screenWidth={screenWidth * 0.9 - 30}
+                            handleSubmit={this.handleSubmit}
+                            text='打开钱包'
+                            height={50}
+                            backgroundColor='#6f0'
+                            backgroundDarker='#390'
+                            textColor='#000'
+                            borderColor='#390'
+                            borderWidth={1}
+                        />
+                        <View style={styles.bottom}>
+                            <Text style={styles.bottomLink}>导入钱包</Text>
+                            <TouchableOpacity onPress={() => navigate('Mnemonic')}>
+                                <Text style={styles.bottomLink}>创建钱包</Text>
+                            </TouchableOpacity>
+                        </View>
+                    </MyCard>
+                </Animated.View>
                 <Copyright />
-            </View>
+            </ImageBackground>
         )
     }
 }

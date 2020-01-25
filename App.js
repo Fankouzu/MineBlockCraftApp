@@ -1,6 +1,5 @@
 import React from 'react'
 import { Platform, StatusBar, StyleSheet, View } from 'react-native'
-
 import LoginNav from './navigation/LoginNav';
 
 export default function App() {
@@ -18,5 +17,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
+    alignContent: 'center',
+    borderWidth:1
   },
 });

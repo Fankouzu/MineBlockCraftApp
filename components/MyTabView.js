@@ -29,10 +29,10 @@ export default function MyTabView(props) {
     const renderTabBar = props => (
         <TabBar
             {...props}
-            indicatorStyle={{ backgroundColor: '#4c91d4' }}
+            indicatorStyle={{ backgroundColor: '#390' }}
             style={{ backgroundColor: 'white' }}
             labelStyle={{ color: 'black', shadowColor: '#0f0' }}
-            pressColor='#4c91d4'
+            pressColor='#6f0'
             inactiveColor='#f00'
             swipeEnabled={true}
             style={{ backgroundColor: '#fff', elevation: 0 }}
@@ -45,7 +45,6 @@ export default function MyTabView(props) {
             renderScene={renderScene}
             onIndexChange={setIndex}
             swipeEnabled={true}
-            style={styles.MonemonicView}
             initialLayout={initialLayout}
         />
     )
@@ -57,10 +56,12 @@ const styles = StyleSheet.create({
     },
     mnemonic_zh: {
         fontSize:24,
-        letterSpacing:18,
+        letterSpacing:20,
         textAlign:'center',
         alignContent:'space-between',
-        lineHeight:52
+        lineHeight:52,
+        paddingLeft:5,
+        paddingRight:5
     },
     mnemonic_en: {
         fontSize:20,
@@ -83,6 +84,6 @@ const styles = StyleSheet.create({
         },
         zIndex: 1,
         borderRadius: 10,
-        marginBottom: 30,
+        marginBottom: 20,
     }
 })
