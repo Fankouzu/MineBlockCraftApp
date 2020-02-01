@@ -2,75 +2,67 @@ import React from 'react'
 import {
     StyleSheet,
     View,
-    Dimensions,
-    ScrollView,
-    ImageBackground,
     Text
 } from 'react-native'
 import MyCard from '../components/MyCard'
-import Copyright from '../components/Copyright'
 import MyTabView from '../components/MyTabView'
 import MyButton from '../components/MyButton'
-import bip39 from 'react-native-bip39'
-var chinese_simplified = require('../assets/chinese_simplified.json')
 
-
-const screenWidth = Dimensions.get('window').width
-
-const width = Dimensions.get('window').width
 const styles = StyleSheet.create({
-    container: {
-        width: 0.9 * width,
-        marginLeft: 0.05 * width,
-        marginRight: 0.05 * width,
-        marginTop: 100,
-        flex: 1
+    alert: {
+        marginBottom: 10
     },
-    bottom: {
-        flexDirection: 'row',
-        justifyContent: 'space-between', 
-        padding: 5,
-    },
-    bottomLink: {
-        color: '#4c91d4'
+    alertText: {
+        color: '#f00',
+        textAlign: 'center'
     }
 })
 
-export default class Open extends React.Component {
+export default class Mnemonic extends React.Component {
     constructor(props) {
         super(props)
-        this.state = {
-            mnemonic_zh: '',
-            mnemonic_en: ''
-        }
+        this.state = {}
     }
     componentDidMount() {
-        bip39.generateMnemonic(128, null, bip39.wordlists.EN).then((res) => {
-            this.setState({ mnemonic_en: res })
-        })
-        bip39.generateMnemonic(128, null, chinese_simplified).then((res) => {
-            this.setState({ mnemonic_zh: res })
-        })
-    }//
-    handleSubmit = () => {
-        console.log('ok')
     }
     render() {
+        const { navigate } = this.props.navigation
         return (
-            <ImageBackground source={require('../assets/welcome3x.png')} style={{ width: '100%', height: '100%' }}>
-                <ScrollView>
-                    <MyCard
-                        screenWidth={screenWidth}
-                        margin={0.05}
-                        top={100}
-                    >
-                        <MyTabView
-                            mnemonic_zh={this.state.mnemonic_zh}
-                            mnemonic_en={this.state.mnemonic_en}
-                        />
+            <View style={{ flexDirection: 'column' }}>
+                <MyButton
+                    text='<'
+                    screenWidth={25}
+                    height={26}
+                    backgroundColor='#fff'
+                    backgroundDarker='#666'
+                    textColor='#000'
+                    borderColor='#666'
+                    borderWidth={1}
+                    raiseLevel={2}
+                    borderRadius={25}
+                    style={{ margin: global.screenWidth * 0.05 }}
+                    textSize={10}
+                    onPress={() => navigate('WelcomeNav')}
+                />
+                <MyCard
+                    screenWidth={global.screenWidth}
+                    margin={0.05}
+                    top={0}
+                    padding={0}
+                >
+                    <MyTabView
+                        mnemonic_zh={this.props.mnemonic_zh}
+                        mnemonic_en={this.props.mnemonic_en}
+                        changeLang={this.props.changeLang}
+                    />
+                    <View style={styles.alert}>
+                        <Text style={styles.alertText}>
+                            ⚠️抄写或保存助记词，然后进行下一步⚠️
+                            </Text>
+                    </View>
+                    <View style={{ alignItems: 'center' }}>
                         <MyButton
-                            screenWidth={screenWidth * 0.9 - 30}
-                            handleSubmit={this.handleSubmit}
+                            screenWidth={global.screenWidth * 0.9 - 30}
                             text='下一步'
                             height={50}
                             backgroundColor='#6f0'
@@ -78,16 +70,11 @@ export default class Open extends React.Component {
                             textColor='#000'
                             borderColor='#390'
                             borderWidth={1}
+                            onPress={() => this.props.turnPage(1)}
                         />
-                        <View style={styles.bottom}>
-                            <Text style={styles.bottomLink}>导入钱包</Text>
-                            <Text style={styles.bottomLink}>创建钱包</Text>
-                        </View>
-                        <Copyright />
-                    </MyCard>
-                    <Copyright />
-                </ScrollView>
-            </ImageBackground>
+                    </View>
+                </MyCard>
+            </View>
         )
     }
 }

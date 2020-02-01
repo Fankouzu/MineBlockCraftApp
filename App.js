@@ -1,13 +1,14 @@
 import React from 'react'
-import { Platform, StatusBar, StyleSheet, View } from 'react-native'
-import LoginNav from './navigation/LoginNav';
+import { StatusBar, StyleSheet, View } from 'react-native'
+import LoginNav from './navigation/LoginNav'
+import './Global'
 
 export default function App() {
-
+    console.log(global.screenWidth+'x'+global.screenHeight)
     return (
       <View style={styles.container}>
-        {Platform.OS === 'ios' && <StatusBar barStyle="default" />}
-        <LoginNav />
+        {global.ios && <StatusBar barStyle="default" />}
+        <LoginNav/>
       </View>
     )
   
@@ -17,7 +18,5 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    alignContent: 'center',
-    borderWidth:1
   },
 });

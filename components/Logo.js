@@ -1,9 +1,8 @@
 import React from 'react'
-import { StyleSheet,View, Image,Dimensions } from 'react-native'
+import {StyleSheet,View, Image} from 'react-native'
 
 export default function Logo() {
-    const scale = Dimensions.get('window').scale
-    const walletLogo = scale > 2 ? require(`../assets/bishen-wallet3x.png`) : require(`../assets/bishen-wallet2x.png`)
+    const walletLogo = global.scale > 2 ? require(`../assets/bishen-wallet3x.png`) : require(`../assets/bishen-wallet2x.png`)
     return (
         <View style={styles.top} >
             <Image

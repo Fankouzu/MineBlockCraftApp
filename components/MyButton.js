@@ -1,14 +1,17 @@
 import React from 'react'
-import { StyleSheet, View, Text } from 'react-native'
-import AwesomeButton from "react-native-really-awesome-button"
-import PropTypes from "prop-types"
+import { StyleSheet, Text } from 'react-native'
+import AwesomeButton from 'react-native-really-awesome-button'
+import PropTypes from 'prop-types'
 
 export default function MyButton(props) {
 
+    const [disabled,setDisabled] = React.useState(props.disabled)
+    React.useEffect(() => {
+        setDisabled(props.disabled)
+    }, [props.disabled])
     return (
             <AwesomeButton
-                onPress={() => props.handleSubmit()}
-                size="small"
+                size='small'
                 backgroundActive={props.backgroundActive}
                 backgroundColor={props.backgroundColor}
                 backgroundDarker={props.backgroundDarker}
@@ -21,11 +24,16 @@ export default function MyButton(props) {
                 height={props.height}
                 width={props.screenWidth}
                 onPress={props.onPress}
-                style={{
-                    marginBottom: 10
-                }}
+                style={props.style}
+                disabled={disabled}
             >
-                <Text style={[styles.buttonText, { color: props.textColor, fontFamily: 'BigYoungMediumGB2.0' }]}>{props.text}</Text>
+                <Text style={[
+                    styles.buttonText, 
+                    { 
+                        fontSize: props.textSize,
+                        color: props.textColor, 
+                        fontFamily: props.textFont
+                    }]}>{props.text}</Text>
             </AwesomeButton>
     )
 }
@@ -43,6 +51,10 @@ MyButton.propTypes = {
     screenWidth: PropTypes.number,
     text: PropTypes.string,
     onPress: PropTypes.func,
+    style: PropTypes.object,
+    textSize:PropTypes.number,
+    textFont:PropTypes.string,
+    disabled:PropTypes.bool
 }
 MyButton.defaultProps = {
     backgroundActive: '#4c91d4',
@@ -57,10 +69,15 @@ MyButton.defaultProps = {
     height: 60,
     text: '确定',
     onPress: null,
+    style:{
+        marginBottom: 10
+    },
+    textSize:20,
+    textFont:'BigYoungMediumGB2.0',
+    disabled:false
 }
 const styles = StyleSheet.create({
     buttonText: {
-        fontSize: 20,
         lineHeight: 30,
         letterSpacing: 2,
     },

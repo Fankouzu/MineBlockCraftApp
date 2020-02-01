@@ -1,6 +1,6 @@
 import React from 'react'
 import { View, StyleSheet } from 'react-native'
-import PropTypes from "prop-types"
+import PropTypes from 'prop-types'
 
 export default function MyCard(props) {
     return (
@@ -9,23 +9,28 @@ export default function MyCard(props) {
             width: props.screenWidth * (1 - props.margin * 2),
             marginLeft: props.screenWidth * props.margin,
             marginRight: props.screenWidth * props.margin,
-            marginTop: props.top
+            marginTop: props.top,
+            padding: props.padding,
+            height:props.height
         }]}>
             {props.children}
         </View>
     )
 }
 
-MyCard.propTypes = {
-    screenWidth: PropTypes.number.isRequired,
-    margin: PropTypes.number,
-    top: PropTypes.number,
-    children: PropTypes.node,
-}
 MyCard.defaultProps = {
     top: 0,
     margin: 0.1,
     children: null,
+    padding: 15
+}
+MyCard.propTypes = {
+    screenWidth: PropTypes.number.isRequired,
+    margin: PropTypes.number,
+    top: PropTypes.number,
+    padding: PropTypes.number,
+    height: PropTypes.number,
+    children: PropTypes.node,
 }
 const styles = StyleSheet.create({
     MyCard: {
@@ -41,6 +46,8 @@ const styles = StyleSheet.create({
         shadowOffset: {
             height: 10,
             width: 10
-        }
+        },
+        flex: 0,
+        marginBottom: 10,
     }
 })

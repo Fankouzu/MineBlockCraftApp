@@ -1,7 +1,7 @@
 import React from 'react'
 import { StyleSheet, View } from 'react-native'
 import CheckBox from 'react-native-check-box'
-import PropTypes from "prop-types"
+import PropTypes from 'prop-types'
 
 export default function MyCheckBox(props) {
 
