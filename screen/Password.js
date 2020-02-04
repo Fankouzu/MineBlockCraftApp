@@ -2,29 +2,20 @@ import React from 'react'
 import {
     StyleSheet,
     View,
-    Text,
+    Keyboard,
     Animated
 } from 'react-native'
 import MyCard from '../components/MyCard'
 import MyButton from '../components/MyButton'
+import MyBackButton from '../components/MyBackButton'
 import MyTextInput from '../components/MyTextInput'
 import Title from '../components/Title'
+import AlertText from '../components/AlertText'
 import { checkPasswordLevel } from '../utils/Tools'
 import Modal from "react-native-modal"
+import { aesEncrypt, sha1 } from '../utils/Aes'
 
 const styles = StyleSheet.create({
-    alert: {
-        marginBottom: 10,
-        marginLeft: 10,
-        marginRight: 10,
-    },
-    alertText: {
-        textAlign: 'left',
-        fontStyle: 'italic',
-        fontSize: 12,
-        lineHeight: 20,
-        color: '#f30'
-    },
     modalView:{
         flex: 0 ,
         backgroundColor:'white',
@@ -40,6 +31,7 @@ export default class Open extends React.Component {
         super(props)
         this.state = {
             shakeLeft: new Animated.Value(global.screenWidth * 0.05),
+            top: new Animated.Value(0),
             borderColor: '#999',
             password: '',
             passwordConfirm: '',
@@ -49,11 +41,42 @@ export default class Open extends React.Component {
         }
     }
     componentDidMount() {
+        this._keyboardWillShowSubscription = Keyboard.addListener('keyboardDidShow', (e) => this._keyboardWillShow(e));
+        this._keyboardWillHideSubscription = Keyboard.addListener('keyboardDidHide', (e) => this._keyboardWillHide(e));
     }
     componentWillUnmount = () => {
+        this._keyboardWillShowSubscription.remove();
+        this._keyboardWillHideSubscription.remove();
         this.setState = (state, callback) => {
             return
         }
+    }
+    _keyboardWillShow(e) {
+        let keyboardHeight = e.endCoordinates.height;
+        this.setState({
+            keyBoardHeight:keyboardHeight
+        })
+        this.handleKeybordMargin('up')
+    }
+
+    _keyboardWillHide(e) {
+        let keyboardHeight = e.endCoordinates.height;
+        this.setState({
+            keyBoardHeight:keyboardHeight
+        })
+        this.handleKeybordMargin('down')
+    }
+    handleTypePassword = (password) => {
+        this.setState({ password: password })
+    }
+    handleTypePasswordConfirm = (passwordConfirm) => {
+        this.setState({ passwordConfirm: passwordConfirm })
+    }
+    handleKeybordMargin = (action) => {
+        Animated.timing(this.state.top, {
+            toValue: action === 'up' ? -50 : 0,
+            duration: 200
+        }).start()
     }
     shake = () => {
         var duration = 100
@@ -104,7 +127,7 @@ export default class Open extends React.Component {
                     buttonDisable: true
                 })
             } else {
-                this.props.Wallet(this.state.password)
+                this.Wallet()
                 this.setState({
                     borderColor: '#999',
                     alertText: alertText,
@@ -114,33 +137,26 @@ export default class Open extends React.Component {
         }
 
     }
-    handleTypePassword = (password) => {
-        this.setState({ password: password })
-    }
-    handleTypePasswordConfirm = (passwordConfirm) => {
-        this.setState({ passwordConfirm: passwordConfirm })
+    Wallet = () => {
+        console.log(this.props.mnemonic)
+        const encrypt = aesEncrypt(this.props.mnemonic, sha1(this.state.password))
+        global.storage.save({
+            key: 'wallet',
+            data: { 'encrypt':encrypt },
+            expires: null,
+        })
+        this.setState({ isModalVisible: true })
     }
     render() {
         const { navigate } = this.props.navigation
         return (
             <View style={{ flexDirection: 'column' }}>
-                <MyButton
-                    text='<'
-                    screenWidth={25}
-                    height={26}
-                    backgroundColor='#fff'
-                    backgroundDarker='#666'
-                    textColor='#000'
-                    borderColor='#666'
-                    borderWidth={1}
-                    raiseLevel={2}
-                    borderRadius={25}
-                    style={{ margin: global.screenWidth * 0.05 }}
-                    textSize={10}
+                <MyBackButton
                     onPress={() => this.props.turnPage(-1)}
                 />
                 <Animated.View style={{
-                    marginLeft: this.state.shakeLeft
+                    marginLeft: this.state.shakeLeft,
+                    marginTop: this.state.top
                 }}>
                     <MyCard
                         screenWidth={global.screenWidth * 0.9}
@@ -163,15 +179,10 @@ export default class Open extends React.Component {
                             borderColorActive='#390'
                             placeholder='确认密码'
                         />
-                        <View style={styles.alert}>
-                            {this.state.alertText.map((item, index) => {
-                                return (
-                                    <Text style={styles.alertText} key={index}>
-                                        {item}
-                                    </Text>
-                                )
-                            })}
-                        </View>
+                        <AlertText
+                            alertText={this.state.alertText}
+                            textAlign='left'
+                        />
                         <MyButton
                             screenWidth={global.screenWidth * 0.9 - 20}
                             text='完成'
@@ -186,7 +197,7 @@ export default class Open extends React.Component {
                         />
                     </MyCard>
                 </Animated.View>
-                <Modal isVisible={this.props.isModalVisible}>
+                <Modal isVisible={this.state.isModalVisible}>
                     <View style={styles.modalView}>
                         <Title titleText='成功了' subText='进入钱包' />
                         <MyButton

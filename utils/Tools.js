@@ -2,9 +2,10 @@ import { aesDecrypt } from './Aes'
 import {ethers} from 'ethers'
 import bip39 from 'react-native-bip39'
 const HDWallet = require('ethereum-hdwallet')
-
+const isBuffer = require('is-buffer');
 export function mnemonicToAddress(mnemonic, n) {
-    const hdwallet = HDWallet.fromMnemonic(mnemonic)
+    var seed = bip39.mnemonicToSeed(mnemonic.trim())
+    const hdwallet = HDWallet.fromSeed(seed)
     return `0x${hdwallet.derive(`m/44'/60'/0'/0/` + n).getAddress().toString('hex')}`
 }
 export function mnemonicToPrivate(mnemonic, n) {
@@ -29,6 +30,17 @@ export function validateMnemonic(mnemonic) {
             return bip39.validateMnemonic(mnemonic, bip39.wordlists.EN)
         } else {
             return bip39.validateMnemonic(mnemonic.replace(/ /g, '').split('').join(' '), chinese_simplified)
+        }
+    }else{
+        return false
+    }
+}
+export function mnemonicToEntropy(mnemonic) {
+    if (mnemonic !== ''){
+    if (lngDetector(mnemonic)) {
+            return bip39.mnemonicToEntropy(mnemonic, bip39.wordlists.EN)
+        } else {
+            return bip39.mnemonicToEntropy(mnemonic.replace(/ /g, '').split('').join(' '), chinese_simplified)
         }
     }else{
         return false

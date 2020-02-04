@@ -5,36 +5,44 @@ import PropTypes from 'prop-types'
 
 export default function MyButton(props) {
 
-    const [disabled,setDisabled] = React.useState(props.disabled)
+    const [disabled, setDisabled] = React.useState(props.disabled)
     React.useEffect(() => {
         setDisabled(props.disabled)
     }, [props.disabled])
     return (
-            <AwesomeButton
-                size='small'
-                backgroundActive={props.backgroundActive}
-                backgroundColor={props.backgroundColor}
-                backgroundDarker={props.backgroundDarker}
-                backgroundShadow={props.backgroundShadow}
-                borderColor={props.borderColor}
-                borderWidth={props.borderWidth}
-                activeOpacity={0.5}
-                borderRadius={props.borderRadius}
-                raiseLevel={props.raiseLevel}
-                height={props.height}
-                width={props.screenWidth}
-                onPress={props.onPress}
-                style={props.style}
-                disabled={disabled}
-            >
-                <Text style={[
-                    styles.buttonText, 
-                    { 
-                        fontSize: props.textSize,
-                        color: props.textColor, 
-                        fontFamily: props.textFont
-                    }]}>{props.text}</Text>
-            </AwesomeButton>
+        <AwesomeButton
+            size='small'
+            backgroundActive={props.backgroundActive}
+            backgroundColor={props.backgroundColor}
+            backgroundDarker={props.backgroundDarker}
+            backgroundShadow={props.backgroundShadow}
+            backgroundProgress={props.backgroundDarker}
+            backgroundPlaceholder={props.backgroundDarker}
+            borderColor={props.borderColor}
+            borderWidth={props.borderWidth}
+            activeOpacity={0.5}
+            borderRadius={props.borderRadius}
+            raiseLevel={props.raiseLevel}
+            height={props.height}
+            width={props.screenWidth}
+            onPress={props.progress ? (next) => {
+                setTimeout(() => {
+                    props.onPress(next)
+                }, 100)
+            } : props.onPress}
+            style={props.style}
+            disabled={disabled}
+            progress={props.progress}
+            progressLoadingTime={10000}
+        >
+            <Text style={[
+                styles.buttonText,
+                {
+                    fontSize: props.textSize,
+                    color: props.textColor,
+                    fontFamily: props.textFont
+                }]}>{props.text}</Text>
+        </AwesomeButton>
     )
 }
 MyButton.propTypes = {
@@ -52,15 +60,16 @@ MyButton.propTypes = {
     text: PropTypes.string,
     onPress: PropTypes.func,
     style: PropTypes.object,
-    textSize:PropTypes.number,
-    textFont:PropTypes.string,
-    disabled:PropTypes.bool
+    textSize: PropTypes.number,
+    textFont: PropTypes.string,
+    disabled: PropTypes.bool,
+    progress: PropTypes.bool
 }
 MyButton.defaultProps = {
-    backgroundActive: '#4c91d4',
-    backgroundColor: '#1976d2',
-    backgroundDarker: '#1f3d5a',
-    borderColor: '#1976d2',
+    backgroundActive: '#6f0',
+    backgroundColor: '#390',
+    backgroundDarker: '#390',
+    borderColor: '#6f0',
     borderWidth: 0,
     textColor: '#fff',
     backgroundShadow: 'transparent',
@@ -69,12 +78,13 @@ MyButton.defaultProps = {
     height: 60,
     text: '确定',
     onPress: null,
-    style:{
+    style: {
         marginBottom: 10
     },
-    textSize:20,
-    textFont:'BigYoungMediumGB2.0',
-    disabled:false
+    textSize: 20,
+    textFont: 'BigYoungMediumGB2.0',
+    disabled: false,
+    progress: false
 }
 const styles = StyleSheet.create({
     buttonText: {

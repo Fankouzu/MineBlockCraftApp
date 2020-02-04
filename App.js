@@ -1,17 +1,15 @@
 import React from 'react'
 import { StatusBar, StyleSheet, View } from 'react-native'
-import LoginNav from './navigation/LoginNav'
+import MainNav from './navigation/MainNav'
 import './Global'
 
 export default function App() {
-    console.log(global.screenWidth+'x'+global.screenHeight)
     return (
       <View style={styles.container}>
         {global.ios && <StatusBar barStyle="default" />}
-        <LoginNav/>
+        <MainNav/>
       </View>
     )
-  
 }
 
 const styles = StyleSheet.create({

@@ -3,7 +3,6 @@ import { ImageBackground, Animated } from 'react-native'
 import ImportMnemonic from '../screen/ImportMnemonic'
 import Password from '../screen/Password'
 import Copyright from '../components/Copyright'
-import { aesEncrypt, sha1 } from '../utils/Aes'
 
 export default class Open extends React.Component {
     constructor(props) {
@@ -13,22 +12,11 @@ export default class Open extends React.Component {
             checked: false,
             leftAnim: new Animated.Value(0),
             page:0,
-            isModalVisible:false,
             mnemonic:''
         }
     }
     componentDidMount() {
         this.turnPage(0)
-    }
-
-    Wallet = (password) => {
-        const encrypt = aesEncrypt(this.state.mnemonic, sha1(password))
-        global.storage.save({
-            key: 'encrypt',
-            data: { encrypt },
-            expires: 1000 * 60 * 60 * 24 * 7,
-        })
-        this.setState({isModalVisible:true})
     }
     turnPage = (index) => {
         Animated.timing(this.state.leftAnim, {
@@ -59,8 +47,7 @@ export default class Open extends React.Component {
                     <Password
                         navigation={this.props.navigation}
                         turnPage={this.turnPage}
-                        Wallet={this.Wallet}
-                        isModalVisible={this.state.isModalVisible}
+                        mnemonic={this.state.mnemonic}
                     />
                 </Animated.View>
                 <Copyright />

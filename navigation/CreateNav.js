@@ -5,7 +5,6 @@ import Mnemonic from '../screen/Mnemonic'
 import RandomMnemonic from '../screen/RandomMnemonic'
 import Password from '../screen/Password'
 import bip39 from 'react-native-bip39'
-import { aesEncrypt, sha1 } from '../utils/Aes'
 var chinese_simplified = require('../assets/chinese_simplified.json')
 
 export default class Open extends React.Component {
@@ -19,7 +18,6 @@ export default class Open extends React.Component {
             mnemonic_en: '',
             useMnemonic: '',
             lang: 'zh',
-            isModalVisible: false,
             page: 0
         }
     }
@@ -61,15 +59,6 @@ export default class Open extends React.Component {
             return
         }
     }
-    Wallet = (password) => {
-        const encrypt = aesEncrypt(this.state.useMnemonic, sha1(password))
-        global.storage.save({
-            key: 'encrypt',
-            data: { encrypt },
-            expires: 1000 * 60 * 60 * 24 * 7,
-        })
-        this.setState({ isModalVisible: true })
-    }
     render() {
         console.log(this.state.useMnemonic)
         return (
@@ -95,8 +84,7 @@ export default class Open extends React.Component {
                     <Password
                         navigation={this.props.navigation}
                         turnPage={this.turnPage}
-                        Wallet={this.Wallet}
-                        isModalVisible={this.state.isModalVisible}
+                        mnemonic={this.state.useMnemonic}
                     ></Password>
                 </Animated.View>
                 <Copyright />

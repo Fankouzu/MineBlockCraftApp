@@ -10,6 +10,7 @@ const AppNavigator = createStackNavigator(
     {
         WelcomeNav: {
             screen: WelcomeNav,
+            params:{page:0}
         },
         CreateNav: {
             screen: CreateNav,

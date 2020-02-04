@@ -3,8 +3,6 @@ import { ImageBackground, Animated } from 'react-native'
 import Copyright from '../components/Copyright'
 import Welcome from '../screen/Welcome'
 import OpenWallet from '../screen/OpenWallet'
-import { aesDecrypt, sha1 } from '../utils/Aes'
-import { validateMnemonic } from '../utils/Tools'
 
 export default class Open extends React.Component {
     constructor(props) {
@@ -13,22 +11,18 @@ export default class Open extends React.Component {
             password: '',
             checked: false,
             leftAnim: new Animated.Value(0),
-            page:0
+            page: 0,
+            encrypt: ''
         }
     }
     componentDidMount() {
-    }
-
-    handleSubmit = (password,checked) => {
-        console.log('password',password)
         global.storage.load({
-            key: 'encrypt',
+            key: 'wallet',
         }).then(ret => {
-            var mnemonic = aesDecrypt(ret.encrypt, sha1(password))
-            var bool = validateMnemonic(mnemonic)
-            console.log(bool)
+            this.setState({ encrypt: ret.encrypt })
         }).catch(err => {
-            console.warn(err.message)
+            this.setState({ encrypt: null })
+            //console.warn(err.message)
             switch (err.name) {
                 case 'NotFoundError':
                     break
@@ -36,31 +30,57 @@ export default class Open extends React.Component {
                     break
             }
         })
+        this._didFocusSubscription = this.props.navigation.addListener('didFocus',
+            () => {
+                const page = this.props.navigation.getParam('page', 0)
+                if (page > 0 && this.state.page === 0) {
+                    this.turnPage(1)
+                    this.setState({password:''})
+                    global.storage.load({
+                        key: 'wallet',
+                    }).then(ret => {
+                        this.setState({ encrypt: ret.encrypt })
+                    })
+                }
+            }
+        )
+    }
+
+    componentDidUpdate() {
+    }
+    componentWillUnmount = () => {
+        this.setState = (state, callback) => {
+            return
+        }
+        this._didFocusSubscription.remove()
     }
     turnPage = (index) => {
         Animated.timing(this.state.leftAnim, {
             toValue: global.screenWidth * (this.state.page + index) * -1,
             duration: 200
-        }).start(()=>{
-            this.setState({ page:this.state.page + index })
+        }).start(() => {
+            this.setState({ page: this.state.page + index })
         })
     }
     render() {
         return (
-            <ImageBackground 
-            source={require('../assets/welcome3x.png')} 
-            style={{ width: '100%', height: '100%' }}>
+            <ImageBackground
+                source={require('../assets/welcome3x.png')}
+                style={{ width: '100%', height: '100%' }}>
                 <Animated.View style={{
-                    marginLeft:this.state.leftAnim,
+                    marginLeft: this.state.leftAnim,
                     flexDirection: 'row',
                 }}>
                     <Welcome
                         turnPage={this.turnPage}
+                        navigation={this.props.navigation}
+                        encrypt={this.state.encrypt}
                     ></Welcome>
                     <OpenWallet
                         turnPage={this.turnPage}
                         navigation={this.props.navigation}
                         handleSubmit={this.handleSubmit}
+                        encrypt={this.state.encrypt}
                     >
                     </OpenWallet>
                 </Animated.View>

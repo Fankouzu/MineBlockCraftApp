@@ -3,14 +3,15 @@ import {
     StyleSheet,
     View,
     Animated,
-    Text,
     Keyboard,
     Clipboard
 } from 'react-native'
 import MyTextArea from '../components/MyTextArea'
 import MyButton from '../components/MyButton'
+import MyBackButton from '../components/MyBackButton'
 import MyCard from '../components/MyCard'
 import Title from '../components/Title'
+import AlertText from '../components/AlertText'
 import { validateMnemonic } from '../utils/Tools'
 
 const styles = StyleSheet.create({
@@ -27,7 +28,7 @@ const styles = StyleSheet.create({
         color: '#f30'
     },
 })
-const alertText = '⚠️请按正确的顺序填写或粘贴助记词⚠️'
+const alertText = ['⚠️请按正确的顺序填写或粘贴助记词⚠️']
 export default class Open extends React.Component {
     constructor(props) {
         super(props)
@@ -111,14 +112,14 @@ export default class Open extends React.Component {
         if (mnemonic === '') {
             this.setState({
                 borderColor: '#f30',
-                alertText: '⚠️请填写助记词⚠️',
+                alertText: ['⚠️请填写助记词⚠️'],
                 buttonDisable: true
             })
             this.shake()
         } else if (!validateMnemonic(mnemonic)) {
             this.setState({
                 borderColor: '#f30',
-                alertText: '⚠️助记词不正确⚠️',
+                alertText: ['⚠️助记词不正确⚠️'],
                 buttonDisable: true
             })
             this.shake()
@@ -141,19 +142,7 @@ export default class Open extends React.Component {
         const { navigate } = this.props.navigation
         return (
             <View style={{ flexDirection: 'column' }}>
-                <MyButton
-                    text='<'
-                    screenWidth={25}
-                    height={26}
-                    backgroundColor='#fff'
-                    backgroundDarker='#666'
-                    textColor='#000'
-                    borderColor='#666'
-                    borderWidth={1}
-                    raiseLevel={2}
-                    borderRadius={25}
-                    style={{ margin: global.screenWidth * 0.05 }}
-                    textSize={10}
+                <MyBackButton
                     onPress={() => navigate('WelcomeNav')}
                 />
                 <Animated.View style={{
@@ -176,9 +165,9 @@ export default class Open extends React.Component {
                             value={this.state.mnemonic}
                             borderColorActive='#390'
                         />
-                        <View style={styles.alert}>
-                            <Text style={styles.alertText}>{this.state.alertText}</Text>
-                        </View>
+                        <AlertText 
+                            alertText={this.state.alertText}
+                        />
                         <MyButton
                             screenWidth={global.screenWidth * 0.9 - 30}
                             onPress={() => this.next()}

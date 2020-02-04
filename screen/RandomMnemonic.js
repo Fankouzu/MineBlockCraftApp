@@ -6,8 +6,9 @@ import {
     Animated
 } from 'react-native'
 import MyCard from '../components/MyCard'
-import Copyright from '../components/Copyright'
 import MyButton from '../components/MyButton'
+import MyBackButton from '../components/MyBackButton'
+import AlertText from '../components/AlertText'
 import { randMnemonic } from '../utils/Tools'
 
 const styles = StyleSheet.create({
@@ -41,7 +42,7 @@ const styles = StyleSheet.create({
     }
 })
 
-const alertText = '⚠️请按照正确的顺序选择助记词⚠️'
+const alertText = ['⚠️请按照正确的顺序选择助记词⚠️']
 const alertColor = '#999'
 export default class RandomMnemonic extends React.Component {
     constructor(props) {
@@ -109,7 +110,7 @@ export default class RandomMnemonic extends React.Component {
     shake = () => {
         var duration = 100
         this.setState({
-            alertText: '⚠️助记词顺序不正确⚠️',
+            alertText: ['⚠️助记词顺序不正确⚠️'],
             alertColor: '#f30'
         })
         Animated.sequence([
@@ -149,19 +150,7 @@ export default class RandomMnemonic extends React.Component {
     render() {
         return (
             <View style={{ flexDirection: 'column' }}>
-                <MyButton
-                    text='<'
-                    screenWidth={25}
-                    height={26}
-                    backgroundColor='#fff'
-                    backgroundDarker='#666'
-                    textColor='#000'
-                    borderColor='#666'
-                    borderWidth={1}
-                    raiseLevel={2}
-                    borderRadius={25}
-                    style={{ margin: global.screenWidth * 0.05 }}
-                    textSize={10}
+                <MyBackButton
                     onPress={() => this.props.turnPage(-1)}
                 />
                 <Animated.View style={{
@@ -189,11 +178,10 @@ export default class RandomMnemonic extends React.Component {
                                     </Text>)
                             })}
                         </View>
-                        <View style={styles.alert}>
-                            <Text style={[styles.alertText, { color: this.state.alertColor }]}>
-                                {this.state.alertText}
-                            </Text>
-                        </View>
+                        <AlertText
+                            alertText={this.state.alertText}
+                            alertColor={this.state.alertColor}
+                        />
                     </MyCard>
                 </Animated.View>
                 <View style={

@@ -7,6 +7,7 @@ import {
 import MyCard from '../components/MyCard'
 import MyTabView from '../components/MyTabView'
 import MyButton from '../components/MyButton'
+import MyBackButton from '../components/MyBackButton'
 
 const styles = StyleSheet.create({
     alert: {
@@ -29,19 +30,7 @@ export default class Mnemonic extends React.Component {
         const { navigate } = this.props.navigation
         return (
             <View style={{ flexDirection: 'column' }}>
-                <MyButton
-                    text='<'
-                    screenWidth={25}
-                    height={26}
-                    backgroundColor='#fff'
-                    backgroundDarker='#666'
-                    textColor='#000'
-                    borderColor='#666'
-                    borderWidth={1}
-                    raiseLevel={2}
-                    borderRadius={25}
-                    style={{ margin: global.screenWidth * 0.05 }}
-                    textSize={10}
+                <MyBackButton
                     onPress={() => navigate('WelcomeNav')}
                 />
                 <MyCard
