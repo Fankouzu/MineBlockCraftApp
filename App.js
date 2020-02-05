@@ -5,7 +5,7 @@ import './Global'
 
 export default function App() {
     return (
-      <View style={styles.container}>
+      <View style={[styles.container]}>
         {global.ios && <StatusBar barStyle="default" />}
         <MainNav/>
       </View>

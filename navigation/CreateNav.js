@@ -1,6 +1,7 @@
 import React from 'react'
-import { ImageBackground, Animated } from 'react-native'
+import { Animated } from 'react-native'
 import Copyright from '../components/Copyright'
+import MyBackground from '../components/MyBackground'
 import Mnemonic from '../screen/Mnemonic'
 import RandomMnemonic from '../screen/RandomMnemonic'
 import Password from '../screen/Password'
@@ -62,9 +63,7 @@ export default class Open extends React.Component {
     render() {
         console.log(this.state.useMnemonic)
         return (
-            <ImageBackground 
-            source={require('../assets/welcome3x.png')} 
-            style={{ width: '100%', height: '100%' }}>
+            <MyBackground>
                 <Animated.View style={{
                     marginLeft: this.state.leftAnim,
                     flexDirection: 'row',
@@ -88,7 +87,7 @@ export default class Open extends React.Component {
                     ></Password>
                 </Animated.View>
                 <Copyright />
-            </ImageBackground>
+            </MyBackground>
         )
     }
 }

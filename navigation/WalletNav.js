@@ -1,9 +1,9 @@
 import React from 'react'
-import { ImageBackground } from 'react-native'
 import Copyright from '../components/Copyright'
 import TopBar from '../components/TopBar'
 import BalanceCard from '../components/BalanceCard'
 import NetworkModal from '../components/NetworkModal'
+import MyBackground from '../components/MyBackground'
 
 export default class Open extends React.Component {
     constructor(props) {
@@ -61,9 +61,7 @@ export default class Open extends React.Component {
     }
     render() {
         return (
-            <ImageBackground
-                source={require('../assets/welcome3x.png')}
-                style={{ width: '100%', height: '100%' ,alignItems:'center'}}>
+            <MyBackground style={{alignItems: 'center'}}>
                 <TopBar
                     handleOpenNetSelect={this.handleOpenNetSelect}
                     accounts={this.state.accounts}
@@ -80,7 +78,7 @@ export default class Open extends React.Component {
                     isModalVisible={this.state.isModalVisible}
                     selectNetwork={this.selectNetwork}
                 />
-            </ImageBackground>
+            </MyBackground>
         )
     }
 }

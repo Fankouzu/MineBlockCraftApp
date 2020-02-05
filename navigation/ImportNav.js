@@ -1,8 +1,9 @@
 import React from 'react'
-import { ImageBackground, Animated } from 'react-native'
+import { Animated } from 'react-native'
 import ImportMnemonic from '../screen/ImportMnemonic'
 import Password from '../screen/Password'
 import Copyright from '../components/Copyright'
+import MyBackground from '../components/MyBackground'
 
 export default class Open extends React.Component {
     constructor(props) {
@@ -32,9 +33,7 @@ export default class Open extends React.Component {
     render() {
         const { navigate } = this.props.navigation
         return (
-            <ImageBackground 
-            source={require('../assets/welcome3x.png')} 
-            style={{ width: '100%', height: '100%' }}>
+            <MyBackground>
                 <Animated.View style={{
                     marginLeft:this.state.leftAnim,
                     flexDirection: 'row',
@@ -51,7 +50,7 @@ export default class Open extends React.Component {
                     />
                 </Animated.View>
                 <Copyright />
-            </ImageBackground>
+            </MyBackground>
         )
     }
 }

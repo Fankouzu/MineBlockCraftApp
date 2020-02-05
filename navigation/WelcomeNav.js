@@ -1,6 +1,7 @@
 import React from 'react'
-import { ImageBackground, Animated } from 'react-native'
+import { Animated } from 'react-native'
 import Copyright from '../components/Copyright'
+import MyBackground from '../components/MyBackground'
 import Welcome from '../screen/Welcome'
 import OpenWallet from '../screen/OpenWallet'
 
@@ -64,9 +65,7 @@ export default class Open extends React.Component {
     }
     render() {
         return (
-            <ImageBackground
-                source={require('../assets/welcome3x.png')}
-                style={{ width: '100%', height: '100%' }}>
+            <MyBackground>
                 <Animated.View style={{
                     marginLeft: this.state.leftAnim,
                     flexDirection: 'row',
@@ -85,7 +84,7 @@ export default class Open extends React.Component {
                     </OpenWallet>
                 </Animated.View>
                 <Copyright />
-            </ImageBackground>
+            </MyBackground>
         )
     }
 }
