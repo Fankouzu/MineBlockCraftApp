@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Text, StyleSheet, View, ProgressBarAndroid } from 'react-native'
+import { Text, StyleSheet, View, ProgressBarAndroid ,ProgressViewIOS} from 'react-native'
 import MyCard from '../components/MyCard'
 import { networks } from '../utils/networks'
 import { getBalance } from '../utils/Tools'
@@ -108,7 +108,21 @@ export default class BalanceCard extends Component {
                 <Text style={styles.balanceNumber}>
                     {balance}
                 </Text>
-                <ProgressBarAndroid animating={true} styleAttr="Horizontal" color="#2196F3" style={{ height: 2 }} />
+                {global.ios ? (
+                    <ProgressViewIOS 
+                    trackTintColor="#fff" 
+                    progressTintColor="#2196F3"
+                    progress={0.5}
+                    />
+                ) : (
+                    <ProgressBarAndroid 
+                        animating={true} 
+                        styleAttr="Horizontal" 
+                        color="#2196F3" 
+                        style={{ height: 2 }} 
+                    />
+                    )}
+                
                 <Text style={styles.balanceAddress}>{this.state.accounts[this.state.currentAccount].address}</Text>
             </MyCard>
         )
