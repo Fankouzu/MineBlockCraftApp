@@ -143,19 +143,11 @@ export async function sendTransaction(to,networkName,mnemonic,currentAccount,val
     })
     return tx
 }
-export async function getBalance(mnemonic,networkName){
-    let accounts = []
+export async function getBalance(address,networkName){
     let infuraProvider = new ethers.providers.InfuraProvider(networkName)
-    for (let i = 0; i < 10; i++) {
-        let address = mnemonicToAddress(mnemonic, i)
-        let balanceBN = await infuraProvider.getBalance(address)
-        let balance = ethers.utils.formatEther(balanceBN)
-        accounts[i] = {
-            address: address,
-            balance: balance
-        }
-    }
-    return accounts
+    let balanceBN = await infuraProvider.getBalance(address)
+    let balance = ethers.utils.formatEther(balanceBN)
+    return balance
 }
 
 

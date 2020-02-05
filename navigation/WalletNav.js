@@ -1,25 +1,21 @@
 import React from 'react'
-import { StyleSheet, ImageBackground, Image, View } from 'react-native'
-import MyButton from '../components/MyButton'
+import { ImageBackground } from 'react-native'
 import Copyright from '../components/Copyright'
-import AwesomeButton from 'react-native-really-awesome-button'
-import Jazzicon from '@novaviva/react-native-jazzicon'
+import TopBar from '../components/TopBar'
+import BalanceCard from '../components/BalanceCard'
+import NetworkModal from '../components/NetworkModal'
 
-const styles = StyleSheet.create({
-    topView: {
-        flex: 1,
-        flexDirection: 'row',
-        paddingTop: 15,
-    },
-})
 export default class Open extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            accounts: {
-                address: '0x0',
-                balance: 0
-            }
+            encrypt:'',
+            networkId:0,
+            currentAccount:0,
+            isModalVisible: false,
+            accounts: [{
+                address: '',
+            }]
         }
     }
     componentDidMount() {
@@ -31,8 +27,14 @@ export default class Open extends React.Component {
                 key: 'accounts',
             }).then(ret => {
                 let accounts = ret.accounts
-                console.log(accounts, encrypt)
-                this.setState({ accounts: accounts[0] })
+                let networkId = ret.networkId || 0
+                let currentAccount = ret.currentAccount || 0
+                this.setState({ 
+                    accounts: accounts,
+                    currentAccount: currentAccount,
+                    networkId:networkId,
+                    encrypt:encrypt
+                })
             }).catch(err => {
                 this.props.navigation.navigate('LoginNav')
             })
@@ -40,7 +42,16 @@ export default class Open extends React.Component {
             this.props.navigation.navigate('LoginNav')
         })
     }
-
+    selectNetwork = (id) => {
+        global.storage.save({
+            key: 'accounts',
+            data: {'accounts':this.state.accounts, 'currentAccount':this.state.currentAccount, 'networkId': id }
+        })
+        this.setState({ networkId: id,isModalVisible: false })
+    }
+    handleOpenNetSelect = (isModalVisible) => {
+        this.setState({ isModalVisible: isModalVisible })
+    }
     componentDidUpdate() {
     }
     componentWillUnmount = () => {
@@ -49,59 +60,26 @@ export default class Open extends React.Component {
         }
     }
     render() {
-        console.log(this.state.accounts.address)
         return (
             <ImageBackground
                 source={require('../assets/welcome3x.png')}
-                style={{ width: '100%', height: '100%' }}>
-                <View style={styles.topView}>
-                    <View style={{ height: 30, width: global.screenWidth * 0.15,paddingLeft: 15 }}>
-                        <AwesomeButton
-                            size='small'
-                            backgroundActive='#666'
-                            backgroundColor='#fff'
-                            backgroundDarker='#666'
-                            backgroundShadow='transparent'
-                            backgroundPlaceholder='#666'
-                            borderColor='#666'
-                            borderWidth={1}
-                            activeOpacity={0.5}
-                            borderRadius={16}
-                            raiseLevel={2}
-                            height={32}
-                            width={30}
-                            onPress={() => { }}
-                        >
-                            <Image
-                                style={{ width: 30, height: 30 }}
-                                source={require('../assets/eth_logo.png')}
-                            />
-                        </AwesomeButton>
-                    </View>
-                    <View style={{ height: 30, width: global.screenWidth * 0.7, paddingLeft: 15, alignItems: 'center' }}>
-                        <MyButton
-                            screenWidth={150}
-                            height={32}
-                            raiseLevel={2}
-                            borderRadius={16}
-                            text='🌐Mainnet主网'
-                            backgroundColor='#fc0'
-                            backgroundDarker='#960'
-                            backgroundActive='#ff0'
-                            textColor='#000'
-                            borderColor='#960'
-                            borderWidth={1}
-                            textSize={12}
-                            onPress={() => { }}
-                        />
-                    </View>
-                    <View style={{ height: 30, width: global.screenWidth * 0.15, paddingRight: 15,alignItems: 'flex-end', }}>
-                        <View style={{borderWidth:1,borderColor:'#666',borderRadius:16,width:32,height:32,padding:1,backgroundColor:'#fff'}}>
-                        <Jazzicon size={28} address={this.state.accounts.address} />
-                        </View>
-                    </View>
-                </View>
+                style={{ width: '100%', height: '100%' ,alignItems:'center'}}>
+                <TopBar
+                    handleOpenNetSelect={this.handleOpenNetSelect}
+                    accounts={this.state.accounts}
+                    networkId={this.state.networkId}
+                />
+                <BalanceCard
+                    accounts={this.state.accounts}
+                    currentAccount={this.state.currentAccount}
+                    networkId={this.state.networkId}
+                />
                 <Copyright />
+                <NetworkModal
+                    handleOpenNetSelect={this.handleOpenNetSelect}
+                    isModalVisible={this.state.isModalVisible}
+                    selectNetwork={this.selectNetwork}
+                />
             </ImageBackground>
         )
     }

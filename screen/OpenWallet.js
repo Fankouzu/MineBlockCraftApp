@@ -123,13 +123,16 @@ export default class Open extends React.Component {
                 if (validateMnemonic(mnemonic)) {
                     let days = checked === true ? 30 : 1
                     let accounts = [{
-                        address: mnemonicToAddress(mnemonic, 0),
-                        balance: 0
+                        address: mnemonicToAddress(mnemonic, 0)
                     }]
                     console.log(accounts)
                     global.storage.save({
                         key: 'accounts',
-                        data: { 'accounts': accounts },
+                        data: { 
+                            'accounts': accounts,
+                            'currentAccount':0,
+                            'networkId':0  
+                        },
                         expires: 1000 * 3600 * 24 * days,
                     })
                     this.props.navigation.navigate('WalletNav')

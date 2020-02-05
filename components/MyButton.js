@@ -40,7 +40,8 @@ export default function MyButton(props) {
                 {
                     fontSize: props.textSize,
                     color: props.textColor,
-                    fontFamily: props.textFont
+                    fontFamily: props.textFont,
+                    letterSpacing:props.letterSpacing
                 }]}>{props.text}</Text>
         </AwesomeButton>
     )
@@ -63,7 +64,8 @@ MyButton.propTypes = {
     textSize: PropTypes.number,
     textFont: PropTypes.string,
     disabled: PropTypes.bool,
-    progress: PropTypes.bool
+    progress: PropTypes.bool,
+    letterSpacing: PropTypes.number
 }
 MyButton.defaultProps = {
     backgroundActive: '#6f0',
@@ -84,11 +86,11 @@ MyButton.defaultProps = {
     textSize: 20,
     textFont: 'BigYoungMediumGB2.0',
     disabled: false,
-    progress: false
+    progress: false,
+    letterSpacing:2
 }
 const styles = StyleSheet.create({
     buttonText: {
         lineHeight: 30,
-        letterSpacing: 2,
     },
 })
