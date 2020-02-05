@@ -8,35 +8,35 @@
 
 /* Begin PBXBuildFile section */
 		00E356F31AD99517003FC87E /* BishenWalletAppTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* BishenWalletAppTests.m */; };
+		0395DF45710849569E007B1F /* EvilIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9EC6E6ABBE9941E695684457 /* EvilIcons.ttf */; };
 		12E14F2291C05286DB412BB0 /* libPods-BishenWalletAppTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 44EBB2A6653F30071E25904D /* libPods-BishenWalletAppTests.a */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB11A68108700A75B9A /* LaunchScreen.xib */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
+		26D307C9E5304A3DA25FE568 /* SimpleLineIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EC0DC547E1F34E80B7A0CF3E /* SimpleLineIcons.ttf */; };
+		2A61050560D74AC194EE9DDB /* Foundation.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B2C09E17A44344CA88D4DAB8 /* Foundation.ttf */; };
 		2D02E4BC1E0B4A80006451C7 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		2D02E4BD1E0B4A84006451C7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		2D02E4BF1E0B4AB3006451C7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		2DCD954D1E0B4F2C00145EB5 /* BishenWalletAppTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* BishenWalletAppTests.m */; };
+		43B05D66D77147B3BD6B870D /* Octicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D1DFE6E65B1E4E159254F987 /* Octicons.ttf */; };
+		4B49A987C586490686DDBC95 /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F9A9B821A2024CF89017428B /* FontAwesome.ttf */; };
+		4DCF50E792B54DAA87D5B37F /* FontAwesome5_Solid.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4877A55AE6594A2E824881A0 /* FontAwesome5_Solid.ttf */; };
 		5BA86E269717E45BEC407731 /* libPods-BishenWalletApp-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5CD772F679AFD7F7A329A23B /* libPods-BishenWalletApp-tvOS.a */; };
 		69A7DC09261BB89236829644 /* libPods-BishenWalletApp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B4623A82D2B3A6DA61307F1B /* libPods-BishenWalletApp.a */; };
-		9ABF8DF44A6217B0E5981CCE /* libPods-BishenWalletApp-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D7D4393A0B7ED635E3427A95 /* libPods-BishenWalletApp-tvOSTests.a */; };
-		A34ED97023D6DB62003B03AD /* RuiZiBiGeQingChun.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A34ED96F23D6DB62003B03AD /* RuiZiBiGeQingChun.ttf */; };
-		787262F7F09A43F2A6F32DFD /* AntDesign.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FE0CBAB5AC5E4DADB691A633 /* AntDesign.ttf */; };
-		B1759821B5E84E34B824F189 /* Entypo.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 34900CB00DAF475BAE2FDB37 /* Entypo.ttf */; };
-		0395DF45710849569E007B1F /* EvilIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9EC6E6ABBE9941E695684457 /* EvilIcons.ttf */; };
-		E8E34BAB8C684145A895FEA9 /* Feather.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4ECF3CF3987F4E188FAD2567 /* Feather.ttf */; };
-		4B49A987C586490686DDBC95 /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F9A9B821A2024CF89017428B /* FontAwesome.ttf */; };
-		EEC24ABEDB9F48B58A636C95 /* FontAwesome5_Brands.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 858EC0CE2F0A4EF89B1F982B /* FontAwesome5_Brands.ttf */; };
-		9885A6472F164E29A206E346 /* FontAwesome5_Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 97D636B255B44E58A95D2556 /* FontAwesome5_Regular.ttf */; };
-		4DCF50E792B54DAA87D5B37F /* FontAwesome5_Solid.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4877A55AE6594A2E824881A0 /* FontAwesome5_Solid.ttf */; };
-		9D055025341F4425B9034371 /* Fontisto.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 505931F30EB54713A10A9408 /* Fontisto.ttf */; };
-		2A61050560D74AC194EE9DDB /* Foundation.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B2C09E17A44344CA88D4DAB8 /* Foundation.ttf */; };
 		7565DD57BC1A468EA9CB42B3 /* Ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 784705747CF54900ACA76461 /* Ionicons.ttf */; };
-		B9803E56DDA54EE4A684DC09 /* MaterialCommunityIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 057EB75FA42741C9A0EF15A9 /* MaterialCommunityIcons.ttf */; };
-		FD5A94882F39412291B62E71 /* MaterialIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C6BE2613B0B048A2BC647625 /* MaterialIcons.ttf */; };
-		43B05D66D77147B3BD6B870D /* Octicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D1DFE6E65B1E4E159254F987 /* Octicons.ttf */; };
-		26D307C9E5304A3DA25FE568 /* SimpleLineIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EC0DC547E1F34E80B7A0CF3E /* SimpleLineIcons.ttf */; };
+		787262F7F09A43F2A6F32DFD /* AntDesign.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FE0CBAB5AC5E4DADB691A633 /* AntDesign.ttf */; };
 		7C8400E501244D0FA69D0E4C /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D1F56363ACCD43F9961778F3 /* Zocial.ttf */; };
+		9885A6472F164E29A206E346 /* FontAwesome5_Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 97D636B255B44E58A95D2556 /* FontAwesome5_Regular.ttf */; };
+		9ABF8DF44A6217B0E5981CCE /* libPods-BishenWalletApp-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D7D4393A0B7ED635E3427A95 /* libPods-BishenWalletApp-tvOSTests.a */; };
+		9D055025341F4425B9034371 /* Fontisto.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 505931F30EB54713A10A9408 /* Fontisto.ttf */; };
+		A34ED97023D6DB62003B03AD /* RuiZiBiGeQingChun.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A34ED96F23D6DB62003B03AD /* RuiZiBiGeQingChun.ttf */; };
+		B1759821B5E84E34B824F189 /* Entypo.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 34900CB00DAF475BAE2FDB37 /* Entypo.ttf */; };
+		B9803E56DDA54EE4A684DC09 /* MaterialCommunityIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 057EB75FA42741C9A0EF15A9 /* MaterialCommunityIcons.ttf */; };
+		E8E34BAB8C684145A895FEA9 /* Feather.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4ECF3CF3987F4E188FAD2567 /* Feather.ttf */; };
+		EEC24ABEDB9F48B58A636C95 /* FontAwesome5_Brands.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 858EC0CE2F0A4EF89B1F982B /* FontAwesome5_Brands.ttf */; };
+		FD5A94882F39412291B62E71 /* MaterialIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C6BE2613B0B048A2BC647625 /* MaterialIcons.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -62,6 +62,7 @@
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* BishenWalletAppTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BishenWalletAppTests.m; sourceTree = "<group>"; };
 		040709424E8BFD8DEE0AB40D /* Pods-BishenWalletApp-tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BishenWalletApp-tvOS.debug.xcconfig"; path = "Target Support Files/Pods-BishenWalletApp-tvOS/Pods-BishenWalletApp-tvOS.debug.xcconfig"; sourceTree = "<group>"; };
+		057EB75FA42741C9A0EF15A9 /* MaterialCommunityIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialCommunityIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialCommunityIcons.ttf"; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* BishenWalletApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BishenWalletApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = BishenWalletApp/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = BishenWalletApp/AppDelegate.m; sourceTree = "<group>"; };
@@ -71,36 +72,35 @@
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = BishenWalletApp/main.m; sourceTree = "<group>"; };
 		2D02E47B1E0B4A5D006451C7 /* BishenWalletApp-tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "BishenWalletApp-tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D02E4901E0B4A5D006451C7 /* BishenWalletApp-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "BishenWalletApp-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		34900CB00DAF475BAE2FDB37 /* Entypo.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = Entypo.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Entypo.ttf"; sourceTree = "<group>"; };
 		44EBB2A6653F30071E25904D /* libPods-BishenWalletAppTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-BishenWalletAppTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4767006BEDED01940D5CA20F /* Pods-BishenWalletApp-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BishenWalletApp-tvOSTests.release.xcconfig"; path = "Target Support Files/Pods-BishenWalletApp-tvOSTests/Pods-BishenWalletApp-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
+		4877A55AE6594A2E824881A0 /* FontAwesome5_Solid.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Solid.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Solid.ttf"; sourceTree = "<group>"; };
+		4ECF3CF3987F4E188FAD2567 /* Feather.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = Feather.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Feather.ttf"; sourceTree = "<group>"; };
+		505931F30EB54713A10A9408 /* Fontisto.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = Fontisto.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Fontisto.ttf"; sourceTree = "<group>"; };
 		5CD772F679AFD7F7A329A23B /* libPods-BishenWalletApp-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-BishenWalletApp-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		784705747CF54900ACA76461 /* Ionicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = Ionicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Ionicons.ttf"; sourceTree = "<group>"; };
+		858EC0CE2F0A4EF89B1F982B /* FontAwesome5_Brands.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Brands.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Brands.ttf"; sourceTree = "<group>"; };
+		97D636B255B44E58A95D2556 /* FontAwesome5_Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Regular.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Regular.ttf"; sourceTree = "<group>"; };
 		9EC6BAAB5058EB7CE30D6CA0 /* Pods-BishenWalletAppTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BishenWalletAppTests.debug.xcconfig"; path = "Target Support Files/Pods-BishenWalletAppTests/Pods-BishenWalletAppTests.debug.xcconfig"; sourceTree = "<group>"; };
+		9EC6E6ABBE9941E695684457 /* EvilIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = EvilIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/EvilIcons.ttf"; sourceTree = "<group>"; };
 		A34ED96F23D6DB62003B03AD /* RuiZiBiGeQingChun.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = RuiZiBiGeQingChun.ttf; path = ../../assets/RuiZiBiGeQingChun.ttf; sourceTree = "<group>"; };
 		A6A0F14C9AFD3003DAE678EC /* Pods-BishenWalletApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BishenWalletApp.debug.xcconfig"; path = "Target Support Files/Pods-BishenWalletApp/Pods-BishenWalletApp.debug.xcconfig"; sourceTree = "<group>"; };
+		B2C09E17A44344CA88D4DAB8 /* Foundation.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = Foundation.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Foundation.ttf"; sourceTree = "<group>"; };
 		B4623A82D2B3A6DA61307F1B /* libPods-BishenWalletApp.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-BishenWalletApp.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C5007175B7DFC666F220C391 /* Pods-BishenWalletApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BishenWalletApp.release.xcconfig"; path = "Target Support Files/Pods-BishenWalletApp/Pods-BishenWalletApp.release.xcconfig"; sourceTree = "<group>"; };
+		C6BE2613B0B048A2BC647625 /* MaterialIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialIcons.ttf"; sourceTree = "<group>"; };
+		D1DFE6E65B1E4E159254F987 /* Octicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = Octicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Octicons.ttf"; sourceTree = "<group>"; };
+		D1F56363ACCD43F9961778F3 /* Zocial.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = Zocial.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Zocial.ttf"; sourceTree = "<group>"; };
 		D7D4393A0B7ED635E3427A95 /* libPods-BishenWalletApp-tvOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-BishenWalletApp-tvOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DE4ABB72208E5FD298BE6F73 /* Pods-BishenWalletAppTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BishenWalletAppTests.release.xcconfig"; path = "Target Support Files/Pods-BishenWalletAppTests/Pods-BishenWalletAppTests.release.xcconfig"; sourceTree = "<group>"; };
 		E0CA5D9EEDF73CF4619D71C3 /* Pods-BishenWalletApp-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BishenWalletApp-tvOSTests.debug.xcconfig"; path = "Target Support Files/Pods-BishenWalletApp-tvOSTests/Pods-BishenWalletApp-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
 		E6750D9C2F0998482B9C2E65 /* Pods-BishenWalletApp-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BishenWalletApp-tvOS.release.xcconfig"; path = "Target Support Files/Pods-BishenWalletApp-tvOS/Pods-BishenWalletApp-tvOS.release.xcconfig"; sourceTree = "<group>"; };
+		EC0DC547E1F34E80B7A0CF3E /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = SimpleLineIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/SimpleLineIcons.ttf"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		ED2971642150620600B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS12.0.sdk/System/Library/Frameworks/JavaScriptCore.framework; sourceTree = DEVELOPER_DIR; };
-		FE0CBAB5AC5E4DADB691A633 /* AntDesign.ttf */ = {isa = PBXFileReference; name = "AntDesign.ttf"; path = "../node_modules/react-native-vector-icons/Fonts/AntDesign.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		34900CB00DAF475BAE2FDB37 /* Entypo.ttf */ = {isa = PBXFileReference; name = "Entypo.ttf"; path = "../node_modules/react-native-vector-icons/Fonts/Entypo.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		9EC6E6ABBE9941E695684457 /* EvilIcons.ttf */ = {isa = PBXFileReference; name = "EvilIcons.ttf"; path = "../node_modules/react-native-vector-icons/Fonts/EvilIcons.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		4ECF3CF3987F4E188FAD2567 /* Feather.ttf */ = {isa = PBXFileReference; name = "Feather.ttf"; path = "../node_modules/react-native-vector-icons/Fonts/Feather.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		F9A9B821A2024CF89017428B /* FontAwesome.ttf */ = {isa = PBXFileReference; name = "FontAwesome.ttf"; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		858EC0CE2F0A4EF89B1F982B /* FontAwesome5_Brands.ttf */ = {isa = PBXFileReference; name = "FontAwesome5_Brands.ttf"; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Brands.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		97D636B255B44E58A95D2556 /* FontAwesome5_Regular.ttf */ = {isa = PBXFileReference; name = "FontAwesome5_Regular.ttf"; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		4877A55AE6594A2E824881A0 /* FontAwesome5_Solid.ttf */ = {isa = PBXFileReference; name = "FontAwesome5_Solid.ttf"; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Solid.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		505931F30EB54713A10A9408 /* Fontisto.ttf */ = {isa = PBXFileReference; name = "Fontisto.ttf"; path = "../node_modules/react-native-vector-icons/Fonts/Fontisto.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		B2C09E17A44344CA88D4DAB8 /* Foundation.ttf */ = {isa = PBXFileReference; name = "Foundation.ttf"; path = "../node_modules/react-native-vector-icons/Fonts/Foundation.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		784705747CF54900ACA76461 /* Ionicons.ttf */ = {isa = PBXFileReference; name = "Ionicons.ttf"; path = "../node_modules/react-native-vector-icons/Fonts/Ionicons.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		057EB75FA42741C9A0EF15A9 /* MaterialCommunityIcons.ttf */ = {isa = PBXFileReference; name = "MaterialCommunityIcons.ttf"; path = "../node_modules/react-native-vector-icons/Fonts/MaterialCommunityIcons.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		C6BE2613B0B048A2BC647625 /* MaterialIcons.ttf */ = {isa = PBXFileReference; name = "MaterialIcons.ttf"; path = "../node_modules/react-native-vector-icons/Fonts/MaterialIcons.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		D1DFE6E65B1E4E159254F987 /* Octicons.ttf */ = {isa = PBXFileReference; name = "Octicons.ttf"; path = "../node_modules/react-native-vector-icons/Fonts/Octicons.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		EC0DC547E1F34E80B7A0CF3E /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; name = "SimpleLineIcons.ttf"; path = "../node_modules/react-native-vector-icons/Fonts/SimpleLineIcons.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		D1F56363ACCD43F9961778F3 /* Zocial.ttf */ = {isa = PBXFileReference; name = "Zocial.ttf"; path = "../node_modules/react-native-vector-icons/Fonts/Zocial.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		F9A9B821A2024CF89017428B /* FontAwesome.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome.ttf"; sourceTree = "<group>"; };
+		FE0CBAB5AC5E4DADB691A633 /* AntDesign.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = AntDesign.ttf; path = "../node_modules/react-native-vector-icons/Fonts/AntDesign.ttf"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -234,7 +234,7 @@
 			sourceTree = "<group>";
 		};
 		FB12A32451264DB5B6D384F0 /* Resources */ = {
-			isa = "PBXGroup";
+			isa = PBXGroup;
 			children = (
 				FE0CBAB5AC5E4DADB691A633 /* AntDesign.ttf */,
 				34900CB00DAF475BAE2FDB37 /* Entypo.ttf */,
@@ -254,8 +254,8 @@
 				D1F56363ACCD43F9961778F3 /* Zocial.ttf */,
 			);
 			name = Resources;
-			sourceTree = "<group>";
 			path = "";
+			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
@@ -289,6 +289,7 @@
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
+				901B61E60A2766C586174EA4 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -528,6 +529,54 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		901B61E60A2766C586174EA4 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-BishenWalletApp/Pods-BishenWalletApp-resources.sh",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/AntDesign.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Entypo.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/EvilIcons.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Feather.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/FontAwesome.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Brands.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Regular.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Solid.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Fontisto.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Foundation.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Ionicons.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/MaterialCommunityIcons.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/MaterialIcons.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Octicons.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/SimpleLineIcons.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Zocial.ttf",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/AntDesign.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Entypo.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/EvilIcons.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Feather.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FontAwesome.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FontAwesome5_Brands.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FontAwesome5_Regular.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FontAwesome5_Solid.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Fontisto.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Foundation.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Ionicons.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MaterialCommunityIcons.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MaterialIcons.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Octicons.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/SimpleLineIcons.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Zocial.ttf",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-BishenWalletApp/Pods-BishenWalletApp-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		E8E885BF08222CF1F5421D45 /* [CP] Check Pods Manifest.lock */ = {
