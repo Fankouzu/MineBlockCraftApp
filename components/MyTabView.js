@@ -91,6 +91,6 @@ const styles = StyleSheet.create({
         justifyContent:'space-evenly',
         lineHeight:40,
         paddingLeft:10,
-        paddingRight:10,
+        paddingRight:10
     }
 })

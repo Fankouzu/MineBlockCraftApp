@@ -169,7 +169,7 @@ export default class RandomMnemonic extends React.Component {
                                         key={index}
                                         style={[styles.wordSelect, {
                                             fontSize: this.props.lang === 'zh' ? 20 : 16,
-                                            fontFamily: this.props.lang === 'zh' ? 'BigYoungMediumGB2.0' : 'console',
+                                            fontFamily: this.props.lang === 'zh' ? 'BigYoungMediumGB2.0' : 'simsun',
                                             width: (global.screenWidth * 0.9 / 4) - 24,
                                         }]}
                                         onPress={() => { this.removeWord(index) }}
@@ -206,7 +206,7 @@ export default class RandomMnemonic extends React.Component {
                                 raiseLevel={2}
                                 borderWidth={1}
                                 textSize={this.props.lang === 'zh' ? 20 : 10}
-                                textFont={this.props.lang === 'zh' ? 'BigYoungMediumGB2.0' : 'console'}
+                                textFont={this.props.lang === 'zh' ? 'BigYoungMediumGB2.0' : 'simsun'}
                                 style={styles.wordButton, { display: this.state.wordDisplay[index] || 'flex', margin: 10 }}
                                 onPress={() => { this.addWord(index) }}
                             />

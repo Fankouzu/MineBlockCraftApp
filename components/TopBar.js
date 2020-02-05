@@ -51,7 +51,6 @@ export default class TopBar extends Component {
                         borderWidth={1}
                         textSize={12}
                         letterSpacing={0}
-                        textFont=''
                         onPress={() => { this.props.handleOpenNetSelect(true) }}
                     />
                 </View>
