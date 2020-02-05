@@ -92,6 +92,5 @@ const styles = StyleSheet.create({
         lineHeight:40,
         paddingLeft:10,
         paddingRight:10,
-        fontFamily: 'console'
     }
 })
