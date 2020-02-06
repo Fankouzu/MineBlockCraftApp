@@ -122,16 +122,24 @@ export default class Open extends React.Component {
                 let mnemonic = aesDecrypt(encrypt, sha1(password))
                 if (validateMnemonic(mnemonic)) {
                     let days = checked === true ? 30 : 1
+                    let address = mnemonicToAddress(mnemonic, 0)
                     let accounts = [{
-                        address: mnemonicToAddress(mnemonic, 0)
+                        address: address
                     }]
-                    console.log(accounts)
                     global.storage.save({
-                        key: 'accounts',
+                        key: 'wallet',
                         data: { 
+                            'encrypt':encrypt,
                             'accounts': accounts,
                             'currentAccount':0,
-                            'networkId':0  
+                            'networkId':0
+                        },
+                        expires: null,
+                    })
+                    global.storage.save({
+                        key: 'status',
+                        data: { 
+                            'address': address
                         },
                         expires: 1000 * 3600 * 24 * days,
                     })

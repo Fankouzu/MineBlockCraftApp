@@ -1,9 +1,9 @@
 import React from 'react'
 import {
-  ActivityIndicator,
-  StatusBar,
-  StyleSheet,
-  View,
+    ActivityIndicator,
+    StatusBar,
+    StyleSheet,
+    View,
 } from 'react-native'
 
 export default class AuthLoading extends React.Component {
@@ -14,14 +14,18 @@ export default class AuthLoading extends React.Component {
     }
     _bootstrapAsync = async () => {
         global.storage.load({
-            key: 'wallet',
+            key: 'status',
         }).then(ret => {
-            let encrypt = ret.encrypt
+            let address = ret.address
             global.storage.load({
-                key: 'accounts',
+                key: 'wallet',
             }).then(ret => {
                 let accounts = ret.accounts
-                this.props.navigation.navigate('WalletNav')
+                if (address === accounts[0].address) {
+                    this.props.navigation.navigate('WalletNav')
+                } else {
+                    this.props.navigation.navigate('LoginNav')
+                }
             }).catch(err => {
                 this.props.navigation.navigate('LoginNav')
             })
@@ -39,9 +43,9 @@ export default class AuthLoading extends React.Component {
     }
 }
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
+    container: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
 })

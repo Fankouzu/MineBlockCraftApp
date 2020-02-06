@@ -10,11 +10,16 @@ export default class Open extends React.Component {
         this.state = {}
     }
     componentDidMount() {
-
+        global.storage.load({
+            key: 'wallet',
+        }).then(ret => {
+            console.log('ret',ret)
+        }).catch(err => {
+            console.log('err',err)
+        })
     }
     render() {
         const { navigate } = this.props.navigation
-        console.log(this.props.encrypt)
         return (
             <MyCard
                 screenWidth={global.screenWidth}

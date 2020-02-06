@@ -12,7 +12,7 @@ export default class NetworkModal extends Component {
     }
     render() {
         return (
-            <Modal deviceHeight={global.screenHeight+25} isVisible={this.props.isModalVisible}>
+            <Modal  isVisible={this.props.isModalVisible}>
                 <View style={styles.modalView}>
                     <Text style={styles.modalTitle}>选择网络</Text>
                     {networks.map((item, index) => {

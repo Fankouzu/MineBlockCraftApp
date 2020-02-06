@@ -14,7 +14,7 @@ export default class Copyright extends Component {
             }}>
                 <TouchableOpacity onPress={() => {
                     global.storage.remove({
-                        key: 'wallet',
+                        key: 'status',
                     })
                 }}>
                     <Text style={{

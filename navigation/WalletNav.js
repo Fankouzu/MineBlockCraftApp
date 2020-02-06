@@ -1,84 +1,69 @@
-import React from 'react'
-import Copyright from '../components/Copyright'
-import TopBar from '../components/TopBar'
-import BalanceCard from '../components/BalanceCard'
-import NetworkModal from '../components/NetworkModal'
-import MyBackground from '../components/MyBackground'
+import React, { Component } from 'react'
+import Drawer from 'react-native-drawer'
+import { Text } from 'react-native'
+import WalletMain from '../screen/WalletMain'
+import AccountDrawer from '../screen/AccountDrawer'
+import PasswordModal from '../components/PasswordModal'
 
-export default class Open extends React.Component {
+export default class MyDrawer extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            encrypt:'',
-            networkId:0,
-            currentAccount:0,
-            isModalVisible: false,
-            accounts: [{
-                address: '',
-            }]
+            accounts:[],
+            currentAccount: 0,
+            isModalVisible:false
         }
     }
-    componentDidMount() {
-        global.storage.load({
-            key: 'wallet',
-        }).then(ret => {
-            let encrypt = ret.encrypt
-            global.storage.load({
-                key: 'accounts',
-            }).then(ret => {
-                let accounts = ret.accounts
-                let networkId = ret.networkId || 0
-                let currentAccount = ret.currentAccount || 0
-                this.setState({ 
-                    accounts: accounts,
-                    currentAccount: currentAccount,
-                    networkId:networkId,
-                    encrypt:encrypt
-                })
-            }).catch(err => {
-                this.props.navigation.navigate('LoginNav')
-            })
-        }).catch(err => {
-            this.props.navigation.navigate('LoginNav')
-        })
+    closeControlPanel = () => {
+        this._drawer.close()
     }
-    selectNetwork = (id) => {
-        global.storage.save({
-            key: 'accounts',
-            data: {'accounts':this.state.accounts, 'currentAccount':this.state.currentAccount, 'networkId': id }
-        })
-        this.setState({ networkId: id,isModalVisible: false })
+    openControlPanel = () => {
+        this._drawer.open()
     }
-    handleOpenNetSelect = (isModalVisible) => {
-        this.setState({ isModalVisible: isModalVisible })
+    getAccounts = (accounts,currentAccount) => {
+        this.setState({accounts:accounts,currentAccount:currentAccount})
     }
-    componentDidUpdate() {
+    selectAccounts = (accounts,currentAccount) => {
+        this.setState({accounts:accounts,currentAccount:currentAccount,isModalVisible:false})
+        this._drawer.close()
     }
-    componentWillUnmount = () => {
-        this.setState = (state, callback) => {
-            return
-        }
+    addAccounts = () => {
+        this._drawer.close()
+        this.setState({isModalVisible:true})
+    }
+    cancelModal = () => {
+        this.setState({isModalVisible:false})
     }
     render() {
         return (
-            <MyBackground style={{alignItems: 'center'}}>
-                <TopBar
-                    handleOpenNetSelect={this.handleOpenNetSelect}
-                    accounts={this.state.accounts}
-                    networkId={this.state.networkId}
-                />
-                <BalanceCard
-                    accounts={this.state.accounts}
+            <Drawer
+                type="displace"
+                side="right"
+                ref={(ref) => this._drawer = ref}
+                initializeOpen={false}
+                content={<AccountDrawer 
+                        accounts={this.state.accounts} 
+                        selectAccounts={this.selectAccounts}
+                        addAccounts={this.addAccounts}
+                    />}
+                tapToClose={true}
+                openDrawerOffset={0.6}
+                
+            >
+                <WalletMain
+                    openControlPanel={this.openControlPanel}
+                    getAccounts={this.getAccounts}
+                    selectAccounts={this.selectAccounts}
+                    navigation={this.props.navigation}
                     currentAccount={this.state.currentAccount}
-                    networkId={this.state.networkId}
+                    accounts={this.state.accounts}
                 />
-                <Copyright />
-                <NetworkModal
-                    handleOpenNetSelect={this.handleOpenNetSelect}
+                <PasswordModal
+                    selectAccounts={this.selectAccounts}
                     isModalVisible={this.state.isModalVisible}
-                    selectNetwork={this.selectNetwork}
+                    cancelModal={this.cancelModal}
                 />
-            </MyBackground>
+            </Drawer>
         )
     }
 }

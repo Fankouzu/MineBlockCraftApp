@@ -7,8 +7,8 @@ const styles = StyleSheet.create({
     ListButton: {
         backgroundColor: 'rgba(0,0,0,0.2)',
         height: 50,
-        borderTopColor: '#333',
-        borderTopWidth: 1,
+        borderTopColor: '#666',
+        borderTopWidth: 0.5,
         justifyContent: 'center',
         flexDirection: 'row',
         alignItems: 'center',

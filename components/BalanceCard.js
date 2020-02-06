@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
-import { Text, StyleSheet, View, ProgressBarAndroid ,ProgressViewIOS} from 'react-native'
+import { Text, StyleSheet, View, ProgressBarAndroid, ProgressViewIOS } from 'react-native'
+import * as Progress from 'react-native-progress'
 import MyCard from '../components/MyCard'
 import { networks } from '../utils/networks'
 import { getBalance } from '../utils/Tools'
@@ -62,13 +63,12 @@ export default class BalanceCard extends Component {
         if (accounts[currentAccount].address !== '') {
             getBalance(accounts[currentAccount].address, networks[networkId].nameEN).then((balance) => {
                 accounts[currentAccount].balance = balance
-                console.log(accounts, networkId, currentAccount)
                 this.setState({
                     accounts: accounts,
                     currentAccount: currentAccount,
-                    networkId: networkId,
-                    showLoading: 'none'
+                    networkId: networkId
                 })
+                this.props.handleHideLoading()
             })
         }
     }
@@ -82,6 +82,8 @@ export default class BalanceCard extends Component {
         } else if (this.props.networkId !== this.state.networkId) {
             this.getDate()
             return true
+        } else {
+            return false
         }
     }
     componentWillUnmount = () => {
@@ -108,21 +110,16 @@ export default class BalanceCard extends Component {
                 <Text style={styles.balanceNumber}>
                     {balance}
                 </Text>
-                {global.ios ? (
-                    <ProgressViewIOS 
-                    trackTintColor="#fff" 
-                    progressTintColor="#2196F3"
-                    progress={0.5}
-                    />
-                ) : (
-                    <ProgressBarAndroid 
-                        animating={true} 
-                        styleAttr="Horizontal" 
-                        color="#2196F3" 
-                        style={{ height: 2 }} 
-                    />
-                    )}
-                
+                <Progress.Bar
+                    indeterminate
+                    unfilledColor='#ddd'
+                    color='#2196F3'
+                    width={global.screenWidth * 0.9 - 30}
+                    height={1}
+                    borderRadius={0}
+                    borderWidth={0}
+                    style={{ display: this.props.showLoading }}
+                />
                 <Text style={styles.balanceAddress}>{this.state.accounts[this.state.currentAccount].address}</Text>
             </MyCard>
         )
