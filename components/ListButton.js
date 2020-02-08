@@ -1,5 +1,5 @@
-import React, { Component } from 'react'
-import { Text, StyleSheet} from 'react-native'
+import React from 'react'
+import { Text, StyleSheet } from 'react-native'
 import Ripple from 'react-native-material-ripple'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 
@@ -21,26 +21,22 @@ const styles = StyleSheet.create({
         fontFamily: 'BigYoungMediumGB2.0'
     }
 })
-export default class ListButton extends Component {
-    constructor(props) {
-        super(props)
-        this.state = {}
-    }
-    render() {
-        return (
-            <Ripple
-                rippleColor={this.props.iconColor}
-                rippleOpacity={0.6}
-                style={[styles.ListButton,{width: global.screenWidth * 0.9}]}
-                onPress={()=>{this.props.onPress()}}
+export default function ListButton(props) {
+
+    return (
+        <Ripple
+            rippleColor={props.iconColor}
+            rippleOpacity={0.6}
+            style={[styles.ListButton, { width: global.screenWidth * 0.9 }]}
+            onPress={() => { props.onPress() }}
+        >
+            <Icon name="flash-circle" size={16} color={props.iconColor} />
+            <Text
+                style={styles.ListButtonText}
             >
-                <Icon name="flash-circle" size={16} color={this.props.iconColor} />
-                <Text
-                    style={styles.ListButtonText}
-                >
-                    {this.props.text}
-                </Text>
-            </Ripple>
-        )
-    }
+                {props.text}
+            </Text>
+        </Ripple>
+    )
+
 }

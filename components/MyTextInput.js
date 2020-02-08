@@ -9,7 +9,13 @@ export default function MyTextInput(props) {
     const [borderColor,setBorderColor] = React.useState(props.borderColor)
     const [password,setPassword] = React.useState('')
     const duration=100
+    const inputRef = React.useRef()
     
+    React.useEffect(() => {
+        props.focus ? inputRef.current.focus() : inputRef.current.blur()
+    }, [])
+
+
     React.useEffect(() => {
         setBorderColor(props.borderColor)
     }, [props.borderColor])
@@ -50,7 +56,6 @@ export default function MyTextInput(props) {
             setBorderColor(props.borderColor)
             props.handleKeybordMargin('down')
         })
-        
     }
     return (
         <Animated.View
@@ -62,17 +67,19 @@ export default function MyTextInput(props) {
                 marginBottom: 10,
             }}>
             <TextInput
+                ref={inputRef}
                 placeholderTextColor='#666'
                 onChangeText={(password) => handleTypePassword(password)}
                 placeholder={props.placeholder}
                 value={password}
                 clearButtonMode='while-editing'
                 style={styles.textInput}
-                secureTextEntry={true}
+                secureTextEntry={props.secureTextEntry}
                 blurOnSubmit={true}
                 onFocus={onFocus}
                 onBlur={onBlur}
                 onTextInput={onTextInput}
+                keyboardType={props.keyboardType}
             />
         </Animated.View>
     )
@@ -82,18 +89,22 @@ MyTextInput.propTypes = {
     handleKeybordMargin: PropTypes.func.isRequired,
     placeholder: PropTypes.string.isRequired,
     borderColor: PropTypes.string,
-    borderColorActive: PropTypes.string
+    borderColorActive: PropTypes.string,
+    secureTextEntry:PropTypes.bool,
+    keyboardType:PropTypes.string
 }
 MyTextInput.defaultProps = {
     borderColor: '#666',
-    borderColorActive: '#666'
+    borderColorActive: '#666',
+    secureTextEntry:true,
+    keyboardType:'default'
 }
 const styles = StyleSheet.create({
     textInput: {
         paddingLeft: 10,
         paddingRight: 10,
         height: 45,
-        lineHeight: 45,
+        lineHeight: 22,
         color: '#666',
         fontSize: 16,
         justifyContent: 'center',

@@ -113,60 +113,53 @@ export default class Open extends React.Component {
             this.shake()
         } else {
             Keyboard.dismiss()
-            global.storage.load({
-                key: 'wallet',
-            }).then(ret => {
-                let password = this.state.password
-                let checked = this.state.checked
-                let encrypt = ret.encrypt
-                let mnemonic = aesDecrypt(encrypt, sha1(password))
-                if (validateMnemonic(mnemonic)) {
-                    let days = checked === true ? 30 : 1
-                    let address = mnemonicToAddress(mnemonic, 0)
-                    let accounts = [{
-                        address: address
-                    }]
+            let password = this.state.password
+            let checked = this.state.checked
+            let encrypt = global.wallet.encrypt
+            let mnemonic = aesDecrypt(encrypt, sha1(password))
+            if (validateMnemonic(mnemonic)) {
+                let days = checked === true ? 30 : 1
+                let address = mnemonicToAddress(mnemonic, 0)
+                let accounts = [{
+                    address: address,
+                    balance:0
+                }]
+                console.log('global.wallet:',global.wallet.accounts[0].address)
+                console.log('address:',address)
+                if (global.wallet.accounts[0].address !== address) {
                     global.storage.save({
                         key: 'wallet',
-                        data: { 
-                            'encrypt':encrypt,
+                        data: {
+                            'encrypt': encrypt,
                             'accounts': accounts,
-                            'currentAccount':0,
-                            'networkId':0
+                            'currentAccount': 0,
+                            'networkId': 0
                         },
                         expires: null,
                     })
-                    global.storage.save({
-                        key: 'status',
-                        data: { 
-                            'address': address
-                        },
-                        expires: 1000 * 3600 * 24 * days,
-                    })
-                    this.props.navigation.navigate('WalletNav')
-                } else {
-                    this.setState({
-                        borderColor: '#F30',
-                        alertText: ['⚠️密码错误'],
-                        buttonDisable: true
-                    })
-                    this.shake()
+                    global.wallet = {
+                        'encrypt': encrypt,
+                        'accounts': accounts,
+                        'currentAccount': 0,
+                        'networkId': 0
+                    }
                 }
-            }).catch(err => {
+                global.storage.save({
+                    key: 'status',
+                    data: {
+                        'address': address
+                    },
+                    expires: 1000 * 3600 * 24 * days,
+                })
+                this.props.navigation.navigate('WalletNav')
+            } else {
                 this.setState({
                     borderColor: '#F30',
-                    alertText: ['⚠️钱包错误，请重新创建或导入钱包'],
+                    alertText: ['⚠️密码错误'],
                     buttonDisable: true
                 })
                 this.shake()
-                //console.warn(err.message)
-                switch (err.name) {
-                    case 'NotFoundError':
-                        break
-                    case 'ExpiredError':
-                        break
-                }
-            })
+            }
         }
         next()
     }
@@ -203,7 +196,7 @@ export default class Open extends React.Component {
                         />
                         <MyButton
                             screenWidth={global.screenWidth * 0.9 - 30}
-                            onPress={(next) => {this.handleSubmit(next)}}
+                            onPress={(next) => { this.handleSubmit(next) }}
                             text='打开钱包'
                             height={50}
                             backgroundColor='#6f0'

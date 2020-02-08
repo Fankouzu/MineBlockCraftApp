@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Text, StyleSheet, View,Animated,TouchableOpacity,Keyboard } from 'react-native'
+import { Text, StyleSheet, View, Animated, TouchableOpacity, Keyboard } from 'react-native'
 import Modal from "react-native-modal"
 import MyCard from './MyCard'
 import Title from './Title'
@@ -14,8 +14,8 @@ export default class PasswordModal extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            shakeLeft:new Animated.Value(0),
-            password:'',
+            shakeLeft: new Animated.Value(0),
+            password: '',
             alertText: [],
             borderColor: '#999',
             buttonDisable: false,
@@ -69,47 +69,35 @@ export default class PasswordModal extends Component {
             })
             this.shake()
         } else {
-            global.storage.load({
-                key: 'wallet',
-            }).then(ret => {
-                let password = this.state.password
-                let encrypt = ret.encrypt
-                let mnemonic = aesDecrypt(encrypt, sha1(password))
-                let accounts = ret.accounts
-
-                if (validateMnemonic(mnemonic)) {
-                    let address = mnemonicToAddress(mnemonic, accounts.length)
-                    if(address !== undefined){
-                        accounts[accounts.length] = {
-                            address: address
-                        }
-                        let currentAccount = accounts.length -1
-                        this.setState({password:''})
-                        this.props.selectAccounts(accounts,currentAccount)
-                    }else{
-                        this.setState({
-                            borderColor: '#F30',
-                            alertText: ['⚠️异常错误，请重试'],
-                            buttonDisable: true
-                        })
-                        this.shake()
+            let password = this.state.password
+            let encrypt = global.wallet.encrypt
+            let mnemonic = aesDecrypt(encrypt, sha1(password))
+            let accounts = global.wallet.accounts
+            if (validateMnemonic(mnemonic)) {
+                let address = mnemonicToAddress(mnemonic, accounts.length)
+                if (address !== undefined) {
+                    accounts[accounts.length] = {
+                        address: address
                     }
+                    let currentAccount = accounts.length - 1
+                    this.setState({ password: '' })
+                    this.props.selectAccounts(accounts, currentAccount)
                 } else {
                     this.setState({
                         borderColor: '#F30',
-                        alertText: ['⚠️密码错误'],
+                        alertText: ['⚠️异常错误，请重试'],
                         buttonDisable: true
                     })
                     this.shake()
                 }
-            }).catch(err => {
+            } else {
                 this.setState({
                     borderColor: '#F30',
-                    alertText: ['⚠️钱包错误，请重新创建或导入钱包'],
+                    alertText: ['⚠️密码错误'],
                     buttonDisable: true
                 })
                 this.shake()
-            })
+            }
         }
         next()
     }
@@ -133,6 +121,7 @@ export default class PasswordModal extends Component {
                             borderColor={this.state.borderColor}
                             borderColorActive='#390'
                             buttonDisable={this.state.buttonDisable}
+                            focus={true}
                         />
                         <AlertText
                             alertText={this.state.alertText}
@@ -140,7 +129,7 @@ export default class PasswordModal extends Component {
                         />
                         <MyButton
                             screenWidth={global.screenWidth * 0.9 - 30}
-                            onPress={(next) => {this.handleSubmit(next)}}
+                            onPress={(next) => { this.handleSubmit(next) }}
                             text='添加账户'
                             height={50}
                             backgroundColor='#6f0'
@@ -152,7 +141,7 @@ export default class PasswordModal extends Component {
                             progress={true}
                         />
                         <View style={styles.bottom}>
-                            <TouchableOpacity onPress={() => {this.props.cancelModal()}}>
+                            <TouchableOpacity onPress={() => { this.props.cancelModal() }}>
                                 <Text style={styles.bottomLink}>取消</Text>
                             </TouchableOpacity>
                         </View>

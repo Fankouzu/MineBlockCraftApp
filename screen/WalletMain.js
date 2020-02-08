@@ -10,12 +10,10 @@ export default class Open extends React.Component {
         super(props)
         this.state = {
             encrypt: '',
-            networkId: 0,
-            currentAccount: 0,
+            networkId:  0,
+            currentAccount:0,
             isModalVisible: false,
-            accounts: [{
-                address: '',
-            }],
+            accounts: [{address:'0x0',balance:0}],
             showLoading: 'flex'
         }
     }
@@ -23,20 +21,18 @@ export default class Open extends React.Component {
         global.storage.load({
             key: 'wallet',
         }).then(ret => {
-            let encrypt = ret.encrypt
-            let accounts = ret.accounts
-            let networkId = ret.networkId || 0
-            let currentAccount = ret.currentAccount || 0
-            if (currentAccount > accounts.length - 1) {
-                currentAccount = 0
+            global.wallet = ret
+            
+            if (global.wallet.currentAccount > global.wallet.accounts.length - 1) {
+                global.wallet.currentAccount = 0
             }
             this.setState({
-                accounts: accounts,
-                currentAccount: currentAccount,
-                networkId: networkId,
-                encrypt: encrypt
+                accounts: global.wallet.accounts,
+                currentAccount: global.wallet.currentAccount,
+                networkId: global.wallet.networkId || 0,
+                encrypt: global.wallet.encrypt
             })
-            this.props.getAccounts(accounts, currentAccount)
+            this.props.getAccounts(global.wallet.accounts, global.wallet.currentAccount)
         }).catch(err => {
             this.props.navigation.navigate('LoginNav')
         })
@@ -45,48 +41,39 @@ export default class Open extends React.Component {
         if (id === this.state.networkId) {
             this.setState({ isModalVisible: false })
         } else {
-            global.storage.load({
-                key: 'wallet',
-            }).then(ret => {
-                let encrypt = ret.encrypt
-                let accounts = ret.accounts
-                let currentAccount = ret.currentAccount
-                global.storage.save({
-                    key: 'wallet',
-                    data: {
-                        'encrypt': encrypt,
-                        'accounts': accounts,
-                        'currentAccount': currentAccount,
-                        'networkId': id
-                    },
-                    expires: null,
-                })
-                this.setState({ networkId: id, isModalVisible: false, showLoading: 'flex' })
-            }).catch(err => {
-                this.props.navigation.navigate('LoginNav')
-            })
-        }
-    }
-    selectAccount = (accounts, currentAccount) => {
-        global.storage.load({
-            key: 'wallet',
-        }).then(ret => {
-            let encrypt = ret.encrypt
-            let networkId = ret.networkId
+            let encrypt = global.wallet.encrypt
+            let accounts = global.wallet.accounts
+            let currentAccount = global.wallet.currentAccount
+            global.wallet.id = id
             global.storage.save({
                 key: 'wallet',
                 data: {
                     'encrypt': encrypt,
-                    'accounts': accounts.length > ret.accounts.length ? accounts : ret.accounts,
-                    'currentAccount': currentAccount || 0,
-                    'networkId': networkId
+                    'accounts': accounts,
+                    'currentAccount': currentAccount,
+                    'networkId': id
                 },
                 expires: null,
             })
-            this.setState({ accounts: accounts, currentAccount: currentAccount, showLoading: 'flex' })
-        }).catch(err => {
-            this.props.navigation.navigate('LoginNav')
+            this.setState({ networkId: id, isModalVisible: false, showLoading: 'flex' })
+        }
+    }
+    selectAccount = (accounts, currentAccount) => {
+        let encrypt = global.wallet.encrypt
+        let networkId = global.wallet.networkId || 0
+        global.wallet.accounts = accounts.length > global.wallet.accounts.length ? accounts : global.wallet.accounts
+        global.wallet.currentAccount = currentAccount
+        global.storage.save({
+            key: 'wallet',
+            data: {
+                'encrypt': encrypt,
+                'accounts': global.wallet.accounts,
+                'currentAccount': currentAccount || 0,
+                'networkId': networkId
+            },
+            expires: null,
         })
+        this.setState({ accounts: accounts, currentAccount: currentAccount, showLoading: 'flex' })
     }
     handleOpenNetSelect = (isModalVisible) => {
         this.setState({ isModalVisible: isModalVisible })
@@ -126,6 +113,7 @@ export default class Open extends React.Component {
                     networkId={this.state.networkId}
                     showLoading={this.state.showLoading}
                     handleHideLoading={this.handleHideLoading}
+                    navigation={this.props.navigation}
                 />
                 <Copyright />
                 <NetworkModal

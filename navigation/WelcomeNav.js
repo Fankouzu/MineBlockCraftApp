@@ -20,10 +20,16 @@ export default class Open extends React.Component {
         global.storage.load({
             key: 'wallet',
         }).then(ret => {
+            global.wallet = ret
             this.setState({ encrypt: ret.encrypt })
         }).catch(err => {
+            global.wallet = {
+                encrypt:null,
+                accounts: [{address:'0x0',balance:0}],
+                currentAccount:0,
+                networkId:0
+            }
             this.setState({ encrypt: null })
-            //console.warn(err.message)
             switch (err.name) {
                 case 'NotFoundError':
                     break
@@ -36,12 +42,7 @@ export default class Open extends React.Component {
                 const page = this.props.navigation.getParam('page', 0)
                 if (page > 0 && this.state.page === 0) {
                     this.turnPage(1)
-                    this.setState({password:''})
-                    global.storage.load({
-                        key: 'wallet',
-                    }).then(ret => {
-                        this.setState({ encrypt: ret.encrypt })
-                    })
+                    this.setState({password:'',encrypt: global.wallet.encrypt })
                 }
             }
         )

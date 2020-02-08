@@ -22,6 +22,8 @@ export default class NetworkModal extends Component {
                                 iconColor={item.color}
                                 onPress={() => { this.props.selectNetwork(index)}}
                                 key={index}
+                                iconName='flash-circle'
+                                width={global.screenWidth * 0.9}
                             />
                         )
                     })}

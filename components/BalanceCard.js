@@ -1,5 +1,6 @@
-import React, { Component } from 'react'
-import { Text, StyleSheet, View, ProgressBarAndroid, ProgressViewIOS } from 'react-native'
+import React from 'react'
+import { Text, StyleSheet, View } from 'react-native'
+import CardBottom from '../components/CardBottom'
 import * as Progress from 'react-native-progress'
 import MyCard from '../components/MyCard'
 import { networks } from '../utils/networks'
@@ -9,13 +10,15 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 const styles = StyleSheet.create({
     cardTop: {
         flexDirection: 'row',
-        justifyContent: 'space-between'
+        justifyContent: 'space-between',
+        marginLeft:15,
+        marginRight:15
     },
     balanceTitle: {
         color: '#333',
         fontSize: 16,
         fontFamily: 'BigYoungMediumGB2.0',
-        lineHeight: 20
+        lineHeight: 30
     },
     cardTopRight: {
         flexDirection: 'row',
@@ -31,97 +34,93 @@ const styles = StyleSheet.create({
     balanceNumber: {
         color: '#333',
         fontSize: 30,
-        lineHeight: 40
+        lineHeight: 40,
+        marginLeft:15,
+        marginRight:15
     },
     balanceAddress: {
         color: '#333',
         fontSize: 12,
-        lineHeight: 20
+        lineHeight: 30,
+        fontWeight: 'bold',
+        marginLeft:15,
+        marginRight:15
     }
 })
-export default class BalanceCard extends Component {
-    constructor(props) {
-        super(props)
-        this.state = {
-            networkId: 0,
-            currentAccount: 0,
-            balance: 0,
-            accounts: [{
-                address: ''
-            }],
-            showLoading: 'flex'
+export default function BalanceCard(props) {
+
+    const [networkId, setNetworkId] = React.useState(props.networkId)
+    React.useEffect(() => {
+        setNetworkId(props.networkId)
+    }, [props.networkId])
+
+    const [currentAccount, setCurrentAccount] = React.useState(props.currentAccount)
+    React.useEffect(() => {
+        setCurrentAccount(props.currentAccount)
+    }, [props.currentAccount])
+
+    const [accounts, setAccounts] = React.useState(props.accounts)
+    React.useEffect(() => {
+        setAccounts(props.accounts)
+    }, [props.accounts])
+
+    const [showLoading, setShowLoading] = React.useState(props.showLoading)
+    React.useEffect(() => {
+        setShowLoading(props.showLoading)
+    }, [props.showLoading])
+
+    const [balance, setBalance] = React.useState(0)
+
+    console.disableYellowBox = true
+
+    const [currentAddress, setCurrentAddress] = React.useState('0x0')
+    React.useEffect(() => {
+        if (accounts.length > 0) {
+            setCurrentAddress(accounts[currentAccount].address)
         }
-    }
-    componentDidMount() {
-        console.disableYellowBox = true
-        this.getDate()
-    }
-    getDate = () => {
-        let accounts = this.props.accounts
-        let networkId = this.props.networkId
-        let currentAccount = this.props.currentAccount
-        if (accounts[currentAccount].address !== '') {
-            getBalance(accounts[currentAccount].address, networks[networkId].nameEN).then((balance) => {
-                accounts[currentAccount].balance = balance
-                this.setState({
-                    accounts: accounts,
-                    currentAccount: currentAccount,
-                    networkId: networkId
-                })
-                this.props.handleHideLoading()
+    }, [accounts, currentAccount])
+
+    React.useEffect(() => {
+        if (currentAddress !== '0x0') {
+            getBalance(currentAddress, networks[networkId].nameEN).then((balance) => {
+                setBalance(balance > 0 ? Math.round(balance * 10000000) / 10000000 : 0)
+                setAccounts(accounts)
+                props.handleHideLoading()
             })
         }
-    }
-    componentDidUpdate(nextProps, nextState) {
-        if (nextProps.accounts !== this.state.accounts) {
-            this.getDate()
-            return true
-        } else if (this.props.currentAccount !== this.state.currentAccount) {
-            this.getDate()
-            return true
-        } else if (this.props.networkId !== this.state.networkId) {
-            this.getDate()
-            return true
-        } else {
-            return false
-        }
-    }
-    componentWillUnmount = () => {
-        this.setState = (state, callback) => {
-            return
-        }
-    }
-    render() {
-        let balance = this.state.accounts[this.state.currentAccount].balance
-        balance = balance > 0 ? Math.round(balance * 10000000) / 10000000 : 0
-        return (
-            <MyCard
-                screenWidth={global.screenWidth * 0.9}
-                margin={0}
-                top={40}
-            >
-                <View style={styles.cardTop}>
-                    <Text style={styles.balanceTitle}>当前余额(Ether)：</Text>
-                    <View style={styles.cardTopRight}>
-                        <Icon name="circle" size={10} color={networks[this.state.networkId].color} />
-                        <Text style={styles.balanceAccount}>账户{this.state.currentAccount + 1}</Text>
-                    </View>
+    }, [currentAddress, networkId])
+
+    return (
+        <MyCard
+            screenWidth={global.screenWidth * 0.9}
+            margin={0}
+            top={40}
+            style={{paddingBottom:0,paddingLeft:0,paddingRight:0}}
+        >
+            <View style={styles.cardTop}>
+                <Text style={styles.balanceTitle}>当前余额(Ether)：</Text>
+                <View style={styles.cardTopRight}>
+                    <Icon name="circle" size={10} color={networks[networkId].color} />
+                    <Text style={styles.balanceAccount}>账户{currentAccount + 1}</Text>
                 </View>
-                <Text style={styles.balanceNumber}>
-                    {balance}
-                </Text>
-                <Progress.Bar
-                    indeterminate
-                    unfilledColor='#ddd'
-                    color='#2196F3'
-                    width={global.screenWidth * 0.9 - 30}
-                    height={1}
-                    borderRadius={0}
-                    borderWidth={0}
-                    style={{ display: this.props.showLoading }}
-                />
-                <Text style={styles.balanceAddress}>{this.state.accounts[this.state.currentAccount].address}</Text>
-            </MyCard>
-        )
-    }
+            </View>
+            <Text style={styles.balanceNumber}>
+                {balance}
+            </Text>
+            <Progress.Bar
+                indeterminate
+                unfilledColor='#ddd'
+                color='#2196F3'
+                width={global.screenWidth * 0.9 -2}
+                height={1}
+                borderRadius={0}
+                borderWidth={0}
+                style={{ display: showLoading }}
+            />
+            <Text style={styles.balanceAddress}>{currentAddress}</Text>
+            <CardBottom
+                navigation={props.navigation}
+            />
+        </MyCard>
+    )
 }

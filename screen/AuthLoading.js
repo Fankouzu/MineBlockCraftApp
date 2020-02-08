@@ -16,19 +16,7 @@ export default class AuthLoading extends React.Component {
         global.storage.load({
             key: 'status',
         }).then(ret => {
-            let address = ret.address
-            global.storage.load({
-                key: 'wallet',
-            }).then(ret => {
-                let accounts = ret.accounts
-                if (address === accounts[0].address) {
-                    this.props.navigation.navigate('WalletNav')
-                } else {
-                    this.props.navigation.navigate('LoginNav')
-                }
-            }).catch(err => {
-                this.props.navigation.navigate('LoginNav')
-            })
+            this.props.navigation.navigate('WalletNav')
         }).catch(err => {
             this.props.navigation.navigate('LoginNav')
         })

@@ -12,7 +12,7 @@ export default function MyCard(props) {
             marginTop: props.top,
             padding: props.padding,
             height:props.height
-        }]}>
+        },props.style]}>
             {props.children}
         </View>
     )
@@ -30,7 +30,7 @@ MyCard.propTypes = {
     top: PropTypes.number,
     padding: PropTypes.number,
     height: PropTypes.number,
-    children: PropTypes.node,
+    children: PropTypes.node
 }
 const styles = StyleSheet.create({
     MyCard: {

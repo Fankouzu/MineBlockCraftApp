@@ -11,17 +11,18 @@ import MyBackButton from '../components/MyBackButton'
 import MyTextInput from '../components/MyTextInput'
 import Title from '../components/Title'
 import AlertText from '../components/AlertText'
+import MyBackground from '../components/MyBackground'
 import { checkPasswordLevel } from '../utils/Tools'
 import Modal from "react-native-modal"
 import { aesEncrypt, sha1 } from '../utils/Aes'
 
 const styles = StyleSheet.create({
-    modalView:{
-        flex: 0 ,
-        backgroundColor:'white',
-        borderRadius:10,
+    modalView: {
+        flex: 0,
+        backgroundColor: 'white',
+        borderRadius: 10,
         alignItems: 'center',
-        paddingTop:10
+        paddingTop: 10
     }
 })
 
@@ -54,7 +55,7 @@ export default class Open extends React.Component {
     _keyboardWillShow(e) {
         let keyboardHeight = e.endCoordinates.height;
         this.setState({
-            keyBoardHeight:keyboardHeight
+            keyBoardHeight: keyboardHeight
         })
         this.handleKeybordMargin('up')
     }
@@ -62,7 +63,7 @@ export default class Open extends React.Component {
     _keyboardWillHide(e) {
         let keyboardHeight = e.endCoordinates.height;
         this.setState({
-            keyBoardHeight:keyboardHeight
+            keyBoardHeight: keyboardHeight
         })
         this.handleKeybordMargin('down')
     }
@@ -139,19 +140,19 @@ export default class Open extends React.Component {
     }
     Wallet = () => {
         const encrypt = aesEncrypt(this.props.mnemonic, sha1(this.state.password))
-        global.wallet = { 
-            'encrypt':encrypt,
-            accounts:[{address:'0x0',balance:0}], 
-            'currentAccount':0,
-            'networkId':0
+        global.wallet = {
+            'encrypt': encrypt,
+            accounts: [{ address: '0x0', balance: 0 }],
+            'currentAccount': 0,
+            'networkId': 0
         }
         global.storage.save({
             key: 'wallet',
-            data: { 
-                'encrypt':encrypt,
-                accounts:[{address:'0x0',balance:0}], 
-                'currentAccount':0,
-                'networkId':0
+            data: {
+                'encrypt': encrypt,
+                accounts: [{ address: '0x0', balance: 0 }],
+                'currentAccount': 0,
+                'networkId': 0
             },
             expires: null,
         })
@@ -160,70 +161,76 @@ export default class Open extends React.Component {
     render() {
         const { navigate } = this.props.navigation
         return (
-            <View style={{ flexDirection: 'column' }}>
-                <MyBackButton
-                    onPress={() => this.props.turnPage(-1)}
-                />
-                <Animated.View style={{
-                    marginLeft: this.state.shakeLeft,
-                    marginTop: this.state.top
-                }}>
-                    <MyCard
-                        screenWidth={global.screenWidth * 0.9}
-                        margin={0}
-                        top={0}
-                        padding={10}
-                    >
-                        <Title titleText='输入密码' />
-                        <MyTextInput
-                            handleTypePassword={(password) => this.handleTypePassword(password)}
-                            handleKeybordMargin={() => { }}
-                            borderColor={this.state.borderColor}
-                            borderColorActive='#390'
-                            placeholder='输入密码'
-                        />
-                        <MyTextInput
-                            handleTypePassword={(password) => this.handleTypePasswordConfirm(password)}
-                            handleKeybordMargin={() => { }}
-                            borderColor={this.state.borderColor}
-                            borderColorActive='#390'
-                            placeholder='确认密码'
-                        />
-                        <AlertText
-                            alertText={this.state.alertText}
-                            textAlign='left'
-                        />
-                        <MyButton
-                            screenWidth={global.screenWidth * 0.9 - 20}
-                            text='完成'
-                            height={50}
-                            backgroundColor='#6f0'
-                            backgroundDarker='#390'
-                            textColor='#000'
-                            borderColor='#390'
-                            borderWidth={1}
-                            disabled={this.state.buttonDisable}
-                            onPress={() => { this.handleSubmit() }}
-                        />
-                    </MyCard>
-                </Animated.View>
-                <Modal isVisible={this.state.isModalVisible}>
-                    <View style={styles.modalView}>
-                        <Title titleText='成功了' subText='进入钱包' />
-                        <MyButton
-                            screenWidth={global.screenWidth * 0.9 - 20}
-                            text='OK'
-                            height={50}
-                            backgroundColor='#6f0'
-                            backgroundDarker='#390'
-                            textColor='#000'
-                            borderColor='#390'
-                            borderWidth={1}
-                            onPress={() => navigate('WelcomeNav',{page:1})}
-                        />
-                    </View>
-                </Modal>
-            </View>
+            <MyBackground>
+                <View style={{ flexDirection: 'column' }}>
+                    <MyBackButton
+                        onPress={() => {navigate('WalletFrame')}}
+                    />
+                    <Animated.View style={{
+                        marginLeft: this.state.shakeLeft,
+                        marginTop: this.state.top
+                    }}>
+                        <MyCard
+                            screenWidth={global.screenWidth * 0.9}
+                            margin={0}
+                            top={0}
+                            padding={10}
+                        >
+                            <Title titleText='发送交易' />
+                            <MyTextInput
+                                handleTypePassword={(password) => this.handleTypePassword(password)}
+                                handleKeybordMargin={() => { }}
+                                borderColor={this.state.borderColor}
+                                borderColorActive='#390'
+                                placeholder='目标地址'
+                                keyboardType='ascii-capable'
+                                secureTextEntry={false}
+                            />
+                            <MyTextInput
+                                handleTypePassword={(password) => this.handleTypePassword(password)}
+                                handleKeybordMargin={() => { }}
+                                borderColor={this.state.borderColor}
+                                borderColorActive='#390'
+                                placeholder='输入数额'
+                                keyboardType='numeric'
+                                secureTextEntry={false}
+                            />
+                            <AlertText
+                                alertText={this.state.alertText}
+                                textAlign='left'
+                            />
+                            <MyButton
+                                screenWidth={global.screenWidth * 0.9 - 20}
+                                text='完成'
+                                height={50}
+                                backgroundColor='#6f0'
+                                backgroundDarker='#390'
+                                textColor='#000'
+                                borderColor='#390'
+                                borderWidth={1}
+                                disabled={this.state.buttonDisable}
+                                onPress={() => { this.handleSubmit() }}
+                            />
+                        </MyCard>
+                    </Animated.View>
+                    <Modal isVisible={this.state.isModalVisible}>
+                        <View style={styles.modalView}>
+                            <Title titleText='成功了' subText='进入钱包' />
+                            <MyButton
+                                screenWidth={global.screenWidth * 0.9 - 20}
+                                text='OK'
+                                height={50}
+                                backgroundColor='#6f0'
+                                backgroundDarker='#390'
+                                textColor='#000'
+                                borderColor='#390'
+                                borderWidth={1}
+                                onPress={() => navigate('WelcomeNav', { page: 1 })}
+                            />
+                        </View>
+                    </Modal>
+                </View>
+            </MyBackground>
         )
     }
 }
