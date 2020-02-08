@@ -120,6 +120,7 @@ export default function BalanceCard(props) {
             <Text style={styles.balanceAddress}>{currentAddress}</Text>
             <CardBottom
                 navigation={props.navigation}
+                balance={balance}
             />
         </MyCard>
     )

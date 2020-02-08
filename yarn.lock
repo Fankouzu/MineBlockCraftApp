@@ -4103,6 +4103,13 @@ is-directory@^0.3.1:
   resolved "https://registry.yarnpkg.com/is-directory/-/is-directory-0.3.1.tgz#61339b6f2475fc772fd9c9d83f5c8575dc154ae1"
   integrity sha1-YTObbyR1/Hcv2cnYP1yFddwVSuE=
 
+is-ethereum-address@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/is-ethereum-address/-/is-ethereum-address-1.0.2.tgz#536210405b232434c151d7603237c7167f54435f"
+  integrity sha512-rzH8mw8rOu33OqpGXrunlhjQyNabX1TdO1PD30LykWR/alGeI1eNEpgFVjsO0WrQOpJ3VkpHVgSbzzryqg0voA==
+  dependencies:
+    keccak "^1.4.0"
+
 is-extendable@^0.1.0, is-extendable@^0.1.1:
   version "0.1.1"
   resolved "https://registry.yarnpkg.com/is-extendable/-/is-extendable-0.1.1.tgz#62b110e289a471418e3ec36a617d472e301dfc89"
@@ -6272,7 +6279,7 @@ prompts@^2.0.1:
     kleur "^3.0.3"
     sisteransi "^1.0.3"
 
-prop-types@^15.5.10, prop-types@^15.5.7, prop-types@^15.5.8, prop-types@^15.6.2, prop-types@^15.7.2:
+prop-types@^15.5.10, prop-types@^15.5.7, prop-types@^15.5.8, prop-types@^15.5.9, prop-types@^15.6.2, prop-types@^15.7.2:
   version "15.7.2"
   resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.7.2.tgz#52c41e75b8c87e72b9d9360e0206b99dcbffa6c5"
   integrity sha512-8QQikdH7//R2vurIJSutZ1smHYTcLpRWEOlHnzcWHmBYrOGUysKwSsrC89BCiFj3CbrfJ/nXFdJepOVrY1GCHQ==
@@ -6496,6 +6503,13 @@ react-native-material-ripple@^0.9.1:
   dependencies:
     prop-types "^15.5.10"
 
+react-native-material-textfield@^0.16.1:
+  version "0.16.1"
+  resolved "https://registry.yarnpkg.com/react-native-material-textfield/-/react-native-material-textfield-0.16.1.tgz#649e71344bb8a7225d5cea7c7b51cd38bcb2bbfc"
+  integrity sha512-pcV/ic3i6vYEODS7pvAMUYJ+evkzIB8cjXtSzkab9rBtYNGRpAlM0Yp8QNnjZ7foZqkj9Ynav0nguWcuJST10A==
+  dependencies:
+    prop-types "^15.5.9"
+
 react-native-material-ui@^1.30.1:
   version "1.30.1"
   resolved "https://registry.yarnpkg.com/react-native-material-ui/-/react-native-material-ui-1.30.1.tgz#42b44f1f4dedeeb4f599c64b9f0adfde5a2ea5ea"
@@ -6506,11 +6520,6 @@ react-native-material-ui@^1.30.1:
     lodash.merge "^4.0.0"
     prop-types "^15.5.10"
     react-native-material-design-styles "^0.2.6"
-
-react-native-md-textinput@^2.0.4:
-  version "2.0.4"
-  resolved "https://registry.yarnpkg.com/react-native-md-textinput/-/react-native-md-textinput-2.0.4.tgz#9f81cff16ceba0bc595fc58ed1239bd13a4023a8"
-  integrity sha1-n4HP8WzroLxZX8WO0SOb0TpAI6g=
 
 react-native-modal@^11.5.3:
   version "11.5.3"
@@ -6600,6 +6609,11 @@ react-native-svg@^11.0.1:
   dependencies:
     css-select "^2.1.0"
     css-tree "^1.0.0-alpha.39"
+
+react-native-switch-selector@^2.0.3:
+  version "2.0.3"
+  resolved "https://registry.yarnpkg.com/react-native-switch-selector/-/react-native-switch-selector-2.0.3.tgz#7ef296afe0988fd5baa38305bd78c4fcdc20bd72"
+  integrity sha512-p/c8+VBo06po+y6dHZdSBZOe5HulkFI3ltT99s7/byT9hPKT9M9fYFuUYm6SCH9lyPR0o8bZBO3Jewa0ahra2A==
 
 react-native-tab-view@^2.11.0:
   version "2.11.0"

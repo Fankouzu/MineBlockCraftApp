@@ -9,7 +9,7 @@ const styles = StyleSheet.create({
         color: '#eee',
         marginLeft: 2,
         fontFamily: 'BigYoungMediumGB2.0',
-        letterSpacing:3
+        letterSpacing: 3
     },
     ListButton: {
         height: 40,
@@ -17,8 +17,8 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         flexDirection: 'row',
         alignItems: 'center',
-        borderRightWidth:0.5,
-        borderRightColor:'#fff',
+        borderRightWidth: 0.5,
+        borderRightColor: '#fff',
         flex: 1
     }
 })
@@ -28,12 +28,12 @@ export default function CardButton(props) {
         <Ripple
             rippleColor={props.rippleColor}
             rippleOpacity={0.6}
-            style={[styles.ListButton,props.rippleStyle]}
+            style={[styles.ListButton, props.rippleStyle]}
             onPress={props.onPress}
         >
             <Text style={[styles.ListButtonText, { color: props.textColor }]}>
                 {props.text}
-                    </Text>
+            </Text>
             <Icon name={props.iconName} size={16} color={props.iconColor} />
         </Ripple>
     )

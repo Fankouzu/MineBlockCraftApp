@@ -91,6 +91,6 @@ MyButton.defaultProps = {
 }
 const styles = StyleSheet.create({
     buttonText: {
-        lineHeight: 30,
+        lineHeight: 30
     },
 })

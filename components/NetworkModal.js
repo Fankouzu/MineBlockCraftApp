@@ -39,7 +39,8 @@ const styles = StyleSheet.create({
         backgroundColor: 'rgba(0,0,0,0.5)',
         borderRadius: 10,
         alignItems: 'center',
-        paddingTop: 10
+        paddingTop: 10,
+        overflow:'hidden'
     },
     modalTitle: {
         fontSize: 25,

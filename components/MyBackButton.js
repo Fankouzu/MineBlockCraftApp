@@ -1,9 +1,18 @@
 import React from 'react'
 import MyButton from './MyButton'
 import PropTypes from 'prop-types'
+import {
+    StyleSheet,
+    View,
+    Text
+} from 'react-native'
 
 export default function MyBackButton(props) {
     return (
+        <View style={{
+            width:global.screenWidth,
+            height:60
+            }}>
         <MyButton
             text='<'
             screenWidth={25}
@@ -16,10 +25,24 @@ export default function MyBackButton(props) {
             borderWidth={1}
             raiseLevel={2}
             borderRadius={25}
-            style={{ margin: global.screenWidth * 0.05 }}
+            style={{ 
+                top: global.screenWidth * 0.05,
+                left: global.screenWidth * 0.05,
+                position:'absolute'
+            }}
             textSize={10}
             onPress={props.onPress}
         />
+        <Text
+            style={{
+                textAlign:'center',
+                lineHeight:60,
+                fontSize:30,
+                fontFamily: 'BigYoungMediumGB2.0',
+                color:'#333'
+            }}
+        >{props.text}</Text>
+        </View>
     )
 }
 MyBackButton.propTypes = {

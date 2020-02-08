@@ -2,20 +2,24 @@ import React from 'react'
 import {
     StyleSheet,
     View,
-    Keyboard,
-    Animated
+    Clipboard,
+    Animated,
+    Text
 } from 'react-native'
+import { TextField } from 'react-native-material-textfield'
+import SwitchSelector from "react-native-switch-selector"
+import isEthereumAddress from 'is-ethereum-address'
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import MyCard from '../components/MyCard'
 import MyButton from '../components/MyButton'
 import MyBackButton from '../components/MyBackButton'
-import MyTextInput from '../components/MyTextInput'
-import Title from '../components/Title'
-import AlertText from '../components/AlertText'
 import MyBackground from '../components/MyBackground'
-import { checkPasswordLevel } from '../utils/Tools'
-import Modal from "react-native-modal"
-import { aesEncrypt, sha1 } from '../utils/Aes'
 
+const options = [
+    { label: "01:00", value: "1" },
+    { label: "01:30", value: "1.5" },
+    { label: "02:00", value: "2" }
+]
 const styles = StyleSheet.create({
     modalView: {
         flex: 0,
@@ -23,86 +27,75 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         alignItems: 'center',
         paddingTop: 10
+    },
+    legendLabel: {
+        color: '#666'
     }
 })
 
-var alertText = ['⚠️密码只保存在你的手机记忆中，不会发送到服务器', '⚠️密码一旦丢失请通过助记词找回钱包']
-export default class Open extends React.Component {
+export default class Send extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            shakeLeft: new Animated.Value(global.screenWidth * 0.05),
-            top: new Animated.Value(0),
+            shakeLeft: new Animated.Value(0),
             borderColor: '#999',
-            password: '',
-            passwordConfirm: '',
-            alertText: alertText,
-            buttonDisable: false,
+            toAddress: '',
+            amount: 0,
+            balance: 0,
             isModalVisible: false
         }
     }
     componentDidMount() {
-        this._keyboardWillShowSubscription = Keyboard.addListener('keyboardDidShow', (e) => this._keyboardWillShow(e));
-        this._keyboardWillHideSubscription = Keyboard.addListener('keyboardDidHide', (e) => this._keyboardWillHide(e));
+        this._didFocusSubscription = this.props.navigation.addListener('didFocus',
+            () => {
+                const balance = this.props.navigation.getParam('balance', 0)
+                this.setState({balance:balance })
+            }
+        )
     }
     componentWillUnmount = () => {
-        this._keyboardWillShowSubscription.remove();
-        this._keyboardWillHideSubscription.remove();
         this.setState = (state, callback) => {
             return
         }
+        this._didFocusSubscription.remove()
     }
-    _keyboardWillShow(e) {
-        let keyboardHeight = e.endCoordinates.height;
-        this.setState({
-            keyBoardHeight: keyboardHeight
+    typeAddress = (toAddress) => {
+        this.setState({ toAddress: toAddress })
+    }
+    typeAmount = (amount) => {
+        this.setState({ amount: amount })
+    }
+    onFocus = () => {
+        Clipboard.getString().then((content)=>{
+            if (content !== '') {
+                if (isEthereumAddress(content)){
+                    this.setState({toAddress: content})
+                }
+            }
         })
-        this.handleKeybordMargin('up')
-    }
-
-    _keyboardWillHide(e) {
-        let keyboardHeight = e.endCoordinates.height;
-        this.setState({
-            keyBoardHeight: keyboardHeight
-        })
-        this.handleKeybordMargin('down')
-    }
-    handleTypePassword = (password) => {
-        this.setState({ password: password })
-    }
-    handleTypePasswordConfirm = (passwordConfirm) => {
-        this.setState({ passwordConfirm: passwordConfirm })
-    }
-    handleKeybordMargin = (action) => {
-        Animated.timing(this.state.top, {
-            toValue: action === 'up' ? -50 : 0,
-            duration: 200
-        }).start()
     }
     shake = () => {
         var duration = 100
         Animated.sequence([
             Animated.timing(this.state.shakeLeft, {
-                toValue: global.screenWidth * 0.02,
-                duration: duration
-            }),
-            Animated.timing(this.state.shakeLeft, {
-                toValue: global.screenWidth * 0.08,
-                duration: duration
-            }),
-            Animated.timing(this.state.shakeLeft, {
                 toValue: global.screenWidth * 0.03,
                 duration: duration
             }),
             Animated.timing(this.state.shakeLeft, {
-                toValue: global.screenWidth * 0.05,
+                toValue: global.screenWidth * -0.05,
+                duration: duration
+            }),
+            Animated.timing(this.state.shakeLeft, {
+                toValue: global.screenWidth * 0.02,
+                duration: duration
+            }),
+            Animated.timing(this.state.shakeLeft, {
+                toValue: 0,
                 duration: duration
             })
         ]).start(() => {
             setTimeout(() => {
                 this.setState({
-                    borderColor: '#999',
-                    alertText: alertText,
                     buttonDisable: false
                 })
             }, 3000)
@@ -110,53 +103,7 @@ export default class Open extends React.Component {
     }
 
     handleSubmit = () => {
-        const passwordLevel = 3
-        const passwordTest = checkPasswordLevel(this.state.password, passwordLevel)
-        if (this.state.password !== this.state.passwordConfirm) {
-            this.shake()
-            this.setState({
-                borderColor: '#f30',
-                alertText: ['⚠️密码输入不相同'],
-                buttonDisable: true
-            })
-        } else {
-            if (passwordTest < passwordLevel) {
-                this.shake()
-                this.setState({
-                    borderColor: '#f30',
-                    alertText: ['⚠️密码需要最少8位，并且包含数字、大写、小写字母'],
-                    buttonDisable: true
-                })
-            } else {
-                this.Wallet()
-                this.setState({
-                    borderColor: '#999',
-                    alertText: alertText,
-                    buttonDisable: false
-                })
-            }
-        }
-
-    }
-    Wallet = () => {
-        const encrypt = aesEncrypt(this.props.mnemonic, sha1(this.state.password))
-        global.wallet = {
-            'encrypt': encrypt,
-            accounts: [{ address: '0x0', balance: 0 }],
-            'currentAccount': 0,
-            'networkId': 0
-        }
-        global.storage.save({
-            key: 'wallet',
-            data: {
-                'encrypt': encrypt,
-                accounts: [{ address: '0x0', balance: 0 }],
-                'currentAccount': 0,
-                'networkId': 0
-            },
-            expires: null,
-        })
-        this.setState({ isModalVisible: true })
+        
     }
     render() {
         const { navigate } = this.props.navigation
@@ -164,43 +111,65 @@ export default class Open extends React.Component {
             <MyBackground>
                 <View style={{ flexDirection: 'column' }}>
                     <MyBackButton
-                        onPress={() => {navigate('WalletFrame')}}
+                        onPress={() => { navigate('WalletFrame') }}
+                        text='发送交易'
                     />
                     <Animated.View style={{
                         marginLeft: this.state.shakeLeft,
-                        marginTop: this.state.top
                     }}>
                         <MyCard
-                            screenWidth={global.screenWidth * 0.9}
+                            screenWidth={global.screenWidth}
                             margin={0}
                             top={0}
                             padding={10}
+                            style={{ borderWidth: 0, elevation: 1, paddingTop: 0 }}
                         >
-                            <Title titleText='发送交易' />
-                            <MyTextInput
-                                handleTypePassword={(password) => this.handleTypePassword(password)}
-                                handleKeybordMargin={() => { }}
-                                borderColor={this.state.borderColor}
-                                borderColorActive='#390'
-                                placeholder='目标地址'
-                                keyboardType='ascii-capable'
-                                secureTextEntry={false}
-                            />
-                            <MyTextInput
-                                handleTypePassword={(password) => this.handleTypePassword(password)}
-                                handleKeybordMargin={() => { }}
-                                borderColor={this.state.borderColor}
-                                borderColorActive='#390'
-                                placeholder='输入数额'
-                                keyboardType='numeric'
-                                secureTextEntry={false}
-                            />
-                            <AlertText
-                                alertText={this.state.alertText}
-                                textAlign='left'
+                            <View style={styles.col}>
+                                <TextField
+                                    label='目标地址'
+                                    baseColor='#666'
+                                    tintColor='#390'
+                                    keyboardType='default'
+                                    onChangeText={this.typeAddress}
+                                    labelTextStyle={{ height: 24, padding: 4 }}
+                                    value={this.state.toAddress}
+                                    fontSize={18}
+                                    onFocus={this.onFocus}
+                                    renderRightAccessory={()=>{return(
+                                        <Icon name='qrcode-scan' size={16} color='#666'
+                                            style={{marginRight:5}}
+                                        />
+                                    )}}
+                                />
+                            </View>
+
+                            <View style={styles.col}>
+                                <TextField
+                                    label='发送数量'
+                                    baseColor='#666'
+                                    tintColor='#390'
+                                    keyboardType='numeric'
+                                    onChangeText={this.typeAmount}
+                                    labelTextStyle={{ height: 24, padding: 4 }}
+                                    fontSize={18}
+                                />
+                                <Text style={styles.legendLabel}>余额：{this.state.balance}Ether</Text>
+                            </View>
+                            <SwitchSelector
+                                options={options}
+                                initial={0}
+                                onPress={value => this.setState({ gender: value })}
+                                textColor='#333'
+                                selectedColor='#fff'
+                                buttonColor='#333'
+                                borderColor='#333'
+                                borderRadius={15}
+                                height={30}
+                                selectedTextContainerStyle={{backgroundColor:'#666',borderRadius:15}}
+                                style={{borderWidth:0.5,borderRadius:15,marginBottom:20,marginTop:20}}
                             />
                             <MyButton
-                                screenWidth={global.screenWidth * 0.9 - 20}
+                                screenWidth={global.screenWidth - 20}
                                 text='完成'
                                 height={50}
                                 backgroundColor='#6f0'
@@ -213,22 +182,6 @@ export default class Open extends React.Component {
                             />
                         </MyCard>
                     </Animated.View>
-                    <Modal isVisible={this.state.isModalVisible}>
-                        <View style={styles.modalView}>
-                            <Title titleText='成功了' subText='进入钱包' />
-                            <MyButton
-                                screenWidth={global.screenWidth * 0.9 - 20}
-                                text='OK'
-                                height={50}
-                                backgroundColor='#6f0'
-                                backgroundDarker='#390'
-                                textColor='#000'
-                                borderColor='#390'
-                                borderWidth={1}
-                                onPress={() => navigate('WelcomeNav', { page: 1 })}
-                            />
-                        </View>
-                    </Modal>
                 </View>
             </MyBackground>
         )

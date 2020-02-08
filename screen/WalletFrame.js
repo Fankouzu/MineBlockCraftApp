@@ -1,11 +1,10 @@
 import React, { Component } from 'react'
 import Drawer from 'react-native-drawer'
-import { Text } from 'react-native'
 import WalletMain from '../screen/WalletMain'
 import AccountDrawer from '../screen/AccountDrawer'
 import PasswordModal from '../components/PasswordModal'
 
-export default class MyDrawer extends Component {
+export default class WalletFrame extends Component {
     constructor(props) {
         super(props)
         this.state = {
