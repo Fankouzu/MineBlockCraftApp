@@ -8,13 +8,16 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 
 export default function GasView(props) {
     const [myGasfee, setMyGasfee] = React.useState(0)
+    const [myGasfeeJson, setMyGasfeeJson] = React.useState({})
     const [gasusd, setGasusd] = React.useState(props.ethprice)
 
 
     React.useEffect(() => {
         gasPrice(networks[global.wallet.networkId].nameEN).then(function (res) {
             //setMyGasfee(calculateGas(res.result))
-            setMyGas(res * 1000000000)
+            console.log(res.average)
+            setMyGasfeeJson(res)
+            setMyGas(res.average)
         })
     }, [])
     const [advance, setAdvance] = React.useState(false)
@@ -77,9 +80,9 @@ export default function GasView(props) {
                         style={{ marginRight: 5,marginVertical:15 }}
                     />
                     <Slider
-                        minimumValue={0}
-                        maximumValue={4}
-                        value={myGasfee}
+                        minimumValue={myGasfeeJson.safeLow}
+                        maximumValue={myGasfeeJson.fastest}
+                        value={myGasfeeJson.average}
                         step={0.01}
                         minimumTrackTintColor='#390'
                         trackStyle={{ backgroundColor: '#ddd' }}

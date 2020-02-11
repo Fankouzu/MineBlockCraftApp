@@ -98,7 +98,7 @@ export default function SendInput(props) {
                 placeholder='0'
                 tintColor='#390'
                 keyboardType='numeric'
-                inputContainerStyle={styles.inputContainerStyle}
+                inputContainerStyle={[styles.inputContainerStyle,{marginBottom:10}]}
                 fontSize={18}
                 animationDuration={100}
                 renderRightAccessory={() => {
@@ -131,7 +131,8 @@ const styles = StyleSheet.create({
         paddingTop: 5,
     },
     inputContainerStyle: {
-        height: 60, paddingLeft: 5
+        height: 60, 
+        paddingLeft: 5
     },
     balancePrice: {
         color: '#666',

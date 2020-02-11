@@ -1,5 +1,5 @@
 import { aesDecrypt } from './Aes'
-import {ethers} from 'ethers'
+import { ethers } from 'ethers'
 import bip39 from 'react-native-bip39'
 const HDWallet = require('ethereum-hdwallet')
 const isBuffer = require('is-buffer');
@@ -25,24 +25,24 @@ export function lngDetector(word) {
 
 var chinese_simplified = require('../assets/chinese_simplified.json')
 export function validateMnemonic(mnemonic) {
-    if (mnemonic !== ''){
-    if (lngDetector(mnemonic)) {
+    if (mnemonic !== '') {
+        if (lngDetector(mnemonic)) {
             return bip39.validateMnemonic(mnemonic, bip39.wordlists.EN)
         } else {
             return bip39.validateMnemonic(mnemonic.replace(/ /g, '').split('').join(' '), chinese_simplified)
         }
-    }else{
+    } else {
         return false
     }
 }
 export function mnemonicToEntropy(mnemonic) {
-    if (mnemonic !== ''){
-    if (lngDetector(mnemonic)) {
+    if (mnemonic !== '') {
+        if (lngDetector(mnemonic)) {
             return bip39.mnemonicToEntropy(mnemonic, bip39.wordlists.EN)
         } else {
             return bip39.mnemonicToEntropy(mnemonic.replace(/ /g, '').split('').join(' '), chinese_simplified)
         }
-    }else{
+    } else {
         return false
     }
 }
@@ -59,7 +59,7 @@ export function randMnemonic(mnemonic) {
     randMnemonic = [...newArr, ...randMnemonic]
     return randMnemonic
 }
-export function validatePasswordMnemonic(password,encrypt) {
+export function validatePasswordMnemonic(password, encrypt) {
     if (!password || !encrypt) {
         console.log("encrypt || password Error!")
         return false
@@ -70,89 +70,94 @@ export function validatePasswordMnemonic(password,encrypt) {
         if (!bool) {
             console.log("Mnemonic Error!")
             return false
-        }else{
+        } else {
             return mnemonic
         }
     }
 }
 
-export function getAccounts(mnemonic){
+export function getAccounts(mnemonic) {
     const accounts = []
     for (let i = 0; i < 10; i++) {
         accounts[i] = {
-            address : mnemonicToAddress(mnemonic, i),
-            balance : 0
+            address: mnemonicToAddress(mnemonic, i),
+            balance: 0
         }
     }
     return accounts
 }
-export async function getTxList(networkName,address){
-    const ethapi = require('etherscan-api-cn').init('MIQDQDRUD5XENBPYQ8HAB3GJP2Z6T8ZZ1J',networkName,3000)
-    try{
-        let txlist_ = await ethapi.account.txlist(address,5000000, 'latest')
+export async function getTxList(networkName, address) {
+    const ethapi = require('etherscan-api-cn').init('MIQDQDRUD5XENBPYQ8HAB3GJP2Z6T8ZZ1J', networkName, 3000)
+    try {
+        let txlist_ = await ethapi.account.txlist(address, 5000000, 'latest')
         let txlist = txlist_.result.reverse()
-        
-        if(txlist.length>0){
-            for(var i=0;i<txlist.length;i++){
-                if(txlist[i].to === ''){
+
+        if (txlist.length > 0) {
+            for (var i = 0; i < txlist.length; i++) {
+                if (txlist[i].to === '') {
                     txlist[i].inputData = '部署合约'
-                }else if(txlist[i].to === address){
+                } else if (txlist[i].to === address) {
                     txlist[i].inputData = '存入'
-                }else {
-                    if(txlist[i].input === '0x'){
+                } else {
+                    if (txlist[i].input === '0x') {
                         txlist[i].inputData = '发送'
                         txlist[i].value = txlist[i].value * -1
-                    }else{
+                    } else {
                         txlist[i].inputData = '合约调用'
                         txlist[i].value = txlist[i].value > 0 ? txlist[i].value * -1 : txlist[i].value
                     }
                 }
-                txlist[i].value = Math.round(txlist[i].value/100000000000000) / 10000 + `ETH`
-                txlist[i].gasFee=Math.round((txlist[i].gasUsed * txlist[i].gasPrice / 1000000000000000000)*100000)/100000
+                txlist[i].value = Math.round(txlist[i].value / 100000000000000) / 10000 + `ETH`
+                txlist[i].gasFee = Math.round((txlist[i].gasUsed * txlist[i].gasPrice / 1000000000000000000) * 100000) / 100000
             }
             return txlist
-        }else{
+        } else {
             return []
         }
-    }catch(e){
+    } catch (e) {
         console.log("TCL: getTxList -> e", e)
         return []
     }
 }
 const gasLimit = 21000
-export async function gasPrice(networkName){
-    let infuraProvider = new ethers.providers.InfuraProvider(networkName)
-    let gasPrice = await infuraProvider.getGasPrice()
-    return ethers.utils.formatEther(gasPrice)
-    // const ethapi = require('etherscan-api-cn').init('MIQDQDRUD5XENBPYQ8HAB3GJP2Z6T8ZZ1J',networkName,3000)
-    // let gasPrice = await ethapi.proxy.eth_gasPrice()
+export function gasPrice(networkName) {
+    return new Promise((resolve, reject) => {
+        fetch('https://ethgasstation.info/json/ethgasAPI.json')
+            .then((result) => {
+                // 网络请求成功，处理请求到的数据
+                resolve(result.json())
+            })
+            .catch((error) => {
+                // 网络请求失败，处理错误信息
+                reject(error)
+            })
+    })
 
-    // return gasPrice
 }
-export async function ethprice(){
-    const ethapi = require('etherscan-api-cn').init('MIQDQDRUD5XENBPYQ8HAB3GJP2Z6T8ZZ1J','mainnet',3000)
+export async function ethprice() {
+    const ethapi = require('etherscan-api-cn').init('MIQDQDRUD5XENBPYQ8HAB3GJP2Z6T8ZZ1J', 'mainnet', 3000)
     let ethprice = await ethapi.stats.ethprice()
     return ethprice
 }
-export async function sendTransaction(to,networkName,mnemonic,currentAccount,value,myGasfee){
+export async function sendTransaction(to, networkName, mnemonic, currentAccount, value, myGasfee) {
     let infuraProvider = new ethers.providers.InfuraProvider(networkName)
-    let privateKey = mnemonicToPrivate(mnemonic,currentAccount)
+    let privateKey = mnemonicToPrivate(mnemonic, currentAccount)
     let wallet = new ethers.Wallet(privateKey, infuraProvider)
     let code = await infuraProvider.getCode(to)
-    if (code !== '0x') { throw new Error('目标地址不能是合约地址')}
-    
-    console.log("TCL: senTransaction -> myGasfee", myGasfee*1000000000000000000 / gasLimit)
-    let gasPrice = ethers.utils.bigNumberify(myGasfee*1000000000000000000 / gasLimit)
+    if (code !== '0x') { throw new Error('目标地址不能是合约地址') }
+
+    console.log("TCL: senTransaction -> myGasfee", myGasfee * 1000000000000000000 / gasLimit)
+    let gasPrice = ethers.utils.bigNumberify(myGasfee * 1000000000000000000 / gasLimit)
 
     let tx = await wallet.sendTransaction({
         gasLimit: gasLimit,
         gasPrice: gasPrice,
         to: to,
-        value: ethers.utils.bigNumberify(value*1000000000000000000)
+        value: ethers.utils.bigNumberify(value * 1000000000000000000)
     })
     return tx
 }
-export async function getBalance(address,networkName){
+export async function getBalance(address, networkName) {
     let infuraProvider = new ethers.providers.InfuraProvider(networkName)
     let balanceBN = await infuraProvider.getBalance(address)
     let balance = ethers.utils.formatEther(balanceBN)
@@ -160,7 +165,7 @@ export async function getBalance(address,networkName){
 }
 
 
-export function checkPasswordLevel(value, level){
+export function checkPasswordLevel(value, level) {
     // 0： 表示第一个级别 1：表示第二个级别 2：表示第三个级别
     // 3： 表示第四个级别 4：表示第五个级别
     var arr = [], array = [1, 2, 3, 4];
