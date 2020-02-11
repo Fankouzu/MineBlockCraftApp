@@ -121,6 +121,7 @@ export default function BalanceCard(props) {
             <CardBottom
                 navigation={props.navigation}
                 balance={balance}
+                networkName={networks[networkId].nameEN}
             />
         </MyCard>
     )

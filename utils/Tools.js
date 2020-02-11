@@ -120,10 +120,19 @@ export async function getTxList(networkName,address){
     }
 }
 const gasLimit = 21000
-export async function getGasfee(networkName){
+export async function gasPrice(networkName){
     let infuraProvider = new ethers.providers.InfuraProvider(networkName)
     let gasPrice = await infuraProvider.getGasPrice()
-    return ethers.utils.formatEther(gasPrice)*gasLimit
+    return ethers.utils.formatEther(gasPrice)
+    // const ethapi = require('etherscan-api-cn').init('MIQDQDRUD5XENBPYQ8HAB3GJP2Z6T8ZZ1J',networkName,3000)
+    // let gasPrice = await ethapi.proxy.eth_gasPrice()
+
+    // return gasPrice
+}
+export async function ethprice(){
+    const ethapi = require('etherscan-api-cn').init('MIQDQDRUD5XENBPYQ8HAB3GJP2Z6T8ZZ1J','mainnet',3000)
+    let ethprice = await ethapi.stats.ethprice()
+    return ethprice
 }
 export async function sendTransaction(to,networkName,mnemonic,currentAccount,value,myGasfee){
     let infuraProvider = new ethers.providers.InfuraProvider(networkName)

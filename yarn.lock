@@ -1009,6 +1009,11 @@
   dependencies:
     "@react-navigation/core" "^5.0.0"
 
+"@rn-components-kit/switch@^1.0.1":
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/@rn-components-kit/switch/-/switch-1.0.1.tgz#dc56386aa93179614552dbd855228d5d0efe93e0"
+  integrity sha512-f+5ANbNrC5iV46W8XyHqyUUUP6OJvLdKN6ytk0RjYH7L05QW/jTM14VUOgUNfr64EtmgvpUBW0JAWN0r2BRbtw==
+
 "@tradle/react-native-http@^2.0.0":
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/@tradle/react-native-http/-/react-native-http-2.0.1.tgz#af19e240e1e580bfa249563924d1be472686f48b"
@@ -6279,7 +6284,7 @@ prompts@^2.0.1:
     kleur "^3.0.3"
     sisteransi "^1.0.3"
 
-prop-types@^15.5.10, prop-types@^15.5.7, prop-types@^15.5.8, prop-types@^15.5.9, prop-types@^15.6.2, prop-types@^15.7.2:
+prop-types@^15.5.10, prop-types@^15.5.6, prop-types@^15.5.7, prop-types@^15.5.8, prop-types@^15.5.9, prop-types@^15.6.2, prop-types@^15.7.2:
   version "15.7.2"
   resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.7.2.tgz#52c41e75b8c87e72b9d9360e0206b99dcbffa6c5"
   integrity sha512-8QQikdH7//R2vurIJSutZ1smHYTcLpRWEOlHnzcWHmBYrOGUysKwSsrC89BCiFj3CbrfJ/nXFdJepOVrY1GCHQ==
@@ -6418,7 +6423,7 @@ react-lifecycles-compat@^3.0.4:
   resolved "https://registry.yarnpkg.com/react-lifecycles-compat/-/react-lifecycles-compat-3.0.4.tgz#4f1a273afdfc8f3488a8c516bfda78f872352362"
   integrity sha512-fBASbA6LnOU9dOU2eW7aQ8xmYBSXUIWr+UmF9b1efZBazGNO+rcXT/icdKnYm2pTwcRylVUYwW7H1PHfLekVzA==
 
-react-native-animatable@1.3.3:
+react-native-animatable@1.3.3, react-native-animatable@^1.1.0:
   version "1.3.3"
   resolved "https://registry.yarnpkg.com/react-native-animatable/-/react-native-animatable-1.3.3.tgz#a13a4af8258e3bb14d0a9d839917e9bb9274ec8a"
   integrity sha512-2ckIxZQAsvWn25Ho+DK3d1mXIgj7tITkrS4pYDvx96WyOttSvzzFeQnM2od0+FUMzILbdHDsDEqZvnz1DYNQ1w==
@@ -6433,6 +6438,12 @@ react-native-bip39@^2.3.0:
     react-native-crypto "^2.0.1"
     react-native-randombytes "^2.2.0"
     unorm "^1.3.3"
+
+"react-native-camera@git+https://git@github.com/react-native-community/react-native-camera.git":
+  version "3.17.0"
+  resolved "git+https://git@github.com/react-native-community/react-native-camera.git#c683076a4810a8a0fec490683fb3c4a62d123868"
+  dependencies:
+    prop-types "^15.6.2"
 
 react-native-check-box@^2.1.7:
   version "2.1.7"
@@ -6456,6 +6467,13 @@ react-native-crypto@^2.0.1, react-native-crypto@^2.2.0:
     pbkdf2 "3.0.8"
     public-encrypt "^4.0.0"
     randomfill "^1.0.3"
+
+react-native-display@^1.0.8:
+  version "1.0.8"
+  resolved "https://registry.yarnpkg.com/react-native-display/-/react-native-display-1.0.8.tgz#e212d58faaafa75bd8a057d1e97381821c9bdafc"
+  integrity sha1-4hLVj6qvp1vYoFfR6XOBghyb2vw=
+  dependencies:
+    react-native-animatable "^1.1.0"
 
 react-native-drawer@^2.5.1:
   version "2.5.1"
@@ -6534,12 +6552,24 @@ react-native-os@^1.0.1:
   resolved "https://registry.yarnpkg.com/react-native-os/-/react-native-os-1.2.6.tgz#1bb16d78ccad1143972183a04f443cf1af9fbefa"
   integrity sha512-OlT+xQAcvkcnf7imgXiu+myMkqDt4xw2bP5SlVo19hEn5XHBkPMLX7dk3sSGxxncH/ToMDsf1KLyrPabNVtadA==
 
+react-native-permissions@^2.0.9:
+  version "2.0.9"
+  resolved "https://registry.yarnpkg.com/react-native-permissions/-/react-native-permissions-2.0.9.tgz#5eabdaa952dd099d14e3790af691f49ff2de0895"
+  integrity sha512-64F95x4Y1RqsQiPco+Qs+OAm3rKUTRfWDMpp1f0If9YfRXOxxVFJqf7mSlVvlSY4pZAhZgLVydOmA7aTTduPUw==
+
 react-native-progress@^4.0.3:
   version "4.0.3"
   resolved "https://registry.yarnpkg.com/react-native-progress/-/react-native-progress-4.0.3.tgz#0020a9ce9fa5cb14c7aac8f993b31f27a7ff2150"
   integrity sha512-UMjY9W82bU/NLJ2PxkQ3rZFHZPzVTwKowuOfO1bWEainuyjAXwlcZdyQnZxuqIgHrLkZpg9ppdu+g2mflT86ZQ==
   dependencies:
     "@react-native-community/art" "^1.0.3"
+    prop-types "^15.7.2"
+
+react-native-qrcode-scanner-view@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/react-native-qrcode-scanner-view/-/react-native-qrcode-scanner-view-2.0.0.tgz#327d3106a93bc297134393f11693977809801a2f"
+  integrity sha512-HIFsdkV8CsqmO0Hdxoaq/ZdWbfzz4Si+gG1zoXZNMT2SzArsNfgJxyP4/TAnkjglkday339MitSuQNjgQSheDA==
+  dependencies:
     prop-types "^15.7.2"
 
 react-native-randombytes@^2.2.0:
@@ -6593,6 +6623,13 @@ react-native-screens@^2.0.0-alpha.25:
   integrity sha512-IxKOqPxIWwyJhFOvfkxU/NSFzM5PRiyWWL8g0WCPozVU1KNEtJQp7j0sONkTLGQDkGwLbDu0kuGawT1zXMnE5A==
   dependencies:
     debounce "^1.2.0"
+
+react-native-slider@^0.11.0:
+  version "0.11.0"
+  resolved "https://registry.yarnpkg.com/react-native-slider/-/react-native-slider-0.11.0.tgz#b68a0bc43c8422b24cd57947cc5ac2bcdb58fadc"
+  integrity sha512-jV9K87eu9uWr0uJIyrSpBLnCKvVlOySC2wynq9TFCdV9oGgjt7Niq8Q1A8R8v+5GHsuBw/s8vEj1AAkkUi+u+w==
+  dependencies:
+    prop-types "^15.5.6"
 
 react-native-storage@^1.0.1:
   version "1.0.1"

@@ -2,56 +2,46 @@ import React from 'react'
 import {
     StyleSheet,
     View,
-    Clipboard,
     Animated,
     Text
 } from 'react-native'
-import { TextField } from 'react-native-material-textfield'
-import SwitchSelector from "react-native-switch-selector"
-import isEthereumAddress from 'is-ethereum-address'
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import MyCard from '../components/MyCard'
 import MyButton from '../components/MyButton'
 import MyBackButton from '../components/MyBackButton'
 import MyBackground from '../components/MyBackground'
+import Title from '../components/Title'
+import SendInput from '../components/SendInput'
+import GasView from '../components/GasView'
+import {ethprice} from '../utils/Tools'
 
-const options = [
-    { label: "01:00", value: "1" },
-    { label: "01:30", value: "1.5" },
-    { label: "02:00", value: "2" }
-]
 const styles = StyleSheet.create({
-    modalView: {
-        flex: 0,
-        backgroundColor: 'white',
-        borderRadius: 10,
-        alignItems: 'center',
-        paddingTop: 10
-    },
-    legendLabel: {
-        color: '#666'
-    }
+    
 })
-
 export default class Send extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            shakeLeft: new Animated.Value(0),
+            shakeLeft: new Animated.Value(global.screenWidth * 0.05),
             borderColor: '#999',
-            toAddress: '',
+            toAddress: this.props.navigation.getParam('toAddress', ''),
             amount: 0,
-            balance: 0,
-            isModalVisible: false
+            balance: this.props.navigation.getParam('balance', 0),
+            addressError: '',
+            myGasfee:0,
+            ethprice:0
         }
     }
     componentDidMount() {
         this._didFocusSubscription = this.props.navigation.addListener('didFocus',
             () => {
-                const balance = this.props.navigation.getParam('balance', 0)
-                this.setState({balance:balance })
+                const balance = this.props.navigation.getParam('balance', this.state.balance)
+                const toAddress = this.props.navigation.getParam('toAddress', this.state.toAddress)
+                this.setState({ balance: balance,toAddress:toAddress })
             }
         )
+        ethprice().then((res)=>{
+            this.setState({ethprice:res.result.ethusd})
+        })
     }
     componentWillUnmount = () => {
         this.setState = (state, callback) => {
@@ -59,38 +49,23 @@ export default class Send extends React.Component {
         }
         this._didFocusSubscription.remove()
     }
-    typeAddress = (toAddress) => {
-        this.setState({ toAddress: toAddress })
-    }
-    typeAmount = (amount) => {
-        this.setState({ amount: amount })
-    }
-    onFocus = () => {
-        Clipboard.getString().then((content)=>{
-            if (content !== '') {
-                if (isEthereumAddress(content)){
-                    this.setState({toAddress: content})
-                }
-            }
-        })
-    }
     shake = () => {
         var duration = 100
         Animated.sequence([
+            Animated.timing(this.state.shakeLeft, {
+                toValue: global.screenWidth * 0.08,
+                duration: duration
+            }),
             Animated.timing(this.state.shakeLeft, {
                 toValue: global.screenWidth * 0.03,
                 duration: duration
             }),
             Animated.timing(this.state.shakeLeft, {
-                toValue: global.screenWidth * -0.05,
+                toValue: global.screenWidth * 0.07,
                 duration: duration
             }),
             Animated.timing(this.state.shakeLeft, {
-                toValue: global.screenWidth * 0.02,
-                duration: duration
-            }),
-            Animated.timing(this.state.shakeLeft, {
-                toValue: 0,
+                toValue: global.screenWidth * 0.05,
                 duration: duration
             })
         ]).start(() => {
@@ -103,7 +78,6 @@ export default class Send extends React.Component {
     }
 
     handleSubmit = () => {
-        
     }
     render() {
         const { navigate } = this.props.navigation
@@ -112,64 +86,30 @@ export default class Send extends React.Component {
                 <View style={{ flexDirection: 'column' }}>
                     <MyBackButton
                         onPress={() => { navigate('WalletFrame') }}
-                        text='发送交易'
                     />
                     <Animated.View style={{
                         marginLeft: this.state.shakeLeft,
                     }}>
                         <MyCard
-                            screenWidth={global.screenWidth}
+                            screenWidth={global.screenWidth * 0.9}
                             margin={0}
                             top={0}
                             padding={10}
-                            style={{ borderWidth: 0, elevation: 1, paddingTop: 0 }}
                         >
-                            <View style={styles.col}>
-                                <TextField
-                                    label='目标地址'
-                                    baseColor='#666'
-                                    tintColor='#390'
-                                    keyboardType='default'
-                                    onChangeText={this.typeAddress}
-                                    labelTextStyle={{ height: 24, padding: 4 }}
-                                    value={this.state.toAddress}
-                                    fontSize={18}
-                                    onFocus={this.onFocus}
-                                    renderRightAccessory={()=>{return(
-                                        <Icon name='qrcode-scan' size={16} color='#666'
-                                            style={{marginRight:5}}
-                                        />
-                                    )}}
-                                />
-                            </View>
-
-                            <View style={styles.col}>
-                                <TextField
-                                    label='发送数量'
-                                    baseColor='#666'
-                                    tintColor='#390'
-                                    keyboardType='numeric'
-                                    onChangeText={this.typeAmount}
-                                    labelTextStyle={{ height: 24, padding: 4 }}
-                                    fontSize={18}
-                                />
-                                <Text style={styles.legendLabel}>余额：{this.state.balance}Ether</Text>
-                            </View>
-                            <SwitchSelector
-                                options={options}
-                                initial={0}
-                                onPress={value => this.setState({ gender: value })}
-                                textColor='#333'
-                                selectedColor='#fff'
-                                buttonColor='#333'
-                                borderColor='#333'
-                                borderRadius={15}
-                                height={30}
-                                selectedTextContainerStyle={{backgroundColor:'#666',borderRadius:15}}
-                                style={{borderWidth:0.5,borderRadius:15,marginBottom:20,marginTop:20}}
+                            <Title titleText='发送交易' />
+                            <SendInput 
+                                toAddress={this.state.toAddress}
+                                addressError={this.state.addressError}
+                                amount={this.state.amount}
+                                balance={this.state.balance}
+                                ethprice={this.state.ethprice}
+                                navigate={navigate}
+                            />
+                            <GasView 
+                                ethprice={this.state.ethprice}
                             />
                             <MyButton
-                                screenWidth={global.screenWidth - 20}
+                                screenWidth={global.screenWidth * 0.9 - 20}
                                 text='完成'
                                 height={50}
                                 backgroundColor='#6f0'

@@ -2,6 +2,7 @@ import { createAppContainer } from 'react-navigation'
 import { createStackNavigator } from 'react-navigation-stack'
 import WalletFrame from '../screen/WalletFrame'
 import Send from '../screen/Send'
+import QRCodeScan from '../screen/QRCodeScan'
 
 const AppNavigator = createStackNavigator(
     {
@@ -10,6 +11,9 @@ const AppNavigator = createStackNavigator(
         },
         Send: {
             screen: Send
+        },
+        QRCodeScan: {
+            screen: QRCodeScan
         }
     },
     {
