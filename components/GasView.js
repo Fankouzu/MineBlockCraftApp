@@ -6,27 +6,11 @@ import { Switch } from '@rn-components-kit/switch'
 import Slider from "react-native-slider"
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 
-function MySlider(props){
-    console.log(props)
-    return(
-        <Slider
-                    minimumValue={0}
-                    maximumValue={4}
-                    value={props.myGasfee}
-                    step={0.01}
-                    minimumTrackTintColor='#390'
-                    trackStyle={{ backgroundColor: '#ddd' }}
-                    thumbStyle={{backgroundColor:'#fff'}}
-                    style={styles.slider}
-                    onValueChange={props.setGaspriceSlider}
-                />
-    )
-}
 export default function GasView(props) {
     const [myGasfee, setMyGasfee] = React.useState(0)
     const [gasusd, setGasusd] = React.useState(props.ethprice)
 
-    
+
     React.useEffect(() => {
         gasPrice(networks[global.wallet.networkId].nameEN).then(function (res) {
             //setMyGasfee(calculateGas(res.result))
@@ -34,16 +18,16 @@ export default function GasView(props) {
         })
     }, [])
     const [advance, setAdvance] = React.useState(false)
-    const [nomalView, setNomalView] = React.useState('flex')
-    const [advanceView, setAdvanceView] = React.useState('none')
-    const setAdvanceSwitch = (value) => { 
+    const [nomalView, setNomalView] = React.useState(1)
+    const [advanceView, setAdvanceView] = React.useState(0)
+    const setAdvanceSwitch = (value) => {
         setAdvance(value)
         if (value) {
-            setNomalView('none')
-            setAdvanceView('flex')
+            setNomalView(0)
+            setAdvanceView(1)
         } else {
-            setNomalView('flex')
-            setAdvanceView('none')
+            setNomalView(1)
+            setAdvanceView(0)
         }
     }
     const setGaspriceSlider = (value) => {
@@ -75,32 +59,41 @@ export default function GasView(props) {
                     />
                 </View>
             </View>
-            <View style={[styles.top, { display: nomalView }]}>
-                <View>
-                    <Text style={styles.mul}>x</Text>
+            <View style={styles.middle} >
+                <View style={[styles.advanceNomal,{zIndex:nomalView}]}>
+                    <View>
+                        <Text style={styles.mul}>x</Text>
+                    </View>
+                    <View style={{flex:1}}>
+                        <Text style={styles.gasLimit}>Gas Price  {myGasfee} Gwei</Text>
+                        <Text style={styles.gasLimit}>Gas Limit  21000</Text>
+                    </View>
                 </View>
-                <View>
-                    <Text style={styles.gasLimit}>Gas Price  {myGasfee} Gwei</Text>
-                    <Text style={styles.gasLimit}>Gas Limit  21000</Text>
+                <View style={[styles.advanceNomal,{zIndex:advanceView}]}>
+                    <Icon
+                        name='tortoise'
+                        size={18}
+                        color='#999'
+                        style={{ marginRight: 5,marginVertical:15 }}
+                    />
+                    <Slider
+                        minimumValue={0}
+                        maximumValue={4}
+                        value={myGasfee}
+                        step={0.01}
+                        minimumTrackTintColor='#390'
+                        trackStyle={{ backgroundColor: '#ddd' }}
+                        thumbStyle={{ backgroundColor: '#fff' }}
+                        style={[styles.slider,{marginVertical:15}]}
+                        onValueChange={setGaspriceSlider}
+                    />
+                    <Icon
+                        name='rabbit'
+                        size={18}
+                        color='#999'
+                        style={{ marginLeft: 5,marginVertical:15 }}
+                    />
                 </View>
-            </View>
-            <View style={[styles.top, { display: advanceView }]}>
-                <Icon
-                    name='tortoise'
-                    size={18}
-                    color='#999'
-                    style={{ marginRight: 5 }}
-                />
-                <MySlider
-                setGaspriceSlider={setGaspriceSlider}
-                myGasfee={myGasfee}
-                />
-                <Icon
-                    name='rabbit'
-                    size={18}
-                    color='#999'
-                    style={{ marginLeft: 5 }}
-                />
             </View>
             <View style={styles.gasLine}>
                 <Text style={styles.unit}>Ether</Text>
@@ -121,7 +114,8 @@ const styles = StyleSheet.create({
         borderRadius: 5,
         backgroundColor: '#eee',
         padding: 10,
-        marginBottom: 20
+        marginBottom: 20,
+        flex:0
     },
     option: {
         flexDirection: 'row',
@@ -153,6 +147,18 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
     },
+    advanceNomal: {
+        flexDirection: 'row',
+        justifyContent: 'flex-end',
+        position: 'absolute',
+        backgroundColor:'#eee',
+        flex:0
+    },
+    middle:{
+        height:50,
+        position:'relative',
+        flex:0
+    },
     title: {
         fontSize: 16,
         color: '#666',
@@ -182,6 +188,6 @@ const styles = StyleSheet.create({
     },
     slider: {
         flex: 1,
-        height:20
+        height: 20
     }
 })
