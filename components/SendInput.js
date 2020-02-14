@@ -13,7 +13,6 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 export default function SendInput(props) {
     const [toAddress, setToAddress] = React.useState(props.toAddress)
     const fieldRef = React.useRef()
-    const addressErrorTxt = '以太坊地址错误！'
     const { ethprice } = props
     React.useEffect(() => {
         setToaddress(props.toAddress)
@@ -93,13 +92,13 @@ export default function SendInput(props) {
                 onChangeText={(amount) => typeAmount(amount)}
                 label='发送数量:'
                 labelFontSize={16}
-                labelTextStyle={[styles.labelTextStyle, { top: -40 }]}
+                labelTextStyle={[styles.labelTextStyle, { top: -50 }]}
                 baseColor='#666'
                 placeholder='0'
                 tintColor='#390'
                 keyboardType='numeric'
                 inputContainerStyle={[styles.inputContainerStyle,{marginBottom:10}]}
-                fontSize={18}
+                fontSize={20}
                 animationDuration={100}
                 renderRightAccessory={() => {
                     return (
@@ -116,7 +115,7 @@ export default function SendInput(props) {
                                 style={
                                     styles.balancePrice
                                 }>
-                                ≈ $ {Math.round(amount * ethprice * 100) / 100}
+                                ≈ $ {Math.round(amount * ethprice * 1000) / 1000}
                             </Text>
                         </View>
                     )

@@ -19,7 +19,7 @@ export default function CardBottom(props) {
         <View style={styles.cardBottom}>
                 <CardButton
                     rippleColor='#f60'
-                    onPress={()=>{props.navigation.navigate('Send',{balance:props.balance})}}
+                    onPress={()=>{props.navigation.navigate('Send',{balance:props.balance,fromAddress:props.fromAddress})}}
                     textColor='#f60'
                     text='发送'
                     iconName='send'

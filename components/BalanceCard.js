@@ -122,6 +122,7 @@ export default function BalanceCard(props) {
                 navigation={props.navigation}
                 balance={balance}
                 networkName={networks[networkId].nameEN}
+                fromAddress={currentAddress}
             />
         </MyCard>
     )

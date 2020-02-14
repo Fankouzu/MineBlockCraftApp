@@ -5,30 +5,31 @@ import {
     Animated,
     Text
 } from 'react-native'
-import MyCard from '../components/MyCard'
-import MyButton from '../components/MyButton'
+import MyTicket from '../components/MyTicket'
 import MyBackButton from '../components/MyBackButton'
 import MyBackground from '../components/MyBackground'
-import Title from '../components/Title'
-import SendInput from '../components/SendInput'
-import GasView from '../components/GasView'
-import {ethprice} from '../utils/Tools'
+import SendTx from '../components/SendTx'
+import SendConfirm from '../components/SendConfirm'
+import { ethprice } from '../utils/Tools'
+import isEthereumAddress from 'is-ethereum-address'
 
 const styles = StyleSheet.create({
-    
+
 })
 export default class Send extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            shakeLeft: new Animated.Value(global.screenWidth * 0.05),
+            shakeLeft: new Animated.Value(global.screenWidth * 0.025),
             borderColor: '#999',
             toAddress: this.props.navigation.getParam('toAddress', ''),
-            amount: 0,
+            fromAddress:this.props.navigation.getParam('fromAddress', ''),
+            amount: '',
             balance: this.props.navigation.getParam('balance', 0),
             addressError: '',
-            myGasfee:0,
-            ethprice:0
+            myGasprice: 0,
+            ethprice: 0,
+            step: 0
         }
     }
     componentDidMount() {
@@ -36,11 +37,12 @@ export default class Send extends React.Component {
             () => {
                 const balance = this.props.navigation.getParam('balance', this.state.balance)
                 const toAddress = this.props.navigation.getParam('toAddress', this.state.toAddress)
-                this.setState({ balance: balance,toAddress:toAddress })
+                const fromAddress = this.props.navigation.getParam('fromAddress', this.state.fromAddress)
+                this.setState({ balance: balance, toAddress: toAddress, fromAddress: fromAddress })
             }
         )
-        ethprice().then((res)=>{
-            this.setState({ethprice:res.result.ethusd})
+        ethprice().then((res) => {
+            this.setState({ ethprice: res.result.ethusd })
         })
     }
     componentWillUnmount = () => {
@@ -57,7 +59,7 @@ export default class Send extends React.Component {
                 duration: duration
             }),
             Animated.timing(this.state.shakeLeft, {
-                toValue: global.screenWidth * 0.03,
+                toValue: 0,
                 duration: duration
             }),
             Animated.timing(this.state.shakeLeft, {
@@ -65,19 +67,37 @@ export default class Send extends React.Component {
                 duration: duration
             }),
             Animated.timing(this.state.shakeLeft, {
-                toValue: global.screenWidth * 0.05,
+                toValue: global.screenWidth * 0.025,
                 duration: duration
             })
         ]).start(() => {
             setTimeout(() => {
                 this.setState({
-                    buttonDisable: false
+                    buttonDisable: false, addressError: ''
                 })
-            }, 3000)
+            }, 1000)
         })
     }
 
     handleSubmit = () => {
+        // this.setState({ buttonDisable: true })
+        // let toAddress = this.state.toAddress
+        // const addressErrorTxt = '以太坊地址错误！'
+        // if (toAddress === '' || !isEthereumAddress(toAddress)) {
+        //     this.shake()
+        //     this.setState({ buttonDisable: false, addressError: addressErrorTxt })
+        // } else {
+            this.setState({
+                buttonDisable: false,
+                addressError: '',
+                amount: this.state.amount === '' ? 0 : this.state.amount,
+                step: 1
+            })
+
+        // }
+    }
+    handleSetGasprice = (myGasprice) => {
+        this.setState({ myGasprice: myGasprice })
     }
     render() {
         const { navigate } = this.props.navigation
@@ -90,37 +110,47 @@ export default class Send extends React.Component {
                     <Animated.View style={{
                         marginLeft: this.state.shakeLeft,
                     }}>
-                        <MyCard
-                            screenWidth={global.screenWidth * 0.9}
+                        <MyTicket
+                            screenWidth={global.screenWidth * 0.95}
                             margin={0}
                             top={0}
                             padding={10}
+                            height={550}
+                            step={this.state.step}
                         >
-                            <Title titleText='发送交易' />
-                            <SendInput 
-                                toAddress={this.state.toAddress}
-                                addressError={this.state.addressError}
-                                amount={this.state.amount}
-                                balance={this.state.balance}
-                                ethprice={this.state.ethprice}
-                                navigate={navigate}
-                            />
-                            <GasView 
-                                ethprice={this.state.ethprice}
-                            />
-                            <MyButton
-                                screenWidth={global.screenWidth * 0.9 - 20}
-                                text='完成'
-                                height={50}
-                                backgroundColor='#6f0'
-                                backgroundDarker='#390'
-                                textColor='#000'
-                                borderColor='#390'
-                                borderWidth={1}
-                                disabled={this.state.buttonDisable}
-                                onPress={() => { this.handleSubmit() }}
-                            />
-                        </MyCard>
+                            {this.state.step === 0 ? (
+                                <SendTx
+                                    toAddress={this.state.toAddress}
+                                    addressError={this.state.addressError}
+                                    amount={this.state.amount}
+                                    balance={this.state.balance}
+                                    ethprice={this.state.ethprice}
+                                    navigate={navigate}
+                                    handleSetGasprice={this.handleSetGasprice}
+                                    disabled={this.state.buttonDisable}
+                                    handleSubmit={this.handleSubmit}
+                                    step={this.state.s}
+                                />
+                            ) : this.state.step === 1 ? (
+                                <SendConfirm
+                                    fromAddress={this.state.fromAddress}
+                                    toAddress={this.state.toAddress}
+                                    addressError={this.state.addressError}
+                                    amount={this.state.amount}
+                                    balance={this.state.balance}
+                                    ethprice={this.state.ethprice}
+                                    navigate={navigate}
+                                    handleSetGasprice={this.handleSetGasprice}
+                                    disabled={this.state.buttonDisable}
+                                    handleSubmit={this.handleSubmit}
+                                />
+                            ) : (
+                                <View>
+                                <Text>1111</Text>
+                                    </View>
+                            )}
+
+                        </MyTicket>
                     </Animated.View>
                 </View>
             </MyBackground>

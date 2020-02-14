@@ -1009,10 +1009,22 @@
   dependencies:
     "@react-navigation/core" "^5.0.0"
 
+"@rn-components-kit/slider@^1.0.5":
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/@rn-components-kit/slider/-/slider-1.0.5.tgz#c42b5c385e0bfaf51161ea858b0d0fde9bf5930b"
+  integrity sha512-Tx/QfSCm7mBgOUMZFtSrMQIobvvrTMAtz8pf7pbXRTIP0vgxaF3tpAVTTZDd/jUTFUWlWrSyQnsxX9PlwmwpEg==
+  dependencies:
+    "@rn-components-kit/text" "^1.0.0"
+
 "@rn-components-kit/switch@^1.0.1":
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/@rn-components-kit/switch/-/switch-1.0.1.tgz#dc56386aa93179614552dbd855228d5d0efe93e0"
   integrity sha512-f+5ANbNrC5iV46W8XyHqyUUUP6OJvLdKN6ytk0RjYH7L05QW/jTM14VUOgUNfr64EtmgvpUBW0JAWN0r2BRbtw==
+
+"@rn-components-kit/text@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@rn-components-kit/text/-/text-1.0.0.tgz#011d6d73f5adc5f5de1a630ff31b619a441ce62b"
+  integrity sha512-BA4qLHFtQWebrBgva0rabDRBXsCv8QpmOImd4Yax6rEOI7AajmRspfKGaBi6IuoiDlZtxvogtlF71aKigwICfQ==
 
 "@tradle/react-native-http@^2.0.0":
   version "2.0.1"
