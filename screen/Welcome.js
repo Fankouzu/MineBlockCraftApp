@@ -37,7 +37,7 @@ export default class Open extends React.Component {
                         onPress={() => this.props.turnPage(1)}
                     />
                 ) : (
-                    <View style={{ flexDirection: 'row' }}>
+                    <View style={{ flexDirection: 'row',alignContent: 'center',}}>
                         <MyButton
                             screenWidth={global.screenWidth * 0.45 - 20}
                             height={50}
