@@ -47,8 +47,11 @@ export default function SendTx(props) {
                 balance={balance}
                 ethprice={ethprice}
                 navigate={props.navigate}
+                setToAddress={props.setToAddress}
+                handleSetAmount={props.handleSetAmount}
             />
             <GasView
+                myGasprice={props.myGasprice}
                 ethprice={ethprice}
                 handleSetGasprice={props.handleSetGasprice}
             />
@@ -62,7 +65,7 @@ export default function SendTx(props) {
                 borderColor='#390'
                 borderWidth={1}
                 disabled={buttonDisable}
-                onPress={() => { props.handleSubmit() }}
+                onPress={() => { props.handleConfirm() }}
             />
         </View>
     )

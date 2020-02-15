@@ -7,7 +7,7 @@ import Slider from "react-native-slider"
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 
 export default function GasView(props) {
-    const [myGasprice, setMyGassprice] = React.useState(0)
+    const [myGasprice, setMyGassprice] = React.useState(props.myGasprice)
     const [myGasfeeJson, setMyGasfeeJson] = React.useState({
         average: 0,
         safeLow: 0,
@@ -17,10 +17,11 @@ export default function GasView(props) {
 
     React.useEffect(() => {
         gasPrice(networks[global.wallet.networkId].nameEN).then(function (res) {
-            console.log(res)
             setMyGasfeeJson(res)
-            setMyGassprice(res.average)
-            props.handleSetGasprice(res.average)
+            if (myGasprice === 0) {
+                setMyGassprice(res.average)
+                props.handleSetGasprice(res.average)
+            }
         })
     }, [])
     const [advance, setAdvance] = React.useState(false)
@@ -39,7 +40,7 @@ export default function GasView(props) {
     React.useEffect(() => {
         var gasusd = Math.round(Math.round(myGasprice * 21) / 1000000 * props.ethprice * 1000) / 1000
         setGasusd(gasusd)
-    }, [myGasprice,props.ethprice])
+    }, [myGasprice, props.ethprice])
     const handleSetGasprice = (myGasprice) => {
         myGasprice = Math.round(myGasprice * 100) / 100
         setMyGassprice(myGasprice)
@@ -174,7 +175,7 @@ const styles = StyleSheet.create({
         color: '#666',
         textAlign: 'center',
         backgroundColor: '#eee',
-        fontSize:12
+        fontSize: 12
     },
     middle: {
         height: 40,
@@ -211,7 +212,7 @@ const styles = StyleSheet.create({
     slider: {
         flex: 1,
         height: 22,
-        overflow:'hidden'
+        overflow: 'hidden'
 
     },
     sliderThumbStyle: {

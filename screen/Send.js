@@ -18,27 +18,26 @@ const styles = StyleSheet.create({
 })
 export default class Send extends React.Component {
     constructor(props) {
+        console.log('=================================================================================')
         super(props)
         this.state = {
             shakeLeft: new Animated.Value(global.screenWidth * 0.025),
             borderColor: '#999',
-            toAddress: this.props.navigation.getParam('toAddress', ''),
-            fromAddress:this.props.navigation.getParam('fromAddress', ''),
+            toAddress: '',
+            fromAddress: this.props.navigation.getParam('fromAddress'),
             amount: '',
-            balance: this.props.navigation.getParam('balance', 0),
+            balance: this.props.navigation.getParam('balance'),
             addressError: '',
             myGasprice: 0,
             ethprice: 0,
             step: 0
         }
     }
-    componentDidMount() {
+    componentDidMount = async() =>{
         this._didFocusSubscription = this.props.navigation.addListener('didFocus',
             () => {
-                const balance = this.props.navigation.getParam('balance', this.state.balance)
                 const toAddress = this.props.navigation.getParam('toAddress', this.state.toAddress)
-                const fromAddress = this.props.navigation.getParam('fromAddress', this.state.fromAddress)
-                this.setState({ balance: balance, toAddress: toAddress, fromAddress: fromAddress })
+                this.setState({toAddress: toAddress })
             }
         )
         ethprice().then((res) => {
@@ -79,7 +78,7 @@ export default class Send extends React.Component {
         })
     }
 
-    handleSubmit = () => {
+    handleConfirm = () => {
         // this.setState({ buttonDisable: true })
         // let toAddress = this.state.toAddress
         // const addressErrorTxt = '以太坊地址错误！'
@@ -87,17 +86,28 @@ export default class Send extends React.Component {
         //     this.shake()
         //     this.setState({ buttonDisable: false, addressError: addressErrorTxt })
         // } else {
-            this.setState({
-                buttonDisable: false,
-                addressError: '',
-                amount: this.state.amount === '' ? 0 : this.state.amount,
-                step: 1
-            })
+        this.setState({
+            buttonDisable: false,
+            addressError: '',
+            amount: this.state.amount === '' ? 0 : this.state.amount,
+            step: 1
+        })
 
         // }
     }
+    setToAddress = (address) => {
+        this.setState({toAddress:address})
+    }
+    handleback = () => {
+        this.setState({
+            step: this.state.step - 1
+        })
+    }
     handleSetGasprice = (myGasprice) => {
         this.setState({ myGasprice: myGasprice })
+    }
+    handleSetAmount = (amount) => {
+        this.setState({ amount: amount })
     }
     render() {
         const { navigate } = this.props.navigation
@@ -128,27 +138,26 @@ export default class Send extends React.Component {
                                     navigate={navigate}
                                     handleSetGasprice={this.handleSetGasprice}
                                     disabled={this.state.buttonDisable}
-                                    handleSubmit={this.handleSubmit}
-                                    step={this.state.s}
+                                    handleConfirm={this.handleConfirm}
+                                    step={this.state.step}
+                                    setToAddress={this.setToAddress}
+                                    myGasprice={this.state.myGasprice}
+                                    handleSetAmount={this.handleSetAmount}
                                 />
                             ) : this.state.step === 1 ? (
                                 <SendConfirm
                                     fromAddress={this.state.fromAddress}
                                     toAddress={this.state.toAddress}
-                                    addressError={this.state.addressError}
                                     amount={this.state.amount}
-                                    balance={this.state.balance}
                                     ethprice={this.state.ethprice}
-                                    navigate={navigate}
-                                    handleSetGasprice={this.handleSetGasprice}
-                                    disabled={this.state.buttonDisable}
-                                    handleSubmit={this.handleSubmit}
+                                    myGasprice={this.state.myGasprice}
+                                    handleback={this.handleback}
                                 />
                             ) : (
-                                <View>
-                                <Text>1111</Text>
-                                    </View>
-                            )}
+                                        <View>
+                                            <Text>1111</Text>
+                                        </View>
+                                    )}
 
                         </MyTicket>
                     </Animated.View>

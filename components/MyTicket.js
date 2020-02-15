@@ -2,175 +2,138 @@ import React from 'react'
 import { View, StyleSheet, Animated, Easing, PanResponder } from 'react-native'
 import PropTypes from 'prop-types'
 
-export default function MyTicket(props) {
-    const bounciness = -50
-    const viewHeight = props.height
-    const scrollTop = new Animated.Value(viewHeight * -1)
-    const animateRef = React.useRef()
-    const [begin, setBegin] = React.useState(false)
-    const [viewTop, setViewTop] = React.useState(bounciness)
-    const [children, setChildren] = React.useState(props.children)
-
-    const pageIn = () => {
-        Animated.timing(scrollTop, {
-            toValue: bounciness,
-            duration: 500,
-            easing: Easing.bounce
+export default class MyTicket extends React.Component {
+    constructor(props) {
+        super(props)
+        this.state = {
+            bounciness: -50,
+            viewHeight: this.props.height,
+            scrollTop: new Animated.Value(this.props.height * -1),
+            begin: false,
+            children: null,
+            step: 0
+        }
+    }
+    pageIn = (delay) => {
+        Animated.timing(this.state.scrollTop, {
+            toValue: 0,
+            duration: 800,
+            easing: Easing.bounce,
+            delay: delay
         }).start(() => {
-            scrollTop.setValue(bounciness)
         })
     }
-    const pageOut = () => {
-        scrollTop.setValue(viewTop)
-        Animated.timing(scrollTop, {
-            toValue: viewHeight * -1,
+    pageOut = () => {
+        Animated.timing(this.state.scrollTop, {
+            toValue: this.state.viewHeight * -1,
             duration: 300
         }).start(() => {
-            setViewTop(viewHeight * -1)
-            setChildren(props.children)
-            pageIn()
+            this.setState({
+                children: this.props.children,
+                step: this.props.step
+            })
+            this.pageIn(300)
         })
     }
-
-    // const turnPage = () => {
-    //     scrollTop.setValue(viewTop)
-    //     Animated.sequence([
-    //         Animated.timing(scrollTop, {
-    //             toValue: viewHeight * -1,
-    //             duration: 300
-    //         }).start(() => {
-    //             setChildren(props.children)
-    //             console.log('out', bounciness)
-    //         }),
-    //         Animated.spring(scrollTop, {
-    //             toValue: bounciness,
-    //             bounciness: 10,
-    //             speed: 20
-    //         }).start(() => {
-    //             console.log('in', bounciness)
-    //         })
-    //     ]).start(() => {
-    //         console.log('finish', bounciness)
-    //     })
-    // }
-
-    React.useEffect(() => {
-        if (begin) {
-            console.log('===============================begin===============================')
-            pageIn()
-        }
-    }, [begin])
-
-    React.useEffect(() => {
-        setTimeout(() => {
-            console.log('==============================setBegin================================')
-            setBegin(true)
-        }, 1000)
-    }, [])
-
-    React.useEffect(() => {
-        console.log(props.step)
-        if (props.step > 0) {
-            console.log('===============================Out===============================')
-            pageOut()
-        }
-    }, [props.step])
-
-
     //https://reactnative.cn/docs/0.45/panresponder/
-    const _panResponder = PanResponder.create({
-        onMoveShouldSetPanResponderCapture: (evt, gestureState) => true,
+    _panResponder = PanResponder.create({
+        onStartShouldSetPanResponder: (evt, gestureState) => true,
         onPanResponderMove: (evt, gestureState) => {
-            // viewTop = bounciness ~ 0 ~ -490
-            // scrollTop = (-520 ~ -30±8) ~ (bounciness ~ 0 ~ -490) 
-            // up+ down-
-            if (viewTop + gestureState.dy > 0) {
-                setViewTop(0)
-            } else if (viewTop + gestureState.dy < viewHeight * -1 + 60) {
-                setViewTop(viewHeight * -1 + 60)
-            } else {
-                setViewTop(viewTop + gestureState.dy)
+            if (gestureState.dy * -1 > this.state.bounciness && gestureState.dy * -1 < this.state.viewHeight - 150) {
+                return Animated.event(
+                    [null, { dy: this.state.scrollTop }]
+                )(evt, gestureState)
             }
-            scrollTop.setValue(viewTop)
         },
         onPanResponderRelease: (evt, gestureState) => {
-            scrollTop.setValue(viewTop)
-            if (viewTop < bounciness) {
-                Animated.timing(scrollTop, {
-                    toValue: bounciness,
-                    duration: 500,
-                    easing: Easing.elastic(1)
-                }).start(() => {
-                    setViewTop(bounciness)
-                })
-            } else {
-                Animated.timing(scrollTop, {
-                    toValue: bounciness,
-                    duration: 500,
-                    easing: Easing.elastic(3)
-                }).start(() => {
-                    setViewTop(bounciness)
-                })
-            }
+            Animated.timing(this.state.scrollTop, {
+                toValue: 0,
+                duration: 500,
+                easing: Easing.elastic(1)
+            }).start(() => {
+            })
         }
     })
-    return (
-        <View>
-            <View
-                style={{
-                    width: props.screenWidth * (1 - props.margin * 2),
-                    borderWidth: 0.5,
-                    borderColor: '#666',
-                    backgroundColor: '#fff',
-                    borderRadius: 6.5,
-                    paddingVertical: 6.5,
-                    paddingHorizontal: 8,
-                    marginTop: props.top,
-                    flex: 0,
-                }}
-            >
+    componentDidUpdate(nextProps, nextState) {
+        if (this.props.step !== this.state.step) {
+            this.pageOut()
+            return true
+        }
+        if (nextProps.children !== nextState.children || this.props.children !== nextState.children) {
+            this.setState({children:this.props.children})
+            return true
+        }
+    }
+    componentDidMount() {
+        this.setState({
+            children: this.props.children,
+            step: this.props.step
+        })
+        this.pageIn(1000)
+    }
+    componentWillUnmount = () => {
+        this.setState = (state, callback) => {
+            return
+        }
+    }
+    render() {
+        return (
+            <View>
                 <View
                     style={{
-                        borderTopColor: '#333',
-                        borderBottomColor: '#666',
-                        borderLeftColor: '#333',
-                        borderRightColor: '#333',
-                        borderWidth: 3,
+                        width: this.props.screenWidth * (1 - this.props.margin * 2),
+                        borderWidth: 0.5,
+                        borderColor: '#666',
                         backgroundColor: '#fff',
-                        borderRadius: 3,
-                        height: 6,
+                        borderRadius: 6.5,
+                        paddingVertical: 6.5,
+                        paddingHorizontal: 8,
+                        marginTop: this.props.top,
                         flex: 0,
                     }}
                 >
+                    <View
+                        style={{
+                            borderTopColor: '#333',
+                            borderBottomColor: '#666',
+                            borderLeftColor: '#333',
+                            borderRightColor: '#333',
+                            borderWidth: 3,
+                            backgroundColor: '#fff',
+                            borderRadius: 3,
+                            height: 6,
+                            flex: 0,
+                        }}
+                    >
+                    </View>
                 </View>
-            </View>
-            <View
-                style={{
-                    overflow: 'hidden',
-                    marginTop: -10,
-                    paddingBottom: 10,
-                    position: 'relative',
-                    height: viewHeight
-                }}>
                 <View
-                    {..._panResponder.panHandlers}
-                    style={{ position: 'absolute', }}>
+                    style={{
+                        overflow: 'hidden',
+                        marginTop: -10,
+                        paddingBottom: 10,
+                        position: 'relative',
+                        height: this.state.viewHeight
+                    }}>
                     <Animated.View
-                        ref={animateRef}
-                        style={[styles.MyTicket,
-                        {
-                            width: props.screenWidth * (1 - props.margin * 2) - 24,
-                            marginLeft: props.screenWidth * props.margin + 12,
-                            marginRight: props.screenWidth * props.margin + 12,
-                            padding: props.padding,
-                            marginTop: scrollTop,
-                        }, props.style]}>
-                        {children}
+                        {...this._panResponder.panHandlers}
+                        style={{ position: 'absolute', top: this.state.scrollTop }}>
+                        <View
+                            style={[styles.MyTicket,
+                            {
+                                width: this.props.screenWidth * (1 - this.props.margin * 2) - 24,
+                                marginLeft: this.props.screenWidth * this.props.margin + 12,
+                                marginRight: this.props.screenWidth * this.props.margin + 12,
+                                padding: this.props.padding,
+                                marginTop: this.state.bounciness,
+                            }, this.props.style]}>
+                            {this.state.children}
+                        </View>
                     </Animated.View>
                 </View>
             </View>
-        </View>
-    )
+        )
+    }
 }
 
 MyTicket.defaultProps = {

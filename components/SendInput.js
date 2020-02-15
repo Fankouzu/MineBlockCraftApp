@@ -28,6 +28,7 @@ export default function SendInput(props) {
         setAmount(props.amount)
     }, [props.amount])
     const typeAmount = (amount) => {
+        props.handleSetAmount(amount)
         setAmount(amount)
     }
 
@@ -38,6 +39,7 @@ export default function SendInput(props) {
 
     const setToaddress = (toAddress) => {
         setToAddress(toAddress)
+        props.setToAddress(toAddress)
         fieldRef.current.setValue(toAddress)
     }
     const onFocus = () => {
