@@ -13,7 +13,7 @@ export default function AlertText(props) {
     React.useEffect(() => {
         setAlertColor(props.alertColor)
     }, [props.alertColor])
-    
+
     return (
         <View style={styles.alert}>
             {alertText.map((item, index) => {
@@ -40,7 +40,7 @@ AlertText.propTypes = {
 }
 AlertText.defaultProps = {
     alertColor: '#F30',
-    textAlign:'center'
+    textAlign: 'center'
 }
 const styles = StyleSheet.create({
     alert: {

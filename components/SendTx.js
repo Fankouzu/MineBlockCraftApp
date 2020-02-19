@@ -17,6 +17,11 @@ export default function SendTx(props) {
         setAddressError(props.addressError)
     }, [props.addressError])
 
+    const [amountError, setAmountError] = React.useState(props.amountError)
+    React.useEffect(() => {
+        setAmountError(props.amountError)
+    }, [props.amountError])
+
     const [amount, setAmount] = React.useState(props.amount)
     React.useEffect(() => {
         setAmount(props.amount)
@@ -43,12 +48,16 @@ export default function SendTx(props) {
             <SendInput
                 toAddress={toAddress}
                 addressError={addressError}
+                amountError={amountError}
                 amount={amount}
                 balance={balance}
                 ethprice={ethprice}
                 navigate={props.navigate}
                 setToAddress={props.setToAddress}
+                note={props.note}
                 handleSetAmount={props.handleSetAmount}
+                handleRollUp={props.handleRollUp}
+                handleTypeNote={props.handleTypeNote}
             />
             <GasView
                 myGasprice={props.myGasprice}
@@ -65,7 +74,7 @@ export default function SendTx(props) {
                 borderColor='#390'
                 borderWidth={1}
                 disabled={buttonDisable}
-                onPress={() => { props.handleConfirm() }}
+                onPress={() => { props.handleNext() }}
             />
         </View>
     )

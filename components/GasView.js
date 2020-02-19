@@ -26,15 +26,13 @@ export default function GasView(props) {
     }, [])
     const [advance, setAdvance] = React.useState(false)
     const [nomalView, setNomalView] = React.useState(1)
-    const [advanceView, setAdvanceView] = React.useState(0)
+    const [sliderHeight, setSliderHeight] = React.useState(0)
     const setAdvanceSwitch = (value) => {
         setAdvance(value)
         if (value) {
-            setNomalView(0)
-            setAdvanceView(1)
+            setSliderHeight(40)
         } else {
-            setNomalView(1)
-            setAdvanceView(0)
+            setSliderHeight(0)
         }
     }
     React.useEffect(() => {
@@ -48,13 +46,20 @@ export default function GasView(props) {
     }
 
     return (
-        <View style={styles.gasView}>
+        <View>
             <View style={styles.top}>
-                <View>
-                    <Text style={styles.title}>矿工费上限：</Text>
+                <View style={styles.actBtnView}>
+                    <View style={styles.actBtn}>
+                        <Icon
+                            name='gas-station'
+                            size={18}
+                            color='#060'
+                            style={{ marginRight: 5, marginVertical: 5 }}
+                        />
+                        <Text style={styles.actTxt}>燃料费上限</Text>
+                    </View>
                 </View>
                 <View style={styles.option}>
-                    <Text style={styles.titleText}>高级</Text>
                     <Switch
                         width={30}
                         height={10}
@@ -63,23 +68,13 @@ export default function GasView(props) {
                         type={'material'}
                         onValueChange={(value) => { setAdvanceSwitch(value) }}
                         value={advance}
+                        style={{ marginVertical: 6.5, marginRight: 5 }}
                     />
+                    <Text style={styles.titleText}>高级</Text>
                 </View>
             </View>
-            <View style={styles.middle} >
-                <View style={[styles.advanceNomal, { zIndex: nomalView }]}>
-                    <View>
-                        <Text style={styles.mul}>x</Text>
-                    </View>
-                    <View style={{ flex: 1 }}>
-                        <Text style={styles.gasLimit}>Gas Price  {myGasprice} Gwei</Text>
-                        <Text style={styles.gasLimit}>Gas Limit  21000</Text>
-                    </View>
-                </View>
-                <View style={[styles.advanceNomalGas, { zIndex: advanceView }]}>
-                    <Text style={styles.advanceNomalGasTxt}>Gas Price {Math.round(myGasprice * 100) / 100} Gwei</Text>
-                </View>
-                <View style={[styles.advanceNomal, { zIndex: advanceView }]}>
+            <View style={{ height: sliderHeight }}>
+                <View style={styles.sliderView}>
                     <Icon
                         name='tortoise'
                         size={18}
@@ -105,109 +100,104 @@ export default function GasView(props) {
                     />
                 </View>
             </View>
-            <View style={styles.gasLine}>
-                <Text style={styles.unit}>Ether</Text>
-                <Text style={styles.myGasfee}>{Math.round(myGasprice * 21) / 1000000}</Text>
-            </View>
-            <View>
-                <Text style={styles.ethprice}>≈ $ {gasusd}</Text>
+            <View style={styles.middle} >
+                <View style={styles.gasRowView}>
+                    <View style={styles.gasPriceView}>
+                        <Text style={styles.gasLimit}>Gas Price  {myGasprice} Gwei</Text>
+                        <Text style={styles.gasLimit}>Gas Limit  21000</Text>
+                    </View>
+                    <View style={styles.gasPriceView}>
+                        <View style={styles.myGasPrice}>
+                            <Text style={styles.unit}>Ether:</Text>
+                            <Text style={styles.myGasfee}>{Math.round(myGasprice * 21) / 1000000}</Text>
+                        </View>
+                        <Text style={styles.ethprice}>≈ $ {gasusd}</Text>
+                    </View>
+                </View>
             </View>
         </View>
     )
 }
 
 const styles = StyleSheet.create({
-    gasView: {
-        borderColor: '#999',
-        borderWidth: 1,
-        borderStyle: 'dashed',
-        borderRadius: 5,
-        backgroundColor: '#eee',
-        padding: 10,
-        marginBottom: 15,
-        flex: 0
-    },
-    option: {
-        flexDirection: 'row',
-        justifyContent: 'flex-end',
-        alignItems: 'center'
-    },
-    titleText: {
-        fontSize: 12,
-        color: '#666',
-        lineHeight: 25,
-        textAlign: 'right',
-        marginRight: 5
-    },
-    mul: {
-        marginTop: 20,
-        fontSize: 20,
-        color: '#666',
-        lineHeight: 28
-    },
-    gasLine: {
-        flexDirection: 'row',
-        justifyContent: 'flex-end',
-        marginTop: 10,
-        paddingTop: 5,
-        borderTopWidth: 1,
-        borderTopColor: '#999'
-    },
     top: {
         flexDirection: 'row',
         justifyContent: 'space-between',
-    },
-    advanceNomal: {
-        flexDirection: 'row',
-        justifyContent: 'flex-end',
-        position: 'absolute',
-        backgroundColor: '#eee',
-        flex: 0
-    },
-    advanceNomalGas: {
-        flexDirection: 'row',
-        flex: 1,
-        top: 10,
-    },
-    advanceNomalGasTxt: {
-        lineHeight: 40,
-        flex: 1,
-        color: '#666',
-        textAlign: 'center',
-        backgroundColor: '#eee',
-        fontSize: 12
+        marginBottom: 10,
     },
     middle: {
-        height: 40,
-        position: 'relative',
-        flex: 0
     },
-    title: {
-        fontSize: 16,
-        color: '#666',
-        lineHeight: 30
+    actBtnView: {
+        flexDirection: 'row',
+    },
+    actBtn: {
+        flexDirection: 'row',
+    },
+    actTxt: {
+        color: '#333',
+        fontSize: 14,
+        textAlignVertical: 'center',
+    },
+    gasRowView: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        backgroundColor: '#fff'
+    },
+    gasPriceView: {
+        borderColor: '#999',
+        borderRadius: 5,
+        backgroundColor: '#eee',
+        paddingHorizontal: 10,
+        paddingVertical: 5,
+        marginBottom: 15,
+        width: '45%',
+        height: 50
+    },
+    myGasPrice: {
+        flexDirection: 'row',
+        justifyContent: 'flex-end',
     },
     myGasfee: {
         fontSize: 20,
         color: '#333',
-    },
-    unit: {
-        fontSize: 12,
-        color: '#454545',
-        textAlignVertical: 'center',
-        marginRight: 3,
-        lineHeight: 30,
-    },
-    gasLimit: {
-        fontSize: 12,
-        color: '#666',
-        lineHeight: 25,
-        textAlign: 'right'
+        lineHeight: 26
     },
     ethprice: {
         fontSize: 12,
         color: '#666',
-        textAlign: 'right'
+        textAlign: 'right',
+        lineHeight: 14
+    },
+    unit: {
+        fontSize: 12,
+        color: '#454545',
+        textAlignVertical: 'bottom',
+        marginRight: 3,
+        lineHeight: 22,
+    },
+    gasLimit: {
+        fontSize: 12,
+        color: '#666',
+        lineHeight: 18,
+    },
+    sliderView: {
+        flexDirection: 'row',
+        borderRadius: 5,
+        backgroundColor: '#eee',
+        marginBottom: 10,
+        padding: 5,
+        height: 30
+    },
+
+    option: {
+        flexDirection: 'row',
+    },
+    titleText: {
+        fontSize: 12,
+        color: '#333',
+        textAlign: 'right',
+        textAlignVertical: 'center',
+        marginRight: 5
     },
     slider: {
         flex: 1,

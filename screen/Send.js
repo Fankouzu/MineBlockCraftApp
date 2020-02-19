@@ -10,6 +10,7 @@ import MyBackButton from '../components/MyBackButton'
 import MyBackground from '../components/MyBackground'
 import SendTx from '../components/SendTx'
 import SendConfirm from '../components/SendConfirm'
+import Sending from '../components/Sending'
 import { ethprice } from '../utils/Tools'
 import isEthereumAddress from 'is-ethereum-address'
 
@@ -18,7 +19,6 @@ const styles = StyleSheet.create({
 })
 export default class Send extends React.Component {
     constructor(props) {
-        console.log('=================================================================================')
         super(props)
         this.state = {
             shakeLeft: new Animated.Value(global.screenWidth * 0.025),
@@ -27,17 +27,20 @@ export default class Send extends React.Component {
             fromAddress: this.props.navigation.getParam('fromAddress'),
             amount: '',
             balance: this.props.navigation.getParam('balance'),
-            addressError: '',
+            addressError: false,
+            amountError: false,
             myGasprice: 0,
             ethprice: 0,
-            step: 0
+            step: 0,
+            rollTo: 0,
+            note: ''
         }
     }
-    componentDidMount = async() =>{
+    componentDidMount = async () => {
         this._didFocusSubscription = this.props.navigation.addListener('didFocus',
             () => {
                 const toAddress = this.props.navigation.getParam('toAddress', this.state.toAddress)
-                this.setState({toAddress: toAddress })
+                this.setState({ toAddress: toAddress })
             }
         )
         ethprice().then((res) => {
@@ -72,31 +75,44 @@ export default class Send extends React.Component {
         ]).start(() => {
             setTimeout(() => {
                 this.setState({
-                    buttonDisable: false, addressError: ''
+                    addressError: false,
+                    amountError: false
                 })
             }, 1000)
         })
     }
 
+    handleNext = () => {
+        this.setState({ buttonDisable: true })
+        let toAddress = this.state.toAddress
+        let balance = parseFloat(this.state.balance)
+        let amount = parseFloat(this.state.amount)
+        let myGas = this.state.myGasprice * 1000000000 * 21000 / 1000000000000000000
+        if (toAddress === '' || !isEthereumAddress(toAddress)) {
+            this.setState({ addressError: true })
+            this.shake()
+        } else if (amount + myGas > balance) {
+            this.setState({ amountError: true })
+            this.shake()
+        } else {
+            this.setState({
+                buttonDisable: false,
+                addressError: '',
+                amount: this.state.amount === '' ? 0 : this.state.amount,
+                step: 1
+            })
+        }
+    }
     handleConfirm = () => {
-        // this.setState({ buttonDisable: true })
-        // let toAddress = this.state.toAddress
-        // const addressErrorTxt = '以太坊地址错误！'
-        // if (toAddress === '' || !isEthereumAddress(toAddress)) {
-        //     this.shake()
-        //     this.setState({ buttonDisable: false, addressError: addressErrorTxt })
-        // } else {
         this.setState({
             buttonDisable: false,
             addressError: '',
             amount: this.state.amount === '' ? 0 : this.state.amount,
-            step: 1
+            step: 2
         })
-
-        // }
     }
     setToAddress = (address) => {
-        this.setState({toAddress:address})
+        this.setState({ toAddress: address })
     }
     handleback = () => {
         this.setState({
@@ -108,6 +124,12 @@ export default class Send extends React.Component {
     }
     handleSetAmount = (amount) => {
         this.setState({ amount: amount })
+    }
+    handleRollUp = (rollTo) => {
+        this.setState({ rollTo: rollTo })
+    }
+    handleTypeNote = (note) => {
+        this.setState({ note: note })
     }
     render() {
         const { navigate } = this.props.navigation
@@ -127,37 +149,53 @@ export default class Send extends React.Component {
                             padding={10}
                             height={550}
                             step={this.state.step}
+                            rollTo={this.state.rollTo}
                         >
                             {this.state.step === 0 ? (
                                 <SendTx
                                     toAddress={this.state.toAddress}
                                     addressError={this.state.addressError}
+                                    amountError={this.state.amountError}
                                     amount={this.state.amount}
                                     balance={this.state.balance}
                                     ethprice={this.state.ethprice}
                                     navigate={navigate}
                                     handleSetGasprice={this.handleSetGasprice}
                                     disabled={this.state.buttonDisable}
-                                    handleConfirm={this.handleConfirm}
+                                    handleNext={this.handleNext}
                                     step={this.state.step}
                                     setToAddress={this.setToAddress}
                                     myGasprice={this.state.myGasprice}
                                     handleSetAmount={this.handleSetAmount}
+                                    handleRollUp={this.handleRollUp}
+                                    handleTypeNote={this.handleTypeNote}
+                                    note={this.state.note}
                                 />
                             ) : this.state.step === 1 ? (
                                 <SendConfirm
+                                    ethprice={this.state.ethprice}
                                     fromAddress={this.state.fromAddress}
                                     toAddress={this.state.toAddress}
                                     amount={this.state.amount}
                                     ethprice={this.state.ethprice}
                                     myGasprice={this.state.myGasprice}
+                                    note={this.state.note}
                                     handleback={this.handleback}
+                                    handleConfirm={this.handleConfirm}
+                                />
+                            ) : this.state.step === 2 ? (
+                                <Sending
+                                    fromAddress={this.state.fromAddress}
+                                    toAddress={this.state.toAddress}
+                                    amount={this.state.amount}
+                                    myGasprice={this.state.myGasprice}
+                                    note={this.state.note}
                                 />
                             ) : (
-                                        <View>
-                                            <Text>1111</Text>
-                                        </View>
-                                    )}
+                                            <View>
+                                                <Text>1111</Text>
+                                            </View>
+                                        )}
 
                         </MyTicket>
                     </Animated.View>

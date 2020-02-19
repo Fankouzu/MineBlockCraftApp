@@ -5,9 +5,9 @@ import PropTypes from 'prop-types'
 export default function Title(props) {
 
     return (
-        <View style={styles.title} >
+        <View style={[styles.title,props.style]} >
             <Text style={[
-                styles.titleText, {
+                styles.titleText,{
                     fontFamily: 'BigYoungMediumGB2.0'
                 }]}>
                 {props.titleText}

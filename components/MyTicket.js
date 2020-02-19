@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, StyleSheet, Animated, Easing, PanResponder } from 'react-native'
+import { View, StyleSheet, Animated, Easing, PanResponder,Keyboard } from 'react-native'
 import PropTypes from 'prop-types'
 
 export default class MyTicket extends React.Component {
@@ -11,8 +11,17 @@ export default class MyTicket extends React.Component {
             scrollTop: new Animated.Value(this.props.height * -1),
             begin: false,
             children: null,
-            step: 0
+            step: 0,
+            rollTo:0
         }
+    }
+    rollUp = (rollTo) => {
+        Animated.timing(this.state.scrollTop, {
+            toValue: rollTo,
+            duration: 400,
+        }).start(() => {
+            this.setState({rollTo:rollTo})
+        })
     }
     pageIn = (delay) => {
         Animated.timing(this.state.scrollTop, {
@@ -39,6 +48,7 @@ export default class MyTicket extends React.Component {
     _panResponder = PanResponder.create({
         onStartShouldSetPanResponder: (evt, gestureState) => true,
         onPanResponderMove: (evt, gestureState) => {
+            Keyboard.dismiss()
             if (gestureState.dy * -1 > this.state.bounciness && gestureState.dy * -1 < this.state.viewHeight - 150) {
                 return Animated.event(
                     [null, { dy: this.state.scrollTop }]
@@ -61,6 +71,10 @@ export default class MyTicket extends React.Component {
         }
         if (nextProps.children !== nextState.children || this.props.children !== nextState.children) {
             this.setState({children:this.props.children})
+            return true
+        }
+        if (this.props.rollTo !== this.state.rollTo) {
+            this.rollUp(this.props.rollTo)
             return true
         }
     }
