@@ -52,7 +52,7 @@ export default function SendInput(props) {
 
     const [balance, setBalance] = React.useState(props.balance)
     React.useEffect(() => {
-        setBalance(props.balance)
+        setBalance(Math.round(props.balance * 100000) / 100000)
     }, [props.balance])
 
     const setToaddress = (toAddress) => {

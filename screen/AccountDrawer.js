@@ -40,7 +40,7 @@ export default function AccountDrawer(props) {
                     rippleColor='#999'
                     rippleOpacity={0.6}
                     style={[styles.itemView,{borderBottomWidth:0}]}
-                    onPress={() => { props.addAccounts() }}
+                    onPress={() => { props.showPasswordModal('newAccount') }}
                 >
                     <Text style={styles.addText}>
                     ➕添加账户

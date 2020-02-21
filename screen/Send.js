@@ -11,7 +11,8 @@ import MyBackground from '../components/MyBackground'
 import SendTx from '../components/SendTx'
 import SendConfirm from '../components/SendConfirm'
 import Sending from '../components/Sending'
-import { ethprice } from '../utils/Tools'
+import { ethprice,getBalance } from '../utils/Tools'
+import { networks } from '../utils/networks'
 import isEthereumAddress from 'is-ethereum-address'
 
 const styles = StyleSheet.create({
@@ -24,12 +25,17 @@ export default class Send extends React.Component {
             shakeLeft: new Animated.Value(global.screenWidth * 0.025),
             borderColor: '#999',
             toAddress: '',
-            fromAddress: this.props.navigation.getParam('fromAddress'),
+            account: this.props.navigation.getParam('account'),
+            fromAddress:'',
+            networkId: this.props.navigation.getParam('networkId'),
+            mnemonic: this.props.navigation.getParam('mnemonic'),
             amount: '',
-            balance: this.props.navigation.getParam('balance'),
+            balance: 0,
             addressError: false,
             amountError: false,
             myGasprice: 0,
+            initGasLimit:21000,
+            gasLimit:21000,
             ethprice: 0,
             step: 0,
             rollTo: 0,
@@ -45,6 +51,13 @@ export default class Send extends React.Component {
         )
         ethprice().then((res) => {
             this.setState({ ethprice: res.result.ethusd })
+        })
+        let accounts = global.wallet.accounts
+        let fromAddress = accounts[this.state.account].address
+        
+        this.setState({fromAddress:fromAddress})
+        getBalance(fromAddress, networks[this.state.networkId].nameEN).then((balance) => {
+            this.setState({balance:balance})
         })
     }
     componentWillUnmount = () => {
@@ -122,6 +135,9 @@ export default class Send extends React.Component {
     handleSetGasprice = (myGasprice) => {
         this.setState({ myGasprice: myGasprice })
     }
+    handleSetGasLimit = (gasLimit) => {
+        this.setState({ gasLimit: gasLimit })
+    }
     handleSetAmount = (amount) => {
         this.setState({ amount: amount })
     }
@@ -161,9 +177,12 @@ export default class Send extends React.Component {
                                     ethprice={this.state.ethprice}
                                     navigate={navigate}
                                     handleSetGasprice={this.handleSetGasprice}
+                                    handleSetGasLimit={this.handleSetGasLimit}
+                                    initGasLimit={this.state.initGasLimit}
                                     disabled={this.state.buttonDisable}
                                     handleNext={this.handleNext}
                                     step={this.state.step}
+                                    gasLimit={this.state.gasLimit}
                                     setToAddress={this.setToAddress}
                                     myGasprice={this.state.myGasprice}
                                     handleSetAmount={this.handleSetAmount}
@@ -182,6 +201,7 @@ export default class Send extends React.Component {
                                     note={this.state.note}
                                     handleback={this.handleback}
                                     handleConfirm={this.handleConfirm}
+                                    gasLimit={this.state.gasLimit}
                                 />
                             ) : this.state.step === 2 ? (
                                 <Sending
@@ -190,6 +210,10 @@ export default class Send extends React.Component {
                                     amount={this.state.amount}
                                     myGasprice={this.state.myGasprice}
                                     note={this.state.note}
+                                    mnemonic={this.state.mnemonic}
+                                    networkId={this.state.networkId}
+                                    account={this.state.account}
+                                    gasLimit={this.state.gasLimit}
                                 />
                             ) : (
                                             <View>

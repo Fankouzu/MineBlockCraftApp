@@ -25,7 +25,6 @@ export default function GasView(props) {
         })
     }, [])
     const [advance, setAdvance] = React.useState(false)
-    const [nomalView, setNomalView] = React.useState(1)
     const [sliderHeight, setSliderHeight] = React.useState(0)
     const setAdvanceSwitch = (value) => {
         setAdvance(value)
@@ -45,6 +44,22 @@ export default function GasView(props) {
         props.handleSetGasprice(myGasprice)
     }
 
+    const GetLength = (str) => {
+        var realLength = 0, len = str.length, charCode = -1
+        for (var i = 0; i < len; i++) {
+            charCode = str.charCodeAt(i)
+            if (charCode >= 0 && charCode <= 128) realLength += 1
+            else realLength += 2
+        }
+        return realLength
+    }
+    const [gasLimit, setGasLimit] = React.useState(props.initGasLimit)
+    React.useEffect(() => {
+        let note = props.note
+        let strlen = GetLength(note)
+        setGasLimit(parseInt(props.initGasLimit) + strlen * 24)
+        props.handleSetGasLimit(parseInt(props.initGasLimit) + strlen * 24)
+    }, [props.note])
     return (
         <View>
             <View style={styles.top}>
@@ -104,7 +119,7 @@ export default function GasView(props) {
                 <View style={styles.gasRowView}>
                     <View style={styles.gasPriceView}>
                         <Text style={styles.gasLimit}>Gas Price  {myGasprice} Gwei</Text>
-                        <Text style={styles.gasLimit}>Gas Limit  21000</Text>
+                        <Text style={styles.gasLimit}>Gas Limit  {gasLimit}</Text>
                     </View>
                     <View style={styles.gasPriceView}>
                         <View style={styles.myGasPrice}>

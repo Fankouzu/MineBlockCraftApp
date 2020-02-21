@@ -19,7 +19,8 @@ export default function CardBottom(props) {
         <View style={styles.cardBottom}>
                 <CardButton
                     rippleColor='#f60'
-                    onPress={()=>{props.navigation.navigate('Send',{balance:props.balance,fromAddress:props.fromAddress})}}
+                    //onPress={()=>{props.navigation.navigate('Send',{balance:props.balance,fromAddress:props.fromAddress})}}
+                    onPress={() => { props.showPasswordModal('send') }}
                     textColor='#f60'
                     text='发送'
                     iconName='send'

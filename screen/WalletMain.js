@@ -32,7 +32,7 @@ export default class Open extends React.Component {
                 networkId: global.wallet.networkId || 0,
                 encrypt: global.wallet.encrypt
             })
-            this.props.getAccounts(global.wallet.accounts, global.wallet.currentAccount)
+            this.props.getAccounts(global.wallet.accounts, global.wallet.currentAccount,global.wallet.networkId)
         }).catch(err => {
             this.props.navigation.navigate('LoginNav')
         })
@@ -56,6 +56,7 @@ export default class Open extends React.Component {
                 expires: null,
             })
             this.setState({ networkId: id, isModalVisible: false, showLoading: 'flex' })
+            this.props.selectNetwork(id)
         }
     }
     selectAccount = (accounts, currentAccount) => {
@@ -114,6 +115,7 @@ export default class Open extends React.Component {
                     showLoading={this.state.showLoading}
                     handleHideLoading={this.handleHideLoading}
                     navigation={this.props.navigation}
+                    showPasswordModal={this.props.showPasswordModal}
                 />
                 <Copyright />
                 <NetworkModal

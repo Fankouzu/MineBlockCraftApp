@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Text, StyleSheet, View, Animated, TouchableOpacity, Keyboard } from 'react-native'
+import { Text, StyleSheet, View, Animated, TouchableOpacity } from 'react-native'
 import Modal from "react-native-modal"
 import MyCard from './MyCard'
 import Title from './Title'
@@ -7,7 +7,7 @@ import MyTextInput from './MyTextInput'
 import AlertText from './AlertText'
 import MyButton from './MyButton'
 import { aesDecrypt, sha1 } from '../utils/Aes'
-import { validateMnemonic, mnemonicToAddress } from '../utils/Tools'
+import { validateMnemonic , mnemonicToAddress } from '../utils/Tools'
 
 
 export default class PasswordModal extends Component {
@@ -60,6 +60,19 @@ export default class PasswordModal extends Component {
     handleTypePassword = (password) => {
         this.setState({ password: password })
     }
+    newAccount = (mnemonic) => {
+        let accounts = global.wallet.accounts
+        let address = mnemonicToAddress(mnemonic, accounts.length)
+        accounts[accounts.length] = {
+            address: address
+        }
+        let currentAccount = accounts.length - 1
+        this.setState({ password: '' })
+        this.props.selectAccounts(accounts, currentAccount)
+    }
+    send = (mnemonic) => {
+        this.props.openSend(mnemonic)
+    }
     handleSubmit = (next) => {
         if (this.state.password === '') {
             this.setState({
@@ -72,23 +85,12 @@ export default class PasswordModal extends Component {
             let password = this.state.password
             let encrypt = global.wallet.encrypt
             let mnemonic = aesDecrypt(encrypt, sha1(password))
-            let accounts = global.wallet.accounts
             if (validateMnemonic(mnemonic)) {
-                let address = mnemonicToAddress(mnemonic, accounts.length)
-                if (address !== undefined) {
-                    accounts[accounts.length] = {
-                        address: address
-                    }
-                    let currentAccount = accounts.length - 1
-                    this.setState({ password: '' })
-                    this.props.selectAccounts(accounts, currentAccount)
-                } else {
-                    this.setState({
-                        borderColor: '#F30',
-                        alertText: ['⚠️异常错误，请重试'],
-                        buttonDisable: true
-                    })
-                    this.shake()
+                if (this.props.passworModaldAction === 'newAccount') {
+                    this.newAccount(mnemonic)
+                }
+                if (this.props.passworModaldAction === 'send') {
+                    this.send(mnemonic)
                 }
             } else {
                 this.setState({

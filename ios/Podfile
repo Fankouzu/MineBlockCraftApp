@@ -37,6 +37,7 @@ target 'BishenWalletApp' do
 
 
 
+
   target 'BishenWalletAppTests' do
     inherit! :search_paths
     # Pods for testing

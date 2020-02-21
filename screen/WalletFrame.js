@@ -10,7 +10,9 @@ export default class WalletFrame extends Component {
         this.state = {
             accounts:[],
             currentAccount: 0,
-            isModalVisible:false
+            isModalVisible:false,
+            passworModaldAction:'',
+            networkId:0
         }
     }
     closeControlPanel = () => {
@@ -19,19 +21,30 @@ export default class WalletFrame extends Component {
     openControlPanel = () => {
         this._drawer.open()
     }
-    getAccounts = (accounts,currentAccount) => {
-        this.setState({accounts:accounts,currentAccount:currentAccount})
+    getAccounts = (accounts,currentAccount,networkId) => {
+        this.setState({accounts:accounts,currentAccount:currentAccount,networkId:networkId})
     }
     selectAccounts = (accounts,currentAccount) => {
         this.setState({accounts:accounts,currentAccount:currentAccount,isModalVisible:false})
         this._drawer.close()
     }
-    addAccounts = () => {
+    selectNetwork = (networkId) => {
+        this.setState({networkId:networkId})
+    }
+    showPasswordModal = (passworModaldAction) => {
         this._drawer.close()
-        this.setState({isModalVisible:true})
+        this.setState({isModalVisible:true,passworModaldAction:passworModaldAction})
     }
     cancelModal = () => {
         this.setState({isModalVisible:false})
+    }
+    openSend = (mnemonic) => {
+        this.cancelModal()
+        this.props.navigation.navigate('Send',{
+            mnemonic:mnemonic,
+            account:this.state.currentAccount,
+            networkId:this.state.networkId
+        })
     }
     render() {
         return (
@@ -43,7 +56,7 @@ export default class WalletFrame extends Component {
                 content={<AccountDrawer 
                         accounts={this.state.accounts} 
                         selectAccounts={this.selectAccounts}
-                        addAccounts={this.addAccounts}
+                        showPasswordModal={this.showPasswordModal}
                     />}
                 tapToClose={true}
                 openDrawerOffset={0.6}
@@ -52,15 +65,19 @@ export default class WalletFrame extends Component {
                     openControlPanel={this.openControlPanel}
                     getAccounts={this.getAccounts}
                     selectAccounts={this.selectAccounts}
+                    selectNetwork={this.selectNetwork}
                     navigation={this.props.navigation}
                     currentAccount={this.state.currentAccount}
                     accounts={this.state.accounts}
                     navigation={this.props.navigation}
+                    showPasswordModal={this.showPasswordModal}
                 />
                 <PasswordModal
                     selectAccounts={this.selectAccounts}
                     isModalVisible={this.state.isModalVisible}
+                    passworModaldAction={this.state.passworModaldAction}
                     cancelModal={this.cancelModal}
+                    openSend={this.openSend}
                 />
             </Drawer>
         )

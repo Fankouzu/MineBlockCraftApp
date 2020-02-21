@@ -13,7 +13,7 @@ export default function SendConfirm(props) {
     React.useEffect(() => {
         setMyGasprice(props.myGasprice)
     }, [props.myGasprice])
-
+    const gasLimit = props.gasLimit
 
     const [amount, setAmount] = React.useState(props.amount)
     const [amountPrice, setAmountPrice] = React.useState(0)
@@ -24,7 +24,7 @@ export default function SendConfirm(props) {
         setAmount(props.amount)
         setAmountPrice(Math.round(ethprice*props.amount * 1000) / 1000)
         setMyGaspriceUsd(Math.round(props.myGasprice * ethprice * 21 / 1000) / 1000)
-        var _totleAmount = Math.round((parseFloat(props.amount) + props.myGasprice/1000000000 * 21000)*1000000)/1000000
+        var _totleAmount = Math.round((parseFloat(props.amount) + props.myGasprice/1000000000 * gasLimit)*1000000)/1000000
         setTotleAmount(_totleAmount)
         setTotlePrice(Math.round(_totleAmount*ethprice*100)/100)
     }, [props.amount,ethprice,myGasprice])
@@ -68,7 +68,7 @@ export default function SendConfirm(props) {
             <View style={styles.textView}>
                 <Text style={styles.title}>矿工费上限:</Text>
                 <View style={styles.rightViewV}>
-                    <Text style={styles.amount}>{myGasprice}GWei x 21000</Text>
+                    <Text style={styles.amount}>{myGasprice}GWei x {gasLimit}</Text>
                     <Text style={styles.amount}>≈${myGaspriceUsd}</Text>
                 </View>
             </View>

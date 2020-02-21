@@ -139,22 +139,28 @@ export async function ethprice() {
     let ethprice = await ethapi.stats.ethprice()
     return ethprice
 }
-export async function sendTransaction(to, networkName, mnemonic, currentAccount, value, myGasfee) {
+export async function sendTransaction(to, networkName, mnemonic, currentAccount, value, gasLimit, myGasprice, note) {
     let infuraProvider = new ethers.providers.InfuraProvider(networkName)
     let privateKey = mnemonicToPrivate(mnemonic, currentAccount)
     let wallet = new ethers.Wallet(privateKey, infuraProvider)
     let code = await infuraProvider.getCode(to)
+    let nonce = await wallet.getTransactionCount()
+    let data = ethers.utils.hexlify(ethers.utils.toUtf8Bytes(note))
+    value === 0 ? 0 : ethers.utils.parseEther(value)
     if (code !== '0x') { throw new Error('目标地址不能是合约地址') }
 
-    console.log("TCL: senTransaction -> myGasfee", myGasfee * 1000000000000000000 / gasLimit)
-    let gasPrice = ethers.utils.bigNumberify(myGasfee * 1000000000000000000 / gasLimit)
+    var myGasfee = myGasprice * 1000000000
 
-    let tx = await wallet.sendTransaction({
+    let transaction = {
+        nonce: nonce,
         gasLimit: gasLimit,
-        gasPrice: gasPrice,
+        gasPrice: ethers.utils.bigNumberify(myGasfee),
         to: to,
-        value: ethers.utils.bigNumberify(value * 1000000000000000000)
-    })
+        value: value,
+        data: data,
+        chainId: ethers.utils.getNetwork(networkName).chainId
+    }
+    let tx = await wallet.sendTransaction(transaction)
     return tx
 }
 export async function getBalance(address, networkName) {

@@ -123,6 +123,7 @@ export default function BalanceCard(props) {
                 balance={balance}
                 networkName={networks[networkId].nameEN}
                 fromAddress={currentAddress}
+                showPasswordModal={props.showPasswordModal}
             />
         </MyCard>
     )

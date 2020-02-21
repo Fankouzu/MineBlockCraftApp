@@ -42,6 +42,13 @@ export default function SendTx(props) {
         setButtonDisable(props.buttonDisable)
     }, [props.buttonDisable])
 
+    const [note, setNote] = React.useState('')
+    const handleTypeNote = (note) => {
+        props.handleTypeNote(note)
+        setNote(note)
+        
+    }
+
     return (
         <View>
             <Title titleText='转账交易' />
@@ -57,12 +64,15 @@ export default function SendTx(props) {
                 note={props.note}
                 handleSetAmount={props.handleSetAmount}
                 handleRollUp={props.handleRollUp}
-                handleTypeNote={props.handleTypeNote}
+                handleTypeNote={handleTypeNote}
             />
             <GasView
                 myGasprice={props.myGasprice}
                 ethprice={ethprice}
                 handleSetGasprice={props.handleSetGasprice}
+                note={note}
+                handleSetGasLimit={props.handleSetGasLimit}
+                initGasLimit={props.initGasLimit}
             />
             <MyButton
                 screenWidth={global.screenWidth * 0.9 - 30}
