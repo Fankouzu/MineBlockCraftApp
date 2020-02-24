@@ -5,11 +5,12 @@ import {
     Text,
     Animated
 } from 'react-native'
+import {connect} from 'react-redux'
+import * as actions from '../actions'
 import MyCard from '../components/MyCard'
 import MyButton from '../components/MyButton'
 import MyBackButton from '../components/MyBackButton'
 import AlertText from '../components/AlertText'
-import { randMnemonic } from '../utils/Tools'
 
 const styles = StyleSheet.create({
     alert: {
@@ -44,38 +45,20 @@ const styles = StyleSheet.create({
 
 const alertText = ['⚠️请按照正确的顺序选择助记词⚠️']
 const alertColor = '#999'
-export default class RandomMnemonic extends React.Component {
+
+
+class RandomMnemonic extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            useMnemonic: this.props.useMnemonic,
             wordDisplay: [],
             mnemonic: [],
             shakeLeft: new Animated.Value(global.screenWidth * 0.05),
             alertText: alertText,
             alertColor: alertColor,
-            randMnemonic: []
         }
     }
     componentDidMount() {
-        this.setState({
-            randMnemonic: randMnemonic(this.state.useMnemonic)
-        })
-    }
-    componentDidUpdate(nextProps, nextState) {
-        if (nextProps.useMnemonic !== this.state.useMnemonic) {
-            this.setState({
-                useMnemonic: nextProps.useMnemonic,
-                randMnemonic: randMnemonic(nextProps.useMnemonic)
-            })
-            return true
-        } else if (this.props.useMnemonic !== this.state.useMnemonic) {
-            this.setState({
-                useMnemonic: this.props.useMnemonic,
-                randMnemonic: randMnemonic(this.props.useMnemonic)
-            })
-            return true
-        }
     }
     componentWillUnmount = () => {
         this.setState = (state, callback) => {
@@ -83,18 +66,18 @@ export default class RandomMnemonic extends React.Component {
         }
     }
     addWord = (index) => {
-        var randMnemonic = this.state.randMnemonic
+        var randomMnemonic = this.props.LoginReducer.randomMnemonic
         var mnemonic = this.state.mnemonic
         var wordDisplay = this.state.wordDisplay
         wordDisplay[index] = 'none'
-        if (mnemonic.indexOf(randMnemonic[index]) === -1) {
-            mnemonic.push(randMnemonic[index])
+        if (mnemonic.indexOf(randomMnemonic[index]) === -1) {
+            mnemonic.push(randomMnemonic[index])
         }
         this.setState({ wordDisplay: wordDisplay, mnemonic: mnemonic })
     }
     removeWord = (index) => {
         var mnemonic = this.state.mnemonic
-        var randMnemonic = this.state.randMnemonic
+        var randomMnemonic = this.props.LoginReducer.randomMnemonic
         var wordDisplay = this.state.wordDisplay
         var newArr = []
         for (var i = 0; i < mnemonic.length; i++) {
@@ -102,8 +85,8 @@ export default class RandomMnemonic extends React.Component {
                 newArr.push(mnemonic[i])
             }
         }
-        if (randMnemonic.indexOf(mnemonic[index]) !== -1) {
-            wordDisplay[randMnemonic.indexOf(mnemonic[index])] = 'flex'
+        if (randomMnemonic.indexOf(mnemonic[index]) !== -1) {
+            wordDisplay[randomMnemonic.indexOf(mnemonic[index])] = 'flex'
         }
         this.setState({ wordDisplay: wordDisplay, mnemonic: newArr })
     }
@@ -141,7 +124,7 @@ export default class RandomMnemonic extends React.Component {
         })
     }
     handleSubmit = () => {
-        if (this.state.mnemonic.length === 12 && this.state.mnemonic.join(' ') === this.state.useMnemonic) {
+        if (this.state.mnemonic.length === 12 && this.state.mnemonic.join(' ') === this.props.LoginReducer.useMnemonic) {
             this.props.turnPage(1)
         } else {
             this.shake()
@@ -168,8 +151,8 @@ export default class RandomMnemonic extends React.Component {
                                     <Text
                                         key={index}
                                         style={[styles.wordSelect, {
-                                            fontSize: this.props.lang === 'zh' ? 20 : 16,
-                                            fontFamily: this.props.lang === 'zh' ? 'BigYoungMediumGB2.0' : 'simsun',
+                                            fontSize: this.props.LoginReducer.lang === 'cn' ? 20 : 12,
+                                            fontFamily: this.props.LoginReducer.lang === 'cn' ? 'BigYoungMediumGB2.0' : 'InputMono light',
                                             width: (global.screenWidth * 0.9 / 4) - 24,
                                         }]}
                                         onPress={() => { this.removeWord(index) }}
@@ -192,7 +175,7 @@ export default class RandomMnemonic extends React.Component {
                         marginRight: global.screenWidth * 0.05
                     }]
                 }>
-                    {this.state.randMnemonic.map((item, index) => {
+                    {this.props.LoginReducer.randomMnemonic.map((item, index) => {
                         return (
                             <MyButton
                                 key={index}
@@ -205,9 +188,9 @@ export default class RandomMnemonic extends React.Component {
                                 borderColor='#666'
                                 raiseLevel={2}
                                 borderWidth={1}
-                                textSize={this.props.lang === 'zh' ? 20 : 10}
-                                textFont={this.props.lang === 'zh' ? 'BigYoungMediumGB2.0' : 'simsun'}
-                                style={styles.wordButton, { display: this.state.wordDisplay[index] || 'flex', margin: 10 }}
+                                textSize={this.props.LoginReducer.lang === 'cn' ? 20 : 12}
+                                textFont={this.props.LoginReducer.lang === 'cn' ? 'BigYoungMediumGB2.0' : 'InputMono light'}
+                                style={[styles.wordButton, { display: this.state.wordDisplay[index] || 'flex', margin: 10 }]}
                                 onPress={() => { this.addWord(index) }}
                             />
                         )
@@ -230,3 +213,8 @@ export default class RandomMnemonic extends React.Component {
         )
     }
 }
+const mapStateToProps = state => (state)
+
+const mapDispatchToProps = dispatch => ({
+})
+export default connect(mapStateToProps,mapDispatchToProps)(RandomMnemonic)

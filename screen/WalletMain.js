@@ -1,119 +1,60 @@
 import React from 'react'
+import {connect} from 'react-redux'
+import * as actions from '../actions'
 import Copyright from '../components/Copyright'
 import TopBar from '../components/TopBar'
 import BalanceCard from '../components/BalanceCard'
 import NetworkModal from '../components/NetworkModal'
 import MyBackground from '../components/MyBackground'
 
-export default class Open extends React.Component {
+class WalletMain extends React.Component {
     constructor(props) {
         super(props)
-        this.state = {
-            encrypt: '',
-            networkId:  0,
-            currentAccount:0,
-            isModalVisible: false,
-            accounts: [{address:'0x0',balance:0}],
-            showLoading: 'flex'
-        }
+        this.state = {}
     }
-    componentDidMount() {
-        global.storage.load({
-            key: 'wallet',
-        }).then(ret => {
-            global.wallet = ret
-            
-            if (global.wallet.currentAccount > global.wallet.accounts.length - 1) {
-                global.wallet.currentAccount = 0
-            }
-            this.setState({
-                accounts: global.wallet.accounts,
-                currentAccount: global.wallet.currentAccount,
-                networkId: global.wallet.networkId || 0,
-                encrypt: global.wallet.encrypt
-            })
-            this.props.getAccounts(global.wallet.accounts, global.wallet.currentAccount,global.wallet.networkId)
-        }).catch(err => {
-            this.props.navigation.navigate('LoginNav')
-        })
+    componentDidMount = () => {
+        // this._didFocusSubscription = this.props.navigation.addListener('didFocus',
+        //     () => {
+        //         this.init()
+        //     }
+        // )
+        this.init()
+    }
+    init = () => {
+        console.log('walletMain:init:',this.props.WalletReducer)
     }
     selectNetwork = (id) => {
-        if (id === this.state.networkId) {
-            this.setState({ isModalVisible: false })
+        if (id === this.props.WalletReducer.networkId) {
+            this.props.setNetworkModalVisiable(false)
         } else {
-            let encrypt = global.wallet.encrypt
-            let accounts = global.wallet.accounts
-            let currentAccount = global.wallet.currentAccount
-            global.wallet.id = id
-            global.storage.save({
-                key: 'wallet',
-                data: {
-                    'encrypt': encrypt,
-                    'accounts': accounts,
-                    'currentAccount': currentAccount,
-                    'networkId': id
-                },
-                expires: null,
-            })
-            this.setState({ networkId: id, isModalVisible: false, showLoading: 'flex' })
-            this.props.selectNetwork(id)
+            this.props.setNetworkId(id)
+            this.props.setNetworkModalVisiable(false)
+            this.props.setShowBalanceLoading('flex')
         }
     }
     selectAccount = (accounts, currentAccount) => {
-        let encrypt = global.wallet.encrypt
-        let networkId = global.wallet.networkId || 0
-        global.wallet.accounts = accounts.length > global.wallet.accounts.length ? accounts : global.wallet.accounts
-        global.wallet.currentAccount = currentAccount
-        global.storage.save({
-            key: 'wallet',
-            data: {
-                'encrypt': encrypt,
-                'accounts': global.wallet.accounts,
-                'currentAccount': currentAccount || 0,
-                'networkId': networkId
-            },
-            expires: null,
-        })
-        this.setState({ accounts: accounts, currentAccount: currentAccount, showLoading: 'flex' })
-    }
-    handleOpenNetSelect = (isModalVisible) => {
-        this.setState({ isModalVisible: isModalVisible })
-    }
-    handleHideLoading = () => {
-        this.setState({ showLoading: 'none' })
+        this.props.setAccounts(accounts)
+        this.props.setCurrentAccount(currentAccount)
+        this.props.setShowBalanceLoading('flex')
     }
     componentDidUpdate() {
     }
     componentDidUpdate(nextProps, nextState) {
-        if (this.props.currentAccount !== this.state.currentAccount) {
-            this.selectAccount(this.props.accounts, this.props.currentAccount)
-            return true
-        } else {
-            return false
-        }
     }
     componentWillUnmount = () => {
         this.setState = (state, callback) => {
             return
         }
+        //this._didFocusSubscription.remove()
     }
     render() {
         return (
             <MyBackground style={{ alignItems: 'center' }}>
                 <TopBar
-                    handleOpenNetSelect={this.handleOpenNetSelect}
-                    accounts={this.state.accounts}
-                    networkId={this.state.networkId}
                     navigation={this.props.navigation}
                     openControlPanel={this.props.openControlPanel}
-                    currentAccount={this.state.currentAccount}
                 />
                 <BalanceCard
-                    accounts={this.state.accounts}
-                    currentAccount={this.state.currentAccount}
-                    networkId={this.state.networkId}
-                    showLoading={this.state.showLoading}
-                    handleHideLoading={this.handleHideLoading}
                     navigation={this.props.navigation}
                     showPasswordModal={this.props.showPasswordModal}
                 />
@@ -127,3 +68,13 @@ export default class Open extends React.Component {
         )
     }
 }
+const mapStateToProps = state => (state)
+
+const mapDispatchToProps = dispatch => ({
+    setAccounts: (value) => dispatch(actions.setAccounts(value)),
+    setCurrentAccount: (value) => dispatch(actions.setCurrentAccount(value)),
+    setNetworkId: (value) => dispatch(actions.setNetworkId(value)),
+    setNetworkModalVisiable: (value) => dispatch(actions.setNetworkModalVisiable(value)),
+    setShowBalanceLoading: (value) => dispatch(actions.setShowBalanceLoading(value)),
+})
+export default connect(mapStateToProps,mapDispatchToProps)(WalletMain)

@@ -1,12 +1,14 @@
 import React from 'react'
 import { Text, StyleSheet, View } from 'react-native'
+import {connect} from 'react-redux'
+import * as actions from '../actions'
 import { networks } from '../utils/networks'
 import { gasPrice } from '../utils/Tools'
 import { Switch } from '@rn-components-kit/switch'
 import Slider from "react-native-slider"
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 
-export default function GasView(props) {
+function GasView(props) {
     const [myGasprice, setMyGassprice] = React.useState(props.myGasprice)
     const [myGasfeeJson, setMyGasfeeJson] = React.useState({
         average: 0,
@@ -16,11 +18,11 @@ export default function GasView(props) {
     const [gasusd, setGasusd] = React.useState(0)
 
     React.useEffect(() => {
-        gasPrice(networks[global.wallet.networkId].nameEN).then(function (res) {
+        gasPrice(networks[props.WalletReducer.networkId].nameEN).then(function (res) {
             setMyGasfeeJson(res)
             if (myGasprice === 0) {
-                setMyGassprice(res.average)
-                props.handleSetGasprice(res.average)
+                setMyGassprice(res.average/10)
+                props.handleSetGasprice(res.average/10)
             }
         })
     }, [])
@@ -39,7 +41,7 @@ export default function GasView(props) {
         setGasusd(gasusd)
     }, [myGasprice, props.ethprice])
     const handleSetGasprice = (myGasprice) => {
-        myGasprice = Math.round(myGasprice * 100) / 100
+        myGasprice = Math.round(myGasprice * 100) / 1000
         setMyGassprice(myGasprice)
         props.handleSetGasprice(myGasprice)
     }
@@ -100,7 +102,7 @@ export default function GasView(props) {
                         minimumValue={myGasfeeJson.safeLow}
                         maximumValue={myGasfeeJson.fast}
                         value={myGasfeeJson.average}
-                        step={1}
+                        step={0.1}
                         minimumTrackTintColor='#390'
                         trackStyle={{ backgroundColor: '#ddd' }}
                         thumbStyle={styles.sliderThumbStyle}
@@ -133,6 +135,12 @@ export default function GasView(props) {
         </View>
     )
 }
+const mapStateToProps = state => (state)
+
+const mapDispatchToProps = dispatch => ({
+    setAccounts: (value) => dispatch(actions.setAccounts(value)),
+})
+export default connect(mapStateToProps,mapDispatchToProps)(GasView)
 
 const styles = StyleSheet.create({
     top: {

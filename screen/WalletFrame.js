@@ -1,50 +1,72 @@
 import React, { Component } from 'react'
+import {connect} from 'react-redux'
+import * as actions from '../actions'
 import Drawer from 'react-native-drawer'
 import WalletMain from '../screen/WalletMain'
 import AccountDrawer from '../screen/AccountDrawer'
 import PasswordModal from '../components/PasswordModal'
+import { mnemonicToAddress } from '../utils/Tools'
 
-export default class WalletFrame extends Component {
+class WalletFrame extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            accounts:[],
-            currentAccount: 0,
-            isModalVisible:false,
-            passworModaldAction:'',
-            networkId:0
+            passworModaldAction: '',
         }
     }
+
     closeControlPanel = () => {
         this._drawer.close()
     }
     openControlPanel = () => {
         this._drawer.open()
     }
-    getAccounts = (accounts,currentAccount,networkId) => {
-        this.setState({accounts:accounts,currentAccount:currentAccount,networkId:networkId})
-    }
-    selectAccounts = (accounts,currentAccount) => {
-        this.setState({accounts:accounts,currentAccount:currentAccount,isModalVisible:false})
+    selectAccount = (accounts,currentAccount) => {
         this._drawer.close()
-    }
-    selectNetwork = (networkId) => {
-        this.setState({networkId:networkId})
+        this.props.selectAccount(accounts,currentAccount,false)
+        global.storage.save({
+            key: 'wallet',
+            data: {
+                'encrypt': this.props.WalletReducer.encrypt,
+                'accounts': accounts,
+                'currentAccount': currentAccount,
+                'networkId': this.props.WalletReducer.networkId
+            },
+            expires: null, 
+        })
     }
     showPasswordModal = (passworModaldAction) => {
         this._drawer.close()
-        this.setState({isModalVisible:true,passworModaldAction:passworModaldAction})
-    }
-    cancelModal = () => {
-        this.setState({isModalVisible:false})
+        this.props.setPasswordModalVisiable(true)
+        this.setState({ passworModaldAction: passworModaldAction })
     }
     openSend = (mnemonic) => {
-        this.cancelModal()
-        this.props.navigation.navigate('Send',{
-            mnemonic:mnemonic,
-            account:this.state.currentAccount,
-            networkId:this.state.networkId
+        this.props.setPasswordModalVisiable(false)
+        this.props.navigation.navigate('Send', {
+            mnemonic: mnemonic,
+            account: this.props.WalletReducer.currentAccount,
+            networkId: this.props.WalletReducer.networkId
         })
+    }
+    newAccount = (mnemonic) => {
+        let accounts = this.props.WalletReducer.accounts
+        let address = mnemonicToAddress(mnemonic, accounts.length)
+        accounts[accounts.length] = {
+            address: address
+        }
+        let currentAccount = accounts.length - 1
+        this.selectAccount(accounts,currentAccount)
+    }
+    send = (mnemonic) => {
+        this.openSend(mnemonic)
+    }
+    passwordAction = (mnemonic) => {
+        if (this.state.passworModaldAction === 'newAccount') {
+            this.newAccount(mnemonic)
+        }
+        if (this.state.passworModaldAction === 'send') {
+            this.send(mnemonic)
+        }
     }
     render() {
         return (
@@ -53,33 +75,34 @@ export default class WalletFrame extends Component {
                 side="right"
                 ref={(ref) => this._drawer = ref}
                 initializeOpen={false}
-                content={<AccountDrawer 
-                        accounts={this.state.accounts} 
-                        selectAccounts={this.selectAccounts}
-                        showPasswordModal={this.showPasswordModal}
-                    />}
+                content={<AccountDrawer
+                    selectAccount={this.selectAccount}
+                    showPasswordModal={this.showPasswordModal}
+                />}
                 tapToClose={true}
                 openDrawerOffset={0.6}
             >
                 <WalletMain
                     openControlPanel={this.openControlPanel}
-                    getAccounts={this.getAccounts}
-                    selectAccounts={this.selectAccounts}
-                    selectNetwork={this.selectNetwork}
-                    navigation={this.props.navigation}
-                    currentAccount={this.state.currentAccount}
-                    accounts={this.state.accounts}
                     navigation={this.props.navigation}
                     showPasswordModal={this.showPasswordModal}
                 />
                 <PasswordModal
-                    selectAccounts={this.selectAccounts}
-                    isModalVisible={this.state.isModalVisible}
+                    passwordAction={this.passwordAction}
                     passworModaldAction={this.state.passworModaldAction}
-                    cancelModal={this.cancelModal}
                     openSend={this.openSend}
                 />
             </Drawer>
         )
-    }
+    } 
 }
+
+const mapStateToProps = state => (state)
+
+const mapDispatchToProps = dispatch => ({
+    setAccounts: (value) => dispatch(actions.setAccounts(value)),
+    setCurrentAccount: (value) => dispatch(actions.setCurrentAccount(value)),
+    setPasswordModalVisiable: (value) => dispatch(actions.setPasswordModalVisiable(value)),
+    selectAccount: (accounts, currentAccount, isPasswordModalVisible) => dispatch(actions.selectAccount(accounts, currentAccount, isPasswordModalVisible)),
+})
+export default connect(mapStateToProps,mapDispatchToProps)(WalletFrame)

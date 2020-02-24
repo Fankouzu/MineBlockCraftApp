@@ -7,6 +7,8 @@ import {
     Animated,
     Keyboard
 } from 'react-native'
+import { connect } from 'react-redux'
+import * as actions from '../actions'
 import MyTextInput from '../components/MyTextInput'
 import MyCheckBox from '../components/MyCheckBox'
 import MyButton from '../components/MyButton'
@@ -27,7 +29,7 @@ const styles = StyleSheet.create({
         color: '#390'
     }
 })
-export default class Open extends React.Component {
+class OpenWallet extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -35,7 +37,6 @@ export default class Open extends React.Component {
             checked: false,
             top: new Animated.Value(50),
             shakeLeft: new Animated.Value(global.screenWidth * 0.05),
-            encrypt: this.props.encrypt,
             alertText: [],
             borderColor: '#999',
             buttonDisable: false
@@ -45,17 +46,6 @@ export default class Open extends React.Component {
 
     }
     componentDidUpdate(nextProps, nextState) {
-        if (nextProps.encrypt !== this.state.encrypt) {
-            this.setState({
-                encrypt: nextProps.encrypt
-            })
-            return true
-        } else if (this.props.encrypt !== this.state.encrypt) {
-            this.setState({
-                encrypt: this.props.encrypt
-            })
-            return true
-        }
     }
     componentWillUnmount = () => {
         this.setState = (state, callback) => {
@@ -115,47 +105,55 @@ export default class Open extends React.Component {
             Keyboard.dismiss()
             let password = this.state.password
             let checked = this.state.checked
-            let encrypt = global.wallet.encrypt
-            let mnemonic = aesDecrypt(encrypt, sha1(password))
-            if (validateMnemonic(mnemonic)) {
-                let days = checked === true ? 30 : 1
-                let address = mnemonicToAddress(mnemonic, 0)
-                let accounts = [{
-                    address: address,
-                    balance:0
-                }]
-                console.log('global.wallet:',global.wallet.accounts[0].address)
-                console.log('address:',address)
-                if (global.wallet.accounts[0].address !== address) {
-                    global.storage.save({
-                        key: 'wallet',
-                        data: {
-                            'encrypt': encrypt,
-                            'accounts': accounts,
-                            'currentAccount': 0,
-                            'networkId': 0
-                        },
-                        expires: null,
-                    })
-                    global.wallet = {
-                        'encrypt': encrypt,
-                        'accounts': accounts,
-                        'currentAccount': 0,
-                        'networkId': 0
+            let encrypt = this.props.WalletReducer.encrypt
+            if (encrypt) {
+                let mnemonic = aesDecrypt(encrypt, sha1(password))
+                if (validateMnemonic(mnemonic)) {
+                    let days = checked === true ? 30 : 1
+                    let address = mnemonicToAddress(mnemonic, 0)
+                    let accounts = [{
+                        address: address,
+                        balance: 0
+                    }]
+                    if (this.props.WalletReducer.accounts.length === 0) {
+                        this.props.setAccounts(accounts)
                     }
+                    global.storage.load({
+                        key: 'wallet',
+                    }).then(ret => {
+                        if (!ret.accounts) {
+                            global.storage.save({
+                                key: 'wallet',
+                                data: {
+                                    ...ret,
+                                    'accounts': accounts,
+                                    'currentAccount': 0,
+                                    'networkId': 0
+                                },
+                                expires: null,
+                            })
+                        }
+                    })
+                    global.storage.save({
+                        key: 'status',
+                        data: {
+                            'address': address,
+                        },
+                        expires: 1000 * 3600 * 24 * days,
+                    })
+                    this.props.navigation.navigate('WalletNav')
+                } else {
+                    this.setState({
+                        borderColor: '#F30',
+                        alertText: ['⚠️密码错误'],
+                        buttonDisable: true
+                    })
+                    this.shake()
                 }
-                global.storage.save({
-                    key: 'status',
-                    data: {
-                        'address': address
-                    },
-                    expires: 1000 * 3600 * 24 * days,
-                })
-                this.props.navigation.navigate('WalletNav')
             } else {
                 this.setState({
                     borderColor: '#F30',
-                    alertText: ['⚠️密码错误'],
+                    alertText: ['⚠️钱包错误'],
                     buttonDisable: true
                 })
                 this.shake()
@@ -221,3 +219,9 @@ export default class Open extends React.Component {
         )
     }
 }
+const mapStateToProps = state => (state)
+
+const mapDispatchToProps = dispatch => ({
+    setAccounts: (value) => dispatch(actions.setAccounts(value)),
+})
+export default connect(mapStateToProps, mapDispatchToProps)(OpenWallet)

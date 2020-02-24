@@ -1,35 +1,32 @@
 import React from 'react'
 import { Animated } from 'react-native'
+import {connect} from 'react-redux'
+import * as actions from '../actions'
 import Copyright from '../components/Copyright'
 import MyBackground from '../components/MyBackground'
 import Welcome from '../screen/Welcome'
 import OpenWallet from '../screen/OpenWallet'
 
-export default class Open extends React.Component {
+class WelcomeNav extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            password: '',
-            checked: false,
             leftAnim: new Animated.Value(0),
             page: 0,
-            encrypt: ''
         }
     }
-    componentDidMount() {
+    componentDidMount() { 
         global.storage.load({
             key: 'wallet',
         }).then(ret => {
-            global.wallet = ret
-            this.setState({ encrypt: ret.encrypt })
-        }).catch(err => {
-            global.wallet = {
-                encrypt:null,
-                accounts: [{address:'0x0',balance:0}],
-                currentAccount:0,
-                networkId:0
+            console.log('welcomeNav:ret:',ret)
+            if (ret.encrypt) {
+                this.props.setEncrypt(ret.encrypt)
+            }else {
+                this.props.setEncrypt('')
             }
-            this.setState({ encrypt: null })
+        }).catch(err => {
+            this.props.setEncrypt('')
             switch (err.name) {
                 case 'NotFoundError':
                     break
@@ -42,7 +39,6 @@ export default class Open extends React.Component {
                 const page = this.props.navigation.getParam('page', 0)
                 if (page > 0 && this.state.page === 0) {
                     this.turnPage(1)
-                    this.setState({password:'',encrypt: global.wallet.encrypt })
                 }
             }
         )
@@ -74,18 +70,21 @@ export default class Open extends React.Component {
                     <Welcome
                         turnPage={this.turnPage}
                         navigation={this.props.navigation}
-                        encrypt={this.state.encrypt}
-                    ></Welcome>
+                    />
                     <OpenWallet
                         turnPage={this.turnPage}
                         navigation={this.props.navigation}
                         handleSubmit={this.handleSubmit}
-                        encrypt={this.state.encrypt}
-                    >
-                    </OpenWallet>
+                    />
                 </Animated.View>
                 <Copyright />
             </MyBackground>
         )
     }
 }
+const mapStateToProps = state => (state)
+
+const mapDispatchToProps = dispatch => ({
+    setEncrypt: (value) => dispatch(actions.setEncrypt(value)),
+})
+export default connect(mapStateToProps,mapDispatchToProps)(WelcomeNav)

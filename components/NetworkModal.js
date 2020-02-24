@@ -1,36 +1,32 @@
-import React, { Component } from 'react'
+import React from 'react'
+import { connect } from 'react-redux'
 import { Text, StyleSheet, View } from 'react-native'
 import Modal from "react-native-modal"
 import ListButton from '../components/ListButton'
 import { networks } from '../utils/networks'
 
 
-export default class NetworkModal extends Component {
-    constructor(props) {
-        super(props)
-        this.state = {}
-    }
-    render() {
-        return (
-            <Modal  isVisible={this.props.isModalVisible}>
-                <View style={styles.modalView}>
-                    <Text style={styles.modalTitle}>选择网络</Text>
-                    {networks.map((item, index) => {
-                        return (
-                            <ListButton
-                                text={item.nameCN}
-                                iconColor={item.color}
-                                onPress={() => { this.props.selectNetwork(index)}}
-                                key={index}
-                                iconName='flash-circle'
-                                width={global.screenWidth * 0.9}
-                            />
-                        )
-                    })}
-                </View>
-            </Modal>
-        )
-    }
+function NetworkModal(props) {
+
+    return (
+        <Modal isVisible={props.WalletMain.isNetworkModalVisible}>
+            <View style={styles.modalView}>
+                <Text style={styles.modalTitle}>选择网络</Text>
+                {networks.map((item, index) => {
+                    return (
+                        <ListButton
+                            text={item.nameCN}
+                            iconColor={item.color}
+                            onPress={() => { props.selectNetwork(index) }}
+                            key={index}
+                            iconName='flash-circle'
+                            width={global.screenWidth * 0.9}
+                        />
+                    )
+                })}
+            </View>
+        </Modal>
+    )
 }
 
 const styles = StyleSheet.create({
@@ -40,7 +36,7 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         alignItems: 'center',
         paddingTop: 10,
-        overflow:'hidden'
+        overflow: 'hidden'
     },
     modalTitle: {
         fontSize: 25,
@@ -51,3 +47,9 @@ const styles = StyleSheet.create({
         fontFamily: 'BigYoungMediumGB2.0'
     }
 })
+const mapStateToProps = state => (state)
+
+const mapDispatchToProps = dispatch => ({
+})
+export default connect(mapStateToProps, mapDispatchToProps)(NetworkModal)
+

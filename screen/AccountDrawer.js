@@ -1,14 +1,11 @@
 import React from 'react'
-import { ScrollView, SafeAreaView, StyleSheet, Text, View } from 'react-native'
+import {connect} from 'react-redux'
+import { ScrollView, SafeAreaView, StyleSheet, Text } from 'react-native'
 import Ripple from 'react-native-material-ripple'
 import Jazzicon from '@novaviva/react-native-jazzicon'
 
 
-export default function AccountDrawer(props) {
-    const [accounts, setAccounts] = React.useState(props.accounts)
-    React.useEffect(() => {
-        setAccounts(props.accounts)
-    }, [props.accounts])
+function AccountDrawer(props) {
     return (
         <ScrollView
             style={[styles.container,
@@ -19,13 +16,13 @@ export default function AccountDrawer(props) {
                 forceInset={{ top: 'always', horizontal: 'never' }}
             >
                 <Text style={styles.title}>📒账户列表 </Text>
-                {accounts.map((item, index) => {
+                {props.WalletReducer.accounts.map((item, index) => {
                     return (
                         <Ripple
                             rippleColor='#999'
                             rippleOpacity={0.6}
                             style={styles.itemView}
-                            onPress={() => { props.selectAccounts(accounts,index) }}
+                            onPress={() => { props.selectAccount(props.WalletReducer.accounts,index) }}
                             key={index}
                         >
                             <Jazzicon size={16} address={item.address} />
@@ -93,3 +90,10 @@ const styles = StyleSheet.create({
         letterSpacing: 2
     }
 })
+
+const mapStateToProps = state => (state)
+
+const mapDispatchToProps = dispatch => ({
+})
+export default connect(mapStateToProps,mapDispatchToProps)(AccountDrawer)
+

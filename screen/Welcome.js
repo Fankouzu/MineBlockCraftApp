@@ -1,43 +1,36 @@
 import React from 'react'
+import { connect } from 'react-redux'
 import { View } from 'react-native'
 import Title from '../components/Title'
 import MyButton from '../components/MyButton'
 import MyCard from '../components/MyCard'
 
-export default class Open extends React.Component {
-    constructor(props) {
-        super(props)
-        this.state = {}
-    }
-    componentDidMount() {
-        
-    }
-    render() {
-        const { navigate } = this.props.navigation
-        return (
-            <MyCard
-                screenWidth={global.screenWidth}
-                margin={0.05}
-                top={60}
-                height={160}
-            >
-                <Title titleText='币神钱包' subText='帅到没朋友' />
-                {this.props.encrypt !== null ? (
-                    <MyButton
-                        screenWidth={global.screenWidth * 0.9 - 30}
-                        height={50}
-                        borderRadius={15}
-                        text='😃下一步'
-                        backgroundColor='#6f0' 
-                        backgroundDarker='#390'
-                        textColor='#000'
-                        borderColor='#390'
-                        borderWidth={1}
-                        textSize={20}
-                        onPress={() => this.props.turnPage(1)}
-                    />
-                ) : (
-                    <View style={{ flexDirection: 'row'}}>
+function Welcome(props) {
+    const { navigate } = props.navigation
+    return (
+        <MyCard
+            screenWidth={global.screenWidth}
+            margin={0.05}
+            top={60}
+            height={160}
+        >
+            <Title titleText='币神钱包' subText='帅到没朋友' />
+            {props.WalletReducer.encrypt !== '' && props.WalletReducer.encrypt !== undefined ? (
+                <MyButton
+                    screenWidth={global.screenWidth * 0.9 - 30}
+                    height={50}
+                    borderRadius={15}
+                    text='😃下一步'
+                    backgroundColor='#6f0'
+                    backgroundDarker='#390'
+                    textColor='#000'
+                    borderColor='#390'
+                    borderWidth={1}
+                    textSize={20}
+                    onPress={() => props.turnPage(1)}
+                />
+            ) : (
+                    <View style={{ flexDirection: 'row' }}>
                         <MyButton
                             screenWidth={global.screenWidth * 0.45 - 20}
                             height={50}
@@ -53,7 +46,7 @@ export default class Open extends React.Component {
                             onPress={() => navigate('ImportNav')}
                             style={{ marginRight: 5 }}
                         />
-                        <MyButton 
+                        <MyButton
                             screenWidth={global.screenWidth * 0.45 - 20}
                             height={50}
                             borderRadius={15}
@@ -68,10 +61,13 @@ export default class Open extends React.Component {
                             style={{ marginLeft: 5 }}
                         />
                     </View>
-                    )
-                }
-
-            </MyCard>
-        )
-    }
+                )
+            }
+        </MyCard>
+    )
 }
+const mapStateToProps = state => (state)
+
+const mapDispatchToProps = dispatch => ({
+})
+export default connect(mapStateToProps, mapDispatchToProps)(Welcome)

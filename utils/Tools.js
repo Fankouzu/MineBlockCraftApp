@@ -146,7 +146,7 @@ export async function sendTransaction(to, networkName, mnemonic, currentAccount,
     let code = await infuraProvider.getCode(to)
     let nonce = await wallet.getTransactionCount()
     let data = ethers.utils.hexlify(ethers.utils.toUtf8Bytes(note))
-    value === 0 ? 0 : ethers.utils.parseEther(value)
+    let _value = value === 0 ? 0 : ethers.utils.parseEther(value)
     if (code !== '0x') { throw new Error('目标地址不能是合约地址') }
 
     var myGasfee = myGasprice * 1000000000
@@ -156,7 +156,7 @@ export async function sendTransaction(to, networkName, mnemonic, currentAccount,
         gasLimit: gasLimit,
         gasPrice: ethers.utils.bigNumberify(myGasfee),
         to: to,
-        value: value,
+        value: _value,
         data: data,
         chainId: ethers.utils.getNetwork(networkName).chainId
     }

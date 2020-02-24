@@ -1,24 +1,24 @@
 import React from 'react'
 import {
-    StyleSheet,
     View,
     Animated,
     Text
 } from 'react-native'
+import {connect} from 'react-redux'
+import * as actions from '../actions'
+import Copyright from '../components/Copyright'
 import MyTicket from '../components/MyTicket'
 import MyBackButton from '../components/MyBackButton'
 import MyBackground from '../components/MyBackground'
 import SendTx from '../components/SendTx'
 import SendConfirm from '../components/SendConfirm'
 import Sending from '../components/Sending'
-import { ethprice,getBalance } from '../utils/Tools'
+import Receipt from '../components/Receipt'
+import { ethprice, getBalance } from '../utils/Tools'
 import { networks } from '../utils/networks'
 import isEthereumAddress from 'is-ethereum-address'
 
-const styles = StyleSheet.create({
-
-})
-export default class Send extends React.Component {
+class Send extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -26,7 +26,7 @@ export default class Send extends React.Component {
             borderColor: '#999',
             toAddress: '',
             account: this.props.navigation.getParam('account'),
-            fromAddress:'',
+            fromAddress: '',
             networkId: this.props.navigation.getParam('networkId'),
             mnemonic: this.props.navigation.getParam('mnemonic'),
             amount: '',
@@ -34,12 +34,14 @@ export default class Send extends React.Component {
             addressError: false,
             amountError: false,
             myGasprice: 0,
-            initGasLimit:21000,
-            gasLimit:21000,
+            initGasLimit: 21000,
+            gasLimit: 21000,
             ethprice: 0,
             step: 0,
             rollTo: 0,
-            note: ''
+            note: '',
+            tx: {},
+            receipt: {}
         }
     }
     componentDidMount = async () => {
@@ -52,12 +54,12 @@ export default class Send extends React.Component {
         ethprice().then((res) => {
             this.setState({ ethprice: res.result.ethusd })
         })
-        let accounts = global.wallet.accounts
+        let accounts = this.props.WalletReducer.accounts
         let fromAddress = accounts[this.state.account].address
-        
-        this.setState({fromAddress:fromAddress})
+
+        this.setState({ fromAddress: fromAddress })
         getBalance(fromAddress, networks[this.state.networkId].nameEN).then((balance) => {
-            this.setState({balance:balance})
+            this.setState({ balance: balance })
         })
     }
     componentWillUnmount = () => {
@@ -119,8 +121,6 @@ export default class Send extends React.Component {
     handleConfirm = () => {
         this.setState({
             buttonDisable: false,
-            addressError: '',
-            amount: this.state.amount === '' ? 0 : this.state.amount,
             step: 2
         })
     }
@@ -146,6 +146,17 @@ export default class Send extends React.Component {
     }
     handleTypeNote = (note) => {
         this.setState({ note: note })
+    }
+    handleReceipt = () => {
+        this.setState({
+            step: 3
+        })
+    }
+    handleSetTx = (tx) => {
+        this.setState({ tx: tx })
+    }
+    handleSetReceipt = (receipt) => {
+        this.setState({ receipt: receipt })
     }
     render() {
         const { navigate } = this.props.navigation
@@ -214,17 +225,31 @@ export default class Send extends React.Component {
                                     networkId={this.state.networkId}
                                     account={this.state.account}
                                     gasLimit={this.state.gasLimit}
+                                    handleSetTx={this.handleSetTx}
+                                    handleSetReceipt={this.handleSetReceipt}
+                                    handleReceipt={this.handleReceipt}
+                                />
+                            ) : this.state.step === 3 ? (
+                                <Receipt
+                                    tx={this.state.tx}
+                                    receipt={this.state.receipt}
+                                    navigation={this.props.navigation}
                                 />
                             ) : (
-                                            <View>
-                                                <Text>1111</Text>
-                                            </View>
+                                      <View/>      
                                         )}
 
                         </MyTicket>
                     </Animated.View>
                 </View>
+                <Copyright />
             </MyBackground>
         )
     }
 }
+const mapStateToProps = state => (state)
+
+const mapDispatchToProps = dispatch => ({
+    setAccounts: (value) => dispatch(actions.setAccounts(value)),
+})
+export default connect(mapStateToProps,mapDispatchToProps)(Send)

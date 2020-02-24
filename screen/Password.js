@@ -5,6 +5,8 @@ import {
     Keyboard,
     Animated
 } from 'react-native'
+import {connect} from 'react-redux'
+import * as actions from '../actions'
 import MyCard from '../components/MyCard'
 import MyButton from '../components/MyButton'
 import MyBackButton from '../components/MyBackButton'
@@ -26,7 +28,7 @@ const styles = StyleSheet.create({
 })
 
 var alertText = ['⚠️密码只保存在你的手机记忆中，不会发送到服务器', '⚠️密码一旦丢失请通过助记词找回钱包']
-export default class Open extends React.Component {
+class Password extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -138,24 +140,20 @@ export default class Open extends React.Component {
 
     }
     Wallet = () => {
-        const encrypt = aesEncrypt(this.props.mnemonic, sha1(this.state.password))
-        global.wallet = { 
-            'encrypt':encrypt,
-            accounts:[{address:'0x0',balance:0}], 
-            'currentAccount':0,
-            'networkId':0
-        }
-        global.storage.save({
+        const encrypt = aesEncrypt(this.props.LoginReducer.useMnemonic, sha1(this.state.password))
+
+        global.storage.load({
             key: 'wallet',
-            data: { 
-                'encrypt':encrypt,
-                accounts:[{address:'0x0',balance:0}], 
-                'currentAccount':0,
-                'networkId':0
-            },
-            expires: null,
+        }).then(ret => {
+            global.storage.save({
+                key: 'wallet',
+                data: {...ret,'encrypt': encrypt},
+                expires: null,
+            })
+            this.props.setEncrypt(encrypt)
+            this.setState({ isModalVisible: true })
         })
-        this.setState({ isModalVisible: true })
+        
     }
     render() {
         const { navigate } = this.props.navigation
@@ -227,3 +225,9 @@ export default class Open extends React.Component {
         )
     }
 }
+const mapStateToProps = state => (state)
+
+const mapDispatchToProps = dispatch => ({
+    setEncrypt: (value) => dispatch(actions.setEncrypt(value)),
+})
+export default connect(mapStateToProps,mapDispatchToProps)(Password)

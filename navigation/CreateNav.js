@@ -1,51 +1,32 @@
 import React from 'react'
 import { Animated } from 'react-native'
+import {connect} from 'react-redux'
+import * as actions from '../actions'
 import Copyright from '../components/Copyright'
 import MyBackground from '../components/MyBackground'
 import Mnemonic from '../screen/Mnemonic'
 import RandomMnemonic from '../screen/RandomMnemonic'
 import Password from '../screen/Password'
+import { randMnemonic } from '../utils/Tools'
 import bip39 from 'react-native-bip39'
 var chinese_simplified = require('../assets/chinese_simplified.json')
 
-export default class Open extends React.Component {
+class CreateNav extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            password: '',
-            checked: false,
             leftAnim: new Animated.Value(0),
-            mnemonic_zh: '',
-            mnemonic_en: '',
-            useMnemonic: '',
-            lang: 'zh',
             page: 0
         }
     }
     componentDidMount() {
         bip39.generateMnemonic(128, null, bip39.wordlists.EN).then((res) => {
-            this.setState({ mnemonic_en: res })
+            this.props.setMnemonicEn(res)
         })
         bip39.generateMnemonic(128, null, chinese_simplified).then((res) => {
-            this.setState({
-                mnemonic_zh: res,
-                useMnemonic: res
-            })
-            this.changeLang(0)
+            this.props.setDefaultMnemonic(res)
+            this.props.setRandomMnemonic(randMnemonic(res))
         })
-    }
-    changeLang = (index) => {
-        if (index === 0) {
-            this.setState({
-                useMnemonic: this.state.mnemonic_zh,
-                lang: 'zh'
-            })
-        } else {
-            this.setState({
-                useMnemonic: this.state.mnemonic_en,
-                lang: 'en'
-            })
-        }
     }
     turnPage = (index) => {
         Animated.timing(this.state.leftAnim, {
@@ -56,12 +37,15 @@ export default class Open extends React.Component {
         })
     }
     componentWillUnmount = () => {
+        this.props.setMnemonicEn('')
+        this.props.setMnemonicCn('')
+        this.props.setDefaultMnemonic('')
+        this.props.setRandomMnemonic([])
         this.setState = (state, callback) => {
             return
         }
     }
     render() {
-        console.log(this.state.useMnemonic)
         return (
             <MyBackground>
                 <Animated.View style={{
@@ -71,19 +55,13 @@ export default class Open extends React.Component {
                     <Mnemonic
                         navigation={this.props.navigation}
                         turnPage={this.turnPage}
-                        mnemonic_zh={this.state.mnemonic_zh}
-                        mnemonic_en={this.state.mnemonic_en}
-                        changeLang={this.changeLang}
                     ></Mnemonic>
                     <RandomMnemonic
                         turnPage={this.turnPage}
-                        lang={this.state.lang}
-                        useMnemonic={this.state.useMnemonic}
                     ></RandomMnemonic>
                     <Password
                         navigation={this.props.navigation}
                         turnPage={this.turnPage}
-                        mnemonic={this.state.useMnemonic}
                     ></Password>
                 </Animated.View>
                 <Copyright />
@@ -91,3 +69,12 @@ export default class Open extends React.Component {
         )
     }
 }
+const mapStateToProps = state => (state)
+
+const mapDispatchToProps = dispatch => ({
+    setMnemonicEn: (value) => dispatch(actions.setMnemonicEn(value)),
+    setMnemonicCn: (value) => dispatch(actions.setMnemonicCn(value)),
+    setDefaultMnemonic: (value) => dispatch(actions.setDefaultMnemonic(value)),
+    setRandomMnemonic: (value) => dispatch(actions.setRandomMnemonic(value)),
+})
+export default connect(mapStateToProps,mapDispatchToProps)(CreateNav)

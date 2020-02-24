@@ -18,7 +18,7 @@ const AppNavigator = createStackNavigator(
         ImportNav: {
             screen: ImportNav,
         },
-    },
+    }, 
     {
         initialRouteName: 'WelcomeNav',
         headerMode: 'none',

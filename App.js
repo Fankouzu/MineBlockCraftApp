@@ -1,15 +1,22 @@
 import React from 'react'
 import { StatusBar, StyleSheet, View } from 'react-native'
+import { Provider } from 'react-redux'
 import MainNav from './navigation/MainNav'
+import store from './store'
 import './Global'
 
-export default function App() {
+
+export default class App extends React.Component {
+  render() {
     return (
-      <View style={[styles.container]}>
-        {global.ios && <StatusBar barStyle="default" />}
-        <MainNav/>
-      </View>
+      <Provider store={store}>
+        <View style={[styles.container]}>
+          {global.ios && <StatusBar barStyle="default" />}
+          <MainNav />
+        </View>
+      </Provider>
     )
+  }
 }
 
 const styles = StyleSheet.create({

@@ -1,9 +1,11 @@
 import * as React from 'react'
 import { View, StyleSheet, Text,Clipboard } from 'react-native'
+import { connect } from 'react-redux'
+import * as actions from '../actions'
 import { TabBar, TabView, SceneMap } from 'react-native-tab-view'
 import PropTypes from 'prop-types'
 
-export default function MyTabView(props) {
+function MyTabView(props) {
     const [index, setIndex] = React.useState(0)
     const [routes] = React.useState([
         { key: 'first', title: '中文助记词' },
@@ -18,15 +20,15 @@ export default function MyTabView(props) {
             <View style={styles.scene}>
                 <Text 
                     style={[
-                        styles.mnemonic_zh,
+                        styles.mnemonic_cn,
                         {
                             letterSpacing:(global.screenWidth*0.9-10)/4 - 30
                         }]} 
                     onPress={()=>{
-                        Clipboard.setString(props.mnemonic_zh)
+                        Clipboard.setString(props.LoginReducer.mnemonicCn)
                     }}
             >
-                    {props.mnemonic_zh.replace(/ /g,'')}
+                    {props.LoginReducer.mnemonicCn.replace(/ /g,'')}
                 </Text>
             </View>,
         second: () => 
@@ -34,10 +36,10 @@ export default function MyTabView(props) {
                 <Text 
                 style={styles.mnemonic_en}
                 onPress={()=>{
-                    Clipboard.setString(props.mnemonic_en)
+                    Clipboard.setString(props.LoginReducer.mnemonicEn)
                 }}
                 >
-                {props.mnemonic_en.replace(/ /g,'    ')}
+                {props.LoginReducer.mnemonicEn.replace(/ /g,'        ')}
                 </Text>
             </View>
     })
@@ -76,7 +78,7 @@ const styles = StyleSheet.create({
     scene: {
         flex: 0
     },
-    mnemonic_zh: {
+    mnemonic_cn: {
         fontSize:24,
         textAlign:'center',
         alignContent:'space-between',
@@ -86,11 +88,18 @@ const styles = StyleSheet.create({
         fontFamily: 'BigYoungMediumGB2.0'
     },
     mnemonic_en: {
-        fontSize:20,
+        fontSize:16,
         textAlign:'center',
         justifyContent:'space-evenly',
-        lineHeight:40,
+        lineHeight:50,
         paddingLeft:10,
-        paddingRight:10
+        paddingRight:10,
+        fontFamily: 'InputMono light'
     }
 })
+const mapStateToProps = state => (state)
+
+const mapDispatchToProps = dispatch => ({
+    setLang: (value) => dispatch(actions.setLang(value)),
+})
+export default connect(mapStateToProps, mapDispatchToProps)(MyTabView)

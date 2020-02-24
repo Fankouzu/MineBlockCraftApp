@@ -60,7 +60,6 @@ MyButton.propTypes = {
     screenWidth: PropTypes.number,
     text: PropTypes.string,
     onPress: PropTypes.func,
-    style: PropTypes.object,
     textSize: PropTypes.number,
     textFont: PropTypes.string,
     disabled: PropTypes.bool,

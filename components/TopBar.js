@@ -1,33 +1,13 @@
 import React from 'react'
 import { Image, StyleSheet, View, TouchableOpacity } from 'react-native'
+import * as actions from '../actions'
+import {connect} from 'react-redux'
 import AwesomeButton from 'react-native-really-awesome-button'
 import MyButton from '../components/MyButton'
 import { networks } from '../utils/networks'
 import Jazzicon from '@novaviva/react-native-jazzicon'
 
-export default function TopBar(props) {
-    const [networkId, setNetworkId] = React.useState(props.networkId)
-    React.useEffect(() => {
-        setNetworkId(props.networkId)
-    }, [props.networkId])
-
-    const [accounts, setAccounts] = React.useState(props.accounts)
-    React.useEffect(() => {
-        setAccounts(props.accounts)
-    }, [props.accounts])
-
-    const [currentAccount, setCurrentAccount] = React.useState(props.currentAccount)
-    React.useEffect(() => {
-        setCurrentAccount(props.currentAccount)
-    }, [props.currentAccount])
-
-    const [currentAddress, setCurrentAddress] = React.useState('0x0')
-    React.useEffect(() => {
-        if (accounts.length > 0) {
-            setCurrentAddress(accounts[currentAccount].address)
-        }
-    }, [accounts, currentAccount])
-
+function TopBar(props) {
     return (
         <View style={styles.topView}>
             <View style={{ height: 30, width: global.screenWidth * 0.15, paddingLeft: 15 }}>
@@ -59,7 +39,7 @@ export default function TopBar(props) {
                     height={32}
                     raiseLevel={2}
                     borderRadius={16}
-                    text={'🔗' + networks[networkId].nameCN}
+                    text={'🔗' + networks[props.WalletReducer.networkId].nameCN}
                     backgroundColor='#fc0'
                     backgroundDarker='#960'
                     backgroundActive='#ff0'
@@ -68,7 +48,7 @@ export default function TopBar(props) {
                     borderWidth={1}
                     textSize={12}
                     letterSpacing={0}
-                    onPress={() => { props.handleOpenNetSelect(true) }}
+                    onPress={() => { props.setNetworkModalVisiable(true) }}
                 />
             </View>
             <TouchableOpacity onPress={props.openControlPanel}>
@@ -81,7 +61,7 @@ export default function TopBar(props) {
                     }}
                 >
                     <View style={styles.JazziconView}>
-                        <Jazzicon size={28} address={currentAddress} />
+                        <Jazzicon size={28} address={props.WalletReducer.accounts[props.WalletReducer.currentAccount].address} />
                     </View>
                 </View>
             </TouchableOpacity>
@@ -107,3 +87,11 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff'
     }
 })
+
+const mapStateToProps = state => (state)
+
+const mapDispatchToProps = dispatch => ({
+    setNetworkModalVisiable: (value) => dispatch(actions.setNetworkModalVisiable(value)),
+})
+export default connect(mapStateToProps,mapDispatchToProps)(TopBar)
+

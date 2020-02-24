@@ -5,15 +5,12 @@ import Password from '../screen/Password'
 import Copyright from '../components/Copyright'
 import MyBackground from '../components/MyBackground'
 
-export default class Open extends React.Component {
+export default class ImportNav extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            password: '',
-            checked: false,
             leftAnim: new Animated.Value(0),
             page:0,
-            mnemonic:''
         }
     }
     componentDidMount() {
@@ -27,11 +24,7 @@ export default class Open extends React.Component {
             this.setState({ page:this.state.page + index })
         })
     }
-    setMnemonic = (mnemonic) => {
-        this.setState({mnemonic:mnemonic})
-    }
     render() {
-        const { navigate } = this.props.navigation
         return (
             <MyBackground>
                 <Animated.View style={{
@@ -41,12 +34,10 @@ export default class Open extends React.Component {
                     <ImportMnemonic
                         navigation={this.props.navigation}
                         turnPage={this.turnPage}
-                        setMnemonic={this.setMnemonic}
                     />
                     <Password
                         navigation={this.props.navigation}
                         turnPage={this.turnPage}
-                        mnemonic={this.state.mnemonic}
                     />
                 </Animated.View>
                 <Copyright />

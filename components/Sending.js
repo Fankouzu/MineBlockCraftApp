@@ -6,34 +6,74 @@ import LoadingDot from '../components/LoadingDot'
 import Jazzicon from '@novaviva/react-native-jazzicon'
 import { sendTransaction } from '../utils/Tools'
 
-export default function SendConfirm(props) {
+export default class Sending extends React.Component {
+    constructor(props) {
+        super(props)
+        this.state = {
+            fromAddress: this.props.fromAddress,
+            toAddress: this.props.toAddress,
+            tx: {},
+            sendTx: '等待...',
+            receipt: '等待...'
+        }
+    }
+    componentDidMount = () => {
+        this.setState({ sendTx: '发送中...' })
+        setTimeout(() => {
+            this.handleSendTransaction()
+        }, 2000)
+    }
+    handleSendTransaction = () => {
+        const { mnemonic, networkId, myGasprice, amount, note, toAddress, account, gasLimit } = this.props
+        const networkName = networks[networkId].nameEN
+        sendTransaction(toAddress, networkName, mnemonic, account, amount, gasLimit, myGasprice, note).then((tx)=>{
+            console.log('tx', tx)
+            this.props.handleSetTx(tx)
+            this.setState({ sendTx: '成功!', receipt: '确认中...' })
+            tx.wait().then((receipt)=>{
+                this.props.handleSetReceipt(receipt)
+                this.setState({ receipt: '成功!' })
+                console.log('receipt', receipt)
+                this.props.handleReceipt()
+            })
+        })
+        
+    }
+    componentDidUpdate(nextProps, nextState) {
+        if (nextState.sendTx !== this.state.sendTx) {
+            return true
+        } else if (nextState.receipt !== this.state.receipt) {
+            return true
+        } else {
+            return false
+        }
+    }
+    render() {
+        return (
+            <View style={{ alignItems: 'center' }}>
+                <Title titleText='转账中...' style={styles.Title} />
+                <View style={styles.divide}></View>
 
-    const { mnemonic, networkId, myGasprice, amount, note, fromAddress, toAddress, account, gasLimit } = props
-
-    const networkName = networks[networkId].nameEN
-
-    console.log('props', props)
-
-
-    sendTransaction(toAddress, networkName, mnemonic, account, amount, gasLimit, myGasprice, note).then(function (res) {
-        console.log("TCL: handleChangeTab -> res", res)
-    })
-
-
-
-    return (
-        <View>
-            <Title titleText='转账中...' style={styles.Title} />
-            <View style={styles.divide}></View>
-
-            <View style={styles.TxView}>
-                <View style={styles.jazzIcon}><Jazzicon size={50} address={fromAddress} /></View>
-                <LoadingDot />
-                <View style={styles.jazzIcon}><Jazzicon size={50} address={toAddress} /></View>
+                <View style={styles.TxView}>
+                    <View style={styles.jazzIcon}><Jazzicon size={30} address={this.state.fromAddress} /></View>
+                    <LoadingDot />
+                    <View style={styles.jazzIcon}><Jazzicon size={30} address={this.state.toAddress} /></View>
+                </View>
+                <View style={styles.msgView}>
+                    <View style={styles.msg}>
+                        <Text style={styles.msgTxt}>发送交易:</Text>
+                        <Text style={styles.msgTxt}>{this.state.sendTx}</Text>
+                    </View>
+                    <View style={styles.msg}>
+                        <Text style={styles.msgTxt}>等待确认:</Text>
+                        <Text style={styles.msgTxt}>{this.state.receipt}</Text>
+                    </View>
+                </View>
             </View>
-        </View>
-    )
+        )
+    }
 }
+
 const styles = StyleSheet.create({
     title: {
         fontSize: 14,
@@ -42,19 +82,33 @@ const styles = StyleSheet.create({
         color: '#333'
     },
     divide: {
-        borderWidth: 0.3,
-        borderColor: '#666',
+        borderWidth: 0.35,
+        borderColor: '#000',
         borderRadius: 1,
         borderStyle: 'dashed',
         marginBottom: 10,
+        width: '100%'
     },
     jazzIcon: {
         width: 50,
-        justifyContent: 'center'
+        justifyContent: 'center',
+        alignItems: 'center'
     },
     TxView: {
         flexDirection: 'row',
         justifyContent: 'center',
-        height: 300
+        height: 100
     },
+    msgView: {
+        height: 100,
+        width: 200,
+    },
+    msg: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        marginBottom: 10
+    },
+    msgTxt: {
+        color: '#333'
+    }
 })

@@ -5,21 +5,41 @@ import {
     StyleSheet,
     View,
 } from 'react-native'
+import {connect} from 'react-redux'
+import * as actions from '../actions'
 
-export default class AuthLoading extends React.Component {
+class AuthLoading extends React.Component {
     constructor(props) {
         super(props)
         this.state = {}
         this._bootstrapAsync()
     }
     _bootstrapAsync = async () => {
+
         global.storage.load({
-            key: 'status',
+            key: 'wallet',
         }).then(ret => {
-            this.props.navigation.navigate('WalletNav')
+            if (ret.encrypt) {
+                this.props.setWallet(ret)
+                global.storage.load({
+                    key: 'status',
+                }).then(ret => {
+                    if (ret.address) {
+                        this.props.navigation.navigate('WalletNav')
+                    }else{
+                        this.props.navigation.navigate('LoginNav')
+                    }
+                }).catch(err => {
+                    this.props.navigation.navigate('LoginNav')
+                })
+            }else {
+                this.props.navigation.navigate('LoginNav')
+            }
         }).catch(err => {
             this.props.navigation.navigate('LoginNav')
         })
+
+        
     }
     render() {
         return (
@@ -37,3 +57,9 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
 })
+const mapStateToProps = state => (state)
+
+const mapDispatchToProps = dispatch => ({
+    setWallet: (value) => dispatch(actions.setWallet(value)),
+})
+export default connect(mapStateToProps,mapDispatchToProps)(AuthLoading)

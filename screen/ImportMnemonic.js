@@ -6,6 +6,8 @@ import {
     Keyboard,
     Clipboard
 } from 'react-native'
+import {connect} from 'react-redux'
+import * as actions from '../actions'
 import MyTextArea from '../components/MyTextArea'
 import MyButton from '../components/MyButton'
 import MyBackButton from '../components/MyBackButton'
@@ -14,26 +16,11 @@ import Title from '../components/Title'
 import AlertText from '../components/AlertText'
 import { validateMnemonic } from '../utils/Tools'
 
-const styles = StyleSheet.create({
-    alert: {
-        marginBottom: 10,
-        marginLeft: 10,
-        marginRight: 10,
-    },
-    alertText: {
-        textAlign: 'center',
-        fontStyle: 'italic',
-        fontSize: 12,
-        lineHeight: 20,
-        color: '#f30'
-    },
-})
 const alertText = ['⚠️请按正确的顺序填写或粘贴助记词⚠️']
-export default class Open extends React.Component {
+class ImportMnemonic extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            mnemonic: '',
             top: new Animated.Value(0),
             shakeLeft: new Animated.Value(global.screenWidth * 0.05),
             alertText: alertText,
@@ -99,7 +86,7 @@ export default class Open extends React.Component {
         this.handleKeybordMargin('down')
     }
     handleType = (mnemonic) => {
-        this.setState({ mnemonic: mnemonic })
+        this.props.setImportMnemonic(mnemonic)
     }
     handleKeybordMargin = (action) => {
         Animated.timing(this.state.top, {
@@ -108,7 +95,7 @@ export default class Open extends React.Component {
         }).start()
     }
     next = () => {
-        let mnemonic = this.state.mnemonic
+        let mnemonic = this.props.LoginReducer.useMnemonic
         if (mnemonic === '') {
             this.setState({
                 borderColor: '#f30',
@@ -125,7 +112,7 @@ export default class Open extends React.Component {
             this.shake()
         } else {
             Keyboard.dismiss()
-            this.props.setMnemonic(mnemonic)
+            this.props.setImportMnemonic(mnemonic)
             this.props.turnPage(1)
         }
     }
@@ -133,7 +120,7 @@ export default class Open extends React.Component {
         Clipboard.getString().then((content)=>{
             if (content !== '') {
                 if (validateMnemonic(content)){
-                    this.setState({mnemonic: content})
+                    this.props.setImportMnemonic(content)
                 }
             }
         })
@@ -162,7 +149,7 @@ export default class Open extends React.Component {
                             handleKeybordMargin={this.handleKeybordMargin}
                             borderColor={this.state.borderColor}
                             onFocus={this.onFocus}
-                            value={this.state.mnemonic}
+                            value={this.props.LoginReducer.useMnemonic}
                             borderColorActive='#390'
                         />
                         <AlertText 
@@ -187,3 +174,9 @@ export default class Open extends React.Component {
         )
     }
 }
+const mapStateToProps = state => (state)
+
+const mapDispatchToProps = dispatch => ({
+    setImportMnemonic: (value) => dispatch(actions.setImportMnemonic(value)),
+})
+export default connect(mapStateToProps, mapDispatchToProps)(ImportMnemonic)

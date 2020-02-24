@@ -1,4 +1,6 @@
 import React, { Component } from 'react'
+import {connect} from 'react-redux'
+import * as actions from '../actions'
 import { Text, StyleSheet, View, Animated, TouchableOpacity } from 'react-native'
 import Modal from "react-native-modal"
 import MyCard from './MyCard'
@@ -7,10 +9,10 @@ import MyTextInput from './MyTextInput'
 import AlertText from './AlertText'
 import MyButton from './MyButton'
 import { aesDecrypt, sha1 } from '../utils/Aes'
-import { validateMnemonic , mnemonicToAddress } from '../utils/Tools'
+import { validateMnemonic } from '../utils/Tools'
 
 
-export default class PasswordModal extends Component {
+class PasswordModal extends Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -60,19 +62,6 @@ export default class PasswordModal extends Component {
     handleTypePassword = (password) => {
         this.setState({ password: password })
     }
-    newAccount = (mnemonic) => {
-        let accounts = global.wallet.accounts
-        let address = mnemonicToAddress(mnemonic, accounts.length)
-        accounts[accounts.length] = {
-            address: address
-        }
-        let currentAccount = accounts.length - 1
-        this.setState({ password: '' })
-        this.props.selectAccounts(accounts, currentAccount)
-    }
-    send = (mnemonic) => {
-        this.props.openSend(mnemonic)
-    }
     handleSubmit = (next) => {
         if (this.state.password === '') {
             this.setState({
@@ -83,15 +72,11 @@ export default class PasswordModal extends Component {
             this.shake()
         } else {
             let password = this.state.password
-            let encrypt = global.wallet.encrypt
+            let encrypt = this.props.WalletReducer.encrypt
             let mnemonic = aesDecrypt(encrypt, sha1(password))
             if (validateMnemonic(mnemonic)) {
-                if (this.props.passworModaldAction === 'newAccount') {
-                    this.newAccount(mnemonic)
-                }
-                if (this.props.passworModaldAction === 'send') {
-                    this.send(mnemonic)
-                }
+                this.setState({ password: '' })
+                this.props.passwordAction(mnemonic)
             } else {
                 this.setState({
                     borderColor: '#F30',
@@ -105,10 +90,9 @@ export default class PasswordModal extends Component {
     }
     render() {
         return (
-            <Modal isVisible={this.props.isModalVisible}>
+            <Modal isVisible={this.props.WalletMain.isPasswordModalVisible}>
                 <Animated.View style={{
                     marginLeft: this.state.shakeLeft,
-                    //marginTop:this.state.top
                 }}>
                     <MyCard
                         screenWidth={global.screenWidth * 0.9}
@@ -143,7 +127,7 @@ export default class PasswordModal extends Component {
                             progress={true}
                         />
                         <View style={styles.bottom}>
-                            <TouchableOpacity onPress={() => { this.props.cancelModal() }}>
+                            <TouchableOpacity onPress={() => { this.props.setPasswordModalVisiable(false) }}>
                                 <Text style={styles.bottomLink}>取消</Text>
                             </TouchableOpacity>
                         </View>
@@ -178,3 +162,10 @@ const styles = StyleSheet.create({
         color: '#390'
     }
 })
+
+const mapStateToProps = state => (state)
+
+const mapDispatchToProps = dispatch => ({
+    setPasswordModalVisiable: (value) => dispatch(actions.setPasswordModalVisiable(value))
+})
+export default connect(mapStateToProps,mapDispatchToProps)(PasswordModal)

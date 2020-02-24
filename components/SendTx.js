@@ -1,11 +1,13 @@
 import React from 'react'
 import { View } from 'react-native'
+import {connect} from 'react-redux'
+import * as actions from '../actions'
 import Title from '../components/Title'
 import SendInput from '../components/SendInput'
 import GasView from '../components/GasView'
 import MyButton from '../components/MyButton'
 
-export default function SendTx(props) {
+function SendTx(props) {
 
     const [toAddress, setToAddress] = React.useState(props.toAddress)
     React.useEffect(() => {
@@ -89,3 +91,9 @@ export default function SendTx(props) {
         </View>
     )
 }
+const mapStateToProps = state => (state)
+
+const mapDispatchToProps = dispatch => ({
+    setAccounts: (value) => dispatch(actions.setAccounts(value)),
+})
+export default connect(mapStateToProps,mapDispatchToProps)(SendTx)
