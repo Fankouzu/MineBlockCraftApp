@@ -7,15 +7,14 @@ import {
     TouchableOpacity,
     StyleSheet
 } from 'react-native'
+import { connect } from 'react-redux'
+import * as actions from '../actions'
 import isEthereumAddress from 'is-ethereum-address'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 
-export default function SendInput(props) {
-    const [toAddress, setToAddress] = React.useState(props.toAddress)
-    const { ethprice } = props
-    React.useEffect(() => {
-        setToaddress(props.toAddress)
-    }, [props.toAddress])
+function SendInput(props) {
+    
+    const {toAddress,balance,amount,ethPrice,note} = props.SendReducer
 
     const [addressErrorTxt, setAddressErrorTxt] = React.useState(props.addressError)
     const [amountErrorTxt, setAmountErrorTxt] = React.useState(props.amountError)
@@ -41,41 +40,14 @@ export default function SendInput(props) {
         }
     }, [props.amountError])
 
-    const [amount, setAmount] = React.useState(props.amount)
-    React.useEffect(() => {
-        setAmount(props.amount)
-    }, [props.amount])
-    const typeAmount = (amount) => {
-        props.handleSetAmount(amount)
-        setAmount(amount)
-    }
-
-    const [balance, setBalance] = React.useState(props.balance)
-    React.useEffect(() => {
-        setBalance(Math.round(props.balance * 100000) / 100000)
-    }, [props.balance])
-
-    const setToaddress = (toAddress) => {
-        setToAddress(toAddress)
-        props.setToAddress(toAddress)
-    }
     const paste = () => {
         Clipboard.getString().then((content) => {
             if (content !== '') {
                 if (isEthereumAddress(content)) {
-                    setToaddress(content)
+                    props.setToAddress(content)
                 }
             }
         })
-    }
-
-    const [note, setNote] = React.useState(props.note)
-    React.useEffect(() => {
-        setNote(props.note)
-    }, [props.note])
-    const typeNote = (value) => {
-        setNote(value)
-        props.handleTypeNote(value)
     }
 
     return (
@@ -109,7 +81,7 @@ export default function SendInput(props) {
                 </View>
                 <TextInput
                     style={[styles.addressInput, addressErrorStyle]}
-                    onChangeText={(toAddress) => { setToaddress(toAddress) }}
+                    onChangeText={(toAddress) => { props.setToAddress(toAddress) }}
                     value={toAddress}
                     onFocus={() => { props.handleRollUp(-55) }}
                     onBlur={() => { props.handleRollUp(0) }}
@@ -128,7 +100,7 @@ export default function SendInput(props) {
                         <Text style={styles.actTxt}>发送数量</Text>
                     </View>
                     <View style={styles.actBtn}>
-                        <Text style={styles.balance}>余额:{balance}</Text>
+                        <Text style={styles.balance}>余额:{Math.round(balance * 100000) / 100000}</Text>
                     </View>
                 </View>
                 <View style={styles.amountInputView}>
@@ -137,7 +109,7 @@ export default function SendInput(props) {
                             style={[styles.amountInput,amountErrorStyle]}
                             placeholder='0'
                             keyboardType='numeric'
-                            onChangeText={(value) => { typeAmount(value) }}
+                            onChangeText={(value) => { props.setAmount(value) }}
                             value={amount}
                             onFocus={() => { props.handleRollUp(-135) }}
                             onBlur={() => { props.handleRollUp(0) }}
@@ -145,7 +117,7 @@ export default function SendInput(props) {
                         <Text style={styles.errorTxt}>{amountErrorTxt}</Text>
                     </View>
                     <Text style={styles.ethPriceView} numberOfLines={1}>
-                        ≈ $ {Math.round(amount * ethprice * 1000) / 1000}
+                        ≈ $ {Math.round(amount * ethPrice * 1000) / 1000}
                     </Text>
                 </View>
             </View>
@@ -166,7 +138,7 @@ export default function SendInput(props) {
                     multiline={true}
                     returnKeyType='next'
                     placeholder='备注在链上永久记录[选填]'
-                    onChangeText={(value) => { typeNote(value) }}
+                    onChangeText={(value) => { props.setNote(value) }}
                     onFocus={() => { props.handleRollUp(-210) }}
                     onBlur={() => { props.handleRollUp(0) }}
                     value={note}
@@ -272,3 +244,12 @@ const styles = StyleSheet.create({
         marginRight: 5
     },
 })
+
+const mapStateToProps = state => (state)
+
+const mapDispatchToProps = dispatch => ({
+    setNote: (value) => dispatch(actions.setNote(value)),
+    setToAddress: (value) => dispatch(actions.setToAddress(value)),
+    setAmount: (value) => dispatch(actions.setAmount(value)),
+})
+export default connect(mapStateToProps, mapDispatchToProps)(SendInput)

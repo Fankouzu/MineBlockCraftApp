@@ -42,14 +42,10 @@ class WalletFrame extends Component {
     }
     openSend = (mnemonic) => {
         this.props.setPasswordModalVisiable(false)
-        this.props.navigation.navigate('Send', {
-            mnemonic: mnemonic,
-            account: this.props.WalletReducer.currentAccount,
-            networkId: this.props.WalletReducer.networkId
-        })
+        this.props.navigation.navigate('Send')
     }
-    newAccount = (mnemonic) => {
-        let accounts = this.props.WalletReducer.accounts
+    newAccount = () => {
+        const { accounts , mnemonic } = this.props.WalletReducer
         let address = mnemonicToAddress(mnemonic, accounts.length)
         accounts[accounts.length] = {
             address: address
@@ -57,15 +53,12 @@ class WalletFrame extends Component {
         let currentAccount = accounts.length - 1
         this.selectAccount(accounts,currentAccount)
     }
-    send = (mnemonic) => {
-        this.openSend(mnemonic)
-    }
-    passwordAction = (mnemonic) => {
+    passwordAction = () => {
         if (this.state.passworModaldAction === 'newAccount') {
-            this.newAccount(mnemonic)
+            this.newAccount()
         }
         if (this.state.passworModaldAction === 'send') {
-            this.send(mnemonic)
+            this.openSend()
         }
     }
     render() {

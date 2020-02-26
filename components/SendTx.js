@@ -1,81 +1,58 @@
 import React from 'react'
 import { View } from 'react-native'
-import {connect} from 'react-redux'
-import * as actions from '../actions'
+import { connect } from 'react-redux'
 import Title from '../components/Title'
 import SendInput from '../components/SendInput'
 import GasView from '../components/GasView'
 import MyButton from '../components/MyButton'
+import isEthereumAddress from 'is-ethereum-address'
 
 function SendTx(props) {
 
-    const [toAddress, setToAddress] = React.useState(props.toAddress)
-    React.useEffect(() => {
-        setToAddress(props.toAddress)
-    }, [props.toAddress])
+    const { toAddress, balance, amount, myGasPrice } = props.SendReducer
 
-    const [addressError, setAddressError] = React.useState(props.addressError)
-    React.useEffect(() => {
-        setAddressError(props.addressError)
-    }, [props.addressError])
+    const [addressError, setAddressError] = React.useState(false)
 
-    const [amountError, setAmountError] = React.useState(props.amountError)
-    React.useEffect(() => {
-        setAmountError(props.amountError)
-    }, [props.amountError])
+    const [amountError, setAmountError] = React.useState(false)
 
-    const [amount, setAmount] = React.useState(props.amount)
-    React.useEffect(() => {
-        setAmount(props.amount)
-    }, [props.amount])
+    const [buttonDisable, setButtonDisable] = React.useState(false)
 
-    const [balance, setBalance] = React.useState(props.balance)
-    React.useEffect(() => {
-        setBalance(props.balance)
-    }, [props.balance])
-
-    const [ethprice, setEthprice] = React.useState(props.ethprice)
-    React.useEffect(() => {
-        setEthprice(props.ethprice)
-    }, [props.ethprice])
-
-    const [buttonDisable, setButtonDisable] = React.useState(props.buttonDisable)
-    React.useEffect(() => {
-        setButtonDisable(props.buttonDisable)
-    }, [props.buttonDisable])
-
-    const [note, setNote] = React.useState('')
-    const handleTypeNote = (note) => {
-        props.handleTypeNote(note)
-        setNote(note)
-        
+    const handleNext = () => {
+        setButtonDisable(true)
+        let myGas = myGasPrice * 1000000000 * 21000 / 1000000000000000000
+        if (toAddress === '' || !isEthereumAddress(toAddress)) {
+            setAddressError(true)
+            props.shake()
+        } else if (parseFloat(amount) + myGas > parseFloat(balance)) {
+            setAmountError(true)
+            props.shake()
+        } else {
+            props.handleTurnPage(1)
+        }
+        setTimeout(() => {
+            setAmountError(false)
+            setAddressError(false)
+            setButtonDisable(false)
+        }, 1000)
     }
-
     return (
         <View>
             <Title titleText='转账交易' />
+            <View style={{
+                borderWidth: 0.35,
+                borderColor: '#000',
+                borderRadius: 1,
+                borderStyle: 'dashed',
+                marginBottom: 10,
+                width: '100%'
+            }}/>
             <SendInput
-                toAddress={toAddress}
                 addressError={addressError}
                 amountError={amountError}
-                amount={amount}
-                balance={balance}
-                ethprice={ethprice}
                 navigate={props.navigate}
-                setToAddress={props.setToAddress}
-                note={props.note}
-                handleSetAmount={props.handleSetAmount}
                 handleRollUp={props.handleRollUp}
-                handleTypeNote={handleTypeNote}
             />
-            <GasView
-                myGasprice={props.myGasprice}
-                ethprice={ethprice}
-                handleSetGasprice={props.handleSetGasprice}
-                note={note}
-                handleSetGasLimit={props.handleSetGasLimit}
-                initGasLimit={props.initGasLimit}
-            />
+            <GasView />
             <MyButton
                 screenWidth={global.screenWidth * 0.9 - 30}
                 text='下一步'
@@ -86,7 +63,7 @@ function SendTx(props) {
                 borderColor='#390'
                 borderWidth={1}
                 disabled={buttonDisable}
-                onPress={() => { props.handleNext() }}
+                onPress={() => handleNext()}
             />
         </View>
     )
@@ -94,6 +71,5 @@ function SendTx(props) {
 const mapStateToProps = state => (state)
 
 const mapDispatchToProps = dispatch => ({
-    setAccounts: (value) => dispatch(actions.setAccounts(value)),
 })
-export default connect(mapStateToProps,mapDispatchToProps)(SendTx)
+export default connect(mapStateToProps, mapDispatchToProps)(SendTx)

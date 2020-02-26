@@ -76,7 +76,8 @@ class PasswordModal extends Component {
             let mnemonic = aesDecrypt(encrypt, sha1(password))
             if (validateMnemonic(mnemonic)) {
                 this.setState({ password: '' })
-                this.props.passwordAction(mnemonic)
+                this.props.setMnemonic(mnemonic)
+                this.props.passwordAction()
             } else {
                 this.setState({
                     borderColor: '#F30',
@@ -166,6 +167,7 @@ const styles = StyleSheet.create({
 const mapStateToProps = state => (state)
 
 const mapDispatchToProps = dispatch => ({
-    setPasswordModalVisiable: (value) => dispatch(actions.setPasswordModalVisiable(value))
+    setPasswordModalVisiable: (value) => dispatch(actions.setPasswordModalVisiable(value)),
+    setMnemonic: (value) => dispatch(actions.setMnemonic(value))
 })
 export default connect(mapStateToProps,mapDispatchToProps)(PasswordModal)

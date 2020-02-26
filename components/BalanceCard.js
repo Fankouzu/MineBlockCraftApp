@@ -52,20 +52,19 @@ const styles = StyleSheet.create({
 })
 function BalanceCard(props) {
 
-    console.disableYellowBox = true
+    const {accounts,currentAccount,networkId} = props.WalletReducer
 
     const [balance, setBalance] = React.useState(0)
 
     React.useEffect(() => {
         balanceLoading()
-    }, [props.WalletReducer.accounts,props.WalletReducer.currentAccount, props.WalletReducer.networkId])
+    }, [accounts,currentAccount, networkId])
 
     const balanceLoading = () => {
-        if (props.WalletReducer.accounts[props.WalletReducer.currentAccount].address !== '0x0') {
-            getBalance(props.WalletReducer.accounts[props.WalletReducer.currentAccount].address, networks[props.WalletReducer.networkId].nameEN).then((balance) => {
+        if (accounts[currentAccount].address !== '0x0') {
+            getBalance(accounts[currentAccount].address, networks[networkId].nameEN).then((balance) => {
                 setBalance(balance > 0 ? Math.round(balance * 10000000) / 10000000 : 0)
                 props.setShowBalanceLoading('none')
-                //setShowLoading('none')
             })
         }
     }
@@ -80,8 +79,8 @@ function BalanceCard(props) {
             <View style={styles.cardTop}>
                 <Text style={styles.balanceTitle}>当前余额(Ether)：</Text>
                 <View style={styles.cardTopRight}>
-                    <Icon name="circle" size={10} color={networks[props.WalletReducer.networkId].color} />
-                    <Text style={styles.balanceAccount}>账户{props.WalletReducer.currentAccount + 1}</Text>
+                    <Icon name="circle" size={10} color={networks[networkId].color} />
+                    <Text style={styles.balanceAccount}>账户{currentAccount + 1}</Text>
                 </View>
             </View>
             <Text style={styles.balanceNumber}>
@@ -101,16 +100,16 @@ function BalanceCard(props) {
                 rippleColor='#ccc'
                 rippleOpacity={0.6}
                 onPress={() => {
-                    Clipboard.setString(props.WalletReducer.accounts[props.WalletReducer.currentAccount].address)
+                    Clipboard.setString(accounts[currentAccount].address)
                 }}
             >
-                <Text style={styles.balanceAddress}>{props.WalletReducer.accounts[props.WalletReducer.currentAccount].address}</Text>
+                <Text style={styles.balanceAddress}>{accounts[currentAccount].address}</Text>
             </Ripple>
             <CardBottom
                 navigation={props.navigation}
                 balance={balance}
-                networkName={networks[props.WalletReducer.networkId].nameEN}
-                fromAddress={props.WalletReducer.accounts[props.WalletReducer.currentAccount].address}
+                networkName={networks[networkId].nameEN}
+                fromAddress={accounts[currentAccount].address}
                 showPasswordModal={props.showPasswordModal}
             />
         </MyCard>

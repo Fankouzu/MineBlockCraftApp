@@ -2,9 +2,8 @@ import React from 'react'
 import {
     View,
     Animated,
-    Text
 } from 'react-native'
-import {connect} from 'react-redux'
+import { connect } from 'react-redux'
 import * as actions from '../actions'
 import Copyright from '../components/Copyright'
 import MyTicket from '../components/MyTicket'
@@ -16,57 +15,41 @@ import Sending from '../components/Sending'
 import Receipt from '../components/Receipt'
 import { ethprice, getBalance } from '../utils/Tools'
 import { networks } from '../utils/networks'
-import isEthereumAddress from 'is-ethereum-address'
-
+ 
 class Send extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
             shakeLeft: new Animated.Value(global.screenWidth * 0.025),
-            borderColor: '#999',
-            toAddress: '',
-            account: this.props.navigation.getParam('account'),
-            fromAddress: '',
-            networkId: this.props.navigation.getParam('networkId'),
-            mnemonic: this.props.navigation.getParam('mnemonic'),
-            amount: '',
-            balance: 0,
-            addressError: false,
-            amountError: false,
-            myGasprice: 0,
-            initGasLimit: 21000,
-            gasLimit: 21000,
-            ethprice: 0,
             step: 0,
             rollTo: 0,
-            note: '',
-            tx: {},
-            receipt: {}
         }
     }
     componentDidMount = async () => {
+
+        const {accounts,currentAccount,networkId} = this.props.WalletReducer
+        const fromAddress = accounts[currentAccount].address
+
         this._didFocusSubscription = this.props.navigation.addListener('didFocus',
             () => {
-                const toAddress = this.props.navigation.getParam('toAddress', this.state.toAddress)
-                this.setState({ toAddress: toAddress })
+                const toAddress = this.props.navigation.getParam('toAddress', this.props.SendReducer.toAddress)
+                this.props.setToAddress(toAddress)
             }
-        )
+        ) 
         ethprice().then((res) => {
-            this.setState({ ethprice: res.result.ethusd })
+            this.props.setEthPrice(res.result.ethusd)
         })
-        let accounts = this.props.WalletReducer.accounts
-        let fromAddress = accounts[this.state.account].address
-
-        this.setState({ fromAddress: fromAddress })
-        getBalance(fromAddress, networks[this.state.networkId].nameEN).then((balance) => {
-            this.setState({ balance: balance })
+        getBalance(fromAddress, networks[networkId].nameEN).then((balance) => {
+            this.props.setFromAddress(fromAddress)
+            this.props.setBalance(balance)
         })
-    }
+    } 
     componentWillUnmount = () => {
         this.setState = (state, callback) => {
             return
         }
         this._didFocusSubscription.remove()
+        this.props.clearSend()
     }
     shake = () => {
         var duration = 100
@@ -87,76 +70,15 @@ class Send extends React.Component {
                 toValue: global.screenWidth * 0.025,
                 duration: duration
             })
-        ]).start(() => {
-            setTimeout(() => {
-                this.setState({
-                    addressError: false,
-                    amountError: false
-                })
-            }, 1000)
-        })
+        ]).start()
     }
 
-    handleNext = () => {
-        this.setState({ buttonDisable: true })
-        let toAddress = this.state.toAddress
-        let balance = parseFloat(this.state.balance)
-        let amount = parseFloat(this.state.amount)
-        let myGas = this.state.myGasprice * 1000000000 * 21000 / 1000000000000000000
-        if (toAddress === '' || !isEthereumAddress(toAddress)) {
-            this.setState({ addressError: true })
-            this.shake()
-        } else if (amount + myGas > balance) {
-            this.setState({ amountError: true })
-            this.shake()
-        } else {
-            this.setState({
-                buttonDisable: false,
-                addressError: '',
-                amount: this.state.amount === '' ? 0 : this.state.amount,
-                step: 1
-            })
-        }
+    handleTurnPage = (step) => {
+        this.setState({ step: this.state.step + step })
     }
-    handleConfirm = () => {
-        this.setState({
-            buttonDisable: false,
-            step: 2
-        })
-    }
-    setToAddress = (address) => {
-        this.setState({ toAddress: address })
-    }
-    handleback = () => {
-        this.setState({
-            step: this.state.step - 1
-        })
-    }
-    handleSetGasprice = (myGasprice) => {
-        this.setState({ myGasprice: myGasprice })
-    }
-    handleSetGasLimit = (gasLimit) => {
-        this.setState({ gasLimit: gasLimit })
-    }
-    handleSetAmount = (amount) => {
-        this.setState({ amount: amount })
-    }
+
     handleRollUp = (rollTo) => {
         this.setState({ rollTo: rollTo })
-    }
-    handleTypeNote = (note) => {
-        this.setState({ note: note })
-    }
-    handleReceipt = () => {
-        this.setState({
-            step: 3
-        })
-    }
-    handleSetTx = (tx) => {
-        this.setState({ tx: tx })
-    }
-    handleSetReceipt = (receipt) => {
-        this.setState({ receipt: receipt })
     }
     render() {
         const { navigate } = this.props.navigation
@@ -180,64 +102,26 @@ class Send extends React.Component {
                         >
                             {this.state.step === 0 ? (
                                 <SendTx
-                                    toAddress={this.state.toAddress}
-                                    addressError={this.state.addressError}
-                                    amountError={this.state.amountError}
-                                    amount={this.state.amount}
-                                    balance={this.state.balance}
-                                    ethprice={this.state.ethprice}
                                     navigate={navigate}
-                                    handleSetGasprice={this.handleSetGasprice}
-                                    handleSetGasLimit={this.handleSetGasLimit}
-                                    initGasLimit={this.state.initGasLimit}
-                                    disabled={this.state.buttonDisable}
-                                    handleNext={this.handleNext}
-                                    step={this.state.step}
-                                    gasLimit={this.state.gasLimit}
-                                    setToAddress={this.setToAddress}
-                                    myGasprice={this.state.myGasprice}
-                                    handleSetAmount={this.handleSetAmount}
+                                    handleTurnPage={this.handleTurnPage}
                                     handleRollUp={this.handleRollUp}
-                                    handleTypeNote={this.handleTypeNote}
-                                    note={this.state.note}
+                                    shake={this.shake}
                                 />
                             ) : this.state.step === 1 ? (
                                 <SendConfirm
-                                    ethprice={this.state.ethprice}
-                                    fromAddress={this.state.fromAddress}
-                                    toAddress={this.state.toAddress}
-                                    amount={this.state.amount}
-                                    ethprice={this.state.ethprice}
-                                    myGasprice={this.state.myGasprice}
-                                    note={this.state.note}
-                                    handleback={this.handleback}
-                                    handleConfirm={this.handleConfirm}
-                                    gasLimit={this.state.gasLimit}
+                                    handleTurnPage={this.handleTurnPage}
                                 />
                             ) : this.state.step === 2 ? (
                                 <Sending
-                                    fromAddress={this.state.fromAddress}
-                                    toAddress={this.state.toAddress}
-                                    amount={this.state.amount}
-                                    myGasprice={this.state.myGasprice}
-                                    note={this.state.note}
-                                    mnemonic={this.state.mnemonic}
-                                    networkId={this.state.networkId}
-                                    account={this.state.account}
-                                    gasLimit={this.state.gasLimit}
-                                    handleSetTx={this.handleSetTx}
-                                    handleSetReceipt={this.handleSetReceipt}
-                                    handleReceipt={this.handleReceipt}
+                                    handleTurnPage={this.handleTurnPage}
                                 />
                             ) : this.state.step === 3 ? (
                                 <Receipt
-                                    tx={this.state.tx}
-                                    receipt={this.state.receipt}
                                     navigation={this.props.navigation}
                                 />
                             ) : (
-                                      <View/>      
-                                        )}
+                                                <View />
+                                            )}
 
                         </MyTicket>
                     </Animated.View>
@@ -250,6 +134,11 @@ class Send extends React.Component {
 const mapStateToProps = state => (state)
 
 const mapDispatchToProps = dispatch => ({
-    setAccounts: (value) => dispatch(actions.setAccounts(value)),
+    setFromAddress: (value) => dispatch(actions.setFromAddress(value)),
+    setEthPrice: (value) => dispatch(actions.setEthPrice(value)),
+    setBalance: (value) => dispatch(actions.setBalance(value)),
+    setToAddress: (value) => dispatch(actions.setToAddress(value)),
+    setAmount: (value) => dispatch(actions.setAmount(value)),
+    clearSend: () => dispatch(actions.clearSend()),
 })
-export default connect(mapStateToProps,mapDispatchToProps)(Send)
+export default connect(mapStateToProps, mapDispatchToProps)(Send)

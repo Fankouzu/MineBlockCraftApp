@@ -6,7 +6,6 @@ import {
     Animated
 } from 'react-native'
 import {connect} from 'react-redux'
-import * as actions from '../actions'
 import MyCard from '../components/MyCard'
 import MyButton from '../components/MyButton'
 import MyBackButton from '../components/MyBackButton'

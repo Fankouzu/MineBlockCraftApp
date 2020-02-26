@@ -21,7 +21,6 @@ class WalletMain extends React.Component {
         this.init()
     }
     init = () => {
-        console.log('walletMain:init:',this.props.WalletReducer)
     }
     selectNetwork = (id) => {
         if (id === this.props.WalletReducer.networkId) {

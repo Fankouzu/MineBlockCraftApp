@@ -1,52 +1,42 @@
 import React from 'react'
+import { connect } from 'react-redux'
 import { View, Text, StyleSheet } from 'react-native'
-import { networks } from '../utils/networks'
 import Title from '../components/Title'
 import Jazzicon from '@novaviva/react-native-jazzicon'
 import MyButton from '../components/MyButton'
 
-export default class Receipt extends React.Component {
-    constructor(props) {
-        super(props)
-        this.state = {
-        }
-    }
-    componentDidMount = () => {
-    }
-    componentDidUpdate(nextProps, nextState) {
-    }
-    render() {
-        const { navigate } = this.props.navigation
-        return (
-            <View style={{ alignItems: 'center' }}>
-                <Title titleText='转账收据' style={styles.Title} />
-                <View style={styles.divide}></View>
-                <View style={styles.addressView}>
-                    <Text style={styles.title}>付款地址:</Text>
-                    <View style={styles.rightViewH}>
-                        <View style={styles.jazzIcon}><Jazzicon size={20} address={this.props.tx.from} /></View>
-                        <Text numberOfLines={2} style={styles.address}>{this.props.tx.from}</Text>
-                    </View>
+function Receipt(props) {
+    const { navigate } = props.navigation
+    return (
+        <View style={{ alignItems: 'center' }}>
+            <Title titleText='转账收据' style={styles.Title} />
+            <View style={styles.divide}></View>
+            <View style={styles.addressView}>
+                <Text style={styles.title}>付款地址:</Text>
+                <View style={styles.rightViewH}>
+                    <View style={styles.jazzIcon}><Jazzicon size={20} address={props.SendReducer.tx.from} /></View>
+                    <Text numberOfLines={2} style={styles.address}>{props.SendReducer.tx.from}</Text>
                 </View>
-                <View style={styles.addressView}>
-                    <Text style={styles.title}>收款地址:</Text>
-                    <View style={styles.rightViewH}>
-                        <View style={styles.jazzIcon}><Jazzicon size={20} address={this.props.tx.to} /></View>
-                        <Text numberOfLines={2} style={styles.address}>{this.props.tx.to}</Text>
-                    </View>
+            </View>
+            <View style={styles.addressView}>
+                <Text style={styles.title}>收款地址:</Text>
+                <View style={styles.rightViewH}>
+                    <View style={styles.jazzIcon}><Jazzicon size={20} address={props.SendReducer.tx.to} /></View>
+                    <Text numberOfLines={2} style={styles.address}>{props.SendReducer.tx.to}</Text>
                 </View>
-                <View style={styles.textView}>
-                    <Text style={styles.title}>交易哈希:</Text>
-                    <View style={styles.rightView}>
-                        <Text numberOfLines={2} style={styles.hash}>{this.props.tx.hash}</Text>
-                    </View>
+            </View>
+            <View style={styles.textView}>
+                <Text style={styles.title}>交易哈希:</Text>
+                <View style={styles.rightView}>
+                    <Text numberOfLines={2} style={styles.hash}>{props.SendReducer.tx.hash}</Text>
                 </View>
-                <View style={styles.textView}>
-                    <Text style={styles.title}>区块高度:</Text>
-                    <View style={styles.rightView}>
-                        <Text style={styles.hash}>{this.props.receipt.blockNumber}</Text>
-                    </View>
+            </View>
+            <View style={styles.textView}>
+                <Text style={styles.title}>区块高度:</Text>
+                <View style={styles.rightView}>
+                    <Text style={styles.hash}>{props.SendReducer.receipt.blockNumber}</Text>
                 </View>
+            </View>
             <MyButton
                 screenWidth={global.screenWidth * 0.9 - 30}
                 text='返回'
@@ -58,11 +48,9 @@ export default class Receipt extends React.Component {
                 borderWidth={1}
                 onPress={() => { navigate('WalletFrame') }}
             />
-            </View>
-        )
-    }
+        </View>
+    )
 }
-
 const styles = StyleSheet.create({
     title: {
         fontSize: 14,
@@ -84,7 +72,7 @@ const styles = StyleSheet.create({
         overflow: 'hidden',
         flexDirection: 'row',
         justifyContent: 'space-between',
-        width:'100%'
+        width: '100%'
     },
     jazzIcon: {
         width: 24,
@@ -109,8 +97,8 @@ const styles = StyleSheet.create({
         marginVertical: 4,
         marginHorizontal: 6,
         color: '#333',
-        textAlignVertical:'center',
-        textAlign:'right'
+        textAlignVertical: 'center',
+        textAlign: 'right'
     },
     textView: {
         paddingHorizontal: 0,
@@ -118,7 +106,7 @@ const styles = StyleSheet.create({
         overflow: 'hidden',
         flexDirection: 'row',
         justifyContent: 'space-between',
-        width:'100%'
+        width: '100%'
     },
     title: {
         fontSize: 14,
@@ -132,7 +120,7 @@ const styles = StyleSheet.create({
         width: 150,
         paddingHorizontal: 6,
         height: 36,
-        justifyContent:'flex-start'
+        justifyContent: 'flex-start'
     },
     rightViewH: {
         flexDirection: 'row',
@@ -149,3 +137,8 @@ const styles = StyleSheet.create({
         height: 36
     },
 })
+const mapStateToProps = state => (state)
+
+const mapDispatchToProps = dispatch => ({
+})
+export default connect(mapStateToProps, mapDispatchToProps)(Receipt)

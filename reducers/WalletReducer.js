@@ -5,7 +5,8 @@ const WalletReducer = (
         accounts: [],
         currentAccount: 0,
         networkId: 0,
-        encrypt: ''
+        encrypt: '',
+        mnemonic:'',
     }, action) => {
     switch (action.type) {
         case Types.SET_CURRENT_ACCOUNT:
@@ -36,6 +37,10 @@ const WalletReducer = (
                 ...state,
                 accounts: action.accounts,
                 currentAccount: action.currentAccount
+            }
+        case Types.SET_MNEMONIC:
+            return {
+                ...state, mnemonic: action.mnemonic
             }
         default:
             return state

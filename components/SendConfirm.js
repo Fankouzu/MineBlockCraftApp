@@ -1,38 +1,26 @@
 import React from 'react'
 import { View, Text, StyleSheet } from 'react-native'
+import {connect} from 'react-redux'
 import Title from '../components/Title'
 import MyButton from '../components/MyButton'
 import Jazzicon from '@novaviva/react-native-jazzicon'
 
-export default function SendConfirm(props) {
-    const [ethprice, setEthprice] = React.useState(props.ethprice)
-    React.useEffect(() => {
-        setEthprice(props.ethprice)
-    }, [props.ethprice])
-    const [myGasprice, setMyGasprice] = React.useState(props.myGasprice)
-    React.useEffect(() => {
-        setMyGasprice(props.myGasprice)
-    }, [props.myGasprice])
-    const gasLimit = props.gasLimit
+function SendConfirm(props) {
+    
+    const {ethPrice,myGasPrice,gasLimit,amount,fromAddress,toAddress,note} = props.SendReducer
 
-    const [amount, setAmount] = React.useState(props.amount)
     const [amountPrice, setAmountPrice] = React.useState(0)
     const [myGaspriceUsd, setMyGaspriceUsd] = React.useState(0)
     const [totleAmount, setTotleAmount] = React.useState(0)
     const [totlePrice, setTotlePrice] = React.useState(0)
-    React.useEffect(() => {
-        setAmount(props.amount)
-        setAmountPrice(Math.round(ethprice*props.amount * 1000) / 1000)
-        setMyGaspriceUsd(Math.round(props.myGasprice * ethprice * 21 / 1000) / 1000)
-        var _totleAmount = Math.round((parseFloat(props.amount) + props.myGasprice/1000000000 * gasLimit)*1000000)/1000000
-        setTotleAmount(_totleAmount)
-        setTotlePrice(Math.round(_totleAmount*ethprice*100)/100)
-    }, [props.amount,ethprice,myGasprice])
 
-    const [buttonDisable, setButtonDisable] = React.useState(props.buttonDisable)
     React.useEffect(() => {
-        setButtonDisable(props.buttonDisable)
-    }, [props.buttonDisable])
+        setAmountPrice(Math.round(ethPrice*amount * 1000) / 1000)
+        setMyGaspriceUsd(Math.round(myGasPrice * ethPrice * 21 / 1000) / 1000)
+        var _totleAmount = Math.round((parseFloat(amount) + myGasPrice/1000000000 * gasLimit)*1000000)/1000000
+        setTotleAmount(_totleAmount)
+        setTotlePrice(Math.round(_totleAmount*ethPrice*100)/100)
+    }, [amount,ethPrice,myGasPrice])
 
     return (
         <View>
@@ -41,15 +29,15 @@ export default function SendConfirm(props) {
             <View style={styles.addressView}>
                 <Text style={styles.title}>付款地址:</Text>
                 <View style={styles.rightViewH}>
-                    <View style={styles.jazzIcon}><Jazzicon size={20} address={props.fromAddress} /></View>
-                    <Text numberOfLines={2} style={styles.address}>{props.fromAddress}</Text>
+                    <View style={styles.jazzIcon}><Jazzicon size={20} address={fromAddress} /></View>
+                    <Text numberOfLines={2} style={styles.address}>{fromAddress}</Text>
                 </View>
             </View>
             <View style={styles.addressView}>
                 <Text style={styles.title}>收款地址:</Text>
                 <View style={styles.rightViewH}>
-                    <View style={styles.jazzIcon}><Jazzicon size={20} address={props.toAddress} /></View>
-                    <Text numberOfLines={2} style={styles.address}>{props.toAddress}</Text>
+                    <View style={styles.jazzIcon}><Jazzicon size={20} address={toAddress} /></View>
+                    <Text numberOfLines={2} style={styles.address}>{toAddress}</Text>
                 </View>
             </View>
             <View style={styles.textView}>
@@ -62,13 +50,13 @@ export default function SendConfirm(props) {
             <View style={styles.textView}>
                 <Text style={styles.title}>链上备注:</Text>
                 <View style={styles.rightViewV}>
-                    <Text numberOfLines={2} style={styles.note}>{props.note}</Text>
+                    <Text numberOfLines={2} style={styles.note}>{note}</Text>
                 </View>
             </View>
             <View style={styles.textView}>
                 <Text style={styles.title}>矿工费上限:</Text>
                 <View style={styles.rightViewV}>
-                    <Text style={styles.amount}>{myGasprice}GWei x {gasLimit}</Text>
+                    <Text style={styles.amount}>{myGasPrice}GWei x {gasLimit}</Text>
                     <Text style={styles.amount}>≈${myGaspriceUsd}</Text>
                 </View>
             </View>
@@ -91,9 +79,8 @@ export default function SendConfirm(props) {
                     textColor='#333'
                     borderColor='#999'
                     borderWidth={1}
-                    disabled={buttonDisable}
                     style={{ marginRight: 5, flex: 3 }}
-                    onPress={() => { props.handleback() }}
+                    onPress={() => { props.handleTurnPage(-1) }}
                 />
                 <MyButton
                     screenWidth='100%'
@@ -105,8 +92,7 @@ export default function SendConfirm(props) {
                     borderColor='#390'
                     borderWidth={1}
                     style={{ marginleft: 5, flex: 7 }}
-                    disabled={buttonDisable}
-                    onPress={() => { props.handleConfirm() }}
+                    onPress={() => { props.handleTurnPage(1) }}
                 />
             </View>
         </View>
@@ -196,3 +182,8 @@ const styles = StyleSheet.create({
         flex: 10
     }
 })
+const mapStateToProps = state => (state)
+
+const mapDispatchToProps = dispatch => ({
+})
+export default connect(mapStateToProps,mapDispatchToProps)(SendConfirm)

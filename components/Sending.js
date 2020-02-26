@@ -1,18 +1,17 @@
 import React from 'react'
 import { View, Text, StyleSheet } from 'react-native'
+import { connect } from 'react-redux'
+import * as actions from '../actions'
 import { networks } from '../utils/networks'
 import Title from '../components/Title'
 import LoadingDot from '../components/LoadingDot'
 import Jazzicon from '@novaviva/react-native-jazzicon'
 import { sendTransaction } from '../utils/Tools'
 
-export default class Sending extends React.Component {
+class Sending extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            fromAddress: this.props.fromAddress,
-            toAddress: this.props.toAddress,
-            tx: {},
             sendTx: '等待...',
             receipt: '等待...'
         }
@@ -24,17 +23,16 @@ export default class Sending extends React.Component {
         }, 2000)
     }
     handleSendTransaction = () => {
-        const { mnemonic, networkId, myGasprice, amount, note, toAddress, account, gasLimit } = this.props
+        const { networkId , currentAccount , mnemonic} = this.props.WalletReducer
+        const { myGasPrice, amount, note, toAddress,  gasLimit } = this.props.SendReducer
         const networkName = networks[networkId].nameEN
-        sendTransaction(toAddress, networkName, mnemonic, account, amount, gasLimit, myGasprice, note).then((tx)=>{
-            console.log('tx', tx)
-            this.props.handleSetTx(tx)
+        sendTransaction(toAddress, networkName, mnemonic, currentAccount, amount, gasLimit, myGasPrice, note).then((tx)=>{
+            this.props.setTX(tx)
             this.setState({ sendTx: '成功!', receipt: '确认中...' })
             tx.wait().then((receipt)=>{
-                this.props.handleSetReceipt(receipt)
+                this.props.setReceipt(receipt)
                 this.setState({ receipt: '成功!' })
-                console.log('receipt', receipt)
-                this.props.handleReceipt()
+                this.props.handleTurnPage(1)
             })
         })
         
@@ -55,9 +53,9 @@ export default class Sending extends React.Component {
                 <View style={styles.divide}></View>
 
                 <View style={styles.TxView}>
-                    <View style={styles.jazzIcon}><Jazzicon size={30} address={this.state.fromAddress} /></View>
+                    <View style={styles.jazzIcon}><Jazzicon size={30} address={this.props.SendReducer.fromAddress} /></View>
                     <LoadingDot />
-                    <View style={styles.jazzIcon}><Jazzicon size={30} address={this.state.toAddress} /></View>
+                    <View style={styles.jazzIcon}><Jazzicon size={30} address={this.props.SendReducer.toAddress} /></View>
                 </View>
                 <View style={styles.msgView}>
                     <View style={styles.msg}>
@@ -112,3 +110,10 @@ const styles = StyleSheet.create({
         color: '#333'
     }
 })
+const mapStateToProps = state => (state)
+
+const mapDispatchToProps = dispatch => ({
+    setTX: (value) => dispatch(actions.setTX(value)),
+    setReceipt: (value) => dispatch(actions.setReceipt(value)),
+})
+export default connect(mapStateToProps, mapDispatchToProps)(Sending)

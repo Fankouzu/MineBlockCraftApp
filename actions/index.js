@@ -1,5 +1,17 @@
 import * as Types from './Types'
 
+// export const setCurrentAccount = (account) => {
+//     console.log('types',types)
+//     return dispatch => {
+//         dispatch({
+//             type: Types.SET_CURRENT_ACCOUNT,
+//             account: account,
+//         })
+//     }
+// }
+
+//WalletReducer
+
 export const setAccounts = (accounts) => ({
     type: Types.SET_ACCOUNTS,
     accounts
@@ -27,6 +39,13 @@ export const setWallet = (wallet) => ({
     wallet
 })
 
+export const setMnemonic = (mnemonic) => ({
+    type: Types.SET_MNEMONIC,
+    mnemonic
+})
+
+//WalletMain
+
 export const setPasswordModalVisiable = (isPasswordModalVisible) => ({
     type: Types.SET_PASSWORD_MODAL_VISIABLE,
     isPasswordModalVisible
@@ -47,7 +66,7 @@ export const selectAccount = (accounts, currentAccount, isPasswordModalVisible) 
     isPasswordModalVisible,
     currentAccount
 })
-
+//Login
 export const setImportMnemonic = (useMnemonic) => ({
     type: Types.SET_IMPORT_MNEMONIC,
     useMnemonic
@@ -92,12 +111,63 @@ export const setRandomMnemonic = (randomMnemonic) => ({
     randomMnemonic
 })
 
-// export const setCurrentAccount = (account) => {
-//     console.log('types',types)
-//     return dispatch => {
-//         dispatch({
-//             type: Types.SET_CURRENT_ACCOUNT,
-//             account: account,
-//         })
-//     }
-// }
+//Send
+
+export const setFromAddress = (fromAddress) => ({
+    type: Types.SET_FROM_ADDRESS,
+    fromAddress
+})
+
+export const setToAddress = (toAddress) => ({
+    type: Types.SET_TO_ADDRESS,
+    toAddress
+})
+
+export const setAmount = (amount) => ({
+    type: Types.SET_AMOUNT,
+    amount
+})
+
+export const setBalance = (balance) => ({
+    type: Types.SET_BALANCE,
+    balance
+})
+
+export const setEthPrice = (ethPrice) => ({
+    type: Types.SET_ETH_PRICE,
+    ethPrice
+})
+
+export const setNote = (note) => ({
+    type: Types.SET_NOTE,
+    note
+})
+
+export const setGasPrice = (gasPrice) => ({
+    type: Types.SET_GAS_PRICE,
+    gasPrice
+})
+
+export const setMyGasPrice = (myGasPrice) => ({
+    type: Types.SET_MY_GAS_PRICE,
+    myGasPrice
+})
+
+export const setGasLimit = (gasLimit) => ({
+    type: Types.SET_GAS_LIMIT,
+    gasLimit
+})
+
+export const setTX = (tx) => ({
+    type: Types.SET_TX,
+    tx
+})
+
+export const setReceipt = (receipt) => ({
+    type: Types.SET_RECEIPT,
+    receipt
+})
+
+export const clearSend = () => ({
+    type: Types.CLEAR_SEND
+})

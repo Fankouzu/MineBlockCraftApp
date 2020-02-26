@@ -9,20 +9,19 @@ import Slider from "react-native-slider"
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 
 function GasView(props) {
-    const [myGasprice, setMyGassprice] = React.useState(props.myGasprice)
+
+    const {myGasPrice,ethPrice,note,gasLimit} = props.SendReducer
+
     const [myGasfeeJson, setMyGasfeeJson] = React.useState({
         average: 0,
         safeLow: 0,
         fastest: 0,
     })
-    const [gasusd, setGasusd] = React.useState(0)
-
     React.useEffect(() => {
         gasPrice(networks[props.WalletReducer.networkId].nameEN).then(function (res) {
             setMyGasfeeJson(res)
-            if (myGasprice === 0) {
-                setMyGassprice(res.average/10)
-                props.handleSetGasprice(res.average/10)
+            if (myGasPrice === 0) {
+                props.setMyGasPrice(res.average/10)
             }
         })
     }, [])
@@ -36,15 +35,13 @@ function GasView(props) {
             setSliderHeight(0)
         }
     }
+    
+    const [gasusd, setGasusd] = React.useState(0)
     React.useEffect(() => {
-        var gasusd = Math.round(Math.round(myGasprice * 21) / 1000000 * props.ethprice * 1000) / 1000
+        var gasusd = Math.round(Math.round(myGasPrice * 21) / 1000000 * ethPrice * 1000) / 1000
         setGasusd(gasusd)
-    }, [myGasprice, props.ethprice])
-    const handleSetGasprice = (myGasprice) => {
-        myGasprice = Math.round(myGasprice * 100) / 1000
-        setMyGassprice(myGasprice)
-        props.handleSetGasprice(myGasprice)
-    }
+    }, [myGasPrice, ethPrice])
+
 
     const GetLength = (str) => {
         var realLength = 0, len = str.length, charCode = -1
@@ -55,13 +52,11 @@ function GasView(props) {
         }
         return realLength
     }
-    const [gasLimit, setGasLimit] = React.useState(props.initGasLimit)
+    
     React.useEffect(() => {
-        let note = props.note
         let strlen = GetLength(note)
-        setGasLimit(parseInt(props.initGasLimit) + strlen * 24)
-        props.handleSetGasLimit(parseInt(props.initGasLimit) + strlen * 24)
-    }, [props.note])
+        props.setGasLimit(parseInt(gasLimit) + strlen * 24)
+    }, [note])
     return (
         <View>
             <View style={styles.top}>
@@ -107,7 +102,7 @@ function GasView(props) {
                         trackStyle={{ backgroundColor: '#ddd' }}
                         thumbStyle={styles.sliderThumbStyle}
                         style={styles.slider}
-                        onValueChange={handleSetGasprice}
+                        onValueChange={(myGasPrice)=>{props.setMyGasPrice(Math.round(myGasPrice * 100) / 1000)}}
                     />
                     <Icon
                         name='rabbit'
@@ -120,13 +115,13 @@ function GasView(props) {
             <View style={styles.middle} >
                 <View style={styles.gasRowView}>
                     <View style={styles.gasPriceView}>
-                        <Text style={styles.gasLimit}>Gas Price  {myGasprice} Gwei</Text>
+                        <Text style={styles.gasLimit}>Gas Price  {myGasPrice} Gwei</Text>
                         <Text style={styles.gasLimit}>Gas Limit  {gasLimit}</Text>
                     </View>
                     <View style={styles.gasPriceView}>
                         <View style={styles.myGasPrice}>
                             <Text style={styles.unit}>Ether:</Text>
-                            <Text style={styles.myGasfee}>{Math.round(myGasprice * 21) / 1000000}</Text>
+                            <Text style={styles.myGasfee}>{Math.round(myGasPrice * 21) / 1000000}</Text>
                         </View>
                         <Text style={styles.ethprice}>≈ $ {gasusd}</Text>
                     </View>
@@ -138,7 +133,8 @@ function GasView(props) {
 const mapStateToProps = state => (state)
 
 const mapDispatchToProps = dispatch => ({
-    setAccounts: (value) => dispatch(actions.setAccounts(value)),
+    setMyGasPrice: (value) => dispatch(actions.setMyGasPrice(value)),
+    setGasLimit: (value) => dispatch(actions.setGasLimit(value)),
 })
 export default connect(mapStateToProps,mapDispatchToProps)(GasView)
 
