@@ -7,6 +7,7 @@ import { gasPrice } from '../utils/Tools'
 import { Switch } from '@rn-components-kit/switch'
 import Slider from "react-native-slider"
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
+import { I18n } from '../i18n/'
 
 function GasView(props) {
 
@@ -18,7 +19,7 @@ function GasView(props) {
         fastest: 0,
     })
     React.useEffect(() => {
-        gasPrice(networks[props.WalletReducer.networkId].nameEN).then(function (res) {
+        gasPrice(networks[props.WalletReducer.networkId].name).then(function (res) {
             setMyGasfeeJson(res)
             if (myGasPrice === 0) {
                 props.setMyGasPrice(res.average/10)
@@ -68,7 +69,7 @@ function GasView(props) {
                             color='#060'
                             style={{ marginRight: 5, marginVertical: 5 }}
                         />
-                        <Text style={styles.actTxt}>燃料费上限</Text>
+                        <Text style={styles.actTxt}>{I18n.t('GasfeeCap')}</Text>
                     </View>
                 </View>
                 <View style={styles.option}>
@@ -82,7 +83,7 @@ function GasView(props) {
                         value={advance}
                         style={{ marginVertical: 6.5, marginRight: 5 }}
                     />
-                    <Text style={styles.titleText}>高级</Text>
+                    <Text style={styles.titleText}>{I18n.t('Advanced')}</Text>
                 </View>
             </View>
             <View style={{ height: sliderHeight }}>

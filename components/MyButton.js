@@ -77,7 +77,7 @@ MyButton.defaultProps = {
     borderRadius: 10,
     raiseLevel: 6,
     height: 60,
-    text: '确定',
+    text: 'OK',
     onPress: null,
     style: {
         marginBottom: 10

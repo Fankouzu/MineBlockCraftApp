@@ -9,6 +9,7 @@ import { networks } from '../utils/networks'
 import { getBalance } from '../utils/Tools'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import Ripple from 'react-native-material-ripple'
+import { I18n } from '../i18n/'
 
 const styles = StyleSheet.create({
     cardTop: {
@@ -62,7 +63,7 @@ function BalanceCard(props) {
 
     const balanceLoading = () => {
         if (accounts[currentAccount].address !== '0x0') {
-            getBalance(accounts[currentAccount].address, networks[networkId].nameEN).then((balance) => {
+            getBalance(accounts[currentAccount].address, networks[networkId].name).then((balance) => {
                 setBalance(balance > 0 ? Math.round(balance * 10000000) / 10000000 : 0)
                 props.setShowBalanceLoading('none')
             })
@@ -77,10 +78,10 @@ function BalanceCard(props) {
             style={{ paddingBottom: 0, paddingLeft: 0, paddingRight: 0 }}
         >
             <View style={styles.cardTop}>
-                <Text style={styles.balanceTitle}>当前余额(Ether)：</Text>
+                <Text style={styles.balanceTitle}>{I18n.t('CurrentBalance')}(Ether)：</Text>
                 <View style={styles.cardTopRight}>
                     <Icon name="circle" size={10} color={networks[networkId].color} />
-                    <Text style={styles.balanceAccount}>账户{currentAccount + 1}</Text>
+                    <Text style={styles.balanceAccount}>{I18n.t('Address')}{currentAccount + 1}</Text>
                 </View>
             </View>
             <Text style={styles.balanceNumber}>
@@ -108,7 +109,7 @@ function BalanceCard(props) {
             <CardBottom
                 navigation={props.navigation}
                 balance={balance}
-                networkName={networks[networkId].nameEN}
+                networkName={networks[networkId].name}
                 fromAddress={accounts[currentAccount].address}
                 showPasswordModal={props.showPasswordModal}
             />

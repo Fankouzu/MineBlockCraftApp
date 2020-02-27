@@ -4,42 +4,43 @@ import { View, Text, StyleSheet } from 'react-native'
 import Title from '../components/Title'
 import Jazzicon from '@novaviva/react-native-jazzicon'
 import MyButton from '../components/MyButton'
+import { I18n } from '../i18n/'
 
 function Receipt(props) {
     const { navigate } = props.navigation
     return (
         <View style={{ alignItems: 'center' }}>
-            <Title titleText='转账收据' style={styles.Title} />
+            <Title titleText={I18n.t('Receipt')} style={styles.Title} />
             <View style={styles.divide}></View>
             <View style={styles.addressView}>
-                <Text style={styles.title}>付款地址:</Text>
+                <Text style={styles.title}>{I18n.t('FromAddress')}:</Text>
                 <View style={styles.rightViewH}>
                     <View style={styles.jazzIcon}><Jazzicon size={20} address={props.SendReducer.tx.from} /></View>
                     <Text numberOfLines={2} style={styles.address}>{props.SendReducer.tx.from}</Text>
                 </View>
             </View>
             <View style={styles.addressView}>
-                <Text style={styles.title}>收款地址:</Text>
+                <Text style={styles.title}>{I18n.t('ToAddress')}:</Text>
                 <View style={styles.rightViewH}>
                     <View style={styles.jazzIcon}><Jazzicon size={20} address={props.SendReducer.tx.to} /></View>
                     <Text numberOfLines={2} style={styles.address}>{props.SendReducer.tx.to}</Text>
                 </View>
             </View>
             <View style={styles.textView}>
-                <Text style={styles.title}>交易哈希:</Text>
+                <Text style={styles.title}>{I18n.t('Hash')}:</Text>
                 <View style={styles.rightView}>
                     <Text numberOfLines={2} style={styles.hash}>{props.SendReducer.tx.hash}</Text>
                 </View>
             </View>
             <View style={styles.textView}>
-                <Text style={styles.title}>区块高度:</Text>
+                <Text style={styles.title}>{I18n.t('Block')}:</Text>
                 <View style={styles.rightView}>
                     <Text style={styles.hash}>{props.SendReducer.receipt.blockNumber}</Text>
                 </View>
             </View>
             <MyButton
                 screenWidth={global.screenWidth * 0.9 - 30}
-                text='返回'
+                text={I18n.t('Back')}
                 height={50}
                 backgroundColor='#6f0'
                 backgroundDarker='#390'

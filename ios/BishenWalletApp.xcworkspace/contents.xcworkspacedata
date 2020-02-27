@@ -6,7 +6,7 @@
       assignedFileDataType = "public.ruby-script">
    </FileRef>
    <FileRef
-      location = "group:BishenWalletApp.xcodeproj">
+      location = "group:MineBlockCraftApp.xcodeproj">
    </FileRef>
    <FileRef
       location = "group:Pods/Pods.xcodeproj">

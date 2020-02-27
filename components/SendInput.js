@@ -11,6 +11,7 @@ import { connect } from 'react-redux'
 import * as actions from '../actions'
 import isEthereumAddress from 'is-ethereum-address'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
+import { I18n } from '../i18n/'
 
 function SendInput(props) {
     
@@ -22,7 +23,7 @@ function SendInput(props) {
     const [amountErrorStyle, setAmountErrorStyle] = React.useState({})
     React.useEffect(() => {
         if (props.addressError) {
-            setAddressErrorTxt('*以太坊地址错误！')
+            setAddressErrorTxt(I18n.t('EthAddressError'))
             setAddressErrorStyle({ borderWidth: 1, borderColor: '#f30' })
         } else {
             setAddressErrorTxt('')
@@ -32,7 +33,7 @@ function SendInput(props) {
 
     React.useEffect(() => {
         if (props.amountError) {
-            setAmountErrorTxt('*发送数量大于余额！')
+            setAmountErrorTxt(I18n.t('AmountError'))
             setAmountErrorStyle({ borderWidth: 1, borderColor: '#f30' })
         } else {
             setAmountErrorTxt('')
@@ -64,7 +65,7 @@ function SendInput(props) {
                             color='#060'
                             style={{ marginRight: 5 }}
                         />
-                        <Text style={styles.actTxt}>扫描地址</Text>
+                        <Text style={styles.actTxt}>{I18n.t('ScanQR')}</Text>
                     </TouchableOpacity>
                     <TouchableOpacity
                         onPress={() => paste()}
@@ -76,7 +77,7 @@ function SendInput(props) {
                             color='#060'
                             style={{ marginRight: 5 }}
                         />
-                        <Text style={styles.actTxt}>粘贴地址</Text>
+                        <Text style={styles.actTxt}>{I18n.t('PasteAddrss')}</Text>
                     </TouchableOpacity>
                 </View>
                 <TextInput
@@ -97,10 +98,10 @@ function SendInput(props) {
                             color='#060'
                             style={{ marginRight: 5 }}
                         />
-                        <Text style={styles.actTxt}>发送数量</Text>
+                        <Text style={styles.actTxt}>{I18n.t('SendAmount')}</Text>
                     </View>
                     <View style={styles.actBtn}>
-                        <Text style={styles.balance}>余额:{Math.round(balance * 100000) / 100000}</Text>
+                        <Text style={styles.balance}>{I18n.t('Balance')}:{Math.round(balance * 100000) / 100000}</Text>
                     </View>
                 </View>
                 <View style={styles.amountInputView}>
@@ -130,14 +131,14 @@ function SendInput(props) {
                             color='#060'
                             style={{ marginRight: 5 }}
                         />
-                        <Text style={styles.actTxt}>链上备注</Text>
+                        <Text style={styles.actTxt}>{I18n.t('InputData')}</Text>
                     </View>
                 </View>
                 <TextInput
                     style={styles.noteInput}
                     multiline={true}
                     returnKeyType='next'
-                    placeholder='备注在链上永久记录[选填]'
+                    placeholder={I18n.t('NoteOnChain')}
                     onChangeText={(value) => { props.setNote(value) }}
                     onFocus={() => { props.handleRollUp(-210) }}
                     onBlur={() => { props.handleRollUp(0) }}

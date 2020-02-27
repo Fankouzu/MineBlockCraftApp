@@ -4,19 +4,24 @@ import { connect } from 'react-redux'
 import * as actions from '../actions'
 import { TabBar, TabView, SceneMap } from 'react-native-tab-view'
 import PropTypes from 'prop-types'
+import { I18n,countryCode } from '../i18n/'
+
 
 function MyTabView(props) {
     const [index, setIndex] = React.useState(0)
-    const [routes] = React.useState([
-        { key: 'first', title: '中文助记词' },
-        { key: 'second', title: '英文助记词' },
+    const [routes] = React.useState(countryCode==='CN' ? [
+        { key: 'chinese', title: I18n.t('MnemonicCn') },
+        { key: 'english', title: I18n.t('MnemonicEn') },
+    ]:[
+        { key: 'english', title: I18n.t('MnemonicEn') },
+        { key: 'chinese', title: I18n.t('MnemonicCn') },
     ])
     React.useEffect(() => {
         props.changeLang(index)
     }, [index])
     
     const renderScene = SceneMap({
-        first: () => 
+        chinese: () => 
             <View style={styles.scene}>
                 <Text 
                     style={[
@@ -31,7 +36,7 @@ function MyTabView(props) {
                     {props.LoginReducer.mnemonicCn.replace(/ /g,'')}
                 </Text>
             </View>,
-        second: () => 
+        english: () => 
             <View style={styles.scene} >
                 <Text 
                 style={styles.mnemonic_en}
@@ -48,7 +53,7 @@ function MyTabView(props) {
             {...props}
             indicatorStyle={{ backgroundColor: '#390' }}
             style={{ backgroundColor: 'red',borderRadius:10 }}
-            labelStyle={{ color: 'black', shadowColor: '#0f0' }}
+            labelStyle={{ color: 'black', shadowColor: '#0f0',fontSize:countryCode==='CN' ? 14:12}}
             pressColor='#6f0'
             inactiveColor='#f00'
             swipeEnabled={true}

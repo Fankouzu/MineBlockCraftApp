@@ -1,4 +1,4 @@
-package com.bishenwalletapp;
+package com.mineblockcraftapp;
 
 import android.app.Application;
 import android.content.Context;

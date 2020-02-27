@@ -1,46 +1,47 @@
 import React from 'react'
-import {connect} from 'react-redux'
+import { connect } from 'react-redux'
 import { ScrollView, SafeAreaView, StyleSheet, Text } from 'react-native'
 import Ripple from 'react-native-material-ripple'
 import Jazzicon from '@novaviva/react-native-jazzicon'
+import { I18n } from '../i18n/'
 
 
 function AccountDrawer(props) {
     return (
         <ScrollView
-            style={[styles.container,
-            { height: global.screenHeight }
+            style={[
+                styles.container,
+                { height: global.screenHeight }
             ]}
         >
             <SafeAreaView
                 forceInset={{ top: 'always', horizontal: 'never' }}
             >
-                <Text style={styles.title}>📒账户列表 </Text>
+                <Text style={styles.title}>{I18n.t('AccountDrawerList')}</Text>
                 {props.WalletReducer.accounts.map((item, index) => {
                     return (
                         <Ripple
                             rippleColor='#999'
                             rippleOpacity={0.6}
                             style={styles.itemView}
-                            onPress={() => { props.selectAccount(props.WalletReducer.accounts,index) }}
+                            onPress={() => { props.selectAccount(props.WalletReducer.accounts, index) }}
                             key={index}
                         >
                             <Jazzicon size={16} address={item.address} />
                             <Text style={styles.itemText}>
-                                账户{index + 1}
+                            {I18n.t('Address')}{index + 1}
                             </Text>
                         </Ripple>
                     )
                 })}
-
                 <Ripple
                     rippleColor='#999'
                     rippleOpacity={0.6}
-                    style={[styles.itemView,{borderBottomWidth:0}]}
+                    style={[styles.itemView, { borderBottomWidth: 0 }]}
                     onPress={() => { props.showPasswordModal('newAccount') }}
                 >
                     <Text style={styles.addText}>
-                    ➕添加账户
+                        {I18n.t('AccountDrawerAdd')}
                     </Text>
                 </Ripple>
             </SafeAreaView>
@@ -70,7 +71,7 @@ const styles = StyleSheet.create({
         padding: 10,
         alignItems: 'center',
         justifyContent: 'center',
-        height:40
+        height: 40
     },
     itemText: {
         textAlign: 'center',
@@ -95,5 +96,5 @@ const mapStateToProps = state => (state)
 
 const mapDispatchToProps = dispatch => ({
 })
-export default connect(mapStateToProps,mapDispatchToProps)(AccountDrawer)
+export default connect(mapStateToProps, mapDispatchToProps)(AccountDrawer)
 

@@ -7,17 +7,18 @@ import Title from '../components/Title'
 import LoadingDot from '../components/LoadingDot'
 import Jazzicon from '@novaviva/react-native-jazzicon'
 import { sendTransaction } from '../utils/Tools'
+import { I18n } from '../i18n/'
 
 class Sending extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            sendTx: '等待...',
-            receipt: '等待...'
+            sendTx: I18n.t('Waiting'),
+            receipt: I18n.t('Waiting')
         }
     }
     componentDidMount = () => {
-        this.setState({ sendTx: '发送中...' })
+        this.setState({ sendTx:I18n.t('Sending') })
         setTimeout(() => {
             this.handleSendTransaction()
         }, 2000)
@@ -25,13 +26,13 @@ class Sending extends React.Component {
     handleSendTransaction = () => {
         const { networkId , currentAccount , mnemonic} = this.props.WalletReducer
         const { myGasPrice, amount, note, toAddress,  gasLimit } = this.props.SendReducer
-        const networkName = networks[networkId].nameEN
+        const networkName = networks[networkId].name
         sendTransaction(toAddress, networkName, mnemonic, currentAccount, amount, gasLimit, myGasPrice, note).then((tx)=>{
             this.props.setTX(tx)
-            this.setState({ sendTx: '成功!', receipt: '确认中...' })
+            this.setState({ sendTx: I18n.t('Success'), receipt: I18n.t('Confirmation')})
             tx.wait().then((receipt)=>{
                 this.props.setReceipt(receipt)
-                this.setState({ receipt: '成功!' })
+                this.setState({ receipt: I18n.t('Success')})
                 this.props.handleTurnPage(1)
             })
         })
@@ -49,7 +50,7 @@ class Sending extends React.Component {
     render() {
         return (
             <View style={{ alignItems: 'center' }}>
-                <Title titleText='转账中...' style={styles.Title} />
+                <Title titleText={I18n.t('SendTitle')} style={styles.Title} />
                 <View style={styles.divide}></View>
 
                 <View style={styles.TxView}>
@@ -59,11 +60,11 @@ class Sending extends React.Component {
                 </View>
                 <View style={styles.msgView}>
                     <View style={styles.msg}>
-                        <Text style={styles.msgTxt}>发送交易:</Text>
+                        <Text style={styles.msgTxt}>{I18n.t('SendTransaction')}:</Text>
                         <Text style={styles.msgTxt}>{this.state.sendTx}</Text>
                     </View>
                     <View style={styles.msg}>
-                        <Text style={styles.msgTxt}>等待确认:</Text>
+                        <Text style={styles.msgTxt}>{I18n.t('WaitConfirm')}:</Text>
                         <Text style={styles.msgTxt}>{this.state.receipt}</Text>
                     </View>
                 </View>

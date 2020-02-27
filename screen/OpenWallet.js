@@ -18,6 +18,7 @@ import Title from '../components/Title'
 import AlertText from '../components/AlertText'
 import { aesDecrypt, sha1 } from '../utils/Aes'
 import { validateMnemonic, mnemonicToAddress } from '../utils/Tools'
+import { I18n } from '../i18n/'
 
 const styles = StyleSheet.create({
     bottom: {
@@ -97,7 +98,7 @@ class OpenWallet extends React.Component {
         if (this.state.password === '') {
             this.setState({
                 borderColor: '#F30',
-                alertText: ['⚠️请输入密码'],
+                alertText: [I18n.t('OpenWalletAlertTxt1')],
                 buttonDisable: true
             })
             this.shake()
@@ -108,14 +109,14 @@ class OpenWallet extends React.Component {
             let encrypt = this.props.WalletReducer.encrypt
             if (encrypt) {
                 let mnemonic = aesDecrypt(encrypt, sha1(password))
-                if (validateMnemonic(mnemonic)) {
+                if (mnemonic && validateMnemonic(mnemonic)) {
                     let days = checked === true ? 30 : 1
                     let address = mnemonicToAddress(mnemonic, 0)
                     let accounts = [{
                         address: address,
                         balance: 0
                     }]
-                    if (this.props.WalletReducer.accounts.length === 0) {
+                    if (this.props.WalletReducer.accounts && this.props.WalletReducer.accounts.length === 0) {
                         this.props.setAccounts(accounts)
                     }
                     global.storage.load({
@@ -145,7 +146,7 @@ class OpenWallet extends React.Component {
                 } else {
                     this.setState({
                         borderColor: '#F30',
-                        alertText: ['⚠️密码错误'],
+                        alertText: [I18n.t('OpenWalletAlertTxt2')],
                         buttonDisable: true
                     })
                     this.shake()
@@ -153,7 +154,7 @@ class OpenWallet extends React.Component {
             } else {
                 this.setState({
                     borderColor: '#F30',
-                    alertText: ['⚠️钱包错误'],
+                    alertText: [I18n.t('OpenWalletAlertTxt3')],
                     buttonDisable: true
                 })
                 this.shake()
@@ -175,11 +176,11 @@ class OpenWallet extends React.Component {
                         screenWidth={global.screenWidth * 0.9}
                         margin={0}
                     >
-                        <Title titleText='币神钱包' />
+                        <Title titleText={I18n.t('AppName')} />
                         <MyTextInput
                             handleTypePassword={this.handleTypePassword}
                             handleKeybordMargin={this.handleKeybordMargin}
-                            placeholder='输入密码'
+                            placeholder={I18n.t('InputPassword')}
                             borderColor={this.state.borderColor}
                             borderColorActive='#390'
                             buttonDisable={this.state.buttonDisable}
@@ -187,6 +188,7 @@ class OpenWallet extends React.Component {
                         <MyCheckBox
                             handleCheck={this.handleCheck}
                             checkedCheckBoxColor='#390'
+                            text={I18n.t('Remember')}
                         />
                         <AlertText
                             alertText={this.state.alertText}
@@ -195,7 +197,7 @@ class OpenWallet extends React.Component {
                         <MyButton
                             screenWidth={global.screenWidth * 0.9 - 30}
                             onPress={(next) => { this.handleSubmit(next) }}
-                            text='打开钱包'
+                            text={I18n.t('Login')}
                             height={50}
                             backgroundColor='#6f0'
                             backgroundDarker='#390'
@@ -207,10 +209,10 @@ class OpenWallet extends React.Component {
                         />
                         <View style={styles.bottom}>
                             <TouchableOpacity onPress={() => navigate('ImportNav')}>
-                                <Text style={styles.bottomLink}>导入钱包</Text>
+                                <Text style={styles.bottomLink}>{I18n.t('OpenWalletImport')}</Text>
                             </TouchableOpacity>
                             <TouchableOpacity onPress={() => navigate('CreateNav')}>
-                                <Text style={styles.bottomLink}>创建钱包</Text>
+                                <Text style={styles.bottomLink}>{I18n.t('OpenWalletCreate')}</Text>
                             </TouchableOpacity>
                         </View>
                     </MyCard>

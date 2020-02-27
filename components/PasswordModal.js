@@ -10,6 +10,7 @@ import AlertText from './AlertText'
 import MyButton from './MyButton'
 import { aesDecrypt, sha1 } from '../utils/Aes'
 import { validateMnemonic } from '../utils/Tools'
+import { I18n } from '../i18n/'
 
 
 class PasswordModal extends Component {
@@ -66,7 +67,7 @@ class PasswordModal extends Component {
         if (this.state.password === '') {
             this.setState({
                 borderColor: '#F30',
-                alertText: ['⚠️请输入密码'],
+                alertText: [I18n.t('OpenWalletAlertTxt1')],
                 buttonDisable: true
             })
             this.shake()
@@ -81,7 +82,7 @@ class PasswordModal extends Component {
             } else {
                 this.setState({
                     borderColor: '#F30',
-                    alertText: ['⚠️密码错误'],
+                    alertText: [I18n.t('OpenWalletAlertTxt2')],
                     buttonDisable: true
                 })
                 this.shake()
@@ -100,11 +101,11 @@ class PasswordModal extends Component {
                         margin={0}
                         top={0}
                     >
-                        <Title titleText='打开钱包' />
+                        <Title titleText={I18n.t('OpenAccount')} />
                         <MyTextInput
                             handleTypePassword={this.handleTypePassword}
                             handleKeybordMargin={this.handleKeybordMargin}
-                            placeholder='输入密码'
+                            placeholder={I18n.t('InputPassword')}
                             borderColor={this.state.borderColor}
                             borderColorActive='#390'
                             buttonDisable={this.state.buttonDisable}
@@ -117,7 +118,7 @@ class PasswordModal extends Component {
                         <MyButton
                             screenWidth={global.screenWidth * 0.9 - 30}
                             onPress={(next) => { this.handleSubmit(next) }}
-                            text='添加账户'
+                            text={I18n.t('PasswordSubmit')}
                             height={50}
                             backgroundColor='#6f0'
                             backgroundDarker='#390'
@@ -129,7 +130,7 @@ class PasswordModal extends Component {
                         />
                         <View style={styles.bottom}>
                             <TouchableOpacity onPress={() => { this.props.setPasswordModalVisiable(false) }}>
-                                <Text style={styles.bottomLink}>取消</Text>
+                                <Text style={styles.bottomLink}>{I18n.t('Cancle')}</Text>
                             </TouchableOpacity>
                         </View>
                     </MyCard>

@@ -12,9 +12,8 @@ const logger = store => next => action => {
     return next(action)
 }
 const middlewares = [
-    logger,  // 打印 state 信息
-    thunk,   // 提供异步 action
+    logger,  
+    thunk,   
 ]
 
-// 在 store 中添加中间件, 配置 reducer
 export default createStore(rootReducer, applyMiddleware(...middlewares))

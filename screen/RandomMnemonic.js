@@ -10,6 +10,7 @@ import MyCard from '../components/MyCard'
 import MyButton from '../components/MyButton'
 import MyBackButton from '../components/MyBackButton'
 import AlertText from '../components/AlertText'
+import { I18n,countryCode } from '../i18n/'
 
 const styles = StyleSheet.create({
     alert: {
@@ -42,7 +43,7 @@ const styles = StyleSheet.create({
     }
 })
 
-const alertText = ['⚠️请按照正确的顺序选择助记词⚠️']
+const alertText = [I18n.t('RandomMnemonicAlertTxt')]
 const alertColor = '#999'
 
 
@@ -92,7 +93,7 @@ class RandomMnemonic extends React.Component {
     shake = () => {
         var duration = 100
         this.setState({
-            alertText: ['⚠️助记词顺序不正确⚠️'],
+            alertText: [I18n.t('RandomMnemonicErrorTxt')],
             alertColor: '#f30'
         })
         Animated.sequence([
@@ -198,7 +199,7 @@ class RandomMnemonic extends React.Component {
                 <View style={{ alignItems: 'center' }}>
                     <MyButton
                         screenWidth={global.screenWidth * 0.9}
-                        text='下一步'
+                        text={I18n.t('NextStep')}
                         height={50}
                         backgroundColor='#6f0'
                         backgroundDarker='#390'

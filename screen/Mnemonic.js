@@ -11,6 +11,7 @@ import MyTabView from '../components/MyTabView'
 import MyButton from '../components/MyButton'
 import MyBackButton from '../components/MyBackButton'
 import { randMnemonic } from '../utils/Tools'
+import { I18n,countryCode } from '../i18n/'
 
 const styles = StyleSheet.create({
     alert: {
@@ -18,19 +19,30 @@ const styles = StyleSheet.create({
     },
     alertText: {
         color: '#f00',
-        textAlign: 'center'
+        textAlign: 'center',
+        fontSize: countryCode==='CN' ? 14:12,
     }
 })
 function Mnemonic(props) {
     const { navigate } = props.navigation
 
     changeLang = (index) => {
-        if (index === 0) {
-            props.setLang('cn')
-            props.setRandomMnemonic(randMnemonic(props.LoginReducer.mnemonicCn))
-        } else {
-            props.setLang('en')
-            props.setRandomMnemonic(randMnemonic(props.LoginReducer.mnemonicEn))
+        if(countryCode==='CN'){
+            if (index === 0) {
+                props.setLang('cn')
+                props.setRandomMnemonic(randMnemonic(props.LoginReducer.mnemonicCn))
+            } else {
+                props.setLang('en')
+                props.setRandomMnemonic(randMnemonic(props.LoginReducer.mnemonicEn))
+            }
+        }else{
+            if (index === 0) {
+                props.setLang('en')
+                props.setRandomMnemonic(randMnemonic(props.LoginReducer.mnemonicEn))
+            } else {
+                props.setLang('cn')
+                props.setRandomMnemonic(randMnemonic(props.LoginReducer.mnemonicCn))
+            }
         }
     }
     return (
@@ -49,13 +61,13 @@ function Mnemonic(props) {
                 />
                 <View style={styles.alert}>
                     <Text style={styles.alertText}>
-                        ⚠️抄写或保存助记词，然后进行下一步⚠️
+                        {I18n.t('MnemonicAlertTxt')}
                             </Text>
                 </View>
                 <View style={{ alignItems: 'center' }}>
                     <MyButton
                         screenWidth={global.screenWidth * 0.9 - 30}
-                        text='下一步'
+                        text={I18n.t('NextStep')}
                         height={50}
                         backgroundColor='#6f0'
                         backgroundDarker='#390'

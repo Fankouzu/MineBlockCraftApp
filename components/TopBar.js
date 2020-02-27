@@ -6,6 +6,7 @@ import AwesomeButton from 'react-native-really-awesome-button'
 import MyButton from '../components/MyButton'
 import { networks } from '../utils/networks'
 import Jazzicon from '@novaviva/react-native-jazzicon'
+import { I18n } from '../i18n/'
 
 function TopBar(props) {
     return (
@@ -39,7 +40,7 @@ function TopBar(props) {
                     height={32}
                     raiseLevel={2}
                     borderRadius={16}
-                    text={'🔗' + networks[props.WalletReducer.networkId].nameCN}
+                    text={'🔗' + I18n.t(networks[props.WalletReducer.networkId].name)}
                     backgroundColor='#fc0'
                     backgroundDarker='#960'
                     backgroundActive='#ff0'

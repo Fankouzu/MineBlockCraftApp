@@ -39,7 +39,7 @@ class Send extends React.Component {
         ethprice().then((res) => {
             this.props.setEthPrice(res.result.ethusd)
         })
-        getBalance(fromAddress, networks[networkId].nameEN).then((balance) => {
+        getBalance(fromAddress, networks[networkId].name).then((balance) => {
             this.props.setFromAddress(fromAddress)
             this.props.setBalance(balance)
         })

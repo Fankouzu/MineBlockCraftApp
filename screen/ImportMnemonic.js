@@ -1,6 +1,5 @@
 import React from 'react'
 import {
-    StyleSheet,
     View,
     Animated,
     Keyboard,
@@ -15,8 +14,9 @@ import MyCard from '../components/MyCard'
 import Title from '../components/Title'
 import AlertText from '../components/AlertText'
 import { validateMnemonic } from '../utils/Tools'
+import { I18n } from '../i18n/'
 
-const alertText = ['⚠️请按正确的顺序填写或粘贴助记词⚠️']
+const alertText = [I18n.t('ImportMnemonicAlertTxt1')]
 class ImportMnemonic extends React.Component {
     constructor(props) {
         super(props)
@@ -99,14 +99,14 @@ class ImportMnemonic extends React.Component {
         if (mnemonic === '') {
             this.setState({
                 borderColor: '#f30',
-                alertText: ['⚠️请填写助记词⚠️'],
+                alertText: [I18n.t('ImportMnemonicAlertTxt2')],
                 buttonDisable: true
             })
             this.shake()
         } else if (!validateMnemonic(mnemonic)) {
             this.setState({
                 borderColor: '#f30',
-                alertText: ['⚠️助记词不正确⚠️'],
+                alertText: [I18n.t('ImportMnemonicAlertTxt3')],
                 buttonDisable: true
             })
             this.shake()
@@ -143,7 +143,7 @@ class ImportMnemonic extends React.Component {
                         margin={0}
                         top={0}
                     >
-                        <Title titleText='导入助记词' />
+                        <Title titleText={I18n.t('ImportMnemonic')} />
                         <MyTextArea
                             handleType={this.handleType}
                             handleKeybordMargin={this.handleKeybordMargin}
@@ -158,7 +158,7 @@ class ImportMnemonic extends React.Component {
                         <MyButton
                             screenWidth={global.screenWidth * 0.9 - 30}
                             onPress={() => this.next()}
-                            text='下一步'
+                            text={I18n.t('NextStep')}
                             height={50}
                             backgroundColor='#6f0'
                             backgroundDarker='#390'

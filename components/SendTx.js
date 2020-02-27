@@ -6,6 +6,7 @@ import SendInput from '../components/SendInput'
 import GasView from '../components/GasView'
 import MyButton from '../components/MyButton'
 import isEthereumAddress from 'is-ethereum-address'
+import { I18n } from '../i18n/'
 
 function SendTx(props) {
 
@@ -23,7 +24,7 @@ function SendTx(props) {
         if (toAddress === '' || !isEthereumAddress(toAddress)) {
             setAddressError(true)
             props.shake()
-        } else if (parseFloat(amount) + myGas > parseFloat(balance)) {
+        } else if (isNaN(amount) || parseFloat(amount) + myGas > parseFloat(balance)) {
             setAmountError(true)
             props.shake()
         } else {
@@ -33,11 +34,11 @@ function SendTx(props) {
             setAmountError(false)
             setAddressError(false)
             setButtonDisable(false)
-        }, 1000)
+        }, 3000)
     }
     return (
         <View>
-            <Title titleText='转账交易' />
+            <Title titleText={I18n.t('SendTransaction')} />
             <View style={{
                 borderWidth: 0.35,
                 borderColor: '#000',
@@ -55,7 +56,7 @@ function SendTx(props) {
             <GasView />
             <MyButton
                 screenWidth={global.screenWidth * 0.9 - 30}
-                text='下一步'
+                text={I18n.t('NextStep')}
                 height={50}
                 backgroundColor='#6f0'
                 backgroundDarker='#390'

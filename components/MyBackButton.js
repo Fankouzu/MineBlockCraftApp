@@ -2,7 +2,6 @@ import React from 'react'
 import MyButton from './MyButton'
 import PropTypes from 'prop-types'
 import {
-    StyleSheet,
     View,
     Text
 } from 'react-native'

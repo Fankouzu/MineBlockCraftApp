@@ -7,8 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		00E356F31AD99517003FC87E /* BishenWalletAppTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* BishenWalletAppTests.m */; };
-		12E14F2291C05286DB412BB0 /* libPods-BishenWalletAppTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 44EBB2A6653F30071E25904D /* libPods-BishenWalletAppTests.a */; };
+		00E356F31AD99517003FC87E /* MineBlockCraftAppTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* MineBlockCraftAppTests.m */; };
+		12E14F2291C05286DB412BB0 /* libPods-MineBlockCraftAppTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 44EBB2A6653F30071E25904D /* libPods-MineBlockCraftAppTests.a */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB11A68108700A75B9A /* LaunchScreen.xib */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
@@ -16,10 +16,10 @@
 		2D02E4BC1E0B4A80006451C7 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		2D02E4BD1E0B4A84006451C7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		2D02E4BF1E0B4AB3006451C7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
-		2DCD954D1E0B4F2C00145EB5 /* BishenWalletAppTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* BishenWalletAppTests.m */; };
-		5BA86E269717E45BEC407731 /* libPods-BishenWalletApp-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5CD772F679AFD7F7A329A23B /* libPods-BishenWalletApp-tvOS.a */; };
-		69A7DC09261BB89236829644 /* libPods-BishenWalletApp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B4623A82D2B3A6DA61307F1B /* libPods-BishenWalletApp.a */; };
-		9ABF8DF44A6217B0E5981CCE /* libPods-BishenWalletApp-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D7D4393A0B7ED635E3427A95 /* libPods-BishenWalletApp-tvOSTests.a */; };
+		2DCD954D1E0B4F2C00145EB5 /* MineBlockCraftAppTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* MineBlockCraftAppTests.m */; };
+		5BA86E269717E45BEC407731 /* libPods-MineBlockCraftApp-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5CD772F679AFD7F7A329A23B /* libPods-MineBlockCraftApp-tvOS.a */; };
+		69A7DC09261BB89236829644 /* libPods-MineBlockCraftApp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B4623A82D2B3A6DA61307F1B /* libPods-MineBlockCraftApp.a */; };
+		9ABF8DF44A6217B0E5981CCE /* libPods-MineBlockCraftApp-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D7D4393A0B7ED635E3427A95 /* libPods-MineBlockCraftApp-tvOSTests.a */; };
 		A3FB155A23EB0BA600A03DD4 /* BigYoungMediumGB2.0.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A34ED96F23D6DB62003B03AD /* BigYoungMediumGB2.0.ttf */; };
 /* End PBXBuildFile section */
 
@@ -29,57 +29,57 @@
 			containerPortal = 83CBB9F71A601CBA00E9B192 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 13B07F861A680F5B00A75B9A;
-			remoteInfo = BishenWalletApp;
+			remoteInfo = MineBlockCraftApp;
 		};
 		2D02E4911E0B4A5D006451C7 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 83CBB9F71A601CBA00E9B192 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 2D02E47A1E0B4A5D006451C7;
-			remoteInfo = "BishenWalletApp-tvOS";
+			remoteInfo = "MineBlockCraftApp-tvOS";
 		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		008F07F21AC5B25A0029DE68 /* main.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = main.jsbundle; sourceTree = "<group>"; };
-		00E356EE1AD99517003FC87E /* BishenWalletAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BishenWalletAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		00E356EE1AD99517003FC87E /* MineBlockCraftAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MineBlockCraftAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		00E356F21AD99517003FC87E /* BishenWalletAppTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BishenWalletAppTests.m; sourceTree = "<group>"; };
-		040709424E8BFD8DEE0AB40D /* Pods-BishenWalletApp-tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BishenWalletApp-tvOS.debug.xcconfig"; path = "Target Support Files/Pods-BishenWalletApp-tvOS/Pods-BishenWalletApp-tvOS.debug.xcconfig"; sourceTree = "<group>"; };
+		00E356F21AD99517003FC87E /* MineBlockCraftAppTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MineBlockCraftAppTests.m; sourceTree = "<group>"; };
+		040709424E8BFD8DEE0AB40D /* Pods-MineBlockCraftApp-tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MineBlockCraftApp-tvOS.debug.xcconfig"; path = "Target Support Files/Pods-MineBlockCraftApp-tvOS/Pods-MineBlockCraftApp-tvOS.debug.xcconfig"; sourceTree = "<group>"; };
 		057EB75FA42741C9A0EF15A9 /* MaterialCommunityIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialCommunityIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialCommunityIcons.ttf"; sourceTree = "<group>"; };
-		13B07F961A680F5B00A75B9A /* BishenWalletApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BishenWalletApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = BishenWalletApp/AppDelegate.h; sourceTree = "<group>"; };
-		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = BishenWalletApp/AppDelegate.m; sourceTree = "<group>"; };
+		13B07F961A680F5B00A75B9A /* MineBlockCraftApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MineBlockCraftApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = MineBlockCraftApp/AppDelegate.h; sourceTree = "<group>"; };
+		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = MineBlockCraftApp/AppDelegate.m; sourceTree = "<group>"; };
 		13B07FB21A68108700A75B9A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
-		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = BishenWalletApp/Images.xcassets; sourceTree = "<group>"; };
-		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = BishenWalletApp/Info.plist; sourceTree = "<group>"; };
-		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = BishenWalletApp/main.m; sourceTree = "<group>"; };
-		2D02E47B1E0B4A5D006451C7 /* BishenWalletApp-tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "BishenWalletApp-tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		2D02E4901E0B4A5D006451C7 /* BishenWalletApp-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "BishenWalletApp-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = MineBlockCraftApp/Images.xcassets; sourceTree = "<group>"; };
+		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = MineBlockCraftApp/Info.plist; sourceTree = "<group>"; };
+		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = MineBlockCraftApp/main.m; sourceTree = "<group>"; };
+		2D02E47B1E0B4A5D006451C7 /* MineBlockCraftApp-tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "MineBlockCraftApp-tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		2D02E4901E0B4A5D006451C7 /* MineBlockCraftApp-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "MineBlockCraftApp-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		34900CB00DAF475BAE2FDB37 /* Entypo.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Entypo.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Entypo.ttf"; sourceTree = "<group>"; };
-		44EBB2A6653F30071E25904D /* libPods-BishenWalletAppTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-BishenWalletAppTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		4767006BEDED01940D5CA20F /* Pods-BishenWalletApp-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BishenWalletApp-tvOSTests.release.xcconfig"; path = "Target Support Files/Pods-BishenWalletApp-tvOSTests/Pods-BishenWalletApp-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
+		44EBB2A6653F30071E25904D /* libPods-MineBlockCraftAppTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MineBlockCraftAppTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		4767006BEDED01940D5CA20F /* Pods-MineBlockCraftApp-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MineBlockCraftApp-tvOSTests.release.xcconfig"; path = "Target Support Files/Pods-MineBlockCraftApp-tvOSTests/Pods-MineBlockCraftApp-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
 		4877A55AE6594A2E824881A0 /* FontAwesome5_Solid.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Solid.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Solid.ttf"; sourceTree = "<group>"; };
 		4ECF3CF3987F4E188FAD2567 /* Feather.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Feather.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Feather.ttf"; sourceTree = "<group>"; };
 		505931F30EB54713A10A9408 /* Fontisto.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Fontisto.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Fontisto.ttf"; sourceTree = "<group>"; };
-		5CD772F679AFD7F7A329A23B /* libPods-BishenWalletApp-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-BishenWalletApp-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		5CD772F679AFD7F7A329A23B /* libPods-MineBlockCraftApp-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MineBlockCraftApp-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		784705747CF54900ACA76461 /* Ionicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Ionicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Ionicons.ttf"; sourceTree = "<group>"; };
 		858EC0CE2F0A4EF89B1F982B /* FontAwesome5_Brands.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Brands.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Brands.ttf"; sourceTree = "<group>"; };
 		97D636B255B44E58A95D2556 /* FontAwesome5_Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Regular.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Regular.ttf"; sourceTree = "<group>"; };
-		9EC6BAAB5058EB7CE30D6CA0 /* Pods-BishenWalletAppTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BishenWalletAppTests.debug.xcconfig"; path = "Target Support Files/Pods-BishenWalletAppTests/Pods-BishenWalletAppTests.debug.xcconfig"; sourceTree = "<group>"; };
+		9EC6BAAB5058EB7CE30D6CA0 /* Pods-MineBlockCraftAppTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MineBlockCraftAppTests.debug.xcconfig"; path = "Target Support Files/Pods-MineBlockCraftAppTests/Pods-MineBlockCraftAppTests.debug.xcconfig"; sourceTree = "<group>"; };
 		9EC6E6ABBE9941E695684457 /* EvilIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = EvilIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/EvilIcons.ttf"; sourceTree = "<group>"; };
 		A34ED96F23D6DB62003B03AD /* BigYoungMediumGB2.0.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = BigYoungMediumGB2.0.ttf; path = ../../assets/BigYoungMediumGB2.0.ttf; sourceTree = "<group>"; };
-		A6A0F14C9AFD3003DAE678EC /* Pods-BishenWalletApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BishenWalletApp.debug.xcconfig"; path = "Target Support Files/Pods-BishenWalletApp/Pods-BishenWalletApp.debug.xcconfig"; sourceTree = "<group>"; };
+		A6A0F14C9AFD3003DAE678EC /* Pods-MineBlockCraftApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MineBlockCraftApp.debug.xcconfig"; path = "Target Support Files/Pods-MineBlockCraftApp/Pods-MineBlockCraftApp.debug.xcconfig"; sourceTree = "<group>"; };
 		B2C09E17A44344CA88D4DAB8 /* Foundation.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Foundation.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Foundation.ttf"; sourceTree = "<group>"; };
-		B4623A82D2B3A6DA61307F1B /* libPods-BishenWalletApp.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-BishenWalletApp.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		C5007175B7DFC666F220C391 /* Pods-BishenWalletApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BishenWalletApp.release.xcconfig"; path = "Target Support Files/Pods-BishenWalletApp/Pods-BishenWalletApp.release.xcconfig"; sourceTree = "<group>"; };
+		B4623A82D2B3A6DA61307F1B /* libPods-MineBlockCraftApp.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MineBlockCraftApp.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C5007175B7DFC666F220C391 /* Pods-MineBlockCraftApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MineBlockCraftApp.release.xcconfig"; path = "Target Support Files/Pods-MineBlockCraftApp/Pods-MineBlockCraftApp.release.xcconfig"; sourceTree = "<group>"; };
 		C6BE2613B0B048A2BC647625 /* MaterialIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialIcons.ttf"; sourceTree = "<group>"; };
 		D1DFE6E65B1E4E159254F987 /* Octicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Octicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Octicons.ttf"; sourceTree = "<group>"; };
 		D1F56363ACCD43F9961778F3 /* Zocial.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Zocial.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Zocial.ttf"; sourceTree = "<group>"; };
-		D7D4393A0B7ED635E3427A95 /* libPods-BishenWalletApp-tvOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-BishenWalletApp-tvOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		DE4ABB72208E5FD298BE6F73 /* Pods-BishenWalletAppTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BishenWalletAppTests.release.xcconfig"; path = "Target Support Files/Pods-BishenWalletAppTests/Pods-BishenWalletAppTests.release.xcconfig"; sourceTree = "<group>"; };
-		E0CA5D9EEDF73CF4619D71C3 /* Pods-BishenWalletApp-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BishenWalletApp-tvOSTests.debug.xcconfig"; path = "Target Support Files/Pods-BishenWalletApp-tvOSTests/Pods-BishenWalletApp-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
-		E6750D9C2F0998482B9C2E65 /* Pods-BishenWalletApp-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BishenWalletApp-tvOS.release.xcconfig"; path = "Target Support Files/Pods-BishenWalletApp-tvOS/Pods-BishenWalletApp-tvOS.release.xcconfig"; sourceTree = "<group>"; };
+		D7D4393A0B7ED635E3427A95 /* libPods-MineBlockCraftApp-tvOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MineBlockCraftApp-tvOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		DE4ABB72208E5FD298BE6F73 /* Pods-MineBlockCraftAppTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MineBlockCraftAppTests.release.xcconfig"; path = "Target Support Files/Pods-MineBlockCraftAppTests/Pods-MineBlockCraftAppTests.release.xcconfig"; sourceTree = "<group>"; };
+		E0CA5D9EEDF73CF4619D71C3 /* Pods-MineBlockCraftApp-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MineBlockCraftApp-tvOSTests.debug.xcconfig"; path = "Target Support Files/Pods-MineBlockCraftApp-tvOSTests/Pods-MineBlockCraftApp-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
+		E6750D9C2F0998482B9C2E65 /* Pods-MineBlockCraftApp-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MineBlockCraftApp-tvOS.release.xcconfig"; path = "Target Support Files/Pods-MineBlockCraftApp-tvOS/Pods-MineBlockCraftApp-tvOS.release.xcconfig"; sourceTree = "<group>"; };
 		EC0DC547E1F34E80B7A0CF3E /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = SimpleLineIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/SimpleLineIcons.ttf"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		ED2971642150620600B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS12.0.sdk/System/Library/Frameworks/JavaScriptCore.framework; sourceTree = DEVELOPER_DIR; };
@@ -92,7 +92,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				12E14F2291C05286DB412BB0 /* libPods-BishenWalletAppTests.a in Frameworks */,
+				12E14F2291C05286DB412BB0 /* libPods-MineBlockCraftAppTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -100,7 +100,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				69A7DC09261BB89236829644 /* libPods-BishenWalletApp.a in Frameworks */,
+				69A7DC09261BB89236829644 /* libPods-MineBlockCraftApp.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -108,7 +108,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5BA86E269717E45BEC407731 /* libPods-BishenWalletApp-tvOS.a in Frameworks */,
+				5BA86E269717E45BEC407731 /* libPods-MineBlockCraftApp-tvOS.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -116,20 +116,20 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9ABF8DF44A6217B0E5981CCE /* libPods-BishenWalletApp-tvOSTests.a in Frameworks */,
+				9ABF8DF44A6217B0E5981CCE /* libPods-MineBlockCraftApp-tvOSTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		00E356EF1AD99517003FC87E /* BishenWalletAppTests */ = {
+		00E356EF1AD99517003FC87E /* MineBlockCraftAppTests */ = {
 			isa = PBXGroup;
 			children = (
-				00E356F21AD99517003FC87E /* BishenWalletAppTests.m */,
+				00E356F21AD99517003FC87E /* MineBlockCraftAppTests.m */,
 				00E356F01AD99517003FC87E /* Supporting Files */,
 			);
-			path = BishenWalletAppTests;
+			path = MineBlockCraftAppTests;
 			sourceTree = "<group>";
 		};
 		00E356F01AD99517003FC87E /* Supporting Files */ = {
@@ -140,7 +140,7 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		13B07FAE1A68108700A75B9A /* BishenWalletApp */ = {
+		13B07FAE1A68108700A75B9A /* MineBlockCraftApp */ = {
 			isa = PBXGroup;
 			children = (
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
@@ -151,7 +151,7 @@
 				13B07FB11A68108700A75B9A /* LaunchScreen.xib */,
 				13B07FB71A68108700A75B9A /* main.m */,
 			);
-			name = BishenWalletApp;
+			name = MineBlockCraftApp;
 			sourceTree = "<group>";
 		};
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
@@ -159,10 +159,10 @@
 			children = (
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
 				ED2971642150620600B7C4FE /* JavaScriptCore.framework */,
-				B4623A82D2B3A6DA61307F1B /* libPods-BishenWalletApp.a */,
-				5CD772F679AFD7F7A329A23B /* libPods-BishenWalletApp-tvOS.a */,
-				D7D4393A0B7ED635E3427A95 /* libPods-BishenWalletApp-tvOSTests.a */,
-				44EBB2A6653F30071E25904D /* libPods-BishenWalletAppTests.a */,
+				B4623A82D2B3A6DA61307F1B /* libPods-MineBlockCraftApp.a */,
+				5CD772F679AFD7F7A329A23B /* libPods-MineBlockCraftApp-tvOS.a */,
+				D7D4393A0B7ED635E3427A95 /* libPods-MineBlockCraftApp-tvOSTests.a */,
+				44EBB2A6653F30071E25904D /* libPods-MineBlockCraftAppTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -171,14 +171,14 @@
 			isa = PBXGroup;
 			children = (
 				A34ED96F23D6DB62003B03AD /* BigYoungMediumGB2.0.ttf */,
-				A6A0F14C9AFD3003DAE678EC /* Pods-BishenWalletApp.debug.xcconfig */,
-				C5007175B7DFC666F220C391 /* Pods-BishenWalletApp.release.xcconfig */,
-				040709424E8BFD8DEE0AB40D /* Pods-BishenWalletApp-tvOS.debug.xcconfig */,
-				E6750D9C2F0998482B9C2E65 /* Pods-BishenWalletApp-tvOS.release.xcconfig */,
-				E0CA5D9EEDF73CF4619D71C3 /* Pods-BishenWalletApp-tvOSTests.debug.xcconfig */,
-				4767006BEDED01940D5CA20F /* Pods-BishenWalletApp-tvOSTests.release.xcconfig */,
-				9EC6BAAB5058EB7CE30D6CA0 /* Pods-BishenWalletAppTests.debug.xcconfig */,
-				DE4ABB72208E5FD298BE6F73 /* Pods-BishenWalletAppTests.release.xcconfig */,
+				A6A0F14C9AFD3003DAE678EC /* Pods-MineBlockCraftApp.debug.xcconfig */,
+				C5007175B7DFC666F220C391 /* Pods-MineBlockCraftApp.release.xcconfig */,
+				040709424E8BFD8DEE0AB40D /* Pods-MineBlockCraftApp-tvOS.debug.xcconfig */,
+				E6750D9C2F0998482B9C2E65 /* Pods-MineBlockCraftApp-tvOS.release.xcconfig */,
+				E0CA5D9EEDF73CF4619D71C3 /* Pods-MineBlockCraftApp-tvOSTests.debug.xcconfig */,
+				4767006BEDED01940D5CA20F /* Pods-MineBlockCraftApp-tvOSTests.release.xcconfig */,
+				9EC6BAAB5058EB7CE30D6CA0 /* Pods-MineBlockCraftAppTests.debug.xcconfig */,
+				DE4ABB72208E5FD298BE6F73 /* Pods-MineBlockCraftAppTests.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -193,9 +193,9 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
-				13B07FAE1A68108700A75B9A /* BishenWalletApp */,
+				13B07FAE1A68108700A75B9A /* MineBlockCraftApp */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
-				00E356EF1AD99517003FC87E /* BishenWalletAppTests */,
+				00E356EF1AD99517003FC87E /* MineBlockCraftAppTests */,
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				668887FBF7CCB577834133C5 /* Pods */,
@@ -209,10 +209,10 @@
 		83CBBA001A601CBA00E9B192 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				13B07F961A680F5B00A75B9A /* BishenWalletApp.app */,
-				00E356EE1AD99517003FC87E /* BishenWalletAppTests.xctest */,
-				2D02E47B1E0B4A5D006451C7 /* BishenWalletApp-tvOS.app */,
-				2D02E4901E0B4A5D006451C7 /* BishenWalletApp-tvOSTests.xctest */,
+				13B07F961A680F5B00A75B9A /* MineBlockCraftApp.app */,
+				00E356EE1AD99517003FC87E /* MineBlockCraftAppTests.xctest */,
+				2D02E47B1E0B4A5D006451C7 /* MineBlockCraftApp-tvOS.app */,
+				2D02E4901E0B4A5D006451C7 /* MineBlockCraftApp-tvOSTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -243,9 +243,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		00E356ED1AD99517003FC87E /* BishenWalletAppTests */ = {
+		00E356ED1AD99517003FC87E /* MineBlockCraftAppTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "BishenWalletAppTests" */;
+			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "MineBlockCraftAppTests" */;
 			buildPhases = (
 				1653C6A1A15A3CF7CAC360EE /* [CP] Check Pods Manifest.lock */,
 				00E356EA1AD99517003FC87E /* Sources */,
@@ -257,14 +257,14 @@
 			dependencies = (
 				00E356F51AD99517003FC87E /* PBXTargetDependency */,
 			);
-			name = BishenWalletAppTests;
-			productName = BishenWalletAppTests;
-			productReference = 00E356EE1AD99517003FC87E /* BishenWalletAppTests.xctest */;
+			name = MineBlockCraftAppTests;
+			productName = MineBlockCraftAppTests;
+			productReference = 00E356EE1AD99517003FC87E /* MineBlockCraftAppTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		13B07F861A680F5B00A75B9A /* BishenWalletApp */ = {
+		13B07F861A680F5B00A75B9A /* MineBlockCraftApp */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "BishenWalletApp" */;
+			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "MineBlockCraftApp" */;
 			buildPhases = (
 				438F86A37DE00EFCA9E83249 /* [CP] Check Pods Manifest.lock */,
 				FD10A7F022414F080027D42C /* Start Packager */,
@@ -278,14 +278,14 @@
 			);
 			dependencies = (
 			);
-			name = BishenWalletApp;
-			productName = BishenWalletApp;
-			productReference = 13B07F961A680F5B00A75B9A /* BishenWalletApp.app */;
+			name = MineBlockCraftApp;
+			productName = MineBlockCraftApp;
+			productReference = 13B07F961A680F5B00A75B9A /* MineBlockCraftApp.app */;
 			productType = "com.apple.product-type.application";
 		};
-		2D02E47A1E0B4A5D006451C7 /* BishenWalletApp-tvOS */ = {
+		2D02E47A1E0B4A5D006451C7 /* MineBlockCraftApp-tvOS */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 2D02E4BA1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "BishenWalletApp-tvOS" */;
+			buildConfigurationList = 2D02E4BA1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "MineBlockCraftApp-tvOS" */;
 			buildPhases = (
 				41672ECAFF521461870398C6 /* [CP] Check Pods Manifest.lock */,
 				FD10A7F122414F3F0027D42C /* Start Packager */,
@@ -298,14 +298,14 @@
 			);
 			dependencies = (
 			);
-			name = "BishenWalletApp-tvOS";
-			productName = "BishenWalletApp-tvOS";
-			productReference = 2D02E47B1E0B4A5D006451C7 /* BishenWalletApp-tvOS.app */;
+			name = "MineBlockCraftApp-tvOS";
+			productName = "MineBlockCraftApp-tvOS";
+			productReference = 2D02E47B1E0B4A5D006451C7 /* MineBlockCraftApp-tvOS.app */;
 			productType = "com.apple.product-type.application";
 		};
-		2D02E48F1E0B4A5D006451C7 /* BishenWalletApp-tvOSTests */ = {
+		2D02E48F1E0B4A5D006451C7 /* MineBlockCraftApp-tvOSTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 2D02E4BB1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "BishenWalletApp-tvOSTests" */;
+			buildConfigurationList = 2D02E4BB1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "MineBlockCraftApp-tvOSTests" */;
 			buildPhases = (
 				E8E885BF08222CF1F5421D45 /* [CP] Check Pods Manifest.lock */,
 				2D02E48C1E0B4A5D006451C7 /* Sources */,
@@ -317,9 +317,9 @@
 			dependencies = (
 				2D02E4921E0B4A5D006451C7 /* PBXTargetDependency */,
 			);
-			name = "BishenWalletApp-tvOSTests";
-			productName = "BishenWalletApp-tvOSTests";
-			productReference = 2D02E4901E0B4A5D006451C7 /* BishenWalletApp-tvOSTests.xctest */;
+			name = "MineBlockCraftApp-tvOSTests";
+			productName = "MineBlockCraftApp-tvOSTests";
+			productReference = 2D02E4901E0B4A5D006451C7 /* MineBlockCraftApp-tvOSTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -346,7 +346,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "BishenWalletApp" */;
+			buildConfigurationList = 83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "MineBlockCraftApp" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -360,10 +360,10 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				13B07F861A680F5B00A75B9A /* BishenWalletApp */,
-				00E356ED1AD99517003FC87E /* BishenWalletAppTests */,
-				2D02E47A1E0B4A5D006451C7 /* BishenWalletApp-tvOS */,
-				2D02E48F1E0B4A5D006451C7 /* BishenWalletApp-tvOSTests */,
+				13B07F861A680F5B00A75B9A /* MineBlockCraftApp */,
+				00E356ED1AD99517003FC87E /* MineBlockCraftAppTests */,
+				2D02E47A1E0B4A5D006451C7 /* MineBlockCraftApp-tvOS */,
+				2D02E48F1E0B4A5D006451C7 /* MineBlockCraftApp-tvOSTests */,
 			);
 		};
 /* End PBXProject section */
@@ -433,7 +433,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-BishenWalletAppTests-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-MineBlockCraftAppTests-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -469,7 +469,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-BishenWalletApp-tvOS-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-MineBlockCraftApp-tvOS-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -491,7 +491,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-BishenWalletApp-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-MineBlockCraftApp-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -504,7 +504,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-BishenWalletApp/Pods-BishenWalletApp-resources.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-MineBlockCraftApp/Pods-MineBlockCraftApp-resources.sh",
 				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/AntDesign.ttf",
 				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Entypo.ttf",
 				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/EvilIcons.ttf",
@@ -543,7 +543,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-BishenWalletApp/Pods-BishenWalletApp-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-MineBlockCraftApp/Pods-MineBlockCraftApp-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		E8E885BF08222CF1F5421D45 /* [CP] Check Pods Manifest.lock */ = {
@@ -561,7 +561,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-BishenWalletApp-tvOSTests-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-MineBlockCraftApp-tvOSTests-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -613,7 +613,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				00E356F31AD99517003FC87E /* BishenWalletAppTests.m in Sources */,
+				00E356F31AD99517003FC87E /* MineBlockCraftAppTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -639,7 +639,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2DCD954D1E0B4F2C00145EB5 /* BishenWalletAppTests.m in Sources */,
+				2DCD954D1E0B4F2C00145EB5 /* MineBlockCraftAppTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -648,12 +648,12 @@
 /* Begin PBXTargetDependency section */
 		00E356F51AD99517003FC87E /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 13B07F861A680F5B00A75B9A /* BishenWalletApp */;
+			target = 13B07F861A680F5B00A75B9A /* MineBlockCraftApp */;
 			targetProxy = 00E356F41AD99517003FC87E /* PBXContainerItemProxy */;
 		};
 		2D02E4921E0B4A5D006451C7 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 2D02E47A1E0B4A5D006451C7 /* BishenWalletApp-tvOS */;
+			target = 2D02E47A1E0B4A5D006451C7 /* MineBlockCraftApp-tvOS */;
 			targetProxy = 2D02E4911E0B4A5D006451C7 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -665,7 +665,7 @@
 				13B07FB21A68108700A75B9A /* Base */,
 			);
 			name = LaunchScreen.xib;
-			path = BishenWalletApp;
+			path = MineBlockCraftApp;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -673,14 +673,14 @@
 /* Begin XCBuildConfiguration section */
 		00E356F61AD99517003FC87E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 9EC6BAAB5058EB7CE30D6CA0 /* Pods-BishenWalletAppTests.debug.xcconfig */;
+			baseConfigurationReference = 9EC6BAAB5058EB7CE30D6CA0 /* Pods-MineBlockCraftAppTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = BishenWalletAppTests/Info.plist;
+				INFOPLIST_FILE = MineBlockCraftAppTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				OTHER_LDFLAGS = (
@@ -690,17 +690,17 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/BishenWalletApp.app/BishenWalletApp";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MineBlockCraftApp.app/MineBlockCraftApp";
 			};
 			name = Debug;
 		};
 		00E356F71AD99517003FC87E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = DE4ABB72208E5FD298BE6F73 /* Pods-BishenWalletAppTests.release.xcconfig */;
+			baseConfigurationReference = DE4ABB72208E5FD298BE6F73 /* Pods-MineBlockCraftAppTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
-				INFOPLIST_FILE = BishenWalletAppTests/Info.plist;
+				INFOPLIST_FILE = MineBlockCraftAppTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				OTHER_LDFLAGS = (
@@ -710,18 +710,18 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/BishenWalletApp.app/BishenWalletApp";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MineBlockCraftApp.app/MineBlockCraftApp";
 			};
 			name = Release;
 		};
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = A6A0F14C9AFD3003DAE678EC /* Pods-BishenWalletApp.debug.xcconfig */;
+			baseConfigurationReference = A6A0F14C9AFD3003DAE678EC /* Pods-MineBlockCraftApp.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
-				INFOPLIST_FILE = BishenWalletApp/Info.plist;
+				INFOPLIST_FILE = MineBlockCraftApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
@@ -729,18 +729,18 @@
 					"-lc++",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
-				PRODUCT_NAME = BishenWalletApp;
+				PRODUCT_NAME = MineBlockCraftApp;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C5007175B7DFC666F220C391 /* Pods-BishenWalletApp.release.xcconfig */;
+			baseConfigurationReference = C5007175B7DFC666F220C391 /* Pods-MineBlockCraftApp.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CURRENT_PROJECT_VERSION = 1;
-				INFOPLIST_FILE = BishenWalletApp/Info.plist;
+				INFOPLIST_FILE = MineBlockCraftApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
@@ -748,14 +748,14 @@
 					"-lc++",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
-				PRODUCT_NAME = BishenWalletApp;
+				PRODUCT_NAME = MineBlockCraftApp;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;
 		};
 		2D02E4971E0B4A5E006451C7 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 040709424E8BFD8DEE0AB40D /* Pods-BishenWalletApp-tvOS.debug.xcconfig */;
+			baseConfigurationReference = 040709424E8BFD8DEE0AB40D /* Pods-MineBlockCraftApp-tvOS.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -766,14 +766,14 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_TESTABILITY = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
-				INFOPLIST_FILE = "BishenWalletApp-tvOS/Info.plist";
+				INFOPLIST_FILE = "MineBlockCraftApp-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.facebook.REACT.BishenWalletApp-tvOS";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.facebook.REACT.MineBlockCraftApp-tvOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = appletvos;
 				TARGETED_DEVICE_FAMILY = 3;
@@ -783,7 +783,7 @@
 		};
 		2D02E4981E0B4A5E006451C7 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = E6750D9C2F0998482B9C2E65 /* Pods-BishenWalletApp-tvOS.release.xcconfig */;
+			baseConfigurationReference = E6750D9C2F0998482B9C2E65 /* Pods-MineBlockCraftApp-tvOS.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -794,14 +794,14 @@
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_NO_COMMON_BLOCKS = YES;
-				INFOPLIST_FILE = "BishenWalletApp-tvOS/Info.plist";
+				INFOPLIST_FILE = "MineBlockCraftApp-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.facebook.REACT.BishenWalletApp-tvOS";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.facebook.REACT.MineBlockCraftApp-tvOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = appletvos;
 				TARGETED_DEVICE_FAMILY = 3;
@@ -811,7 +811,7 @@
 		};
 		2D02E4991E0B4A5E006451C7 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = E0CA5D9EEDF73CF4619D71C3 /* Pods-BishenWalletApp-tvOSTests.debug.xcconfig */;
+			baseConfigurationReference = E0CA5D9EEDF73CF4619D71C3 /* Pods-MineBlockCraftApp-tvOSTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ANALYZER_NONNULL = YES;
@@ -821,24 +821,24 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_TESTABILITY = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
-				INFOPLIST_FILE = "BishenWalletApp-tvOSTests/Info.plist";
+				INFOPLIST_FILE = "MineBlockCraftApp-tvOSTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.facebook.REACT.BishenWalletApp-tvOSTests";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.facebook.REACT.MineBlockCraftApp-tvOSTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = appletvos;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/BishenWalletApp-tvOS.app/BishenWalletApp-tvOS";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MineBlockCraftApp-tvOS.app/MineBlockCraftApp-tvOS";
 				TVOS_DEPLOYMENT_TARGET = 10.1;
 			};
 			name = Debug;
 		};
 		2D02E49A1E0B4A5E006451C7 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4767006BEDED01940D5CA20F /* Pods-BishenWalletApp-tvOSTests.release.xcconfig */;
+			baseConfigurationReference = 4767006BEDED01940D5CA20F /* Pods-MineBlockCraftApp-tvOSTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ANALYZER_NONNULL = YES;
@@ -848,17 +848,17 @@
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_NO_COMMON_BLOCKS = YES;
-				INFOPLIST_FILE = "BishenWalletApp-tvOSTests/Info.plist";
+				INFOPLIST_FILE = "MineBlockCraftApp-tvOSTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.facebook.REACT.BishenWalletApp-tvOSTests";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.facebook.REACT.MineBlockCraftApp-tvOSTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = appletvos;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/BishenWalletApp-tvOS.app/BishenWalletApp-tvOS";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MineBlockCraftApp-tvOS.app/MineBlockCraftApp-tvOS";
 				TVOS_DEPLOYMENT_TARGET = 10.1;
 			};
 			name = Release;
@@ -965,7 +965,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "BishenWalletAppTests" */ = {
+		00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "MineBlockCraftAppTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				00E356F61AD99517003FC87E /* Debug */,
@@ -974,7 +974,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "BishenWalletApp" */ = {
+		13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "MineBlockCraftApp" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				13B07F941A680F5B00A75B9A /* Debug */,
@@ -983,7 +983,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		2D02E4BA1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "BishenWalletApp-tvOS" */ = {
+		2D02E4BA1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "MineBlockCraftApp-tvOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				2D02E4971E0B4A5E006451C7 /* Debug */,
@@ -992,7 +992,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		2D02E4BB1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "BishenWalletApp-tvOSTests" */ = {
+		2D02E4BB1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "MineBlockCraftApp-tvOSTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				2D02E4991E0B4A5E006451C7 /* Debug */,
@@ -1001,7 +1001,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "BishenWalletApp" */ = {
+		83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "MineBlockCraftApp" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				83CBBA201A601CBA00E9B192 /* Debug */,

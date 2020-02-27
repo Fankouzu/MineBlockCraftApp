@@ -14,11 +14,11 @@
 #define TIMEOUT_SECONDS 600
 #define TEXT_TO_LOOK_FOR @"Welcome to React"
 
-@interface BishenWalletAppTests : XCTestCase
+@interface MineBlockCraftAppTests : XCTestCase
 
 @end
 
-@implementation BishenWalletAppTests
+@implementation MineBlockCraftAppTests
 
 - (BOOL)findSubviewInView:(UIView *)view matching:(BOOL(^)(UIView *view))test
 {

@@ -5,7 +5,7 @@ import {
     Keyboard,
     Animated
 } from 'react-native'
-import {connect} from 'react-redux'
+import { connect } from 'react-redux'
 import * as actions from '../actions'
 import MyCard from '../components/MyCard'
 import MyButton from '../components/MyButton'
@@ -16,18 +16,19 @@ import AlertText from '../components/AlertText'
 import { checkPasswordLevel } from '../utils/Tools'
 import Modal from "react-native-modal"
 import { aesEncrypt, sha1 } from '../utils/Aes'
+import { I18n } from '../i18n/'
 
 const styles = StyleSheet.create({
-    modalView:{
-        flex: 0 ,
-        backgroundColor:'white',
-        borderRadius:10,
+    modalView: {
+        flex: 0,
+        backgroundColor: 'white',
+        borderRadius: 10,
         alignItems: 'center',
-        paddingTop:10
+        paddingTop: 10
     }
 })
 
-var alertText = ['⚠️密码只保存在你的手机记忆中，不会发送到服务器', '⚠️密码一旦丢失请通过助记词找回钱包']
+var alertText = [I18n.t('PasswordAlertTxt1'), I18n.t('PasswordAlertTxt2')]
 class Password extends React.Component {
     constructor(props) {
         super(props)
@@ -56,7 +57,7 @@ class Password extends React.Component {
     _keyboardWillShow(e) {
         let keyboardHeight = e.endCoordinates.height;
         this.setState({
-            keyBoardHeight:keyboardHeight
+            keyBoardHeight: keyboardHeight
         })
         this.handleKeybordMargin('up')
     }
@@ -64,7 +65,7 @@ class Password extends React.Component {
     _keyboardWillHide(e) {
         let keyboardHeight = e.endCoordinates.height;
         this.setState({
-            keyBoardHeight:keyboardHeight
+            keyBoardHeight: keyboardHeight
         })
         this.handleKeybordMargin('down')
     }
@@ -117,7 +118,7 @@ class Password extends React.Component {
             this.shake()
             this.setState({
                 borderColor: '#f30',
-                alertText: ['⚠️密码输入不相同'],
+                alertText: [I18n.t('PasswordAlertTxt3')],
                 buttonDisable: true
             })
         } else {
@@ -125,7 +126,7 @@ class Password extends React.Component {
                 this.shake()
                 this.setState({
                     borderColor: '#f30',
-                    alertText: ['⚠️密码需要最少8位，并且包含数字、大写、小写字母'],
+                    alertText: [I18n.t('PasswordAlertTxt4')],
                     buttonDisable: true
                 })
             } else {
@@ -141,19 +142,19 @@ class Password extends React.Component {
     }
     Wallet = () => {
         const encrypt = aesEncrypt(this.props.LoginReducer.useMnemonic, sha1(this.state.password))
-
-        global.storage.load({
+        global.storage.save({
             key: 'wallet',
-        }).then(ret => {
-            global.storage.save({
-                key: 'wallet',
-                data: {...ret,'encrypt': encrypt},
-                expires: null,
-            })
-            this.props.setEncrypt(encrypt)
-            this.setState({ isModalVisible: true })
+            data: {
+                'encrypt': encrypt,
+                'accounts': [{address:'0x0',balance:0}],
+                'currentAccount': 0,
+                'networkId': 0
+             },
+            expires: null,
         })
-        
+        this.props.setEncrypt(encrypt)
+        this.setState({ isModalVisible: true })
+
     }
     render() {
         const { navigate } = this.props.navigation
@@ -172,20 +173,20 @@ class Password extends React.Component {
                         top={0}
                         padding={10}
                     >
-                        <Title titleText='输入密码' />
+                        <Title titleText={I18n.t('InputPassword')} />
                         <MyTextInput
                             handleTypePassword={(password) => this.handleTypePassword(password)}
                             handleKeybordMargin={() => { }}
                             borderColor={this.state.borderColor}
                             borderColorActive='#390'
-                            placeholder='输入密码'
+                            placeholder={I18n.t('InputPassword')}
                         />
                         <MyTextInput
                             handleTypePassword={(password) => this.handleTypePasswordConfirm(password)}
                             handleKeybordMargin={() => { }}
                             borderColor={this.state.borderColor}
                             borderColorActive='#390'
-                            placeholder='确认密码'
+                            placeholder={I18n.t('ConfirmPassword')}
                         />
                         <AlertText
                             alertText={this.state.alertText}
@@ -193,7 +194,7 @@ class Password extends React.Component {
                         />
                         <MyButton
                             screenWidth={global.screenWidth * 0.9 - 20}
-                            text='完成'
+                            text={I18n.t('PasswordSubmit')}
                             height={50}
                             backgroundColor='#6f0'
                             backgroundDarker='#390'
@@ -207,7 +208,7 @@ class Password extends React.Component {
                 </Animated.View>
                 <Modal isVisible={this.state.isModalVisible}>
                     <View style={styles.modalView}>
-                        <Title titleText='成功了' subText='进入钱包' />
+                        <Title titleText={I18n.t('PasswordSuccess')} subText={I18n.t('Login')} />
                         <MyButton
                             screenWidth={global.screenWidth * 0.9 - 20}
                             text='OK'
@@ -217,7 +218,7 @@ class Password extends React.Component {
                             textColor='#000'
                             borderColor='#390'
                             borderWidth={1}
-                            onPress={() => navigate('WelcomeNav',{page:1})}
+                            onPress={() => navigate('WelcomeNav', { page: 1 })}
                         />
                     </View>
                 </Modal>
@@ -230,4 +231,4 @@ const mapStateToProps = state => (state)
 const mapDispatchToProps = dispatch => ({
     setEncrypt: (value) => dispatch(actions.setEncrypt(value)),
 })
-export default connect(mapStateToProps,mapDispatchToProps)(Password)
+export default connect(mapStateToProps, mapDispatchToProps)(Password)

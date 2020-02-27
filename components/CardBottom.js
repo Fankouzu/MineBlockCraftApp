@@ -1,6 +1,7 @@
 import React from 'react'
 import { View, StyleSheet } from 'react-native'
 import CardButton from '../components/CardButton'
+import { I18n } from '../i18n/'
 
 const styles = StyleSheet.create({
     cardBottom: {
@@ -22,7 +23,7 @@ export default function CardBottom(props) {
                     //onPress={()=>{props.navigation.navigate('Send',{balance:props.balance,fromAddress:props.fromAddress})}}
                     onPress={() => { props.showPasswordModal('send') }}
                     textColor='#f60'
-                    text='发送'
+                    text={I18n.t('Send')}
                     iconName='send'
                     iconSize={16}
                     iconColor='#f60'
@@ -31,7 +32,7 @@ export default function CardBottom(props) {
                     rippleColor='#390'
                     onPress={() => { }}
                     textColor='#390'
-                    text='接收'
+                    text={I18n.t('Recive')}
                     iconName='call-received'
                     iconSize={16}
                     iconColor='#390'
@@ -40,7 +41,7 @@ export default function CardBottom(props) {
                     rippleColor='#06f'
                     onPress={() => { }}
                     textColor='#06f'
-                    text='记录'
+                    text={I18n.t('TxList')}
                     iconName='format-list-bulleted'
                     iconSize={16}
                     iconColor='#06f'

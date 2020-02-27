@@ -1,8 +1,8 @@
 platform :ios, '9.0'
 require_relative '../node_modules/@react-native-community/cli-platform-ios/native_modules'
 
-target 'BishenWalletApp' do
-  # Pods for BishenWalletApp
+target 'MineBlockCraftApp' do
+  # Pods for MineBlockCraftApp
   pod 'FBLazyVector', :path => "../node_modules/react-native/Libraries/FBLazyVector"
   pod 'FBReactNativeSpec', :path => "../node_modules/react-native/Libraries/FBReactNativeSpec"
   pod 'RCTRequired', :path => "../node_modules/react-native/Libraries/RCTRequired"
@@ -38,7 +38,7 @@ target 'BishenWalletApp' do
 
 
 
-  target 'BishenWalletAppTests' do
+  target 'MineBlockCraftAppTests' do
     inherit! :search_paths
     # Pods for testing
   end
@@ -46,10 +46,10 @@ target 'BishenWalletApp' do
   use_native_modules!
 end
 
-target 'BishenWalletApp-tvOS' do
-  # Pods for BishenWalletApp-tvOS
+target 'MineBlockCraftApp-tvOS' do
+  # Pods for MineBlockCraftApp-tvOS
 
-  target 'BishenWalletApp-tvOSTests' do
+  target 'MineBlockCraftApp-tvOSTests' do
     inherit! :search_paths
     # Pods for testing
   end

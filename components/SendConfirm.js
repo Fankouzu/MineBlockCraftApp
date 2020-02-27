@@ -4,6 +4,7 @@ import {connect} from 'react-redux'
 import Title from '../components/Title'
 import MyButton from '../components/MyButton'
 import Jazzicon from '@novaviva/react-native-jazzicon'
+import { I18n } from '../i18n/'
 
 function SendConfirm(props) {
     
@@ -24,37 +25,37 @@ function SendConfirm(props) {
 
     return (
         <View>
-            <Title titleText='转账确认' style={styles.Title} />
+            <Title titleText={I18n.t('SendConfirm')} style={styles.Title} />
             <View style={styles.divide}></View>
             <View style={styles.addressView}>
-                <Text style={styles.title}>付款地址:</Text>
+                <Text style={styles.title}>{I18n.t('FromAddress')}:</Text>
                 <View style={styles.rightViewH}>
                     <View style={styles.jazzIcon}><Jazzicon size={20} address={fromAddress} /></View>
                     <Text numberOfLines={2} style={styles.address}>{fromAddress}</Text>
                 </View>
             </View>
             <View style={styles.addressView}>
-                <Text style={styles.title}>收款地址:</Text>
+                <Text style={styles.title}>{I18n.t('ToAddress')}:</Text>
                 <View style={styles.rightViewH}>
                     <View style={styles.jazzIcon}><Jazzicon size={20} address={toAddress} /></View>
                     <Text numberOfLines={2} style={styles.address}>{toAddress}</Text>
                 </View>
             </View>
             <View style={styles.textView}>
-                <Text style={styles.title}>发送数量:</Text>
+                <Text style={styles.title}>{I18n.t('SendAmount')}:</Text>
                 <View style={styles.rightViewV}>
                     <Text style={styles.amount}>{amount}Ether</Text>
                     <Text style={styles.amount}>≈${amountPrice}</Text>
                 </View>
             </View>
             <View style={styles.textView}>
-                <Text style={styles.title}>链上备注:</Text>
+                <Text style={styles.title}>{I18n.t('InputData')}:</Text>
                 <View style={styles.rightViewV}>
                     <Text numberOfLines={2} style={styles.note}>{note}</Text>
                 </View>
             </View>
             <View style={styles.textView}>
-                <Text style={styles.title}>矿工费上限:</Text>
+                <Text style={styles.title}>{I18n.t('GasfeeCap')}:</Text>
                 <View style={styles.rightViewV}>
                     <Text style={styles.amount}>{myGasPrice}GWei x {gasLimit}</Text>
                     <Text style={styles.amount}>≈${myGaspriceUsd}</Text>
@@ -62,7 +63,7 @@ function SendConfirm(props) {
             </View>
             <View style={styles.divide}></View>
             <View style={styles.textView}>
-                <Text style={styles.title}>合计:</Text>
+                <Text style={styles.title}>{I18n.t('Total')}:</Text>
                 <View style={styles.rightViewV}>
                     <Text style={styles.totleAmount}>Ether:{totleAmount}</Text>
                     <Text style={styles.totleAmount}>≈${totlePrice}</Text>
@@ -71,7 +72,7 @@ function SendConfirm(props) {
             <View style={styles.bottom}>
                 <MyButton
                     screenWidth='100%'
-                    text='返回'
+                    text={I18n.t('Back')}
                     height={50}
                     backgroundColor='#ccc'
                     backgroundDarker='#999'
@@ -84,7 +85,7 @@ function SendConfirm(props) {
                 />
                 <MyButton
                     screenWidth='100%'
-                    text='下一步'
+                    text={I18n.t('NextStep')}
                     height={50}
                     backgroundColor='#6f0'
                     backgroundDarker='#390'

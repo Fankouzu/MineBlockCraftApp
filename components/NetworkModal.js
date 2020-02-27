@@ -4,6 +4,7 @@ import { Text, StyleSheet, View } from 'react-native'
 import Modal from "react-native-modal"
 import ListButton from '../components/ListButton'
 import { networks } from '../utils/networks'
+import { I18n } from '../i18n/'
 
 
 function NetworkModal(props) {
@@ -11,11 +12,11 @@ function NetworkModal(props) {
     return (
         <Modal isVisible={props.WalletMain.isNetworkModalVisible}>
             <View style={styles.modalView}>
-                <Text style={styles.modalTitle}>选择网络</Text>
+                <Text style={styles.modalTitle}>{I18n.t('SelectNetwork')}</Text>
                 {networks.map((item, index) => {
                     return (
                         <ListButton
-                            text={item.nameCN}
+                            text={I18n.t(item.name)}
                             iconColor={item.color}
                             onPress={() => { props.selectNetwork(index) }}
                             key={index}

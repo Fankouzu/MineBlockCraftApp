@@ -14,7 +14,7 @@ export default function MyCheckBox(props) {
     return (
         <View style={styles.checkView}>
             <CheckBox
-                rightText='记住密码'
+                rightText={props.text}
                 isChecked={checked}
                 onClick={() => handleCheck()}
                 checkBoxColor='#666'
@@ -27,7 +27,8 @@ export default function MyCheckBox(props) {
 
 MyCheckBox.propTypes = {
     handleCheck: PropTypes.func.isRequired,
-    checkedCheckBoxColor: PropTypes.string
+    checkedCheckBoxColor: PropTypes.string,
+    text: PropTypes.string
 }
 MyCheckBox.defaultProps = {
     checkedCheckBoxColor: '#390'
