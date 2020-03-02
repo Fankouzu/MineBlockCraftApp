@@ -1,10 +1,10 @@
 import * as React from 'react'
-import MyButton from '../components/MyButton'
+import MyButton from '../Screens/Components/MyButton'
 import { createAppContainer } from 'react-navigation'
 import { createStackNavigator } from 'react-navigation-stack'
-import WelcomeNav from './WelcomeNav'
-import CreateNav from './CreateNav'
-import ImportNav from './ImportNav'
+import WelcomeNav from '../Screens/Welcome'
+import CreateNav from '../Screens/Create'
+import ImportNav from '../Screens/Import'
 
 const AppNavigator = createStackNavigator(
     {
@@ -27,34 +27,34 @@ const AppNavigator = createStackNavigator(
         CardStyleInterpolators: 'forRevealFromBottomAndroid',
     }
 )
-const welcomeOptions = ({ navigation }) => {
-    let header
-    const headerStyle = { height: 0 }
-    const headerTransparent = true
-    return { headerStyle, headerTransparent, header }
-}
-const StackOptions = ({ navigation }) => {
-    const { goBack } = navigation;
-    let header
-    const headerStyle = { height: 50 }
-    const headerTransparent = true
-    const headerLeft = (
-        <MyButton
-            text='<'
-            screenWidth={25}
-            height={26}
-            backgroundColor='#fff'
-            backgroundDarker='#666'
-            textColor='#000'
-            borderColor='#666'
-            borderWidth={1}
-            raiseLevel={2}
-            borderRadius={25}
-            style={{ margin: global.screenWidth * 0.05}}
-            textSize={10}
-            onPress={() => goBack()}
-        />
-    )
-    return { headerStyle, headerTransparent, headerLeft, header }
-}
+// const welcomeOptions = ({ navigation }) => {
+//     let header
+//     const headerStyle = { height: 0 }
+//     const headerTransparent = true
+//     return { headerStyle, headerTransparent, header }
+// }
+// const StackOptions = ({ navigation }) => {
+//     const { goBack } = navigation;
+//     let header
+//     const headerStyle = { height: 50 }
+//     const headerTransparent = true
+//     const headerLeft = (
+//         <MyButton
+//             text='<'
+//             screenWidth={25}
+//             height={26}
+//             backgroundColor='#fff'
+//             backgroundDarker='#666'
+//             textColor='#000'
+//             borderColor='#666'
+//             borderWidth={1}
+//             raiseLevel={2}
+//             borderRadius={25}
+//             style={{ margin: global.screenWidth * 0.05}}
+//             textSize={10}
+//             onPress={() => goBack()}
+//         />
+//     )
+//     return { headerStyle, headerTransparent, headerLeft, header }
+// }
 export default createAppContainer(AppNavigator)

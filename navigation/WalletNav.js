@@ -1,23 +1,35 @@
 import { createAppContainer } from 'react-navigation'
 import { createStackNavigator } from 'react-navigation-stack'
-import WalletFrame from '../screen/WalletFrame'
-import Send from '../screen/Send'
-import QRCodeScan from '../screen/QRCodeScan'
+import MainScreen from '../Screens/MainScreen'
+import Send from '../Screens/Send'
+import Recive from '../Screens/Recive'
+import QRCodeScan from '../Screens/QRCodeScan'
+import Ethereum from '../Screens/Ethereum'
+import {Dapps} from '../Dapps'
 
 const AppNavigator = createStackNavigator(
     {
-        WalletFrame: {
-            screen: WalletFrame
+        MainScreen: {
+            screen: MainScreen
         },
         Send: {
             screen: Send
         },
+        Recive: {
+            screen: Recive
+        },
         QRCodeScan: {
             screen: QRCodeScan
-        }
+        },
+        Ethereum:{
+            screen: Ethereum
+        },
+        Dapps:{
+            screen: Dapps
+        },
     },
     {
-        initialRouteName: 'WalletFrame',
+        initialRouteName: 'MainScreen',
         headerMode: 'none',
         headerTransitionPreset: 'fade-in-place',
         mode: 'card',

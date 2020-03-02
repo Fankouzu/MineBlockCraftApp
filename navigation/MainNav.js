@@ -2,9 +2,9 @@ import React from 'react'
 import { createAppContainer } from 'react-navigation'
 import createAnimatedSwitchNavigator from 'react-navigation-animated-switch'
 import { Transition } from 'react-native-reanimated'
-import AuthLoading from '../screen/AuthLoading'
-import LoginNav from '../navigation/LoginNav'
-import WalletNav from '../navigation/WalletNav'
+import AuthLoading from './AuthLoading'
+import LoginNav from './LoginNav'
+import WalletNav from './WalletNav'
 export default createAppContainer(createAnimatedSwitchNavigator(
     {
         AuthLoading: AuthLoading,

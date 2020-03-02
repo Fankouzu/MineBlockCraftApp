@@ -69,6 +69,7 @@ export default {
     Balance:'Balance',
     InputData:'Input data',
     NoteOnChain:'Notes are permanently recorded on blockchain[optional]',
+    AddressPlaceholder:'Please input Ethereum Address',
     //GasView
     GasfeeCap:'Gasfee cap',
     Advanced:'Advanced',
@@ -91,4 +92,13 @@ export default {
     Receipt:'Receipt',
     Hash:'Tx Hash',
     Block:'Block',
+    //Recive
+    ReciveTitle:'My Ethereum Address',
+    CopyAddress:'Copy Address',
+    SavePic:'Save Picture',
+    PermissionsAndroid:'Camra roll rermission denied !',
+    //AppView
+    AppViewTitle:'Dapps',
+    //Dapps
+    EthereumDapp:'Ethereum'
 }
