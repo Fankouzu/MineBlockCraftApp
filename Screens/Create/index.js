@@ -2,7 +2,6 @@ import React from 'react'
 import { Animated } from 'react-native'
 import {connect} from 'react-redux'
 import * as actions from '../../actions'
-import Copyright from '../Components/Copyright'
 import MyBackground from '../Components/MyBackground'
 import Mnemonic from './Mnemonic'
 import RandomMnemonic from './RandomMnemonic'
@@ -64,7 +63,6 @@ class CreateNav extends React.Component {
                         turnPage={this.turnPage}
                     ></Password>
                 </Animated.View>
-                <Copyright />
             </MyBackground>
         )
     }

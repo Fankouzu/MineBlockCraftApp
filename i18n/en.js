@@ -53,7 +53,7 @@ export default {
     CurrentBalance:'Balance',
     //CardBottom
     Send:'Send',
-    Recive:'Recive',
+    Recive:'Deposit',
     TxList:'TxList',
     //PasswordModal
     OpenAccount:'Open Account',
@@ -100,5 +100,21 @@ export default {
     //AppView
     AppViewTitle:'Dapps',
     //Dapps
-    EthereumDapp:'Ethereum'
+    EthereumDapp:'Ethereum',
+    //TxList
+    TxListTitle:'Transactions',
+    Deploy:'Contract Creation',
+    TxRecive:'Deposit',
+    SendTokens:'Send Tokens',
+    ContractCall:'Contract Call',
+    TxSuccess:'Success',
+    TxFail:'Fail',
+    TxEmpty:'You have no transactions',
+    netError:'Network error,use VPN please',
+    TxLoading:'Loading...',
+    //ProfileModal
+    RegUser:'Regist Member',
+    EditProfile:'Edit Profile',
+    InputNickName:'Input Nickname',
+    InputSignature:'Input Signature',
 }

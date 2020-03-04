@@ -5,7 +5,6 @@ import {
 } from 'react-native'
 import { connect } from 'react-redux'
 import * as actions from '../../actions'
-import Copyright from '../Components/Copyright'
 import MyTicket from './Components/MyTicket'
 import MyBackButton from '../Components/MyBackButton'
 import MyBackground from '../Components/MyBackground'
@@ -126,7 +125,6 @@ class Send extends React.Component {
                         </MyTicket>
                     </Animated.View>
                 </View>
-                <Copyright />
             </MyBackground>
         )
     }

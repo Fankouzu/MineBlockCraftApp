@@ -50,6 +50,10 @@ export const setPasswordModalVisiable = (isPasswordModalVisible) => ({
     type: Types.SET_PASSWORD_MODAL_VISIABLE,
     isPasswordModalVisible
 })
+export const setProfileModalVisiable = (isProfileModalVisible) => ({
+    type: Types.SET_PROFILE_MODAL_VISIABLE,
+    isProfileModalVisible
+})
 export const setSendPasswordModalVisiable = (isSendPasswordModalVisible) => ({
     type: Types.SET_SEND_PASSWORD_MODAL_VISIABLE,
     isSendPasswordModalVisible

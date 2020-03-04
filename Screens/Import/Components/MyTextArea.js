@@ -2,7 +2,7 @@ import React from 'react'
 import { StyleSheet, Animated, TextInput } from 'react-native'
 import PropTypes from 'prop-types'
 
-export default function MyTextInput(props) {
+export default function MyTextArea(props) {
 
     const borderWidth = new Animated.Value(1)
     const borderRadius = new Animated.Value(10)
@@ -87,7 +87,7 @@ export default function MyTextInput(props) {
         </Animated.View>
     )
 }
-MyTextInput.propTypes = {
+MyTextArea.propTypes = {
     handleType: PropTypes.func.isRequired,
     handleKeybordMargin: PropTypes.func.isRequired,
     onFocus: PropTypes.func,
@@ -96,7 +96,7 @@ MyTextInput.propTypes = {
     borderColorActive: PropTypes.string,
     value: PropTypes.string
 }
-MyTextInput.defaultProps = {
+MyTextArea.defaultProps = {
     borderColor: '#666',
     borderColorActive: '#666',
     onFocus: () => { },

@@ -36,7 +36,7 @@ export default function CardBottom(props) {
                     iconSize={16}
                     iconColor='#390'
                 />
-                <CardButton
+                {/* <CardButton
                     rippleColor='#06f'
                     onPress={() => { }}
                     textColor='#06f'
@@ -45,7 +45,7 @@ export default function CardBottom(props) {
                     iconSize={16}
                     iconColor='#06f'
                     rippleStyle={{borderRightWidth: 0}}
-                />
+                /> */}
             </View>
     )
 

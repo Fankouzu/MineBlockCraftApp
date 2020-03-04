@@ -2,7 +2,6 @@ import React from 'react'
 import { Animated } from 'react-native'
 import ImportMnemonic from './ImportMnemonic'
 import Password from '../Password'
-import Copyright from '../Components/Copyright'
 import MyBackground from '../Components/MyBackground'
 
 export default class ImportNav extends React.Component {
@@ -40,7 +39,6 @@ export default class ImportNav extends React.Component {
                         turnPage={this.turnPage}
                     />
                 </Animated.View>
-                <Copyright />
             </MyBackground>
         )
     }

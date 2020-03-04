@@ -100,5 +100,21 @@ export default {
   //AppView
   AppViewTitle:'应用中心',
   //Dapps
-  EthereumDapp:'以太坊'
+  EthereumDapp:'以太坊',
+  //TxList
+  TxListTitle:'交易记录',
+  Deploy:'部署合约',
+  TxRecive:'存入',
+  SendTokens:'发送代币',
+  ContractCall:'调用合约',
+  TxSuccess:'确认',
+  TxFail:'失败',
+  TxEmpty:'还没有交易',
+  netError:'网络错误,请科学上网',
+  TxLoading:'读取中...',
+  //ProfileModal
+  RegUser:'注册会员',
+  EditProfile:'修改资料',
+  InputNickName:'输入昵称',
+  InputSignature:'个性签名',
 }

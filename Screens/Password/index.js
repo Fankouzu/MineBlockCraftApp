@@ -10,7 +10,7 @@ import * as actions from '../../actions'
 import MyCard from '../Components/MyCard'
 import MyButton from '../Components/MyButton'
 import MyBackButton from '../Components/MyBackButton'
-import MyTextInput from '../Components/MyTextInput'
+import MyPasswordInput from '../Components/MyPasswordInput'
 import Title from '../Components/Title'
 import AlertText from '../Components/AlertText'
 import { checkPasswordLevel } from '../../utils/Tools'
@@ -173,14 +173,14 @@ class Password extends React.Component {
                         padding={10}
                     >
                         <Title titleText={I18n.t('InputPassword')} />
-                        <MyTextInput
+                        <MyPasswordInput
                             handleTypePassword={(password) => this.handleTypePassword(password)}
                             handleKeybordMargin={() => { }}
                             borderColor={this.state.borderColor}
                             borderColorActive='#390'
                             placeholder={I18n.t('InputPassword')}
                         />
-                        <MyTextInput
+                        <MyPasswordInput
                             handleTypePassword={(password) => this.handleTypePasswordConfirm(password)}
                             handleKeybordMargin={() => { }}
                             borderColor={this.state.borderColor}

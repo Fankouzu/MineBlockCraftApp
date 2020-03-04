@@ -9,7 +9,7 @@ import {
 } from 'react-native'
 import { connect } from 'react-redux'
 import * as actions from '../../actions'
-import MyTextInput from '../Components/MyTextInput'
+import MyPasswordInput from '../Components/MyPasswordInput'
 import MyCheckBox from './Components/MyCheckBox'
 import MyButton from '../Components/MyButton'
 import MyBackButton from '../Components/MyBackButton'
@@ -179,7 +179,7 @@ class OpenWallet extends React.Component {
                         margin={0}
                     >
                         <Title titleText={I18n.t('AppName')} />
-                        <MyTextInput
+                        <MyPasswordInput
                             handleTypePassword={this.handleTypePassword}
                             handleKeybordMargin={this.handleKeybordMargin}
                             placeholder={I18n.t('InputPassword')}

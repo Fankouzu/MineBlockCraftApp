@@ -1,19 +1,23 @@
 import React, { Component } from 'react'
 import {connect} from 'react-redux'
-import * as actions from '../../actions'
+import * as actions from '../../../actions'
 import { Text, StyleSheet, View, Animated, TouchableOpacity } from 'react-native'
 import Modal from "react-native-modal"
-import MyCard from './MyCard'
-import Title from './Title'
-import MyPasswordInput from './MyPasswordInput'
-import AlertText from './AlertText'
-import MyButton from './MyButton'
-import { aesDecrypt, sha1 } from '../../utils/Aes'
-import { validateMnemonic } from '../../utils/Tools'
-import { I18n } from '../../i18n'
+import MyCard from '../../Components/MyCard'
+import Title from '../../Components/Title'
+import MyTextInput from '../../Components/MyTextInput'
+import MyPasswordInput from '../../Components/MyPasswordInput'
+import AlertText from '../../Components/AlertText'
+import MyButton from '../../Components/MyButton'
+import { aesDecrypt, sha1 } from '../../../utils/Aes'
+import { validateMnemonic,initContract } from '../../../utils/Tools'
+import ContractAddress from '../../../Contract/address.js'
+import { networks } from '../../../utils/networks'
+import abi from '../../../Contract/MineBlockCraftUser.abi.js'
+import { I18n } from '../../../i18n'
 
 
-class PasswordModal extends Component {
+class ProfileModal extends Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -22,8 +26,33 @@ class PasswordModal extends Component {
             alertText: [],
             borderColor: '#999',
             buttonDisable: false,
-            top: new Animated.Value(-150)
+            top: new Animated.Value(-150),
+            title:'',
+            nickName:'',
+            signature:''
         }
+    }
+    async componentDidMount () {
+        const {networkId,accounts,currentAccount} = this.props.WalletReducer
+        const UserContractAddress = ContractAddress.MineBlockCraftUser[networkId].address
+        if(UserContractAddress !== ""){
+            const contract = initContract(networks[networkId].name,UserContractAddress,abi)
+            
+            let AddressToId = await contract.AddressToId(accounts[currentAccount].address)
+            AddressToId = parseInt(AddressToId,16)
+            let contractOwner = await contract.owner()
+
+            if(AddressToId === 0 && contractOwner === accounts[currentAccount].address){
+                this.setState({title:I18n.t('RegUser')})
+            }else{
+                let Profile = await contract.Profiles(AddressToId)
+                this.setState({
+                    title:I18n.t('EditProfile'),
+                    nickName:Profile[0],
+                    signature:Profile[1],
+                })
+            }
+        }    
     }
     shake = () => {
         var duration = 100
@@ -55,10 +84,10 @@ class PasswordModal extends Component {
         })
     }
     handleKeybordMargin = (action) => {
-        Animated.timing(this.state.top, {
-            toValue: action === 'up' ? 0 : -150,
-            duration: 200
-        }).start()
+        // Animated.timing(this.state.top, {
+        //     toValue: action === 'up' ? 0 : -150,
+        //     duration: 200
+        // }).start()
     }
     handleTypePassword = (password) => {
         this.setState({ password: password })
@@ -101,15 +130,35 @@ class PasswordModal extends Component {
                         margin={0}
                         top={0}
                     >
-                        <Title titleText={I18n.t('OpenAccount')} />
+                        <Title titleText={this.state.title} />
+                        <MyTextInput
+                            handleType={(nickName)=>{this.setState({ password: nickName })}}
+                            handleKeybordMargin={this.handleKeybordMargin}
+                            placeholder={I18n.t('InputNickName')}
+                            borderColor={this.state.borderColor}
+                            borderColorActive='#390'
+                            buttonDisable={this.state.buttonDisable}
+                            value={this.state.nickName}
+                            focus={false}
+                        />
+                        <MyTextInput
+                            handleType={(signature)=>{this.setState({ signature: signature })}}
+                            handleKeybordMargin={this.handleKeybordMargin}
+                            placeholder={I18n.t('InputSignature')}
+                            borderColor={this.state.borderColor}
+                            borderColorActive='#390'
+                            buttonDisable={this.state.buttonDisable}
+                            value={this.state.signature}
+                            focus={false}
+                        />
                         <MyPasswordInput
-                            handleTypePassword={this.handleTypePassword}
+                            handleTypePassword={(password)=>{this.setState({ password: password })}}
                             handleKeybordMargin={this.handleKeybordMargin}
                             placeholder={I18n.t('InputPassword')}
                             borderColor={this.state.borderColor}
                             borderColorActive='#390'
                             buttonDisable={this.state.buttonDisable}
-                            focus={true}
+                            focus={false}
                         />
                         <AlertText
                             alertText={this.state.alertText}
@@ -170,4 +219,4 @@ const mapStateToProps = state => (state)
 const mapDispatchToProps = dispatch => ({
     setMnemonic: (value) => dispatch(actions.setMnemonic(value))
 })
-export default connect(mapStateToProps,mapDispatchToProps)(PasswordModal)
+export default connect(mapStateToProps,mapDispatchToProps)(ProfileModal)

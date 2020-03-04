@@ -5,11 +5,11 @@ export default function Copyright() {
     return (
         <View style={{
             alignItems: 'center',
-            height: 80,
+            height: 40,
             justifyContent: 'center',
             position: 'absolute',
             width: global.screenWidth,
-            top: global.screenHeight - 80,
+            bottom: 0,
             elevation:0
         }}>
             <TouchableOpacity onPress={() => {

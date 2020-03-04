@@ -2,30 +2,27 @@ import React from 'react'
 import { StyleSheet,Animated,TextInput } from 'react-native'
 import PropTypes from 'prop-types'
 
-export default function MyTextInput(props) {
+export default function MyPasswordInput(props) {
 
     const borderWidth = new Animated.Value(1)
     const borderRadius = new Animated.Value(10)
     const [borderColor,setBorderColor] = React.useState(props.borderColor)
-    const [value,setValue] = React.useState(props.value)
+    const [password,setPassword] = React.useState('')
     const duration=100
     const inputRef = React.useRef()
     
     React.useEffect(() => {
         props.focus ? inputRef.current.focus() : inputRef.current.blur()
     }, [])
-    React.useEffect(() => {
-        setValue(props.value)
-    }, [props.value])
 
 
     React.useEffect(() => {
         setBorderColor(props.borderColor)
     }, [props.borderColor])
     
-    const handleType = (value) =>{
-        setValue(value)
-        props.handleType(value)
+    const handleTypePassword = (password) =>{
+        setPassword(password)
+        props.handleTypePassword(password)
     }
     const onTextInput = ()=>{
         setBorderColor(props.borderColorActive)
@@ -72,11 +69,12 @@ export default function MyTextInput(props) {
             <TextInput
                 ref={inputRef}
                 placeholderTextColor='#666'
-                onChangeText={(value) => handleType(value)}
+                onChangeText={(password) => handleTypePassword(password)}
                 placeholder={props.placeholder}
-                value={value}
+                value={password}
                 clearButtonMode='while-editing'
                 style={styles.textInput}
+                secureTextEntry={props.secureTextEntry}
                 blurOnSubmit={true}
                 onFocus={onFocus}
                 onBlur={onBlur}
@@ -86,8 +84,8 @@ export default function MyTextInput(props) {
         </Animated.View>
     )
 }
-MyTextInput.propTypes = {
-    handleType: PropTypes.func.isRequired,
+MyPasswordInput.propTypes = {
+    handleTypePassword: PropTypes.func.isRequired,
     handleKeybordMargin: PropTypes.func.isRequired,
     placeholder: PropTypes.string.isRequired,
     borderColor: PropTypes.string,
@@ -95,7 +93,7 @@ MyTextInput.propTypes = {
     secureTextEntry:PropTypes.bool,
     keyboardType:PropTypes.string
 }
-MyTextInput.defaultProps = {
+MyPasswordInput.defaultProps = {
     borderColor: '#666',
     borderColorActive: '#666',
     secureTextEntry:true,

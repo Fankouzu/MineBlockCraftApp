@@ -2,7 +2,6 @@ import React from 'react'
 import { Animated } from 'react-native'
 import {connect} from 'react-redux'
 import * as actions from '../../actions'
-import Copyright from '../Components/Copyright'
 import MyBackground from '../Components/MyBackground'
 import Welcome from './Welcome'
 import OpenWallet from './OpenWallet'
@@ -19,7 +18,6 @@ class WelcomeNav extends React.Component {
         global.storage.load({
             key: 'wallet',
         }).then(ret => {
-            console.log('welcomeNav:ret:',ret)
             if (ret.encrypt) {
                 this.props.setEncrypt(ret.encrypt)
             }else {
@@ -77,7 +75,6 @@ class WelcomeNav extends React.Component {
                         handleSubmit={this.handleSubmit}
                     />
                 </Animated.View>
-                <Copyright />
             </MyBackground>
         )
     }

@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         borderRightWidth: 0.5,
         borderRightColor: '#fff',
-        flex: 1
+        flex: 1,
     }
 })
 export default function CardButton(props) {
@@ -28,7 +28,7 @@ export default function CardButton(props) {
         <Ripple
             rippleColor={props.rippleColor}
             rippleOpacity={0.6}
-            style={[styles.ListButton, props.rippleStyle]}
+            style={[styles.ListButton, props.rippleStyle,{backgroundColor:props.backColor}]}
             onPress={props.onPress}
         >
             <Text style={[styles.ListButtonText, { color: props.textColor }]}>

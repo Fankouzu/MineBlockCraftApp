@@ -2,14 +2,17 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import * as actions from '../../actions'
 import Drawer from 'react-native-drawer'
-import AccountDrawer from './Components/AccountDrawer'
 import PasswordModal from '../Components/PasswordModal'
 import MyBackground from '../Components/MyBackground'
-import Copyright from '../Components/Copyright'
+import AccountDrawer from './Components/AccountDrawer'
 import TopBar from './Components/TopBar'
 import AppView from './Components/AppView'
 import NetworkModal from './Components/NetworkModal'
-import { mnemonicToAddress } from '../../utils/Tools'
+import ProfileModal from './Components/ProfileModal'
+import { mnemonicToAddress,initContract } from '../../utils/Tools'
+import ContractAddress from '../../Contract/address.js'
+import { networks } from '../../utils/networks'
+import abi from '../../Contract/MineBlockCraftUser.abi.js'
 
 class MainScreen extends Component {
     constructor(props) {
@@ -44,6 +47,16 @@ class MainScreen extends Component {
             this.props.setNetworkModalVisiable(false)
         } else {
             this.props.setNetworkId(id)
+            global.storage.save({
+                key: 'wallet',
+                data: {
+                    'encrypt': this.props.WalletReducer.encrypt,
+                    'accounts': this.props.WalletReducer.accounts,
+                    'currentAccount': this.props.WalletReducer.currentAccount,
+                    'networkId': id
+                },
+                expires: null,
+            })
             this.props.setNetworkModalVisiable(false)
         }
     }
@@ -73,6 +86,15 @@ class MainScreen extends Component {
             this.openSend()
         }
     }
+
+    OpenProfile = async () => {
+        const {networkId} = this.props.WalletReducer
+        const UserContractAddress = ContractAddress.MineBlockCraftUser[networkId].address
+        if(UserContractAddress !== ""){
+            this.props.setProfileModalVisiable(true)
+        }
+    }
+
     render() {
         return (
             <Drawer
@@ -91,11 +113,11 @@ class MainScreen extends Component {
                     <TopBar
                         navigation={this.props.navigation}
                         openControlPanel={this.openControlPanel}
+                        OpenProfile={this.OpenProfile}
                     />
                     <AppView
                         navigation={this.props.navigation}
                     />
-                    <Copyright />
                 </MyBackground>
                 <PasswordModal
                     passwordAction={this.passwordAction}
@@ -103,6 +125,12 @@ class MainScreen extends Component {
                     openSend={this.openSend}
                     setVisiable={this.props.setPasswordModalVisiable}
                     isVisible={this.props.WalletMain.isPasswordModalVisible}
+                />
+                <ProfileModal
+                    navigation={this.props.navigation}
+                    openSend={this.openSend}
+                    setVisiable={this.props.setProfileModalVisiable}
+                    isVisible={this.props.WalletMain.isProfileModalVisible}
                 />
                 <NetworkModal
                     handleOpenNetSelect={this.handleOpenNetSelect}
@@ -120,6 +148,7 @@ const mapDispatchToProps = dispatch => ({
     setAccounts: (value) => dispatch(actions.setAccounts(value)),
     setCurrentAccount: (value) => dispatch(actions.setCurrentAccount(value)),
     setPasswordModalVisiable: (value) => dispatch(actions.setPasswordModalVisiable(value)),
+    setProfileModalVisiable: (value) => dispatch(actions.setProfileModalVisiable(value)),
     selectAccount: (accounts, currentAccount, isPasswordModalVisible) => dispatch(actions.selectAccount(accounts, currentAccount, isPasswordModalVisible)),
     setNetworkId: (value) => dispatch(actions.setNetworkId(value)),
     setNetworkModalVisiable: (value) => dispatch(actions.setNetworkModalVisiable(value)),

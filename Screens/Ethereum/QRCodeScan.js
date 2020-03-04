@@ -4,7 +4,7 @@ import { QRScannerView } from 'react-native-qrcode-scanner-view'
 import isEthereumAddress from 'is-ethereum-address'
 import Icon from 'react-native-vector-icons/SimpleLineIcons'
 
-export default class DefaultScreen extends Component {
+export default class QRCodeScan extends Component {
 
     renderTitleBar = () => {
         const { navigate } = this.props.navigation

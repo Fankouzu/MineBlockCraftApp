@@ -1,5 +1,6 @@
 import React from 'react'
 import { ImageBackground } from 'react-native'
+import Copyright from './Copyright'
 
 export default function MyBackground(props) {
     return (
@@ -11,6 +12,7 @@ export default function MyBackground(props) {
                 paddingTop:global.ios? 30 : 0
                 },
                 props.style]}>
+                <Copyright />
             {props.children}
         </ImageBackground>
     )

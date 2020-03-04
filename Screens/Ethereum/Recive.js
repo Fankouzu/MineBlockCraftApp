@@ -16,7 +16,6 @@ import ViewShot from "react-native-view-shot"
 import CameraRoll from "@react-native-community/cameraroll"
 import { I18n } from '../../i18n'
 import { networks } from '../../utils/networks'
-import Copyright from '../Components/Copyright'
 import MyBackButton from '../Components/MyBackButton'
 import MyBackground from '../Components/MyBackground'
 import MyCard from '../Components/MyCard'
@@ -200,7 +199,6 @@ class Recive extends React.Component {
                         </View>
                     </MyCard>
                 </View>
-                <Copyright />
                 <Toast
                     position='top'
                     positionValue={30}

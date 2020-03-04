@@ -27,7 +27,7 @@ function TopBar(props) {
                     raiseLevel={2}
                     height={32}
                     width={30}
-                    onPress={() => { }}
+                    onPress={() => { props.OpenProfile() }}
                 >
                 <Icon name="account-network" size={20}/>
                 </AwesomeButton>

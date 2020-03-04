@@ -87,36 +87,48 @@ export function getAccounts(mnemonic) {
     return accounts
 }
 export async function getTxList(networkName, address) {
-    const ethapi = require('etherscan-api-cn').init('MIQDQDRUD5XENBPYQ8HAB3GJP2Z6T8ZZ1J', networkName, 3000)
+    const ethapi = require('etherscan-api-cn').init('MIQDQDRUD5XENBPYQ8HAB3GJP2Z6T8ZZ1J', networkName, 10000)
     try {
-        let txlist_ = await ethapi.account.txlist(address, 5000000, 'latest')
+        let txlist_ = await ethapi.account.txlist(address, 4000000, 'latest')
         let txlist = txlist_.result.reverse()
 
         if (txlist.length > 0) {
             for (var i = 0; i < txlist.length; i++) {
                 if (txlist[i].to === '') {
-                    txlist[i].inputData = '部署合约'
+                    txlist[i].Type = 'Deploy'
+                    txlist[i].icon = txlist[i].contractAddress
                 } else if (txlist[i].to === address) {
-                    txlist[i].inputData = '存入'
+                    txlist[i].Type = 'TxRecive'
+                    txlist[i].icon = txlist[i].from
                 } else {
                     if (txlist[i].input === '0x') {
-                        txlist[i].inputData = '发送'
+                        txlist[i].Type = 'Send'
                         txlist[i].value = txlist[i].value * -1
+                        txlist[i].icon = txlist[i].to
+                    } else if (txlist[i].input.substr(0, 10) === '0xa9059cbb') {
+                        txlist[i].Type = 'SendTokens'
+                        txlist[i].contractAddress = txlist[i].to
+                        txlist[i].icon = '0x'+txlist[i].input.slice(34,74)
                     } else {
-                        txlist[i].inputData = '合约调用'
+                        txlist[i].Type = 'ContractCall'
                         txlist[i].value = txlist[i].value > 0 ? txlist[i].value * -1 : txlist[i].value
+                        txlist[i].icon = txlist[i].to
                     }
                 }
                 txlist[i].value = Math.round(txlist[i].value / 100000000000000) / 10000 + `ETH`
                 txlist[i].gasFee = Math.round((txlist[i].gasUsed * txlist[i].gasPrice / 1000000000000000000) * 100000) / 100000
             }
-            return txlist
+            return {error:1,result:txlist}
         } else {
-            return []
+            return {error:0}
         }
     } catch (e) {
         console.log("TCL: getTxList -> e", e)
-        return []
+        if(e === 'No transactions found'){
+            return {error:0}
+        }else{
+            return {error:-1}
+        }
     }
 }
 const gasLimit = 21000
@@ -196,4 +208,11 @@ export function checkPasswordLevel(value, level) {
         }
     }
     return level;
+}
+
+//const {Contract,Wallet,getDefaultProvider} = ethers
+
+export function initContract(networkName,contractAddress,abi){
+    let infuraProvider = new ethers.providers.InfuraProvider(networkName)
+    return new ethers.Contract(contractAddress,abi,infuraProvider)
 }
