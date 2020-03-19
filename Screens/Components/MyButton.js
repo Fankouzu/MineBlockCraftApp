@@ -35,14 +35,18 @@ export default function MyButton(props) {
             progress={props.progress}
             progressLoadingTime={10000}
         >
-            <Text style={[
-                styles.buttonText,
-                {
-                    fontSize: props.textSize,
-                    color: props.textColor,
-                    fontFamily: props.textFont,
-                    letterSpacing:props.letterSpacing
-                }]}>{props.text}</Text>
+            {props.children ?
+                (props.children) : (<Text style={[
+                    styles.buttonText,
+                    {
+                        fontSize: props.textSize,
+                        color: props.textColor,
+                        fontFamily: props.textFont,
+                        letterSpacing: props.letterSpacing
+                    }]}>{props.text}</Text>
+                )
+            }
+
         </AwesomeButton>
     )
 }
@@ -64,7 +68,7 @@ MyButton.propTypes = {
     textFont: PropTypes.string,
     disabled: PropTypes.bool,
     progress: PropTypes.bool,
-    letterSpacing: PropTypes.number
+    letterSpacing: PropTypes.number,
 }
 MyButton.defaultProps = {
     backgroundActive: '#6f0',
@@ -86,7 +90,7 @@ MyButton.defaultProps = {
     textFont: 'BigYoungMediumGB2.0',
     disabled: false,
     progress: false,
-    letterSpacing:2
+    letterSpacing: 2
 }
 const styles = StyleSheet.create({
     buttonText: {

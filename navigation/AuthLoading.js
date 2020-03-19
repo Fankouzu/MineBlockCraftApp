@@ -15,7 +15,6 @@ class AuthLoading extends React.Component {
         this._bootstrapAsync()
     }
     _bootstrapAsync = async () => {
-
         global.storage.load({
             key: 'wallet',
         }).then(ret => {
@@ -24,7 +23,7 @@ class AuthLoading extends React.Component {
                 global.storage.load({
                     key: 'status',
                 }).then(ret => {
-                    if (ret.address) {
+                    if (ret.address && ret.password) {
                         this.props.navigation.navigate('WalletNav')
                     }else{
                         this.props.navigation.navigate('LoginNav')
@@ -38,8 +37,6 @@ class AuthLoading extends React.Component {
         }).catch(err => {
             this.props.navigation.navigate('LoginNav')
         })
-
-        
     }
     render() {
         return (

@@ -1,187 +1,197 @@
 import React, { Component } from 'react'
-import {connect} from 'react-redux'
+import { connect } from 'react-redux'
 import * as actions from '../../../actions'
-import { Text, StyleSheet, View, Animated, TouchableOpacity } from 'react-native'
+import { Text, StyleSheet, View, Animated, TouchableOpacity, ActivityIndicator, } from 'react-native'
 import Modal from "react-native-modal"
 import MyCard from '../../Components/MyCard'
 import Title from '../../Components/Title'
-import MyTextInput from '../../Components/MyTextInput'
-import MyPasswordInput from '../../Components/MyPasswordInput'
-import AlertText from '../../Components/AlertText'
 import MyButton from '../../Components/MyButton'
+import AlertText from '../../Components/AlertText'
 import { aesDecrypt, sha1 } from '../../../utils/Aes'
-import { validateMnemonic,initContract } from '../../../utils/Tools'
+import { validateMnemonic, initContract, openContract } from '../../../utils/Tools'
 import ContractAddress from '../../../Contract/address.js'
 import { networks } from '../../../utils/networks'
 import abi from '../../../Contract/MineBlockCraftUser.abi.js'
 import { I18n } from '../../../i18n'
-
+import { TextField } from 'react-native-material-textfield'
 
 class ProfileModal extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            shakeLeft: new Animated.Value(0),
-            password: '',
             alertText: [],
+            alertColor: '#F30',
             borderColor: '#999',
             buttonDisable: false,
             top: new Animated.Value(-150),
-            title:'',
-            nickName:'',
-            signature:''
+            title: '',
+            nickName: '',
+            signature: '',
+            Profile: [],
         }
+        this.props.setVisiable(false)
     }
-    async componentDidMount () {
-        const {networkId,accounts,currentAccount} = this.props.WalletReducer
+    async componentDidMount() {
+        await this.Init()
+    }
+    Init = async () => {
+        this.setState({
+            nickName: '',
+            signature: ''
+        })
+        const { networkId, accounts, currentAccount } = this.props.WalletReducer
         const UserContractAddress = ContractAddress.MineBlockCraftUser[networkId].address
-        if(UserContractAddress !== ""){
-            const contract = initContract(networks[networkId].name,UserContractAddress,abi)
-            
+        if (UserContractAddress !== "") {
+            const contract = initContract(networks[networkId].name, UserContractAddress, abi)
+
             let AddressToId = await contract.AddressToId(accounts[currentAccount].address)
-            AddressToId = parseInt(AddressToId,16)
+            AddressToId = parseInt(AddressToId, 16)
             let contractOwner = await contract.owner()
 
-            if(AddressToId === 0 && contractOwner === accounts[currentAccount].address){
-                this.setState({title:I18n.t('RegUser')})
-            }else{
+            if (AddressToId === 0 && contractOwner !== accounts[currentAccount].address) {
+                this.setState({
+                    title: I18n.t('RegUser'),
+                })
+            } else {
                 let Profile = await contract.Profiles(AddressToId)
                 this.setState({
-                    title:I18n.t('EditProfile'),
-                    nickName:Profile[0],
-                    signature:Profile[1],
+                    title: I18n.t('EditProfile'),
+                    nickName: Profile[0],
+                    signature: Profile[1],
+                    Profile: Profile
                 })
-            }
-        }    
-    }
-    shake = () => {
-        var duration = 100
-        Animated.sequence([
-            Animated.timing(this.state.shakeLeft, {
-                toValue: global.screenWidth * -0.05,
-                duration: duration
-            }),
-            Animated.timing(this.state.shakeLeft, {
-                toValue: global.screenWidth * -0.03,
-                duration: duration
-            }),
-            Animated.timing(this.state.shakeLeft, {
-                toValue: global.screenWidth * 0.03,
-                duration: duration
-            }),
-            Animated.timing(this.state.shakeLeft, {
-                toValue: 0,
-                duration: duration
-            })
-        ]).start(() => {
-            setTimeout(() => {
-                this.setState({
-                    borderColor: '#999',
-                    alertText: [],
-                    buttonDisable: false
-                })
-            }, 3000)
-        })
-    }
-    handleKeybordMargin = (action) => {
-        // Animated.timing(this.state.top, {
-        //     toValue: action === 'up' ? 0 : -150,
-        //     duration: 200
-        // }).start()
-    }
-    handleTypePassword = (password) => {
-        this.setState({ password: password })
-    }
-    handleSubmit = (next) => {
-        if (this.state.password === '') {
-            this.setState({
-                borderColor: '#F30',
-                alertText: [I18n.t('OpenWalletAlertTxt1')],
-                buttonDisable: true
-            })
-            this.shake()
-        } else {
-            let password = this.state.password
-            let encrypt = this.props.WalletReducer.encrypt
-            let mnemonic = aesDecrypt(encrypt, sha1(password))
-            if (validateMnemonic(mnemonic)) {
-                this.setState({ password: '' })
-                this.props.setMnemonic(mnemonic)
-                this.props.passwordAction()
-            } else {
-                this.setState({
-                    borderColor: '#F30',
-                    alertText: [I18n.t('OpenWalletAlertTxt2')],
-                    buttonDisable: true
-                })
-                this.shake()
             }
         }
-        next()
+    }
+
+    async componentDidUpdate(nextProps, nextState) {
+        if (nextProps.isVisible !== this.props.isVisible && this.props.isVisible) {
+            await this.Init()
+        }
+    }
+
+    handleSubmit = async (next) => {
+
+        if (this.state.nickName !== '' && this.state.nickName !== this.state.Profile[0] && this.state.signature != this.state.Profile[1]) {
+            global.storage.load({ key: 'status' })
+                .then(ret => {
+                    const { encrypt, currentAccount } = this.props.WalletReducer
+                    const { password, setGesture, gesturePassword } = ret
+                    let orignPassword = setGesture && password && gesturePassword ?
+                        aesDecrypt(password, gesturePassword) : password
+
+                    let mnemonic = aesDecrypt(encrypt, sha1(orignPassword + 'salt'))
+
+                    if (validateMnemonic(mnemonic)) {
+                        const { networkId } = this.props.WalletReducer
+                        const UserContractAddress = ContractAddress.MineBlockCraftUser[networkId].address
+
+                        const contract = openContract(networks[networkId].name, mnemonic, currentAccount, UserContractAddress, abi)
+                        contract.newProfile(this.state.nickName, this.state.signature).then((tx) => {
+                            console.log(tx)
+                            this.setState({
+                                alertText: [I18n.t('Success')],
+                                alertColor: '#390',
+                            })
+                            setTimeout(() => {
+                                this.Cancel()
+                            }, 2000)
+                            next()
+                        }).catch((error) => {
+                            console.log(error)
+                            next()
+                            this.setState({
+                                alertText: ['余额不足,账户中没有足够的Eth']
+                            })
+                            setTimeout(() => {
+                                this.Cancel()
+                            }, 5000)
+                        })
+
+                    }
+                }).catch(err => {
+                    this.Cancel()
+                    this.props.navigation.navigate('WelcomeNav', { page: 1 })
+                })
+        } else {
+            this.Cancel()
+        }
+    }
+    Cancel = () => {
+        this.setState({
+            title: '',
+            nickName: '',
+            signature: '',
+            alertText: [],
+        })
+        this.props.setVisiable(false)
     }
     render() {
         return (
             <Modal isVisible={this.props.isVisible}>
-                <Animated.View style={{
-                    marginLeft: this.state.shakeLeft,
-                }}>
+                <Animated.View >
                     <MyCard
                         screenWidth={global.screenWidth * 0.9}
                         margin={0}
                         top={0}
                     >
-                        <Title titleText={this.state.title} />
-                        <MyTextInput
-                            handleType={(nickName)=>{this.setState({ password: nickName })}}
-                            handleKeybordMargin={this.handleKeybordMargin}
-                            placeholder={I18n.t('InputNickName')}
-                            borderColor={this.state.borderColor}
-                            borderColorActive='#390'
-                            buttonDisable={this.state.buttonDisable}
-                            value={this.state.nickName}
-                            focus={false}
-                        />
-                        <MyTextInput
-                            handleType={(signature)=>{this.setState({ signature: signature })}}
-                            handleKeybordMargin={this.handleKeybordMargin}
-                            placeholder={I18n.t('InputSignature')}
-                            borderColor={this.state.borderColor}
-                            borderColorActive='#390'
-                            buttonDisable={this.state.buttonDisable}
-                            value={this.state.signature}
-                            focus={false}
-                        />
-                        <MyPasswordInput
-                            handleTypePassword={(password)=>{this.setState({ password: password })}}
-                            handleKeybordMargin={this.handleKeybordMargin}
-                            placeholder={I18n.t('InputPassword')}
-                            borderColor={this.state.borderColor}
-                            borderColorActive='#390'
-                            buttonDisable={this.state.buttonDisable}
-                            focus={false}
-                        />
-                        <AlertText
-                            alertText={this.state.alertText}
-                            textAlign='left'
-                        />
-                        <MyButton
-                            screenWidth={global.screenWidth * 0.9 - 30}
-                            onPress={(next) => { this.handleSubmit(next) }}
-                            text={I18n.t('PasswordSubmit')}
-                            height={50}
-                            backgroundColor='#6f0'
-                            backgroundDarker='#390'
-                            textColor='#000'
-                            borderColor='#390'
-                            borderWidth={1}
-                            textSize={20}
-                            progress={true}
-                        />
-                        <View style={styles.bottom}>
-                            <TouchableOpacity onPress={() => { this.props.setVisiable(false) }}>
-                                <Text style={styles.bottomLink}>{I18n.t('Cancle')}</Text>
-                            </TouchableOpacity>
-                        </View>
+                        {this.state.title === '' ?
+                            (<View>
+                                <Title titleText={I18n.t('TxLoading')} />
+                                <ActivityIndicator size={60} />
+                            </View>
+                            ) : (<View>
+                                <Title titleText={this.state.title} />
+                                <TextField
+                                    label={I18n.t('InputNickName')}
+                                    onChangeText={(nickName) => { this.setState({ nickName: nickName }) }}
+                                    fontSize={14}
+                                    tintColor={'#390'}
+                                    fontSize={18}
+                                    containerStyle={{ marginTop: -30, }}
+                                    labelTextStyle={{ paddingTop: 2.5, top: 5 }}
+                                    renderLeftAccessory={() => { return (<Text>😎 </Text>) }}
+                                    labelOffset={{ y0: -4, y1: -10 }}
+                                    value={this.state.nickName}
+                                />
+                                <TextField
+                                    label={I18n.t('InputSignature')}
+                                    onChangeText={(signature) => { this.setState({ signature: signature }) }}
+                                    fontSize={14}
+                                    tintColor={'#390'}
+                                    fontSize={18}
+                                    containerStyle={{ marginTop: -20, }}
+                                    labelTextStyle={{ paddingTop: 2.5, top: 5 }}
+                                    renderLeftAccessory={() => { return (<Text>📝 </Text>) }}
+                                    labelOffset={{ y0: -4, y1: -10 }}
+                                    value={this.state.signature}
+                                />
+                                <AlertText
+                                    alertText={this.state.alertText}
+                                    textAlign='left'
+                                    alertColor={this.state.alertColor}
+                                />
+                                <MyButton
+                                    screenWidth={global.screenWidth * 0.9 - 30}
+                                    onPress={(next) => { this.handleSubmit(next) }}
+                                    text={I18n.t('PasswordSubmit')}
+                                    height={50}
+                                    backgroundColor='#6f0'
+                                    backgroundDarker='#390'
+                                    textColor='#000'
+                                    borderColor='#390'
+                                    borderWidth={1}
+                                    textSize={20}
+                                    progress={true}
+                                />
+                                <View style={styles.bottom}>
+                                    <TouchableOpacity onPress={() => { this.Cancel() }}>
+                                        <Text style={styles.bottomLink}>{I18n.t('Cancel')}</Text>
+                                    </TouchableOpacity>
+                                </View>
+                            </View>
+                            )
+                        }
                     </MyCard>
                 </Animated.View>
             </Modal>
@@ -219,4 +229,4 @@ const mapStateToProps = state => (state)
 const mapDispatchToProps = dispatch => ({
     setMnemonic: (value) => dispatch(actions.setMnemonic(value))
 })
-export default connect(mapStateToProps,mapDispatchToProps)(ProfileModal)
+export default connect(mapStateToProps, mapDispatchToProps)(ProfileModal)

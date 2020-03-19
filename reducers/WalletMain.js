@@ -2,18 +2,12 @@ import * as Types from '../actions/Types'
 
 const WalletMain = (
     state = {
-        isPasswordModalVisible: false,
         isProfileModalVisible:false,
         isSendPasswordModalVisible: false,
         isNetworkModalVisible: false,
         isShowBalanceLoading: 'flex'
     }, action) => {
     switch (action.type) {
-        case Types.SET_PASSWORD_MODAL_VISIABLE:
-            return {
-                ...state,
-                isPasswordModalVisible: action.isPasswordModalVisible
-            }
         case Types.SET_PROFILE_MODAL_VISIABLE:
             return {
                 ...state,

@@ -5,58 +5,64 @@ import BalanceCard from './Components/BalanceCard'
 import TxList from './Components/TxList'
 import MyBackButton from '../Components/MyBackButton'
 import MyBackground from '../Components/MyBackground'
-import PasswordModal from '../Components/PasswordModal'
-import { ScrollView } from 'react-native-gesture-handler';
-
+import { ScrollView } from 'react-native-gesture-handler'
+import {
+    RefreshControl,
+} from 'react-native'
 class Ethereum extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            passworModaldAction:''
+            passworModaldAction: '',
+            balanceLoad: 0,
+            refreshing: false,
         }
     }
-    componentDidMount = async () => {
-
+    componentDidMount = () => {
+        this._didFocusSubscription = this.props.navigation.addListener('didFocus',
+            () => {
+                this.setState({ balanceLoad: this.state.balanceLoad + 1 })
+            }
+        )
     }
+
+
     componentWillUnmount = () => {
         this.setState = (state, callback) => {
             return
         }
+        this._didFocusSubscription.remove()
     }
-    showPasswordModal = (passworModaldAction) => {
-        this.props.setSendPasswordModalVisiable(true)
-        this.setState({ passworModaldAction: passworModaldAction })
+    _onRefresh = () => {
+        this.setState({ refreshing: true,balanceLoad: this.state.balanceLoad + 1 })
     }
-    passwordAction = () => {
-        if (this.state.passworModaldAction === 'send') {
-            this.openSend()
-        }
+    _onRefreshFinish = () => {
+        this.setState({ refreshing: false})
     }
-    openSend = () => {
-        this.props.setSendPasswordModalVisiable(false)
-        this.props.navigation.navigate('Send')
-    }
+
     render() {
         const { navigate } = this.props.navigation
         return (
             <MyBackground>
-                <ScrollView style={{ flexDirection: 'column' }}>
+                <ScrollView
+                    style={{ flexDirection: 'column' }}
+                    refreshControl={
+                        <RefreshControl
+                            refreshing={this.state.refreshing}
+                            onRefresh={this._onRefresh}
+                        />
+                    }
+                >
                     <MyBackButton
                         onPress={() => { navigate('MainScreen') }}
                     />
                     <BalanceCard
                         navigation={this.props.navigation}
-                        showPasswordModal={this.showPasswordModal}
+                        balanceLoad={this.state.balanceLoad}
+                        _onRefreshFinish={this._onRefreshFinish}
                     />
-                    <TxList/>
+                    <TxList />
                 </ScrollView>
-                <PasswordModal
-                    passwordAction={this.passwordAction}
-                    passworModaldAction={this.state.passworModaldAction}
-                    openSend={this.openSend}
-                    setVisiable={this.props.setSendPasswordModalVisiable}
-                    isVisible={this.props.WalletMain.isSendPasswordModalVisible}
-                />
             </MyBackground>
         )
     }
@@ -64,6 +70,6 @@ class Ethereum extends React.Component {
 const mapStateToProps = state => (state)
 
 const mapDispatchToProps = dispatch => ({
-    setSendPasswordModalVisiable: (value) => dispatch(actions.setSendPasswordModalVisiable(value)),
+    setMnemonic: (value) => dispatch(actions.setMnemonic(value)),
 })
 export default connect(mapStateToProps, mapDispatchToProps)(Ethereum)

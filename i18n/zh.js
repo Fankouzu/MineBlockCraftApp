@@ -57,7 +57,7 @@ export default {
   TxList: '记录',
   //PasswordModal
   OpenAccount: '打开账户',
-  Cancle: '取消',
+  Cancel: '取消',
   //SendTx
   SendTransaction: '发送交易',
   //SendInput
@@ -92,11 +92,15 @@ export default {
   Receipt: '转账收据',
   Hash: '交易哈希',
   Block: '区块高度',
+  FunctionError:'失败，请稍后再试',
   //Recive
   ReciveTitle:'我的以太坊地址',
   CopyAddress:'拷贝地址',
   SavePic:'保存图片',
   PermissionsAndroid:'相册权限错误!',
+  Faucet:'从测试水管接收1Ether',
+  FaucetError:'接收失败，请稍后再试',
+  ButtonFontSize:12,
   //AppView
   AppViewTitle:'应用中心',
   //Dapps
@@ -115,6 +119,20 @@ export default {
   //ProfileModal
   RegUser:'注册会员',
   EditProfile:'修改资料',
-  InputNickName:'输入昵称',
+  InputNickName:'会员昵称',
   InputSignature:'个性签名',
+  //GesturePassword
+  Skip:'跳过设置',
+  GestureTitle0:'设置成功',
+  GestureTitle1:'设置手势密码',
+  GestureTitle2:'重复验证手势',
+  GestureTitle3:'两次手势不一致',
+  GestureTitle4:'验证手势密码',
+  GestureTitle5:'手势密码错误',
+  //MainScreen
+  LoadingTxt:'创建新地址...',
+  //MsgListTitle
+  MsgListTitle:'通讯录',
+  EmptyMsg:'空',
+  MsgLoading:'读取中...',
 }

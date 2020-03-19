@@ -57,7 +57,7 @@ export default {
     TxList:'TxList',
     //PasswordModal
     OpenAccount:'Open Account',
-    Cancle:'Cancle',
+    Cancel:'Cancel',
     //SendTx
     SendTransaction:'Send Transaction',
     //SendInput
@@ -92,11 +92,15 @@ export default {
     Receipt:'Receipt',
     Hash:'Tx Hash',
     Block:'Block',
+    FunctionError:'Failed, please try again later',
     //Recive
     ReciveTitle:'My Ethereum Address',
     CopyAddress:'Copy Address',
     SavePic:'Save Picture',
     PermissionsAndroid:'Camra roll rermission denied !',
+    Faucet:'Get 1 Ether from a faucet',
+    FaucetError:'Failed, please try again later',
+    ButtonFontSize:10,
     //AppView
     AppViewTitle:'Dapps',
     //Dapps
@@ -117,4 +121,18 @@ export default {
     EditProfile:'Edit Profile',
     InputNickName:'Input Nickname',
     InputSignature:'Input Signature',
+    //GesturePassword
+    Skip:'Skip',
+    GestureTitle0:'Success',
+    GestureTitle1:'Set Gesture Password',
+    GestureTitle2:'Confirm Gesture',
+    GestureTitle3:'Inconsistent Gestures',
+    GestureTitle4:'Verify gesture password',
+    GestureTitle5:'Gesture password wrong',
+    //MainScreen
+    LoadingTxt:'Adding new address...',
+    //MsgListTitle
+    MsgListTitle:'Contacts',
+    EmptyMsg:'No message',
+    MsgLoading:'Loading...',
 }

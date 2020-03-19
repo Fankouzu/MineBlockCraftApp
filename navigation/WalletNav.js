@@ -2,10 +2,14 @@ import { createAppContainer } from 'react-navigation'
 import { createStackNavigator } from 'react-navigation-stack'
 import MainScreen from '../Screens/MainScreen'
 import Ethereum from '../Screens/Ethereum'
+import GesturePassword from '../Screens/GesturePassword'
 import {Dapps} from '../Dapps'
 
 const AppNavigator = createStackNavigator(
     {
+        GesturePassword: {
+            screen: GesturePassword
+        },
         MainScreen: {
             screen: MainScreen
         },
@@ -23,5 +27,5 @@ const AppNavigator = createStackNavigator(
         mode: 'card',
         CardStyleInterpolators: 'forRevealFromBottomAndroid',
     }
-)
+)    
 export default createAppContainer(AppNavigator)

@@ -1,8 +1,10 @@
 import { aesDecrypt } from './Aes'
+import 'ethers/dist/shims.js'
 import { ethers } from 'ethers'
 import bip39 from 'react-native-bip39'
 const HDWallet = require('ethereum-hdwallet')
-const isBuffer = require('is-buffer');
+const isBuffer = require('is-buffer')
+ethers.errors.setLogLevel("error")
 export function mnemonicToAddress(mnemonic, n) {
     var seed = bip39.mnemonicToSeed(mnemonic.trim())
     const hdwallet = HDWallet.fromSeed(seed)
@@ -215,4 +217,10 @@ export function checkPasswordLevel(value, level) {
 export function initContract(networkName,contractAddress,abi){
     let infuraProvider = new ethers.providers.InfuraProvider(networkName)
     return new ethers.Contract(contractAddress,abi,infuraProvider)
+}
+export function openContract(networkName,mnemonic,currentAccount,contractAddress,abi){
+    let infuraProvider = new ethers.providers.InfuraProvider(networkName)
+    let privateKey = mnemonicToPrivate(mnemonic, currentAccount)
+    let wallet = new ethers.Wallet(privateKey, infuraProvider);
+    return new ethers.Contract(contractAddress, abi, wallet)
 }

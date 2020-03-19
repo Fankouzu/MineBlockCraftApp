@@ -66,8 +66,12 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-around',
         paddingHorizontal: 10,
-        marginBottom: 20
+        marginBottom: 10
     },
+    faucet: {
+        alignItems: 'center',
+        marginBottom: 10
+    }
 })
 class Recive extends React.Component {
     constructor(props) {
@@ -104,6 +108,37 @@ class Recive extends React.Component {
         } catch (err) {
             that.toast.show(I18n.t('PermissionsAndroid'))
         }
+    }
+    Faucet = (address,next) => {
+        let options = {
+            method: 'POST',
+            headers: {
+                'accept': '*/*',
+                'accept-encoding': 'gzip, deflate, br',
+                'accept-language': 'zh-CN,zh;q=0.9,zh-TW;q=0.8,en;q=0.7',
+                'content-length': 42,
+                'content-type': 'application/rawdata',
+                'origin': 'https://faucet.metamask.io',
+                'referer': 'https://faucet.metamask.io/',
+                'user-agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.86 Safari/537.36',
+            },
+            body: address
+        }
+        fetch('https://faucet.metamask.io/', options)
+            .then((result) => {
+                if(result.ok){
+                    this.toast.show(I18n.t('Success'))
+                }else{
+                    console.log(result)
+                    this.toast.show(I18n.t('FaucetError'))
+                }
+                next()
+            })
+            .catch((error) => {
+                console.log('error:',error)
+                this.toast.show(I18n.t('FaucetError'))
+                next()
+            })
     }
     render() {
         const { navigate } = this.props.navigation
@@ -172,7 +207,7 @@ class Recive extends React.Component {
                                 textColor='#333'
                                 borderColor='#960'
                                 borderWidth={1}
-                                textSize={12}
+                                textSize={I18n.t('ButtonFontSize')}
                                 letterSpacing={0}
                                 onPress={() => {
                                     Clipboard.setString(accounts[currentAccount].address)
@@ -187,15 +222,38 @@ class Recive extends React.Component {
                                 text={'💾' + I18n.t('SavePic')}
                                 backgroundColor='#3f0'
                                 backgroundDarker='#090'
-                                backgroundActive='#ff0'
+                                backgroundActive='#3f0'
                                 textColor='#333'
                                 borderColor='#090'
                                 borderWidth={1}
-                                textSize={12}
+                                textSize={I18n.t('ButtonFontSize')}
                                 letterSpacing={0}
                                 onPress={
                                     () => { this.Capture() }}
                             />
+                        </View>
+                        <View style={styles.faucet}>
+                            {networkId === 1 && (
+                                <MyButton
+                                    screenWidth={200}
+                                    height={32}
+                                    raiseLevel={2}
+                                    borderRadius={5}
+                                    text={'🚰' + I18n.t('Faucet')}
+                                    backgroundColor='#ff9999'
+                                    backgroundDarker='#ff1a1a'
+                                    backgroundActive='#ffe5e5'
+                                    textColor='#333'
+                                    borderColor='#ff1a1a'
+                                    borderWidth={1}
+                                    textSize={I18n.t('ButtonFontSize')}
+                                    letterSpacing={0}
+                                    progress={true}
+                                    onPress={
+                                        (next) => { this.Faucet(accounts[currentAccount].address,next) }}
+                                />
+                            )}
+
                         </View>
                     </MyCard>
                 </View>

@@ -26,7 +26,7 @@ export default class MyTicket extends React.Component {
     pageIn = (delay) => {
         Animated.timing(this.state.scrollTop, {
             toValue: 0,
-            duration: 800,
+            duration: 1000,
             easing: Easing.bounce,
             delay: delay
         }).start(() => {
@@ -41,7 +41,7 @@ export default class MyTicket extends React.Component {
                 children: this.props.children,
                 step: this.props.step
             })
-            this.pageIn(300)
+            this.pageIn(0)
         })
     }
     //https://reactnative.cn/docs/0.45/panresponder/
@@ -65,6 +65,10 @@ export default class MyTicket extends React.Component {
         }
     })
     componentDidUpdate(nextProps, nextState) {
+        if (this.props.begin === 1) {
+            this.pageIn(500) 
+            return true
+        }
         if (this.props.step !== this.state.step) {
             this.pageOut()
             return true
@@ -83,7 +87,7 @@ export default class MyTicket extends React.Component {
             children: this.props.children,
             step: this.props.step
         })
-        this.pageIn(1000)
+        //this.pageIn(1000) 
     }
     componentWillUnmount = () => {
         this.setState = (state, callback) => {

@@ -10,7 +10,7 @@ export default function Title(props) {
                 styles.titleText,{
                     fontFamily: 'BigYoungMediumGB2.0',
                     fontSize:props.fontSize
-                }]}>
+                },props.style]}>
                 {props.titleText}
             </Text>
             {props.subText !== '' && (<Text style={styles.subText}>{props.subText}</Text>)}

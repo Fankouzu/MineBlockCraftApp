@@ -35,10 +35,10 @@ const styles = StyleSheet.create({
     MyCard: {
         backgroundColor: 'white',
         borderRadius: 10,
-        borderWidth: 1,
+        borderWidth: 0.5,
         borderColor: '#aaa',
         padding: 15,
-        elevation: 5,
+        elevation: 0,
         shadowColor: 'black',
         shadowOpacity: 1,
         shadowRadius: 10,
@@ -48,5 +48,6 @@ const styles = StyleSheet.create({
         },
         flex: 0,
         marginBottom: 10,
+        overflow:'hidden'
     }
 })

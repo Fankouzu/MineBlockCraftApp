@@ -8,35 +8,35 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         height: 40,
         marginTop: 5,
-        borderBottomLeftRadius:9,
-        borderBottomRightRadius:9,
-        overflow:'hidden',
-        backgroundColor:'#f9f9f9'
+        borderBottomLeftRadius: 9,
+        borderBottomRightRadius: 9,
+        overflow: 'hidden',
+        backgroundColor: '#f9f9f9'
     }
 })
 export default function CardBottom(props) {
 
     return (
         <View style={styles.cardBottom}>
-                <CardButton
-                    rippleColor='#f60'
-                    onPress={() => { props.showPasswordModal('send') }}
-                    textColor='#f60'
-                    text={I18n.t('Send')}
-                    iconName='send'
-                    iconSize={16}
-                    iconColor='#f60'
-                />
-                <CardButton
-                    rippleColor='#390'
-                    onPress={() => {props.navigation.navigate('Recive',{'DappName':'EthereumDapp'})}}
-                    textColor='#390'
-                    text={I18n.t('Recive')}
-                    iconName='call-received'
-                    iconSize={16}
-                    iconColor='#390'
-                />
-                {/* <CardButton
+            <CardButton
+                rippleColor='#f60'
+                onPress={() => { props.navigation.navigate('Send') }}
+                textColor='#f60'
+                text={I18n.t('Send')}
+                iconName='send'
+                iconSize={16}
+                iconColor='#f60'
+            />
+            <CardButton
+                rippleColor='#390'
+                onPress={() => { props.navigation.navigate('Recive', { 'DappName': 'EthereumDapp' }) }}
+                textColor='#390'
+                text={I18n.t('Recive')}
+                iconName='call-received'
+                iconSize={16}
+                iconColor='#390'
+            />
+            {/* <CardButton
                     rippleColor='#06f'
                     onPress={() => { }}
                     textColor='#06f'
@@ -46,7 +46,7 @@ export default function CardBottom(props) {
                     iconColor='#06f'
                     rippleStyle={{borderRightWidth: 0}}
                 /> */}
-            </View>
+        </View>
     )
 
 }

@@ -108,7 +108,7 @@ class OpenWallet extends React.Component {
             let checked = this.state.checked
             let encrypt = this.props.WalletReducer.encrypt
             if (encrypt) {
-                let mnemonic = aesDecrypt(encrypt, sha1(password))
+                let mnemonic = aesDecrypt(encrypt, sha1(password+'salt'))
                 if (mnemonic && validateMnemonic(mnemonic)) {
                     let days = checked === true ? 30 : 1
                     let address = mnemonicToAddress(mnemonic, 0)
@@ -140,7 +140,16 @@ class OpenWallet extends React.Component {
                             key: 'status',
                             data: {
                                 'address': address,
+                                'password':password,
+                                'gesture':false,
+                                'setGesture':true,
+                                'gesturePassword':'',
+                                'expires':(new Date()).valueOf() + 1000 * 3600 * 24 * days
                             },
+                            //手势逻辑
+                            //设置了:gesture=true,setGesture=true,
+                            //没设置:gesture=false,setGesture=true,
+                            //不设置:gesture=false,setGesture=false,
                             expires: 1000 * 3600 * 24 * days,
                         })
                         this.props.navigation.navigate('WalletNav')

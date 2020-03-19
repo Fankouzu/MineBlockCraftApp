@@ -1,6 +1,6 @@
 import React from 'react'
 import * as actions from '../../../actions'
-import {connect} from 'react-redux'
+import { connect } from 'react-redux'
 import { Text, StyleSheet, View, Clipboard } from 'react-native'
 import CardBottom from './CardBottom'
 import * as Progress from 'react-native-progress'
@@ -53,20 +53,24 @@ const styles = StyleSheet.create({
 })
 function BalanceCard(props) {
 
-    const {accounts,currentAccount,networkId} = props.WalletReducer
+    const { accounts, currentAccount, networkId } = props.WalletReducer
 
     const [balance, setBalance] = React.useState(0)
 
     React.useEffect(() => {
-        props.setShowBalanceLoading('flex')
-        balanceLoading()
-    }, [accounts,currentAccount, networkId])
+        if (props.balanceLoad > 0) {
+            props.setShowBalanceLoading('flex')
+            balanceLoading()
+        }
+    }, [props.balanceLoad])
 
     const balanceLoading = () => {
         if (accounts[currentAccount].address !== '0x0') {
             getBalance(accounts[currentAccount].address, networks[networkId].name).then((balance) => {
                 setBalance(balance > 0 ? Math.round(balance * 10000000) / 10000000 : 0)
+                props.setBalance(balance)
                 props.setShowBalanceLoading('none')
+                props._onRefreshFinish()
             })
         }
     }
@@ -112,7 +116,6 @@ function BalanceCard(props) {
                 balance={balance}
                 networkName={networks[networkId].name}
                 fromAddress={accounts[currentAccount].address}
-                showPasswordModal={props.showPasswordModal}
             />
         </MyCard>
     )
@@ -122,6 +125,7 @@ const mapStateToProps = state => (state)
 
 const mapDispatchToProps = dispatch => ({
     setShowBalanceLoading: (value) => dispatch(actions.setShowBalanceLoading(value)),
+    setBalance: (value) => dispatch(actions.setBalance(value)),
 })
-export default connect(mapStateToProps,mapDispatchToProps)(BalanceCard)
+export default connect(mapStateToProps, mapDispatchToProps)(BalanceCard)
 

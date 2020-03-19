@@ -140,7 +140,7 @@ class Password extends React.Component {
         }
     }
     Wallet = () => {
-        const encrypt = aesEncrypt(this.props.LoginReducer.useMnemonic, sha1(this.state.password))
+        const encrypt = aesEncrypt(this.props.LoginReducer.useMnemonic, sha1(this.state.password+'salt'))
         global.storage.save({
             key: 'wallet',
             data: {

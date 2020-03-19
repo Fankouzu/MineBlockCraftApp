@@ -7,7 +7,7 @@ export default function MyTextInput(props) {
     const borderWidth = new Animated.Value(1)
     const borderRadius = new Animated.Value(10)
     const [borderColor,setBorderColor] = React.useState(props.borderColor)
-    const [value,setValue] = React.useState(props.value)
+    const [value,setValue] = React.useState('')
     const duration=100
     const inputRef = React.useRef()
     

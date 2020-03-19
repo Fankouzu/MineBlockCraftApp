@@ -12,9 +12,9 @@ import SendTx from './Components/SendTx'
 import SendConfirm from './Components/SendConfirm'
 import Sending from './Components/Sending'
 import Receipt from './Components/Receipt'
-import { ethprice, getBalance } from '../../utils/Tools'
-import { networks } from '../../utils/networks'
- 
+import { ethprice } from '../../utils/Tools'
+import { aesDecrypt, sha1 } from '../../utils/Aes'
+
 class Send extends React.Component {
     constructor(props) {
         super(props)
@@ -22,11 +22,12 @@ class Send extends React.Component {
             shakeLeft: new Animated.Value(global.screenWidth * 0.025),
             step: 0,
             rollTo: 0,
+            begin: 0
         }
     }
     componentDidMount = async () => {
 
-        const {accounts,currentAccount,networkId} = this.props.WalletReducer
+        const { accounts, currentAccount, encrypt } = this.props.WalletReducer
         const fromAddress = accounts[currentAccount].address
 
         this._didFocusSubscription = this.props.navigation.addListener('didFocus',
@@ -34,15 +35,26 @@ class Send extends React.Component {
                 const toAddress = this.props.navigation.getParam('toAddress', this.props.SendReducer.toAddress)
                 this.props.setToAddress(toAddress)
             }
-        ) 
+        )
+        this.props.setFromAddress(fromAddress)
+
+        global.storage.load({ key: 'status' })
+            .then(ret => {
+                const { password, setGesture, gesturePassword } = ret
+                let orignPassword = setGesture && password && gesturePassword ?
+                    aesDecrypt(password, gesturePassword) : password
+
+                let mnemonic = aesDecrypt(encrypt, sha1(orignPassword + 'salt'))
+                this.props.setMnemonic(mnemonic)
+            }).catch(err => {
+                this.props.navigation.navigate('WelcomeNav', { page: 1 })
+            })
+
         ethprice().then((res) => {
             this.props.setEthPrice(res.result.ethusd)
+            this.setState({ begin: 1 })
         })
-        getBalance(fromAddress, networks[networkId].name).then((balance) => {
-            this.props.setFromAddress(fromAddress)
-            this.props.setBalance(balance)
-        })
-    } 
+    }
     componentWillUnmount = () => {
         this.setState = (state, callback) => {
             return
@@ -73,7 +85,7 @@ class Send extends React.Component {
     }
 
     handleTurnPage = (step) => {
-        this.setState({ step: this.state.step + step })
+        this.setState({ begin: this.state.begin + 1, step: this.state.step + step })
     }
 
     handleRollUp = (rollTo) => {
@@ -85,7 +97,7 @@ class Send extends React.Component {
             <MyBackground>
                 <View style={{ flexDirection: 'column' }}>
                     <MyBackButton
-                        onPress={() => {navigate('Ethereum') }}
+                        onPress={() => { navigate('Ethereum') }}
                     />
                     <Animated.View style={{
                         marginLeft: this.state.shakeLeft,
@@ -98,6 +110,7 @@ class Send extends React.Component {
                             height={550}
                             step={this.state.step}
                             rollTo={this.state.rollTo}
+                            begin={this.state.begin}
                         >
                             {this.state.step === 0 ? (
                                 <SendTx
@@ -134,7 +147,7 @@ const mapStateToProps = state => (state)
 const mapDispatchToProps = dispatch => ({
     setFromAddress: (value) => dispatch(actions.setFromAddress(value)),
     setEthPrice: (value) => dispatch(actions.setEthPrice(value)),
-    setBalance: (value) => dispatch(actions.setBalance(value)),
+    setMnemonic: (value) => dispatch(actions.setMnemonic(value)),
     setToAddress: (value) => dispatch(actions.setToAddress(value)),
     setAmount: (value) => dispatch(actions.setAmount(value)),
     clearSend: () => dispatch(actions.clearSend()),

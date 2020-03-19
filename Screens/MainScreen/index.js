@@ -2,15 +2,18 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import * as actions from '../../actions'
 import Drawer from 'react-native-drawer'
-import PasswordModal from '../Components/PasswordModal'
 import MyBackground from '../Components/MyBackground'
 import AccountDrawer from './Components/AccountDrawer'
 import TopBar from './Components/TopBar'
 import AppView from './Components/AppView'
 import NetworkModal from './Components/NetworkModal'
 import ProfileModal from './Components/ProfileModal'
-import { mnemonicToAddress,initContract } from '../../utils/Tools'
+import MsgList from './Components/MsgList'
+import { mnemonicToAddress, openContract } from '../../utils/Tools'
 import ContractAddress from '../../Contract/address.js'
+import { aesDecrypt, sha1 } from '../../utils/Aes'
+import Spinner from 'react-native-loading-spinner-overlay'
+import { I18n } from '../../i18n'
 import { networks } from '../../utils/networks'
 import abi from '../../Contract/MineBlockCraftUser.abi.js'
 
@@ -19,15 +22,59 @@ class MainScreen extends Component {
         super(props)
         this.state = {
             passworModaldAction: '',
+            spinner: false,
+            contract: {},
+            statusStorage: {}
+        }
+        this._bootstrapAsync()
+    }
+
+    _bootstrapAsync = async () => {
+        global.storage.load({
+            key: 'status',
+        }).then(ret => {
+            this.setState({ statusStorage: ret })
+            this.getContract()
+        }).catch(err => {
+            console.log('_bootstrapAsync', err)
+            //this.props.navigation.navigate('WelcomeNav', { page: 1 })
+        })
+    }
+
+    getContract = () => {
+        const { address, password, setGesture, gesturePassword } = this.state.statusStorage
+        const { encrypt, networkId, currentAccount } = this.props.WalletReducer
+        const UserContractAddress = ContractAddress.MineBlockCraftUser[networkId].address
+
+        let orignPassword = setGesture && password && gesturePassword ?
+            aesDecrypt(password, gesturePassword) : password
+
+        let mnemonic = aesDecrypt(encrypt, sha1(orignPassword + 'salt'))
+
+        if (UserContractAddress && mnemonic) {
+            const contract = openContract(networks[networkId].name, mnemonic, currentAccount, UserContractAddress, abi)
+            this.setState({ contract: contract })
+        }
+        if (address && password && setGesture === true) {
+            this.props.navigation.navigate('GesturePassword')
         }
     }
 
-    closeControlPanel = () => {
-        this._drawer.close()
+    componentDidMount = () => {
+        this._didFocusSubscription = this.props.navigation.addListener('didFocus',
+            () => {
+            }
+        )
     }
-    openControlPanel = () => {
-        this._drawer.open()
+
+    componentWillUnmount = () => {
+        this.setState = (state, callback) => {
+            return
+        }
+        this._didFocusSubscription.remove()
     }
+
+
     selectAccount = (accounts, currentAccount) => {
         this._drawer.close()
         this.props.selectAccount(accounts, currentAccount, false)
@@ -58,44 +105,46 @@ class MainScreen extends Component {
                 expires: null,
             })
             this.props.setNetworkModalVisiable(false)
+            this.getContract()
         }
     }
-    showPasswordModal = (passworModaldAction) => {
+    newAccount = async () => {
         this._drawer.close()
-        this.props.setPasswordModalVisiable(true)
-        this.setState({ passworModaldAction: passworModaldAction })
-    }
-    openSend = (mnemonic) => {
-        this.props.setPasswordModalVisiable(false)
-        this.props.navigation.navigate('Send')
-    }
-    newAccount = () => {
-        const { accounts, mnemonic } = this.props.WalletReducer
-        let address = mnemonicToAddress(mnemonic, accounts.length)
-        accounts[accounts.length] = {
-            address: address
-        }
-        let currentAccount = accounts.length - 1
-        this.selectAccount(accounts, currentAccount)
-    }
-    passwordAction = () => {
-        if (this.state.passworModaldAction === 'newAccount') {
-            this.newAccount()
-        }
-        if (this.state.passworModaldAction === 'send') {
-            this.openSend()
-        }
+        this.setState({ spinner: true })
+        setTimeout(async () => {
+            global.storage.load({ key: 'status' })
+                .then(ret => {
+                    const { accounts, encrypt } = this.props.WalletReducer
+                    const { password, setGesture, gesturePassword } = ret
+                    let orignPassword = setGesture && password && gesturePassword ?
+                        aesDecrypt(password, gesturePassword) : password
+
+                    let mnemonic = aesDecrypt(encrypt, sha1(orignPassword + 'salt'))
+
+                    let address = mnemonicToAddress(mnemonic, accounts.length)
+                    accounts[accounts.length] = {
+                        address: address
+                    }
+                    let currentAccount = accounts.length - 1
+                    this.selectAccount(accounts, currentAccount)
+                    this.setState({ spinner: false })
+                }).catch(err => {
+                    this.props.navigation.navigate('WelcomeNav', { page: 1 })
+                })
+        }, 500)
     }
 
     OpenProfile = async () => {
-        const {networkId} = this.props.WalletReducer
+        const { networkId } = this.props.WalletReducer
         const UserContractAddress = ContractAddress.MineBlockCraftUser[networkId].address
-        if(UserContractAddress !== ""){
+        if (UserContractAddress !== "") {
             this.props.setProfileModalVisiable(true)
         }
     }
 
     render() {
+        const { networkId } = this.props.WalletReducer
+        const UserContractAddress = ContractAddress.MineBlockCraftUser[networkId].address
         return (
             <Drawer
                 type="displace"
@@ -104,31 +153,29 @@ class MainScreen extends Component {
                 initializeOpen={false}
                 content={<AccountDrawer
                     selectAccount={this.selectAccount}
-                    showPasswordModal={this.showPasswordModal}
+                    newAccount={this.newAccount}
                 />}
                 tapToClose={true}
                 openDrawerOffset={0.6}
+                onClose={() => { this.getContract() }}
             >
                 <MyBackground style={{ alignItems: 'center' }}>
                     <TopBar
                         navigation={this.props.navigation}
-                        openControlPanel={this.openControlPanel}
+                        openControlPanel={() => { this._drawer.open() }}
                         OpenProfile={this.OpenProfile}
                     />
                     <AppView
                         navigation={this.props.navigation}
                     />
+                    {UserContractAddress !== '' && (
+                        <MsgList
+                            contract={this.state.contract}
+                        />
+                    )}
                 </MyBackground>
-                <PasswordModal
-                    passwordAction={this.passwordAction}
-                    passworModaldAction={this.state.passworModaldAction}
-                    openSend={this.openSend}
-                    setVisiable={this.props.setPasswordModalVisiable}
-                    isVisible={this.props.WalletMain.isPasswordModalVisible}
-                />
                 <ProfileModal
                     navigation={this.props.navigation}
-                    openSend={this.openSend}
                     setVisiable={this.props.setProfileModalVisiable}
                     isVisible={this.props.WalletMain.isProfileModalVisible}
                 />
@@ -136,6 +183,12 @@ class MainScreen extends Component {
                     handleOpenNetSelect={this.handleOpenNetSelect}
                     isModalVisible={this.state.isModalVisible}
                     selectNetwork={this.selectNetwork}
+                />
+                <Spinner
+                    visible={this.state.spinner}
+                    textContent={I18n.t('LoadingTxt')}
+                    textStyle={{ color: '#fff' }}
+                    overlayColor={'rgba(0, 0, 0, 0.5)'}
                 />
             </Drawer>
         )
@@ -152,5 +205,6 @@ const mapDispatchToProps = dispatch => ({
     selectAccount: (accounts, currentAccount, isPasswordModalVisible) => dispatch(actions.selectAccount(accounts, currentAccount, isPasswordModalVisible)),
     setNetworkId: (value) => dispatch(actions.setNetworkId(value)),
     setNetworkModalVisiable: (value) => dispatch(actions.setNetworkModalVisiable(value)),
+    setMnemonic: (value) => dispatch(actions.setMnemonic(value)),
 })
 export default connect(mapStateToProps, mapDispatchToProps)(MainScreen)

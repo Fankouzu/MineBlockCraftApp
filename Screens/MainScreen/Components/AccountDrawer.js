@@ -38,7 +38,7 @@ function AccountDrawer(props) {
                     rippleColor='#999'
                     rippleOpacity={0.6}
                     style={[styles.itemView, { borderBottomWidth: 0 }]}
-                    onPress={() => { props.showPasswordModal('newAccount') }}
+                    onPress={() => { props.newAccount() }} 
                 >
                     <Text style={styles.addText}>
                         {I18n.t('AccountDrawerAdd')}
