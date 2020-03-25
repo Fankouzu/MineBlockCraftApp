@@ -48,6 +48,7 @@
     "react-native-easy-toast": "^1.2.0",
     "react-native-gesture-handler": "^1.5.3",
     "react-native-i18n": "^2.0.15",
+    "react-native-indicators": "^0.17.0",
     "react-native-jazzicon": "^0.1.2",
     "react-native-level-fs": "^3.0.0",
     "react-native-linear-gradient": "^2.5.6",

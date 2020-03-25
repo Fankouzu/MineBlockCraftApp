@@ -41,19 +41,20 @@ class ProfileModal extends Component {
         })
         const { networkId, accounts, currentAccount } = this.props.WalletReducer
         const UserContractAddress = ContractAddress.MineBlockCraftUser[networkId].address
-        if (UserContractAddress !== "") {
-            const contract = initContract(networks[networkId].name, UserContractAddress, abi)
 
-            let AddressToId = await contract.AddressToId(accounts[currentAccount].address)
+        if (UserContractAddress !== "") {
+            // const contract = initContract(networks[networkId].name, UserContractAddress, abi)
+
+            let AddressToId = await this.props.WalletMain.contract.AddressToId(accounts[currentAccount].address)
             AddressToId = parseInt(AddressToId, 16)
-            let contractOwner = await contract.owner()
+            let contractOwner = await this.props.WalletMain.contract.owner()
 
             if (AddressToId === 0 && contractOwner !== accounts[currentAccount].address) {
                 this.setState({
                     title: I18n.t('RegUser'),
                 })
             } else {
-                let Profile = await contract.Profiles(AddressToId)
+                let Profile = await this.props.WalletMain.contract.Profiles(AddressToId)
                 this.setState({
                     title: I18n.t('EditProfile'),
                     nickName: Profile[0],

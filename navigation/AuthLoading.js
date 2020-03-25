@@ -1,12 +1,12 @@
 import React from 'react'
 import {
-    ActivityIndicator,
     StatusBar,
     StyleSheet,
     View,
 } from 'react-native'
-import {connect} from 'react-redux'
+import { connect } from 'react-redux'
 import * as actions from '../actions'
+import { BarIndicator } from 'react-native-indicators'
 
 class AuthLoading extends React.Component {
     constructor(props) {
@@ -25,13 +25,13 @@ class AuthLoading extends React.Component {
                 }).then(ret => {
                     if (ret.address && ret.password) {
                         this.props.navigation.navigate('WalletNav')
-                    }else{
+                    } else {
                         this.props.navigation.navigate('LoginNav')
                     }
                 }).catch(err => {
                     this.props.navigation.navigate('LoginNav')
                 })
-            }else {
+            } else {
                 this.props.navigation.navigate('LoginNav')
             }
         }).catch(err => {
@@ -41,7 +41,7 @@ class AuthLoading extends React.Component {
     render() {
         return (
             <View style={styles.container}>
-                <ActivityIndicator size={60} />
+                <BarIndicator count={5} size={40} color='#390' />
                 <StatusBar barStyle="default" />
             </View>
         )
@@ -59,4 +59,4 @@ const mapStateToProps = state => (state)
 const mapDispatchToProps = dispatch => ({
     setWallet: (value) => dispatch(actions.setWallet(value)),
 })
-export default connect(mapStateToProps,mapDispatchToProps)(AuthLoading)
+export default connect(mapStateToProps, mapDispatchToProps)(AuthLoading)

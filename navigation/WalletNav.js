@@ -3,6 +3,7 @@ import { createStackNavigator } from 'react-navigation-stack'
 import MainScreen from '../Screens/MainScreen'
 import Ethereum from '../Screens/Ethereum'
 import GesturePassword from '../Screens/GesturePassword'
+import Chat from '../Screens/Chat'
 import {Dapps} from '../Dapps'
 
 const AppNavigator = createStackNavigator(
@@ -12,6 +13,9 @@ const AppNavigator = createStackNavigator(
         },
         MainScreen: {
             screen: MainScreen
+        },
+        Chat: {
+            screen: Chat
         },
         Ethereum:{
             screen: Ethereum

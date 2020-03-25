@@ -55,76 +55,52 @@ const styles = StyleSheet.create({
     address: {
         fontSize: 10,
     },
-    right:{
-        position:'absolute',
-        right:0,
-        height:30,
-        justifyContent:'center'
+    right: {
+        position: 'absolute',
+        right: 0,
+        height: 30,
+        justifyContent: 'center'
     }
 })
 
 
-class MsgList extends React.Component {
-    constructor(props) {
-        super(props)
-        this.state = {
-            msgList: {error:-1,result:[]}
-        }
-    }
-    componentDidMount = () => {
-        this.getMessage()
-    }
+function MsgList(props) {
 
-    getMessage = async () => {
-        let ret = await this.props.contract.msgList()
-        if(ret.length === 0){
-            this.setState({ msgList:  {error:0,result:[]} })
-        }else{
-            let result = [];
-            for (var i = 0; i < ret.length; i++) {
-                var address = ret[i]
-                var profile = await this.props.contract.getProfile(address)
-                result[i] = { address: address, profile: profile }
-            }
-            this.setState({ msgList:  {error:1,result:result} })
-        }
-    }
+    const [msgList, setMsgList] = React.useState({ error: -1, result: [] })
 
-    componentDidUpdate(nextProps, nextState) {
-        if (this.props.contract !== nextProps.contract) {
-            this.getMessage()
-            return true
-        }
-    }
-    render() {
-        return (
-            <View style={styles.msgView}>
-                <Text style={styles.msgViewTitle}>{I18n.t('MsgListTitle')}</Text>
+    React.useEffect(() => {
+        setMsgList(props.WalletMain.msgList)
+    }, [props.WalletMain.msgList])
 
-                <MyCard
-                    screenWidth={global.screenWidth * 0.95}
-                    margin={0}
-                    top={0}
-                    style={{ padding: 0, marginBottom: 50 }}
-                >
-                    {this.state.msgList.error === -1 ?
-                        (<View style={styles.listItem}>
-                            <Text style={styles.Empty}>
-                                {I18n.t('MsgLoading')}
-                            </Text>
-                        </View> 
-                        ) : this.state.msgList.error === 0 ?
+    return (
+        <View style={styles.msgView}>
+            <Text style={styles.msgViewTitle}>{I18n.t('MsgListTitle')}</Text>
+            <MyCard
+                screenWidth={global.screenWidth * 0.95}
+                margin={0}
+                top={0}
+                style={{ padding: 0, marginBottom: 50 }}
+            >
+                {msgList.error === -1 ?
+                    (<View style={styles.listItem}>
+                        <Text style={styles.Empty}>
+                            {I18n.t('MsgLoading')}
+                        </Text>
+                    </View>
+                    ) : msgList.error === 0 ?
                         (<View style={styles.listItem}>
                             <Text style={styles.Empty}>
                                 {I18n.t('EmptyMsg')}
                             </Text>
                         </View>
-                        ) : (this.state.msgList.result.map((item, index) => {
+                        ) : (msgList.result.map((item, index) => {
                             return (
-                                <Ripple style={[
-                                    styles.listItem,{
-                                        borderTopWidth: index > 0 ? 0.5 : 0,
-                                    }]}>
+                                <Ripple
+                                    onPress={() => { props.navigation.navigate('Chat', { toUser: item.address }) }}
+                                    style={[
+                                        styles.listItem, {
+                                            borderTopWidth: index > 0 ? 0.5 : 0,
+                                        }]}>
                                     <View style={{ flexDirection: 'row' }}>
                                         <View style={styles.jazzIcon}>
                                             <Jazzicon size={30} address={item.address} />
@@ -133,7 +109,7 @@ class MsgList extends React.Component {
                                             <Text style={styles.address}>{item.profile[0] === "" ? item.address : item.profile[0]}</Text>
                                         </View>
                                         <View style={styles.right}>
-                                        <Icon name="angle-right" size={14} color={'#999'} />
+                                            <Icon name="angle-right" size={14} color={'#999'} />
                                         </View>
                                     </View>
                                     <View style={styles.Line}>
@@ -141,11 +117,11 @@ class MsgList extends React.Component {
                                 </Ripple>
                             )
                         }))}
-                </MyCard>
-            </View>
-        )
-    }
+            </MyCard>
+        </View>
+    )
 }
+
 
 
 const mapStateToProps = state => (state)

@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import * as actions from '../../actions'
 import Drawer from 'react-native-drawer'
 import MyBackground from '../Components/MyBackground'
+import Loading from '../Components/Loading'
 import AccountDrawer from './Components/AccountDrawer'
 import TopBar from './Components/TopBar'
 import AppView from './Components/AppView'
@@ -24,7 +25,9 @@ class MainScreen extends Component {
             passworModaldAction: '',
             spinner: false,
             contract: {},
-            statusStorage: {}
+            statusStorage: {},
+            currentAccount: '',
+            LoadingDisplay: true
         }
         this._bootstrapAsync()
     }
@@ -37,7 +40,7 @@ class MainScreen extends Component {
             this.getContract()
         }).catch(err => {
             console.log('_bootstrapAsync', err)
-            //this.props.navigation.navigate('WelcomeNav', { page: 1 })
+            this.props.navigation.navigate('WelcomeNav', { page: 1 })
         })
     }
 
@@ -46,14 +49,31 @@ class MainScreen extends Component {
         const { encrypt, networkId, currentAccount } = this.props.WalletReducer
         const UserContractAddress = ContractAddress.MineBlockCraftUser[networkId].address
 
+        this.setState({ currentAccount: currentAccount })
         let orignPassword = setGesture && password && gesturePassword ?
             aesDecrypt(password, gesturePassword) : password
 
         let mnemonic = aesDecrypt(encrypt, sha1(orignPassword + 'salt'))
 
         if (UserContractAddress && mnemonic) {
+            this.props.setMsgList({ error: -1, result: [] })
             const contract = openContract(networks[networkId].name, mnemonic, currentAccount, UserContractAddress, abi)
-            this.setState({ contract: contract })
+            this.props.setContract(contract)
+            contract.msgList().then(async (msgList) => {
+                if (msgList.length === 0) {
+                    this.props.setMsgList({ error: 0, result: [] })
+                } else {
+                    let result = [];
+                    for (var i = 0; i < msgList.length; i++) {
+                        var profile = await contract.getProfile(msgList[i])
+                        result[i] = { address: msgList[i], profile: profile }
+                    }
+                    this.props.setMsgList({ error: 1, result: result })
+                }
+                this.setState({ LoadingDisplay: false })
+            })
+        }else{
+            this.setState({ LoadingDisplay: false })
         }
         if (address && password && setGesture === true) {
             this.props.navigation.navigate('GesturePassword')
@@ -61,6 +81,9 @@ class MainScreen extends Component {
     }
 
     componentDidMount = () => {
+        setTimeout(() => {
+            this.setState({ LoadingDisplay: false })
+        }, 5000)
         this._didFocusSubscription = this.props.navigation.addListener('didFocus',
             () => {
             }
@@ -77,35 +100,43 @@ class MainScreen extends Component {
 
     selectAccount = (accounts, currentAccount) => {
         this._drawer.close()
-        this.props.selectAccount(accounts, currentAccount, false)
-        global.storage.save({
-            key: 'wallet',
-            data: {
-                'encrypt': this.props.WalletReducer.encrypt,
-                'accounts': accounts,
-                'currentAccount': currentAccount,
-                'networkId': this.props.WalletReducer.networkId
-            },
-            expires: null,
-        })
+        this.setState({ LoadingDisplay: true })
+        setTimeout(() => {
+            this.props.selectAccount(accounts, currentAccount, false)
+            this.setState({ currentAccount: currentAccount })
+            global.storage.save({
+                key: 'wallet',
+                data: {
+                    'encrypt': this.props.WalletReducer.encrypt,
+                    'accounts': accounts,
+                    'currentAccount': currentAccount,
+                    'networkId': this.props.WalletReducer.networkId
+                },
+                expires: null,
+            })
+            this.getContract()
+        }, 300)
     }
     selectNetwork = (id) => {
         if (id === this.props.WalletReducer.networkId) {
             this.props.setNetworkModalVisiable(false)
         } else {
-            this.props.setNetworkId(id)
-            global.storage.save({
-                key: 'wallet',
-                data: {
-                    'encrypt': this.props.WalletReducer.encrypt,
-                    'accounts': this.props.WalletReducer.accounts,
-                    'currentAccount': this.props.WalletReducer.currentAccount,
-                    'networkId': id
-                },
-                expires: null,
-            })
             this.props.setNetworkModalVisiable(false)
-            this.getContract()
+            this.setState({ LoadingDisplay: true })
+            setTimeout(() => {
+                this.props.setNetworkId(id)
+                global.storage.save({
+                    key: 'wallet',
+                    data: {
+                        'encrypt': this.props.WalletReducer.encrypt,
+                        'accounts': this.props.WalletReducer.accounts,
+                        'currentAccount': this.props.WalletReducer.currentAccount,
+                        'networkId': id
+                    },
+                    expires: null,
+                })
+                this.getContract()
+            }, 300)
         }
     }
     newAccount = async () => {
@@ -157,11 +188,10 @@ class MainScreen extends Component {
                 />}
                 tapToClose={true}
                 openDrawerOffset={0.6}
-                onClose={() => { this.getContract() }}
+                onClose={() => { }}
             >
                 <MyBackground style={{ alignItems: 'center' }}>
                     <TopBar
-                        navigation={this.props.navigation}
                         openControlPanel={() => { this._drawer.open() }}
                         OpenProfile={this.OpenProfile}
                     />
@@ -170,9 +200,12 @@ class MainScreen extends Component {
                     />
                     {UserContractAddress !== '' && (
                         <MsgList
+                            navigation={this.props.navigation}
                             contract={this.state.contract}
+                            currentAccount={this.state.currentAccount}
                         />
                     )}
+                    <Loading display={this.state.LoadingDisplay} />
                 </MyBackground>
                 <ProfileModal
                     navigation={this.props.navigation}
@@ -206,5 +239,7 @@ const mapDispatchToProps = dispatch => ({
     setNetworkId: (value) => dispatch(actions.setNetworkId(value)),
     setNetworkModalVisiable: (value) => dispatch(actions.setNetworkModalVisiable(value)),
     setMnemonic: (value) => dispatch(actions.setMnemonic(value)),
+    setContract: (value) => dispatch(actions.setContract(value)),
+    setMsgList: (value) => dispatch(actions.setMsgList(value)),
 })
 export default connect(mapStateToProps, mapDispatchToProps)(MainScreen)

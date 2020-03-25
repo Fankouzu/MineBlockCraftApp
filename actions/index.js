@@ -46,6 +46,14 @@ export const setMnemonic = (mnemonic) => ({
 
 //WalletMain
 
+export const setContract = (contract) => ({
+    type: Types.SET_CONTRACT,
+    contract
+})
+export const setMsgList = (msgList) => ({
+    type: Types.SET_MSGLIST,
+    msgList
+})
 export const setProfileModalVisiable = (isProfileModalVisible) => ({
     type: Types.SET_PROFILE_MODAL_VISIABLE,
     isProfileModalVisible

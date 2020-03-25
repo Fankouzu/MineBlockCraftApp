@@ -7080,6 +7080,13 @@ react-native-i18n@^2.0.15:
   dependencies:
     i18n-js "3.0.11"
 
+react-native-indicators@^0.17.0:
+  version "0.17.0"
+  resolved "https://registry.npm.taobao.org/react-native-indicators/download/react-native-indicators-0.17.0.tgz#92f95efaf5fb53be576dfe4e1980a25655a93f55"
+  integrity sha1-kvle+vX7U75Xbf5OGYCiVlWpP1U=
+  dependencies:
+    prop-types "^15.5.10"
+
 react-native-jazzicon@^0.1.2:
   version "0.1.2"
   resolved "https://registry.yarnpkg.com/react-native-jazzicon/-/react-native-jazzicon-0.1.2.tgz#af0bd041685644ce283c0a330e3cf639d470720a"

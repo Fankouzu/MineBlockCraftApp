@@ -4,13 +4,13 @@ export default {
             address:'',
         },
         {
-            address:'0x4CE706554e75Cf9064E09CC38D9Bee167F58922b',//Ropsten
+            address:'0x9e743424222d5d6D0eC0436456D7a0e76d32E57b',//Ropsten
         },
         {
             address:'0xDB3fb6E35c459D786131C8622695cc0Bae64b60A',//Rinkeby
         },
         {
-            address:'0x50B29a42c9e4d0f940292c386207f492458eE358',//Kovan
+            address:'0x6Bb8e656a6D3675d67d11BFb53A175c464804C86',//Kovan
         },
     ]
 }

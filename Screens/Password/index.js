@@ -44,18 +44,18 @@ class Password extends React.Component {
         }
     }
     componentDidMount() {
-        this._keyboardWillShowSubscription = Keyboard.addListener('keyboardDidShow', (e) => this._keyboardWillShow(e));
-        this._keyboardWillHideSubscription = Keyboard.addListener('keyboardDidHide', (e) => this._keyboardWillHide(e));
+        this._keyboardWillShowSubscription = Keyboard.addListener('keyboardDidShow', (e) => this._keyboardWillShow(e))
+        this._keyboardWillHideSubscription = Keyboard.addListener('keyboardDidHide', (e) => this._keyboardWillHide(e))
     }
     componentWillUnmount = () => {
-        this._keyboardWillShowSubscription.remove();
-        this._keyboardWillHideSubscription.remove();
+        this._keyboardWillShowSubscription.remove()
+        this._keyboardWillHideSubscription.remove()
         this.setState = (state, callback) => {
             return
         }
     }
     _keyboardWillShow(e) {
-        let keyboardHeight = e.endCoordinates.height;
+        let keyboardHeight = e.endCoordinates.height
         this.setState({
             keyBoardHeight: keyboardHeight
         })
@@ -63,7 +63,7 @@ class Password extends React.Component {
     }
 
     _keyboardWillHide(e) {
-        let keyboardHeight = e.endCoordinates.height;
+        let keyboardHeight = e.endCoordinates.height
         this.setState({
             keyBoardHeight: keyboardHeight
         })

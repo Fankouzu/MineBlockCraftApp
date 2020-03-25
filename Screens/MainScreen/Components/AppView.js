@@ -36,6 +36,29 @@ function Appview(props) {
                         <Text style={styles.AppName}>{I18n.t('EthereumDapp')}</Text>
                     </View>
                 </AwesomeButton>
+                <AwesomeButton
+                    backgroundActive='#fff'
+                    backgroundColor='#fff'
+                    backgroundDarker='#390'
+                    backgroundShadow='transparent'
+                    borderColor='#390'
+                    borderWidth={1}
+                    activeOpacity={0.5}
+                    borderRadius={10}
+                    raiseLevel={3}
+                    height={90}
+                    width={60}
+                    style={styles.AppCard}
+                    onPress={() => { navigate('Ethereum') }}
+                >
+                    <View style={{ alignItems: 'center' }}>
+                        <Image
+                            style={{ width: 40, height: 60 }}
+                            source={require('../../../assets/eth_logo.png')}
+                        />
+                        <Text style={styles.AppName}>{I18n.t('EthereumDapp')}</Text>
+                    </View>
+                </AwesomeButton>
                 {/* {DappJson[networkId].dapps.map((item, key) => {
                     return (
                         <AwesomeButton
@@ -81,6 +104,7 @@ const styles = StyleSheet.create({
         width: '100%',
     },
     AppCard: {
+        marginRight:10
     },
     AppName: {
         fontSize: 10,
