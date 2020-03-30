@@ -5,6 +5,8 @@ import bip39 from 'react-native-bip39'
 const HDWallet = require('ethereum-hdwallet')
 const isBuffer = require('is-buffer')
 ethers.errors.setLogLevel("error")
+
+const etherscanApi = 'MIQDQDRUD5XENBPYQ8HAB3GJP2Z6T8ZZ1J'
 export function mnemonicToAddress(mnemonic, n) {
     var seed = bip39.mnemonicToSeed(mnemonic.trim())
     const hdwallet = HDWallet.fromSeed(seed)
@@ -89,7 +91,7 @@ export function getAccounts(mnemonic) {
     return accounts
 }
 export async function getTxList(networkName, address) {
-    const ethapi = require('etherscan-api-cn').init('MIQDQDRUD5XENBPYQ8HAB3GJP2Z6T8ZZ1J', networkName, 10000)
+    const ethapi = require('etherscan-api-cn').init(etherscanApi, networkName, 10000)
     try {
         let txlist_ = await ethapi.account.txlist(address, 4000000, 'latest')
         let txlist = txlist_.result.reverse()
@@ -110,7 +112,7 @@ export async function getTxList(networkName, address) {
                     } else if (txlist[i].input.substr(0, 10) === '0xa9059cbb') {
                         txlist[i].Type = 'SendTokens'
                         txlist[i].contractAddress = txlist[i].to
-                        txlist[i].icon = '0x'+txlist[i].input.slice(34,74)
+                        txlist[i].icon = '0x' + txlist[i].input.slice(34, 74)
                     } else {
                         txlist[i].Type = 'ContractCall'
                         txlist[i].value = txlist[i].value > 0 ? txlist[i].value * -1 : txlist[i].value
@@ -120,16 +122,78 @@ export async function getTxList(networkName, address) {
                 txlist[i].value = Math.round(txlist[i].value / 100000000000000) / 10000 + `ETH`
                 txlist[i].gasFee = Math.round((txlist[i].gasUsed * txlist[i].gasPrice / 1000000000000000000) * 100000) / 100000
             }
-            return {error:1,result:txlist}
+            return { error: 1, result: txlist }
         } else {
-            return {error:0}
+            return { error: 0 }
         }
     } catch (e) {
         console.log("TCL: getTxList -> e", e)
-        if(e === 'No transactions found'){
-            return {error:0}
-        }else{
-            return {error:-1}
+        if (e === 'No transactions found') {
+            return { error: 0 }
+        } else {
+            return { error: -1 }
+        }
+    }
+}
+function inArray(search, array) {
+    for (var i in array) {
+        if (array[i] == search) {
+            return true;
+        }
+    }
+    return false;
+}
+export async function getTokens(networkName, address) {
+    const ethapi = require('etherscan-api-cn').init(etherscanApi, networkName, 10000)
+    try {
+        let tokentx_ = await ethapi.account.tokentx(address)
+        let tokentx = tokentx_.result.reverse()
+
+        let contractAddress = []
+        let result = []
+
+        if (tokentx.length > 0) {
+            for (var i = 0; i < tokentx.length; i++) {
+                if (!inArray(tokentx[i].contractAddress, contractAddress)) {
+                    var balance = await ethapi.account.tokenbalance(address, '', tokentx[i].contractAddress)
+                    tokentx[i].balance = balance.result / Math.pow(10,tokentx[i].tokenDecimal)
+                    result.push(tokentx[i])
+                    contractAddress.push(tokentx[i].contractAddress)
+                }
+            }
+            return { error: 1, result: result }
+        } else {
+            return { error: 0 }
+        }
+    } catch (e) {
+        console.log("TCL: getTokens -> e", e)
+        if (e === 'No transactions found') {
+            return { error: 0 }
+        } else {
+            return { error: -1 }
+        }
+    }
+}
+
+export async function getTokenTx(networkName, address, contractAddress) {
+    const ethapi = require('etherscan-api-cn').init(etherscanApi, networkName, 10000)
+    try {
+        let tokentx_ = await ethapi.account.tokentx(address, contractAddress)
+        let tokentx = tokentx_.result.reverse()
+
+        if (tokentx.length > 0) {
+            var balance_ = await ethapi.account.tokenbalance(address, '', contractAddress)
+            var balance = ethers.utils.formatEther(balance_.result) * 10 / 10
+            return { error: 1, result: tokentx, balance: balance }
+        } else {
+            return { error: 0 }
+        }
+    } catch (e) {
+        console.log("TCL: getTokens -> e", e)
+        if (e === 'No transactions found') {
+            return { error: 0 }
+        } else {
+            return { error: -1 }
         }
     }
 }
@@ -149,7 +213,7 @@ export function gasPrice(networkName) {
 
 }
 export async function ethprice() {
-    const ethapi = require('etherscan-api-cn').init('MIQDQDRUD5XENBPYQ8HAB3GJP2Z6T8ZZ1J', 'mainnet', 3000)
+    const ethapi = require('etherscan-api-cn').init(etherscanApi, 'mainnet', 3000)
     let ethprice = await ethapi.stats.ethprice()
     return ethprice
 }
@@ -214,11 +278,11 @@ export function checkPasswordLevel(value, level) {
 
 //const {Contract,Wallet,getDefaultProvider} = ethers
 
-export function initContract(networkName,contractAddress,abi){
+export function initContract(networkName, contractAddress, abi) {
     let infuraProvider = new ethers.providers.InfuraProvider(networkName)
-    return new ethers.Contract(contractAddress,abi,infuraProvider)
+    return new ethers.Contract(contractAddress, abi, infuraProvider)
 }
-export function openContract(networkName,mnemonic,currentAccount,contractAddress,abi){
+export function openContract(networkName, mnemonic, currentAccount, contractAddress, abi) {
     let infuraProvider = new ethers.providers.InfuraProvider(networkName)
     let privateKey = mnemonicToPrivate(mnemonic, currentAccount)
     let wallet = new ethers.Wallet(privateKey, infuraProvider);

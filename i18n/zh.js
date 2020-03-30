@@ -105,6 +105,7 @@ export default {
   AppViewTitle:'应用中心',
   //Dapps
   EthereumDapp:'以太坊',
+  Erc20:'代币',
   //TxList
   TxListTitle:'交易记录',
   Deploy:'部署合约',
@@ -135,4 +136,11 @@ export default {
   MsgListTitle:'通讯录',
   EmptyMsg:'空',
   MsgLoading:'读取中...',
+  //Tokens
+  TokenName:'代币名称',
+  TokenEmpty:'还没有代币',
+  MyToken:'我的代币',
+  //SendToken
+  SendToken:'发送代币',
+  TokenAmountError:'*发送数量错误！'
 }

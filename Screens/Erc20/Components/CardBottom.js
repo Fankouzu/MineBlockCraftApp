@@ -20,7 +20,7 @@ export default function CardBottom(props) {
         <View style={styles.cardBottom}>
             <CardButton
                 rippleColor='#f60'
-                onPress={() => { props.navigation.navigate('Send') }}
+                onPress={() => { props.navigation.navigate('SendToken') }}
                 textColor='#f60'
                 text={I18n.t('Send')}
                 iconName='send'
@@ -29,7 +29,7 @@ export default function CardBottom(props) {
             />
             <CardButton
                 rippleColor='#390'
-                onPress={() => { props.navigation.navigate('Recive', { 'DappName': 'EthereumDapp' }) }}
+                onPress={() => { props.navigation.navigate('ReciveToken') }}
                 textColor='#390'
                 text={I18n.t('Recive')}
                 iconName='call-received'

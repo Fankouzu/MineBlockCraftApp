@@ -54,7 +54,7 @@ class MainScreen extends Component {
             aesDecrypt(password, gesturePassword) : password
 
         let mnemonic = aesDecrypt(encrypt, sha1(orignPassword + 'salt'))
-
+        this.props.setMnemonic(mnemonic)
         if (UserContractAddress && mnemonic) {
             this.props.setMsgList({ error: -1, result: [] })
             const contract = openContract(networks[networkId].name, mnemonic, currentAccount, UserContractAddress, abi)

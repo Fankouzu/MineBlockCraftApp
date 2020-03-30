@@ -189,3 +189,44 @@ export const clearSend = () => ({
 export const setGesture = () => ({
     type: Types.SET_GESTURE
 })
+
+//SendToken
+
+export const setTokenTx = (tokenTx) => ({
+    type: Types.SET_TOKENTX,
+    tokenTx
+})
+
+export const setTokenFromAddress = (fromAddress) => ({
+    type: Types.SET_TOKEN_FROM_ADDRESS,
+    fromAddress
+})
+
+export const setTokenToAddress = (toAddress) => ({
+    type: Types.SET_TOKEN_TO_ADDRESS,
+    toAddress
+})
+
+export const setTokenAmount = (amount) => ({
+    type: Types.SET_TOKEN_AMOUNT,
+    amount
+})
+
+export const setTokenBalance = (balance) => ({
+    type: Types.SET_TOKEN_BALANCE,
+    balance
+})
+
+export const setTokenTransferTx = (tx) => ({
+    type: Types.SET_TOKEN_TRANSFER_TX,
+    tx
+})
+
+export const setTokenReceipt = (receipt) => ({
+    type: Types.SET_TOKEN_RECEIPT,
+    receipt
+})
+
+export const clearTokenSend = () => ({
+    type: Types.CLEAR_TOKEN_SEND
+})

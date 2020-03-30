@@ -4,33 +4,32 @@ import { QRScannerView } from 'react-native-qrcode-scanner-view'
 import isEthereumAddress from 'is-ethereum-address'
 import Icon from 'react-native-vector-icons/SimpleLineIcons'
 
-export default class QRCodeScan extends Component {
+export default function QRCodeScan (props) {
 
-    renderTitleBar = () => {
-        const { navigate } = this.props.navigation
+    const { navigate } = props.navigation
+    const back = props.navigation.getParam('back')
+    const renderTitleBar = () => {
         return (
-            <TouchableOpacity onPress={() => navigate('Send')} style={{flex:1,alignItems:'center',height:150,justifyContent:'center'}}>
+            <TouchableOpacity onPress={() => navigate(back)} style={{flex:1,alignItems:'center',height:150,justifyContent:'center'}}>
             <Icon name='close' size={50} color='#ccc'  />
            </TouchableOpacity>
         )
     }
 
-    barcodeReceived = (event) => {
+    const barcodeReceived = (event) => {
         if(event.type==='QR_CODE'){
             let toAddress=event.data.replace(/ethereum:/g,'')
             if (isEthereumAddress(toAddress)) {
-                const { navigate } = this.props.navigation
-                navigate('Send',{toAddress:toAddress,test:1})
+                navigate(back,{toAddress:toAddress,test:1})
             }
         }
     }
 
-    render() {
         return (
             <View style={{ flex: 1 }}>
                 <QRScannerView
-                    onScanResult={this.barcodeReceived}
-                    renderHeaderView={this.renderTitleBar}
+                    onScanResult={(event) =>barcodeReceived(event)}
+                    renderHeaderView={() => renderTitleBar()}
                     scanBarAnimateReverse={true}
                     cornerStyle={{
                         height: 25,
@@ -46,4 +45,3 @@ export default class QRCodeScan extends Component {
             </View>
         )
     }
-}

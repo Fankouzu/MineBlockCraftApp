@@ -49,14 +49,14 @@ function Appview(props) {
                     height={90}
                     width={60}
                     style={styles.AppCard}
-                    onPress={() => { navigate('Ethereum') }}
+                    onPress={() => { navigate('Erc20') }}
                 >
                     <View style={{ alignItems: 'center' }}>
                         <Image
                             style={{ width: 40, height: 60 }}
                             source={require('../../../assets/eth_logo.png')}
                         />
-                        <Text style={styles.AppName}>{I18n.t('EthereumDapp')}</Text>
+                        <Text style={styles.AppName}>{I18n.t('Erc20')}</Text>
                     </View>
                 </AwesomeButton>
                 {/* {DappJson[networkId].dapps.map((item, key) => {

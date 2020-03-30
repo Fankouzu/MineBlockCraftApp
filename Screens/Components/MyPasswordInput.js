@@ -1,16 +1,16 @@
 import React from 'react'
-import { StyleSheet,Animated,TextInput } from 'react-native'
+import { StyleSheet, Animated, TextInput } from 'react-native'
 import PropTypes from 'prop-types'
 
 export default function MyPasswordInput(props) {
 
-    const borderWidth = new Animated.Value(1)
-    const borderRadius = new Animated.Value(10)
-    const [borderColor,setBorderColor] = React.useState(props.borderColor)
-    const [password,setPassword] = React.useState('')
-    const duration=100
+    var borderWidth = new Animated.Value(1)
+    var borderRadius = new Animated.Value(10)
+    const [borderColor, setBorderColor] = React.useState(props.borderColor)
+    const [password, setPassword] = React.useState('')
+    const duration = 100
     const inputRef = React.useRef()
-    
+
     React.useEffect(() => {
         props.focus ? inputRef.current.focus() : inputRef.current.blur()
     }, [])
@@ -19,15 +19,15 @@ export default function MyPasswordInput(props) {
     React.useEffect(() => {
         setBorderColor(props.borderColor)
     }, [props.borderColor])
-    
-    const handleTypePassword = (password) =>{
+
+    const handleTypePassword = (password) => {
         setPassword(password)
         props.handleTypePassword(password)
     }
-    const onTextInput = ()=>{
+    const onTextInput = () => {
         setBorderColor(props.borderColorActive)
     }
-    const onFocus = ()=>{
+    const onFocus = () => {
         Animated.parallel([
             Animated.timing(borderWidth, {
                 toValue: 2,
@@ -37,12 +37,12 @@ export default function MyPasswordInput(props) {
                 toValue: 12,
                 duration: duration
             })
-        ]).start(()=>{
+        ]).start(() => {
             setBorderColor(props.borderColorActive)
             props.handleKeybordMargin('up')
         })
     }
-    const onBlur = ()=>{
+    const onBlur = () => {
         Animated.parallel([
             Animated.timing(borderWidth, {
                 toValue: 1,
@@ -52,7 +52,7 @@ export default function MyPasswordInput(props) {
                 toValue: 10,
                 duration: duration
             })
-        ]).start(()=>{
+        ]).start(() => {
             setBorderColor(props.borderColor)
             props.handleKeybordMargin('down')
         })
@@ -60,10 +60,10 @@ export default function MyPasswordInput(props) {
     return (
         <Animated.View
             style={{
-                borderWidth:borderWidth,
-                borderRadius:borderRadius,
-                borderColor:borderColor,
-                height:47,
+                borderWidth: borderWidth,
+                borderRadius: borderRadius,
+                borderColor: borderColor,
+                height: 47,
                 marginBottom: 10,
             }}>
             <TextInput
@@ -90,14 +90,14 @@ MyPasswordInput.propTypes = {
     placeholder: PropTypes.string.isRequired,
     borderColor: PropTypes.string,
     borderColorActive: PropTypes.string,
-    secureTextEntry:PropTypes.bool,
-    keyboardType:PropTypes.string
+    secureTextEntry: PropTypes.bool,
+    keyboardType: PropTypes.string
 }
 MyPasswordInput.defaultProps = {
     borderColor: '#666',
     borderColorActive: '#666',
-    secureTextEntry:true,
-    keyboardType:'default'
+    secureTextEntry: true,
+    keyboardType: 'default'
 }
 const styles = StyleSheet.create({
     textInput: {
@@ -109,6 +109,6 @@ const styles = StyleSheet.create({
         fontSize: 16,
         justifyContent: 'center',
         alignItems: 'center',
-        flex:1,
+        flex: 1,
     }
 })

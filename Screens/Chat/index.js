@@ -3,6 +3,7 @@ import { Text, StyleSheet, View, TouchableOpacity, Keyboard } from 'react-native
 import { connect } from 'react-redux'
 import { ethers } from 'ethers'
 import MyButton from '../Components/MyButton'
+import Topbar from '../Components/Topbar'
 import { I18n } from '../../i18n'
 import Jazzicon from '@novaviva/react-native-jazzicon'
 import Icon from 'react-native-vector-icons/Fontisto'
@@ -39,7 +40,7 @@ class Chat extends Component {
             address: '',
             messages: [],
             ViewHeight: global.screenHeight,
-            typeMsg:''
+            typeMsg: ''
         }
     }
 
@@ -96,18 +97,18 @@ class Chat extends Component {
         }, 200)
     }
     onSubmit = () => {
-        const {address,toAddress,typeMsg,messages} = this.state
-        var timestamp = parseInt((new Date()).valueOf()/1000,16)
-        if(address !== '' && typeMsg !== ''){
-            this.setState({typeMsg:''})
+        const { address, toAddress, typeMsg, messages } = this.state
+        var timestamp = parseInt((new Date()).valueOf() / 1000, 16)
+        if (address !== '' && typeMsg !== '') {
+            this.setState({ typeMsg: '' })
             Keyboard.dismiss()
-            messages.push([{_hex:timestamp},typeMsg,address,toAddress])
-            this.setState({messages:messages})
-            var messageId = messages.length -1
+            messages.push([{ _hex: timestamp }, typeMsg, address, toAddress])
+            this.setState({ messages: messages })
+            var messageId = messages.length - 1
             this.props.WalletMain.contract.sendMsg(toAddress, typeMsg, {
                 "gasLimit": 300000,
                 "gasPrice": ethers.utils.parseUnits('1.0', 'gwei')
-            }).then((tx)=>{
+            }).then((tx) => {
                 console.log('tx', tx)
             }).catch(err => {
                 console.log('sendMsgErr', err)
@@ -119,16 +120,10 @@ class Chat extends Component {
         const { navigate } = this.props.navigation
         return (
             <View style={{ position: 'relative', justifyContent: 'flex-end' }}>
-                <View style={styles.TopBar}>
-                    <TouchableOpacity
-                        onPress={() => { navigate('MainScreen') }}
-                        style={styles.left}>
-                        <Icon name="angle-left" size={14} color={'#666'} />
-                    </TouchableOpacity>
-                    <View style={styles.title}>
-                        <Text numberOfLines={1} style={styles.titleTxt}>{this.state.title}</Text>
-                    </View>
-                </View>
+                <Topbar
+                    onPress={() => { navigate('MainScreen') }}
+                    titleTxt={this.state.title}
+                />
                 <View style={styles.Middle}>
                     <View style={{ height: this.state.ViewHeight - 22, paddingTop: 90 }}>
                         <ScrollView
@@ -149,7 +144,7 @@ class Chat extends Component {
                     <View style={styles.Bottom}>
                         <TextInput
                             style={styles.Input}
-                            onChangeText={(typeMsg) => { this.setState({typeMsg:typeMsg}) }}
+                            onChangeText={(typeMsg) => { this.setState({ typeMsg: typeMsg }) }}
                             onFocus={() => { this.onFocus() }}
                             onBlur={() => { this.onBlur() }}
                             value={this.state.typeMsg}
@@ -179,36 +174,6 @@ class Chat extends Component {
 }
 
 const styles = StyleSheet.create({
-    TopBar: {
-        height: 45,
-        flexDirection: 'row',
-        backgroundColor: '#efefef',
-        width: '100%',
-        borderBottomWidth: 0.5,
-        borderBottomColor: '#ddd',
-        position: 'absolute',
-        top: 0,
-        zIndex: 1
-    },
-    left: {
-        height: 45,
-        width: 40,
-        position: 'absolute',
-        justifyContent: 'center',
-        alignItems: 'center',
-        zIndex: 1
-    },
-    title: {
-        height: 45,
-        width: '100%',
-    },
-    titleTxt: {
-        height: 45,
-        textAlign: 'center',
-        textAlignVertical: 'center',
-        paddingHorizontal: 40,
-        overflow: 'hidden'
-    },
     Middle: {
         backgroundColor: '#ededed',
     },

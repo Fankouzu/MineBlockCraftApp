@@ -105,6 +105,7 @@ export default {
     AppViewTitle:'Dapps',
     //Dapps
     EthereumDapp:'Ethereum',
+    Erc20:'Tokens',
     //TxList
     TxListTitle:'Transactions',
     Deploy:'Contract Creation',
@@ -135,4 +136,11 @@ export default {
     MsgListTitle:'Contacts',
     EmptyMsg:'No message',
     MsgLoading:'Loading...',
+    //Tokens
+    TokenName:'Token name',
+    TokenEmpty:'You have no tokens',
+    MyToken:'My Token',
+    //SendToken
+    SendToken:'Send Token',
+    TokenAmountError:'*Amount Error!'
 }

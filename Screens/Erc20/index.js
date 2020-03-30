@@ -1,27 +1,27 @@
 import { createAppContainer } from 'react-navigation'
 import { createStackNavigator } from 'react-navigation-stack'
-import Send from './Send'
-import Recive from './Recive'
-import QRCodeScan from '../QRCodeScan'
-import Ethereum from './Ethereum'
+import SendToken from './SendToken'
+import ReciveToken from './ReciveToken'
+import Token from './Token'
+import Erc20 from './Erc20'
 
 const AppNavigator = createStackNavigator(
     {
-        Ethereum: {
-            screen: Ethereum
+        Erc20: {
+            screen: Erc20
         },
-        Send: {
-            screen: Send
+        Token: {
+            screen: Token
         },
-        Recive: {
-            screen: Recive
+        SendToken: {
+            screen: SendToken
         },
-        QRCodeScan: {
-            screen: QRCodeScan
+        ReciveToken: {
+            screen: ReciveToken
         },
     },
     {
-        initialRouteName: 'Ethereum',
+        initialRouteName: 'Erc20',
         headerMode: 'none',
         headerTransitionPreset: 'fade-in-place',
         mode: 'card',
