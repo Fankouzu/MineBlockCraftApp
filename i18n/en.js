@@ -106,6 +106,19 @@ export default {
     //Dapps
     EthereumDapp:'Ethereum',
     Erc20:'Tokens',
+    Mint:'Mint Coin',
+    Ens:'ENS',
+    //MintCoin
+    MintErc20:'Mint Erc20 Coin',
+    TokenName:'Token name',
+    TokenSymbol:'Token symbol',
+    TokenSupply:'Totle Supply',
+    NamePlaceholder:'Enter full token name',
+    SymbolPlaceholder:'Enter token symbol',
+    SupplyPlaceholder:'Enter totle Supply',
+    DeploySuccess:'Mint complete',
+    DeployTxt:'Return to the erc20 token list to see the token you created',
+    Ok:'Ok',
     //TxList
     TxListTitle:'Transactions',
     Deploy:'Contract Creation',

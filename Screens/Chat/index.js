@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import { ethers } from 'ethers'
 import MyButton from '../Components/MyButton'
 import Topbar from '../Components/Topbar'
+import { ImageBackground } from 'react-native'
 import { I18n } from '../../i18n'
 import Jazzicon from '@novaviva/react-native-jazzicon'
 import Icon from 'react-native-vector-icons/Fontisto'
@@ -125,7 +126,10 @@ class Chat extends Component {
                     titleTxt={this.state.title}
                 />
                 <View style={styles.Middle}>
-                    <View style={{ height: this.state.ViewHeight - 22, paddingTop: 90 }}>
+                    <ImageBackground
+                        source={require('../../assets/blockchainBg.png')}
+                        imageStyle={{ resizeMode: 'repeat', opacity: 0.15}}
+                        style={{ height: this.state.ViewHeight - 22,width:'100%', paddingTop: 90 }}>
                         <ScrollView
                             contentContainerStyle={styles.ScrollView}
                             ref={(ref) => this.ScrollView = ref}
@@ -140,7 +144,7 @@ class Chat extends Component {
                                 />)
                             })}
                         </ScrollView>
-                    </View>
+                    </ImageBackground>
                     <View style={styles.Bottom}>
                         <TextInput
                             style={styles.Input}

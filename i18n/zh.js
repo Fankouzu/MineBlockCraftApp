@@ -106,6 +106,19 @@ export default {
   //Dapps
   EthereumDapp:'以太坊',
   Erc20:'代币',
+  Mint:'一键发币',
+  Ens:'ENS',
+  //MintCoin
+  MintErc20:'创建Erc20代币',
+  TokenName:'代币全称',
+  TokenSymbol:'代币缩写',
+  TokenSupply:'发行总量',
+  NamePlaceholder:'输入代币全称',
+  SymbolPlaceholder:'输入代币缩写',
+  SupplyPlaceholder:'输入发行总量',
+  DeploySuccess:'创建成功',
+  DeployTxt:'返回Erc20列表中查看你创建的代币',
+  Ok:'确定',
   //TxList
   TxListTitle:'交易记录',
   Deploy:'部署合约',

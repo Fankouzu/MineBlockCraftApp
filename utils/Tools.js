@@ -241,6 +241,21 @@ export async function sendTransaction(to, networkName, mnemonic, currentAccount,
     let tx = await wallet.sendTransaction(transaction)
     return tx
 }
+export async function Deploy(networkName, mnemonic, currentAccount,abi, bytecode, param) {
+    let infuraProvider = new ethers.providers.InfuraProvider(networkName)
+    let privateKey = mnemonicToPrivate(mnemonic, currentAccount)
+    let wallet = new ethers.Wallet(privateKey, infuraProvider)
+    let factory = new ethers.ContractFactory(abi, bytecode, wallet)
+    
+    try{
+        let contract = await factory.deploy(param.initialSupply,param.name,param.symbol,param.decimals)
+        let tx = await contract.deployed()
+        return tx
+    }catch (e) {
+        console.log("Deploy:", e)
+    }
+
+}
 export async function getBalance(address, networkName) {
     let infuraProvider = new ethers.providers.InfuraProvider(networkName)
     let balanceBN = await infuraProvider.getBalance(address)

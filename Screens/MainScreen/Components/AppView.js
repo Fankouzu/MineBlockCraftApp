@@ -59,6 +59,54 @@ function Appview(props) {
                         <Text style={styles.AppName}>{I18n.t('Erc20')}</Text>
                     </View>
                 </AwesomeButton>
+                <AwesomeButton
+                    backgroundActive='#fff'
+                    backgroundColor='#fff'
+                    backgroundDarker='#390'
+                    backgroundShadow='transparent'
+                    borderColor='#390'
+                    borderWidth={1}
+                    activeOpacity={0.5}
+                    borderRadius={10}
+                    raiseLevel={3}
+                    height={90}
+                    width={60}
+                    style={styles.AppCard}
+                    onPress={() => { navigate('MintCoin') }}
+                >
+                    <View style={{ alignItems: 'center' }}>
+                        <Image
+                            style={{ width: 40, height: 60 }}
+                            resizeMode='center'
+                            source={require('../../../assets/smartcontract.png')}
+                        />
+                        <Text style={styles.AppName}>{I18n.t('Mint')}</Text>
+                    </View>
+                </AwesomeButton>
+                <AwesomeButton
+                    backgroundActive='#fff'
+                    backgroundColor='#fff'
+                    backgroundDarker='#390'
+                    backgroundShadow='transparent'
+                    borderColor='#390'
+                    borderWidth={1}
+                    activeOpacity={0.5}
+                    borderRadius={10}
+                    raiseLevel={3}
+                    height={90}
+                    width={60}
+                    style={styles.AppCard}
+                    onPress={() => { navigate('MintCoin') }}
+                >
+                    <View style={{ alignItems: 'center' }}>
+                        <Image
+                            style={{ width: 40, height: 60 }}
+                            resizeMode='center'
+                            source={require('../../../assets/ens.png')}
+                        />
+                        <Text style={styles.AppName}>{I18n.t('Ens')}</Text>
+                    </View>
+                </AwesomeButton>
                 {/* {DappJson[networkId].dapps.map((item, key) => {
                     return (
                         <AwesomeButton
