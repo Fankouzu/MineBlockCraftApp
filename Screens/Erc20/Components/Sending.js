@@ -1,7 +1,6 @@
 import React from 'react'
 import { View, Text, StyleSheet } from 'react-native'
 import { connect } from 'react-redux'
-import * as actions from '../../../actions'
 import Title from '../../Components/Title'
 import LoadingDot from '../../Ethereum/Components/LoadingDot'
 import Jazzicon from '@novaviva/react-native-jazzicon'
@@ -37,7 +36,7 @@ class Sending extends React.Component {
                     top={10}
                     style={{ padding: 10, alignItems: 'center' }}>
                     <Title titleText={I18n.t('SendTitle')} style={styles.Title} />
-                    <View style={styles.divide}></View>
+                    <View style={styles.divide} />
 
                     <View style={styles.TxView}>
                         <View style={styles.jazzIcon}><Jazzicon size={30} address={this.props.TokenReducer.fromAddress} /></View>
@@ -65,7 +64,7 @@ const styles = StyleSheet.create({
         fontSize: 14,
         height: 36,
         textAlignVertical: 'center',
-        color: '#333'
+        color: '#333',
     },
     divide: {
         borderWidth: 0.35,
@@ -73,17 +72,17 @@ const styles = StyleSheet.create({
         borderRadius: 1,
         borderStyle: 'dashed',
         marginBottom: 10,
-        width: '100%'
+        width: '100%',
     },
     jazzIcon: {
         width: 50,
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
     },
     TxView: {
         flexDirection: 'row',
         justifyContent: 'center',
-        height: 100
+        height: 100,
     },
     msgView: {
         width: 200,
@@ -91,11 +90,11 @@ const styles = StyleSheet.create({
     msg: {
         flexDirection: 'row',
         justifyContent: 'space-between',
-        marginBottom: 10
+        marginBottom: 10,
     },
     msgTxt: {
-        color: '#333'
-    }
+        color: '#333',
+    },
 })
 const mapStateToProps = state => (state)
 

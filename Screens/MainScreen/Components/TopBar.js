@@ -1,5 +1,5 @@
 import React from 'react'
-import { Image, StyleSheet, View, TouchableOpacity } from 'react-native'
+import { StyleSheet, View, TouchableOpacity } from 'react-native'
 import {connect} from 'react-redux'
 import AwesomeButton from 'react-native-really-awesome-button'
 import MyButton from '../../Components/MyButton'
@@ -14,13 +14,13 @@ function TopBar(props) {
         <View style={styles.topView}>
             <View style={{ height: 30, width: global.screenWidth * 0.15, paddingLeft: 15 }}>
                 <AwesomeButton
-                    size='small'
-                    backgroundActive='#666'
-                    backgroundColor='#fff'
-                    backgroundDarker='#666'
-                    backgroundShadow='transparent'
-                    backgroundPlaceholder='#666'
-                    borderColor='#666'
+                    size="small"
+                    backgroundActive="#666"
+                    backgroundColor="#fff"
+                    backgroundDarker="#666"
+                    backgroundShadow="transparent"
+                    backgroundPlaceholder="#666"
+                    borderColor="#666"
                     borderWidth={0.5}
                     activeOpacity={0.5}
                     borderRadius={16}
@@ -39,11 +39,11 @@ function TopBar(props) {
                     raiseLevel={2}
                     borderRadius={16}
                     text={'🔗' + I18n.t(networks[props.WalletReducer.networkId].name)}
-                    backgroundColor='#fc0'
-                    backgroundDarker='#960'
-                    backgroundActive='#ff0'
-                    textColor='#333'
-                    borderColor='#960'
+                    backgroundColor="#fc0"
+                    backgroundDarker="#960"
+                    backgroundActive="#ff0"
+                    textColor="#333"
+                    borderColor="#960"
                     borderWidth={1}
                     textSize={12}
                     letterSpacing={0}
@@ -56,7 +56,7 @@ function TopBar(props) {
                         height: 30,
                         width: global.screenWidth * 0.15,
                         paddingRight: 15,
-                        alignItems: 'flex-end'
+                        alignItems: 'flex-end',
                     }}
                 >
                     <View style={styles.JazziconView}>
@@ -70,11 +70,10 @@ function TopBar(props) {
 
 const styles = StyleSheet.create({
     topView: {
-        flex: 1,
         flexDirection: 'row',
         paddingTop: 15,
         height: 50,
-        flex: 0
+        flex: 0,
     },
     JazziconView: {
         borderWidth: 0.5,
@@ -83,8 +82,8 @@ const styles = StyleSheet.create({
         width: 32,
         height: 32,
         padding: 1.5,
-        backgroundColor: '#fff'
-    }
+        backgroundColor: '#fff',
+    },
 })
 
 const mapStateToProps = state => (state)

@@ -12,40 +12,40 @@ const WalletReducer = (
     switch (action.type) {
         case Types.SET_CURRENT_ACCOUNT:
             return {
-                ...state, currentAccount: action.currentAccount
+                ...state, currentAccount: action.currentAccount,
             }
         case Types.SET_ACCOUNTS:
             return {
-                ...state, accounts: action.accounts
+                ...state, accounts: action.accounts,
             }
         case Types.SET_NETWORK_ID:
             return {
-                ...state, networkId: action.networkId
+                ...state, networkId: action.networkId,
             }
         case Types.SET_ENCRYPT:
             return {
-                ...state, encrypt: action.encrypt
+                ...state, encrypt: action.encrypt,
             }
         case Types.SET_WALLET:
             return {
                 accounts: action.wallet.accounts,
                 currentAccount: action.wallet.currentAccount,
                 networkId: action.wallet.networkId,
-                encrypt: action.wallet.encrypt
+                encrypt: action.wallet.encrypt,
             }
         case Types.SELECT_ACCOUNT:
             return {
                 ...state,
                 accounts: action.accounts,
-                currentAccount: action.currentAccount
+                currentAccount: action.currentAccount,
             }
         case Types.SET_MNEMONIC:
             return {
-                ...state, mnemonic: action.mnemonic
+                ...state, mnemonic: action.mnemonic,
             }
         case Types.SET_GESTURE:
             return {
-                ...state, gesture: action.gesture
+                ...state, gesture: action.gesture,
             }
         default:
             return state

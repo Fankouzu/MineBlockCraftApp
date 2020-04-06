@@ -10,7 +10,7 @@ export default class App extends React.Component {
   render() {
     return (
       <Provider store={store}>
-        <View style={[styles.container]}>
+        <View style={styles.container}>
           {global.ios && <StatusBar barStyle="default" />}
           <MainNav />
         </View>
@@ -24,4 +24,4 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
   },
-});
+})

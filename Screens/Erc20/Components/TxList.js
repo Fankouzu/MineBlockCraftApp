@@ -12,13 +12,13 @@ const styles = StyleSheet.create({
         borderTopWidth: 0.5,
         borderTopColor: '#ccc',
         paddingVertical: 5,
-        paddingHorizontal: 10
+        paddingHorizontal: 10,
     },
     title: {
         color: '#666',
         marginLeft: 5,
         height: 30,
-        textAlignVertical: 'center'
+        textAlignVertical: 'center',
     },
     topLineText: {
         fontSize: 8,
@@ -28,12 +28,12 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         width: '100%',
         marginBottom: 5,
-        justifyContent: 'space-between'
+        justifyContent: 'space-between',
     },
     jazzIcon: {
         width: 30,
         justifyContent: 'center',
-        marginRight: 10
+        marginRight: 10,
     },
     TypeView: {
 
@@ -44,7 +44,7 @@ const styles = StyleSheet.create({
         color: '#333',
     },
     EthView: {
-        justifyContent: 'center'
+        justifyContent: 'center',
     },
     Eth: {
         color: '#333',
@@ -53,8 +53,8 @@ const styles = StyleSheet.create({
     TxEmpty: {
         textAlign: 'center',
         color: '#999',
-        fontSize: 16
-    }
+        fontSize: 16,
+    },
 })
 function TxList(props) {
 
@@ -73,7 +73,7 @@ function TxList(props) {
             screenWidth={global.screenWidth}
             margin={0.05}
             top={10}
-            style={{ paddingBottom: 10, paddingTop: 0, paddingHorizontal: 0, marginBottom: 50, }}
+            style={{ paddingBottom: 10, paddingTop: 0, paddingHorizontal: 0, marginBottom: 50 }}
         >
             <View style={[styles.listItem, { borderTopWidth: 0 }]}>
                 <Text style={styles.title}>
@@ -109,19 +109,19 @@ function TxList(props) {
                                 <View style={styles.Line}>
                                     <View style={{ flexDirection: 'row' }}>
                                         <View style={styles.jazzIcon}>
-                                            <Jazzicon size={30} address={ 
+                                            <Jazzicon size={30} address={
                                                 item.from === '0x0000000000000000000000000000000000000000' ?
                                                 item.contractAddress :
-                                                    item.from === accounts[currentAccount].address ? 
+                                                    item.from === accounts[currentAccount].address ?
                                                     item.to :
-                                                    item.from 
+                                                    item.from
                                                 } />
                                         </View>
                                         <View style={styles.TypeView}>
                                             <Text style={styles.Type}>
                                                 { item.from === '0x0000000000000000000000000000000000000000' ?
                                                     I18n.t('Deploy') :
-                                                    item.from === accounts[currentAccount].address ? 
+                                                    item.from === accounts[currentAccount].address ?
                                                     I18n.t('SendTokens') :
                                                     I18n.t('TxRecive')
                                                 }
@@ -136,7 +136,7 @@ function TxList(props) {
                                 </View>
                             </View>
                         )
-                    })) :(<View/>)
+                    })) : (<View/>)
                     }
         </MyCard>
     )

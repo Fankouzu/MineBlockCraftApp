@@ -12,7 +12,7 @@ export default class MyTicket extends React.Component {
             begin: false,
             children: null,
             step: 0,
-            rollTo:0
+            rollTo:0,
         }
     }
     rollUp = (rollTo) => {
@@ -28,18 +28,18 @@ export default class MyTicket extends React.Component {
             toValue: 0,
             duration: 1000,
             easing: Easing.bounce,
-            delay: delay
+            delay: delay,
         }).start(() => {
         })
     }
     pageOut = () => {
         Animated.timing(this.state.scrollTop, {
             toValue: this.state.viewHeight * -1,
-            duration: 300
+            duration: 300,
         }).start(() => {
             this.setState({
                 children: this.props.children,
-                step: this.props.step
+                step: this.props.step,
             })
             this.pageIn(0)
         })
@@ -59,14 +59,14 @@ export default class MyTicket extends React.Component {
             Animated.timing(this.state.scrollTop, {
                 toValue: 0,
                 duration: 500,
-                easing: Easing.elastic(1)
+                easing: Easing.elastic(1),
             }).start(() => {
             })
-        }
+        },
     })
     componentDidUpdate(nextProps, nextState) {
         if (this.props.begin === 1) {
-            this.pageIn(500) 
+            this.pageIn(500)
             return true
         }
         if (this.props.step !== this.state.step) {
@@ -85,9 +85,9 @@ export default class MyTicket extends React.Component {
     componentDidMount() {
         this.setState({
             children: this.props.children,
-            step: this.props.step
+            step: this.props.step,
         })
-        //this.pageIn(1000) 
+        //this.pageIn(1000)
     }
     componentWillUnmount = () => {
         this.setState = (state, callback) => {
@@ -122,8 +122,7 @@ export default class MyTicket extends React.Component {
                             height: 6,
                             flex: 0,
                         }}
-                    >
-                    </View>
+                     />
                 </View>
                 <View
                     style={{
@@ -131,7 +130,7 @@ export default class MyTicket extends React.Component {
                         marginTop: -10,
                         paddingBottom: 10,
                         position: 'relative',
-                        height: this.state.viewHeight
+                        height: this.state.viewHeight,
                     }}>
                     <Animated.View
                         {...this._panResponder.panHandlers}
@@ -158,7 +157,7 @@ MyTicket.defaultProps = {
     top: 0,
     margin: 0.1,
     children: null,
-    padding: 15
+    padding: 15,
 }
 MyTicket.propTypes = {
     screenWidth: PropTypes.number.isRequired,
@@ -166,7 +165,7 @@ MyTicket.propTypes = {
     top: PropTypes.number,
     padding: PropTypes.number,
     height: PropTypes.number,
-    children: PropTypes.node
+    children: PropTypes.node,
 }
 const styles = StyleSheet.create({
     MyTicket: {
@@ -184,9 +183,9 @@ const styles = StyleSheet.create({
         shadowRadius: 10,
         shadowOffset: {
             height: 10,
-            width: 10
+            width: 10,
         },
         flex: 0,
-        paddingTop: 60
-    }
+        paddingTop: 60,
+    },
 })

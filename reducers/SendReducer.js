@@ -18,51 +18,51 @@ const SendReducer = (
     switch (action.type) {
         case Types.SET_FROM_ADDRESS:
             return {
-                ...state, fromAddress: action.fromAddress
+                ...state, fromAddress: action.fromAddress,
             }
         case Types.SET_TO_ADDRESS:
             return {
-                ...state, toAddress: action.toAddress
+                ...state, toAddress: action.toAddress,
             }
         case Types.SET_NETWORK_ID:
             return {
-                ...state, networkId: action.networkId
+                ...state, networkId: action.networkId,
             }
         case Types.SET_AMOUNT:
             return {
-                ...state, amount: action.amount
+                ...state, amount: action.amount,
             }
         case Types.SET_BALANCE:
             return {
-                ...state, balance: action.balance
+                ...state, balance: action.balance,
             }
         case Types.SET_ETH_PRICE:
             return {
-                ...state, ethPrice: action.ethPrice
+                ...state, ethPrice: action.ethPrice,
             }
         case Types.SET_NOTE:
             return {
-                ...state, note: action.note
+                ...state, note: action.note,
             }
         case Types.SET_GAS_PRICE:
             return {
-                ...state, gasPrice: action.gasPrice
+                ...state, gasPrice: action.gasPrice,
             }
         case Types.SET_MY_GAS_PRICE:
             return {
-                ...state, myGasPrice: action.myGasPrice
+                ...state, myGasPrice: action.myGasPrice,
             }
         case Types.SET_GAS_LIMIT:
             return {
-                ...state, gasLimit: action.gasLimit
+                ...state, gasLimit: action.gasLimit,
             }
         case Types.SET_TX:
             return {
-                ...state, tx: action.tx
+                ...state, tx: action.tx,
             }
         case Types.SET_RECEIPT:
             return {
-                ...state, receipt: action.receipt
+                ...state, receipt: action.receipt,
             }
         case Types.CLEAR_SEND:
             return {

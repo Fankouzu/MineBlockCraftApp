@@ -1,17 +1,17 @@
 import React from 'react'
 import { Text, StyleSheet, View } from 'react-native'
-import {connect} from 'react-redux'
+import { connect } from 'react-redux'
 import * as actions from '../../../actions'
 import { networks } from '../../../utils/networks'
 import { gasPrice } from '../../../utils/Tools'
 import { Switch } from '@rn-components-kit/switch'
-import Slider from "react-native-slider"
+import Slider from 'react-native-slider'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import { I18n } from '../../../i18n'
 
 function GasView(props) {
 
-    const {myGasPrice,ethPrice,note,gasLimit} = props.SendReducer
+    const { myGasPrice, ethPrice, note, gasLimit } = props.SendReducer
 
     const [myGasfeeJson, setMyGasfeeJson] = React.useState({
         average: 0,
@@ -22,7 +22,7 @@ function GasView(props) {
         gasPrice(networks[props.WalletReducer.networkId].name).then(function (res) {
             setMyGasfeeJson(res)
             if (myGasPrice === 0) {
-                props.setMyGasPrice(res.average/10)
+                props.setMyGasPrice(res.average / 10)
             }
         })
     }, [])
@@ -36,7 +36,7 @@ function GasView(props) {
             setSliderHeight(0)
         }
     }
-    
+
     const [gasusd, setGasusd] = React.useState(0)
     React.useEffect(() => {
         var gasusd = Math.round(Math.round(myGasPrice * 21) / 1000000 * ethPrice * 1000) / 1000
@@ -48,12 +48,12 @@ function GasView(props) {
         var realLength = 0, len = str.length, charCode = -1
         for (var i = 0; i < len; i++) {
             charCode = str.charCodeAt(i)
-            if (charCode >= 0 && charCode <= 128) realLength += 1
-            else realLength += 2
+            if (charCode >= 0 && charCode <= 128) { realLength += 1 }
+            else { realLength += 2 }
         }
         return realLength
     }
-    
+
     React.useEffect(() => {
         let strlen = GetLength(note)
         props.setGasLimit(parseInt(gasLimit) + strlen * 24)
@@ -64,9 +64,9 @@ function GasView(props) {
                 <View style={styles.actBtnView}>
                     <View style={styles.actBtn}>
                         <Icon
-                            name='gas-station'
+                            name="gas-station"
                             size={18}
-                            color='#060'
+                            color="#060"
                             style={{ marginRight: 5, marginVertical: 5 }}
                         />
                         <Text style={styles.actTxt}>{I18n.t('GasfeeCap')}</Text>
@@ -89,9 +89,9 @@ function GasView(props) {
             <View style={{ height: sliderHeight }}>
                 <View style={styles.sliderView}>
                     <Icon
-                        name='tortoise'
+                        name="tortoise"
                         size={18}
-                        color='#999'
+                        color="#999"
                         style={{ marginRight: 5 }}
                     />
                     <Slider
@@ -99,16 +99,16 @@ function GasView(props) {
                         maximumValue={myGasfeeJson.fast}
                         value={myGasfeeJson.average}
                         step={0.1}
-                        minimumTrackTintColor='#390'
+                        minimumTrackTintColor="#390"
                         trackStyle={{ backgroundColor: '#ddd' }}
                         thumbStyle={styles.sliderThumbStyle}
                         style={styles.slider}
-                        onValueChange={(myGasPrice)=>{props.setMyGasPrice(Math.round(myGasPrice * 100) / 1000)}}
+                        onValueChange={(myGasPrice) => { props.setMyGasPrice(Math.round(myGasPrice * 100) / 1000) }}
                     />
                     <Icon
-                        name='rabbit'
+                        name="rabbit"
                         size={18}
-                        color='#999'
+                        color="#999"
                         style={{ marginLeft: 5 }}
                     />
                 </View>
@@ -137,7 +137,7 @@ const mapDispatchToProps = dispatch => ({
     setMyGasPrice: (value) => dispatch(actions.setMyGasPrice(value)),
     setGasLimit: (value) => dispatch(actions.setGasLimit(value)),
 })
-export default connect(mapStateToProps,mapDispatchToProps)(GasView)
+export default connect(mapStateToProps, mapDispatchToProps)(GasView)
 
 const styles = StyleSheet.create({
     top: {
@@ -161,7 +161,7 @@ const styles = StyleSheet.create({
     gasRowView: {
         flexDirection: 'row',
         justifyContent: 'space-between',
-        backgroundColor: '#fff'
+        backgroundColor: '#fff',
     },
     gasPriceView: {
         borderColor: '#999',
@@ -171,7 +171,7 @@ const styles = StyleSheet.create({
         paddingVertical: 5,
         marginBottom: 15,
         width: '45%',
-        height: 50
+        height: 50,
     },
     myGasPrice: {
         flexDirection: 'row',
@@ -180,13 +180,13 @@ const styles = StyleSheet.create({
     myGasfee: {
         fontSize: 20,
         color: '#333',
-        lineHeight: 26
+        lineHeight: 26,
     },
     ethprice: {
         fontSize: 12,
         color: '#666',
         textAlign: 'right',
-        lineHeight: 14
+        lineHeight: 14,
     },
     unit: {
         fontSize: 12,
@@ -206,7 +206,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#eee',
         marginBottom: 10,
         padding: 5,
-        height: 30
+        height: 30,
     },
 
     option: {
@@ -217,12 +217,12 @@ const styles = StyleSheet.create({
         color: '#333',
         textAlign: 'right',
         textAlignVertical: 'center',
-        marginRight: 5
+        marginRight: 5,
     },
     slider: {
         flex: 1,
         height: 22,
-        overflow: 'hidden'
+        overflow: 'hidden',
 
     },
     sliderThumbStyle: {
@@ -231,6 +231,6 @@ const styles = StyleSheet.create({
         shadowOffset: { width: 0, height: 1 },
         shadowOpacity: 0.5,
         shadowRadius: 1,
-        elevation: 2
-    }
+        elevation: 2,
+    },
 })

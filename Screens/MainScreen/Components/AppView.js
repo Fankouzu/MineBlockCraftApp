@@ -2,23 +2,20 @@ import React from 'react'
 import { StyleSheet, View, Image, Text } from 'react-native'
 import { connect } from 'react-redux'
 import AwesomeButton from 'react-native-really-awesome-button'
-import { DappJson } from '../../../Dapps'
 import { I18n } from '../../../i18n'
 
 function Appview(props) {
-    const { networkId } = props.WalletReducer
-
     const { navigate } = props.navigation
     return (
         <View style={styles.AppView}>
             <Text style={styles.AppViewTitle}>{I18n.t('AppViewTitle')}</Text>
             <View style={{ flexDirection: 'row' }}>
                 <AwesomeButton
-                    backgroundActive='#fff'
-                    backgroundColor='#fff'
-                    backgroundDarker='#390'
-                    backgroundShadow='transparent'
-                    borderColor='#390'
+                    backgroundActive="#fff"
+                    backgroundColor="#fff"
+                    backgroundDarker="#390"
+                    backgroundShadow="transparent"
+                    borderColor="#390"
                     borderWidth={1}
                     activeOpacity={0.5}
                     borderRadius={10}
@@ -37,11 +34,11 @@ function Appview(props) {
                     </View>
                 </AwesomeButton>
                 <AwesomeButton
-                    backgroundActive='#fff'
-                    backgroundColor='#fff'
-                    backgroundDarker='#390'
-                    backgroundShadow='transparent'
-                    borderColor='#390'
+                    backgroundActive="#fff"
+                    backgroundColor="#fff"
+                    backgroundDarker="#390"
+                    backgroundShadow="transparent"
+                    borderColor="#390"
                     borderWidth={1}
                     activeOpacity={0.5}
                     borderRadius={10}
@@ -60,11 +57,11 @@ function Appview(props) {
                     </View>
                 </AwesomeButton>
                 <AwesomeButton
-                    backgroundActive='#fff'
-                    backgroundColor='#fff'
-                    backgroundDarker='#390'
-                    backgroundShadow='transparent'
-                    borderColor='#390'
+                    backgroundActive="#fff"
+                    backgroundColor="#fff"
+                    backgroundDarker="#390"
+                    backgroundShadow="transparent"
+                    borderColor="#390"
                     borderWidth={1}
                     activeOpacity={0.5}
                     borderRadius={10}
@@ -77,18 +74,18 @@ function Appview(props) {
                     <View style={{ alignItems: 'center' }}>
                         <Image
                             style={{ width: 40, height: 60 }}
-                            resizeMode='center'
+                            resizeMode="center"
                             source={require('../../../assets/smartcontract.png')}
                         />
                         <Text style={styles.AppName}>{I18n.t('Mint')}</Text>
                     </View>
                 </AwesomeButton>
                 <AwesomeButton
-                    backgroundActive='#fff'
-                    backgroundColor='#fff'
-                    backgroundDarker='#390'
-                    backgroundShadow='transparent'
-                    borderColor='#390'
+                    backgroundActive="#fff"
+                    backgroundColor="#fff"
+                    backgroundDarker="#390"
+                    backgroundShadow="transparent"
+                    borderColor="#390"
                     borderWidth={1}
                     activeOpacity={0.5}
                     borderRadius={10}
@@ -101,7 +98,7 @@ function Appview(props) {
                     <View style={{ alignItems: 'center' }}>
                         <Image
                             style={{ width: 40, height: 60 }}
-                            resizeMode='center'
+                            resizeMode="center"
                             source={require('../../../assets/ens.png')}
                         />
                         <Text style={styles.AppName}>{I18n.t('Ens')}</Text>
@@ -143,7 +140,7 @@ const styles = StyleSheet.create({
     AppViewTitle: {
         color: '#666',
         marginBottom: 10,
-        paddingLeft: 5
+        paddingLeft: 5,
     },
     AppView: {
         marginVertical: 10,
@@ -152,13 +149,13 @@ const styles = StyleSheet.create({
         width: '100%',
     },
     AppCard: {
-        marginRight:10
+        marginRight:10,
     },
     AppName: {
         fontSize: 10,
         marginTop: 2,
-        color: '#666'
-    }
+        color: '#666',
+    },
 })
 const mapStateToProps = state => (state)
 

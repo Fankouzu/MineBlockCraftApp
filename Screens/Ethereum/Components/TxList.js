@@ -14,13 +14,13 @@ const styles = StyleSheet.create({
         borderTopWidth: 0.5,
         borderTopColor: '#ccc',
         paddingVertical: 5,
-        paddingHorizontal: 10
+        paddingHorizontal: 10,
     },
     title: {
         color: '#666',
         marginLeft: 5,
         height: 30,
-        textAlignVertical: 'center'
+        textAlignVertical: 'center',
     },
     topLineText: {
         fontSize: 8,
@@ -30,12 +30,12 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         width: '100%',
         marginBottom: 5,
-        justifyContent: 'space-between'
+        justifyContent: 'space-between',
     },
     jazzIcon: {
         width: 30,
         justifyContent: 'center',
-        marginRight: 10
+        marginRight: 10,
     },
     TypeView: {
 
@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
     Type: {
         fontSize: 12,
         color: '#333',
-        marginBottom: 5
+        marginBottom: 5,
     },
     Success: {
         fontSize: 8,
@@ -54,7 +54,7 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         textAlignVertical: 'center',
         borderRadius: 3,
-        letterSpacing: 2
+        letterSpacing: 2,
     },
     Fail: {
         fontSize: 8,
@@ -65,10 +65,10 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         textAlignVertical: 'center',
         borderRadius: 3,
-        letterSpacing: 2
+        letterSpacing: 2,
     },
     EthView: {
-        justifyContent: 'center'
+        justifyContent: 'center',
     },
     Eth: {
         color: '#333',
@@ -77,8 +77,8 @@ const styles = StyleSheet.create({
     TxEmpty: {
         textAlign: 'center',
         color: '#999',
-        fontSize: 16
-    }
+        fontSize: 16,
+    },
 })
 function TxList(props) {
 
@@ -97,7 +97,7 @@ function TxList(props) {
             screenWidth={global.screenWidth}
             margin={0.05}
             top={10}
-            style={{ paddingBottom: 10, paddingTop: 0, paddingHorizontal: 0, marginBottom: 50, }}
+            style={{ paddingBottom: 10, paddingTop: 0, paddingHorizontal: 0, marginBottom: 50 }}
         >
             <View style={[styles.listItem, { borderTopWidth: 0 }]}>
                 <Text style={styles.title}>
@@ -156,7 +156,7 @@ function TxList(props) {
                                 </View>
                             </View>
                         )
-                    })) :(<View/>)
+                    })) : (<View/>)
                     }
         </MyCard>
     )

@@ -3,7 +3,7 @@ import {
     StyleSheet,
     View,
     Keyboard,
-    Animated
+    Animated,
 } from 'react-native'
 import { connect } from 'react-redux'
 import * as actions from '../../actions'
@@ -14,7 +14,7 @@ import MyPasswordInput from '../Components/MyPasswordInput'
 import Title from '../Components/Title'
 import AlertText from '../Components/AlertText'
 import { checkPasswordLevel } from '../../utils/Tools'
-import Modal from "react-native-modal"
+import Modal from 'react-native-modal'
 import { aesEncrypt, sha1 } from '../../utils/Aes'
 import { I18n } from '../../i18n'
 
@@ -24,8 +24,8 @@ const styles = StyleSheet.create({
         backgroundColor: 'white',
         borderRadius: 10,
         alignItems: 'center',
-        paddingTop: 10
-    }
+        paddingTop: 10,
+    },
 })
 
 var alertText = [I18n.t('PasswordAlertTxt1'), I18n.t('PasswordAlertTxt2')]
@@ -40,7 +40,7 @@ class Password extends React.Component {
             passwordConfirm: '',
             alertText: alertText,
             buttonDisable: false,
-            isModalVisible: false
+            isModalVisible: false,
         }
     }
     componentDidMount() {
@@ -57,7 +57,7 @@ class Password extends React.Component {
     _keyboardWillShow(e) {
         let keyboardHeight = e.endCoordinates.height
         this.setState({
-            keyBoardHeight: keyboardHeight
+            keyBoardHeight: keyboardHeight,
         })
         this.handleKeybordMargin('up')
     }
@@ -65,7 +65,7 @@ class Password extends React.Component {
     _keyboardWillHide(e) {
         let keyboardHeight = e.endCoordinates.height
         this.setState({
-            keyBoardHeight: keyboardHeight
+            keyBoardHeight: keyboardHeight,
         })
         this.handleKeybordMargin('down')
     }
@@ -78,7 +78,7 @@ class Password extends React.Component {
     handleKeybordMargin = (action) => {
         Animated.timing(this.state.top, {
             toValue: action === 'up' ? -50 : 0,
-            duration: 200
+            duration: 200,
         }).start()
     }
     shake = () => {
@@ -86,26 +86,26 @@ class Password extends React.Component {
         Animated.sequence([
             Animated.timing(this.state.shakeLeft, {
                 toValue: global.screenWidth * 0.02,
-                duration: duration
+                duration: duration,
             }),
             Animated.timing(this.state.shakeLeft, {
                 toValue: global.screenWidth * 0.08,
-                duration: duration
+                duration: duration,
             }),
             Animated.timing(this.state.shakeLeft, {
                 toValue: global.screenWidth * 0.03,
-                duration: duration
+                duration: duration,
             }),
             Animated.timing(this.state.shakeLeft, {
                 toValue: global.screenWidth * 0.05,
-                duration: duration
-            })
+                duration: duration,
+            }),
         ]).start(() => {
             setTimeout(() => {
                 this.setState({
                     borderColor: '#999',
                     alertText: alertText,
-                    buttonDisable: false
+                    buttonDisable: false,
                 })
             }, 3000)
         })
@@ -119,7 +119,7 @@ class Password extends React.Component {
             this.setState({
                 borderColor: '#f30',
                 alertText: [I18n.t('PasswordAlertTxt3')],
-                buttonDisable: true
+                buttonDisable: true,
             })
         } else {
             if (passwordTest < passwordLevel) {
@@ -127,27 +127,27 @@ class Password extends React.Component {
                 this.setState({
                     borderColor: '#f30',
                     alertText: [I18n.t('PasswordAlertTxt4')],
-                    buttonDisable: true
+                    buttonDisable: true,
                 })
             } else {
                 this.Wallet()
                 this.setState({
                     borderColor: '#999',
                     alertText: alertText,
-                    buttonDisable: false
+                    buttonDisable: false,
                 })
             }
         }
     }
     Wallet = () => {
-        const encrypt = aesEncrypt(this.props.LoginReducer.useMnemonic, sha1(this.state.password+'salt'))
+        const encrypt = aesEncrypt(this.props.LoginReducer.useMnemonic, sha1(this.state.password + 'salt'))
         global.storage.save({
             key: 'wallet',
             data: {
                 'encrypt': encrypt,
                 'accounts': [{address:'',balance:0}],
                 'currentAccount': 0,
-                'networkId': 0
+                'networkId': 0,
              },
             expires: null,
         })
@@ -164,7 +164,7 @@ class Password extends React.Component {
                 />
                 <Animated.View style={{
                     marginLeft: this.state.shakeLeft,
-                    marginTop: this.state.top
+                    marginTop: this.state.top,
                 }}>
                     <MyCard
                         screenWidth={global.screenWidth * 0.9}
@@ -177,28 +177,28 @@ class Password extends React.Component {
                             handleTypePassword={(password) => this.handleTypePassword(password)}
                             handleKeybordMargin={() => { }}
                             borderColor={this.state.borderColor}
-                            borderColorActive='#390'
+                            borderColorActive="#390"
                             placeholder={I18n.t('InputPassword')}
                         />
                         <MyPasswordInput
                             handleTypePassword={(password) => this.handleTypePasswordConfirm(password)}
                             handleKeybordMargin={() => { }}
                             borderColor={this.state.borderColor}
-                            borderColorActive='#390'
+                            borderColorActive="#390"
                             placeholder={I18n.t('ConfirmPassword')}
                         />
                         <AlertText
                             alertText={this.state.alertText}
-                            textAlign='left'
+                            textAlign="left"
                         />
                         <MyButton
                             screenWidth={global.screenWidth * 0.9 - 20}
                             text={I18n.t('PasswordSubmit')}
                             height={50}
-                            backgroundColor='#6f0'
-                            backgroundDarker='#390'
-                            textColor='#000'
-                            borderColor='#390'
+                            backgroundColor="#6f0"
+                            backgroundDarker="#390"
+                            textColor="#000"
+                            borderColor="#390"
                             borderWidth={1}
                             disabled={this.state.buttonDisable}
                             onPress={() => { this.handleSubmit() }}
@@ -210,12 +210,12 @@ class Password extends React.Component {
                         <Title titleText={I18n.t('PasswordSuccess')} subText={I18n.t('Login')} />
                         <MyButton
                             screenWidth={global.screenWidth * 0.9 - 20}
-                            text='OK'
+                            text="OK"
                             height={50}
-                            backgroundColor='#6f0'
-                            backgroundDarker='#390'
-                            textColor='#000'
-                            borderColor='#390'
+                            backgroundColor="#6f0"
+                            backgroundDarker="#390"
+                            textColor="#000"
+                            borderColor="#390"
                             borderWidth={1}
                             onPress={() => navigate('WelcomeNav', { page: 1 })}
                         />

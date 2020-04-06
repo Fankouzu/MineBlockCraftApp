@@ -3,18 +3,18 @@ import 'ethers/dist/shims.js'
 import { ethers } from 'ethers'
 import bip39 from 'react-native-bip39'
 const HDWallet = require('ethereum-hdwallet')
-const isBuffer = require('is-buffer')
-ethers.errors.setLogLevel("error")
+//const isBuffer = require('is-buffer')
+ethers.errors.setLogLevel('error')
 
 const etherscanApi = 'MIQDQDRUD5XENBPYQ8HAB3GJP2Z6T8ZZ1J'
 export function mnemonicToAddress(mnemonic, n) {
     var seed = bip39.mnemonicToSeed(mnemonic.trim())
     const hdwallet = HDWallet.fromSeed(seed)
-    return `0x${hdwallet.derive(`m/44'/60'/0'/0/` + n).getAddress().toString('hex')}`
+    return `0x${hdwallet.derive('m/44\'/60\'/0\'/0/' + n).getAddress().toString('hex')}`
 }
 export function mnemonicToPrivate(mnemonic, n) {
     const hdwallet = HDWallet.fromMnemonic(mnemonic)
-    return hdwallet.derive(`m/44'/60'/0'/0/` + n).getPrivateKey().toString('hex')
+    return hdwallet.derive('m/44\'/60\'/0\'/0/' + n).getPrivateKey().toString('hex')
 }
 export function jsNumberForAddress(address) {
     const addr = address.slice(2, 10)
@@ -23,7 +23,7 @@ export function jsNumberForAddress(address) {
 }
 
 export function lngDetector(word) {
-    var regex = new RegExp("^([a-z]{0,200})$")
+    var regex = new RegExp('^([a-z]{0,200})$')
     return regex.test(word.replace(/ /g, ''))
 }
 
@@ -65,14 +65,14 @@ export function randMnemonic(mnemonic) {
 }
 export function validatePasswordMnemonic(password, encrypt) {
     if (!password || !encrypt) {
-        console.log("encrypt || password Error!")
+        console.log('encrypt || password Error!')
         return false
     } else {
         let mnemonic = aesDecrypt(encrypt, password)
         console.log('mnemonic:' + mnemonic)
         var bool = validateMnemonic(mnemonic)
         if (!bool) {
-            console.log("Mnemonic Error!")
+            console.log('Mnemonic Error!')
             return false
         } else {
             return mnemonic
@@ -85,7 +85,7 @@ export function getAccounts(mnemonic) {
     for (let i = 0; i < 10; i++) {
         accounts[i] = {
             address: mnemonicToAddress(mnemonic, i),
-            balance: 0
+            balance: 0,
         }
     }
     return accounts
@@ -119,7 +119,7 @@ export async function getTxList(networkName, address) {
                         txlist[i].icon = txlist[i].to
                     }
                 }
-                txlist[i].value = Math.round(txlist[i].value / 100000000000000) / 10000 + `ETH`
+                txlist[i].value = Math.round(txlist[i].value / 100000000000000) / 10000 + 'ETH'
                 txlist[i].gasFee = Math.round((txlist[i].gasUsed * txlist[i].gasPrice / 1000000000000000000) * 100000) / 100000
             }
             return { error: 1, result: txlist }
@@ -127,7 +127,7 @@ export async function getTxList(networkName, address) {
             return { error: 0 }
         }
     } catch (e) {
-        console.log("TCL: getTxList -> e", e)
+        console.log('TCL: getTxList -> e', e)
         if (e === 'No transactions found') {
             return { error: 0 }
         } else {
@@ -137,7 +137,7 @@ export async function getTxList(networkName, address) {
 }
 function inArray(search, array) {
     for (var i in array) {
-        if (array[i] == search) {
+        if (array[i] === search) {
             return true;
         }
     }
@@ -166,7 +166,7 @@ export async function getTokens(networkName, address) {
             return { error: 0 }
         }
     } catch (e) {
-        console.log("TCL: getTokens -> e", e)
+        console.log('TCL: getTokens -> e', e)
         if (e === 'No transactions found') {
             return { error: 0 }
         } else {
@@ -189,7 +189,7 @@ export async function getTokenTx(networkName, address, contractAddress) {
             return { error: 0 }
         }
     } catch (e) {
-        console.log("TCL: getTokens -> e", e)
+        console.log('TCL: getTokens -> e', e)
         if (e === 'No transactions found') {
             return { error: 0 }
         } else {
@@ -197,7 +197,7 @@ export async function getTokenTx(networkName, address, contractAddress) {
         }
     }
 }
-const gasLimit = 21000
+//const gasLimit = 21000
 export function gasPrice(networkName) {
     return new Promise((resolve, reject) => {
         fetch('https://ethgasstation.info/json/ethgasAPI.json')
@@ -236,7 +236,7 @@ export async function sendTransaction(to, networkName, mnemonic, currentAccount,
         to: to,
         value: _value,
         data: data,
-        chainId: ethers.utils.getNetwork(networkName).chainId
+        chainId: ethers.utils.getNetwork(networkName).chainId,
     }
     let tx = await wallet.sendTransaction(transaction)
     return tx
@@ -246,13 +246,13 @@ export async function Deploy(networkName, mnemonic, currentAccount,abi, bytecode
     let privateKey = mnemonicToPrivate(mnemonic, currentAccount)
     let wallet = new ethers.Wallet(privateKey, infuraProvider)
     let factory = new ethers.ContractFactory(abi, bytecode, wallet)
-    
-    try{
+
+    try {
         let contract = await factory.deploy(param.initialSupply,param.name,param.symbol,param.decimals)
         let tx = await contract.deployed()
         return tx
-    }catch (e) {
-        console.log("Deploy:", e)
+    } catch (e) {
+        console.log('Deploy:', e)
     }
 
 }

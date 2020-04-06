@@ -10,7 +10,7 @@ export default function Copyright() {
             position: 'absolute',
             width: global.screenWidth,
             bottom: 0,
-            elevation:0
+            elevation:0,
         }}>
             <TouchableOpacity onPress={() => {
                 global.storage.remove({
@@ -22,7 +22,7 @@ export default function Copyright() {
                     fontSize: 10,
                     textShadowOffset: { width: 1, height: 1 },
                     textShadowColor: '#ddd',
-                    textShadowRadius: 1
+                    textShadowRadius: 1,
                 }}>
                     {'© Copyright @Fankouzu'} {new Date().getFullYear()}{'.'}
                 </Text>

@@ -5,7 +5,7 @@ import {
     TouchableOpacity,
     Text,
     Animated,
-    Keyboard
+    Keyboard,
 } from 'react-native'
 import { connect } from 'react-redux'
 import * as actions from '../../actions'
@@ -27,8 +27,8 @@ const styles = StyleSheet.create({
         padding: 5,
     },
     bottomLink: {
-        color: '#390'
-    }
+        color: '#390',
+    },
 })
 class OpenWallet extends React.Component {
     constructor(props) {
@@ -40,7 +40,7 @@ class OpenWallet extends React.Component {
             shakeLeft: new Animated.Value(global.screenWidth * 0.05),
             alertText: [],
             borderColor: '#999',
-            buttonDisable: false
+            buttonDisable: false,
         }
     }
     componentDidMount() {
@@ -62,7 +62,7 @@ class OpenWallet extends React.Component {
     handleKeybordMargin = (action) => {
         Animated.timing(this.state.top, {
             toValue: action === 'up' ? 50 : 50,
-            duration: 200
+            duration: 200,
         }).start()
     }
     shake = () => {
@@ -70,26 +70,26 @@ class OpenWallet extends React.Component {
         Animated.sequence([
             Animated.timing(this.state.shakeLeft, {
                 toValue: global.screenWidth * 0.02,
-                duration: duration
+                duration: duration,
             }),
             Animated.timing(this.state.shakeLeft, {
                 toValue: global.screenWidth * 0.08,
-                duration: duration
+                duration: duration,
             }),
             Animated.timing(this.state.shakeLeft, {
                 toValue: global.screenWidth * 0.03,
-                duration: duration
+                duration: duration,
             }),
             Animated.timing(this.state.shakeLeft, {
                 toValue: global.screenWidth * 0.05,
-                duration: duration
-            })
+                duration: duration,
+            }),
         ]).start(() => {
             setTimeout(() => {
                 this.setState({
                     borderColor: '#999',
                     alertText: [],
-                    buttonDisable: false
+                    buttonDisable: false,
                 })
             }, 3000)
         })
@@ -99,7 +99,7 @@ class OpenWallet extends React.Component {
             this.setState({
                 borderColor: '#F30',
                 alertText: [I18n.t('OpenWalletAlertTxt1')],
-                buttonDisable: true
+                buttonDisable: true,
             })
             this.shake()
         } else {
@@ -108,13 +108,13 @@ class OpenWallet extends React.Component {
             let checked = this.state.checked
             let encrypt = this.props.WalletReducer.encrypt
             if (encrypt) {
-                let mnemonic = aesDecrypt(encrypt, sha1(password+'salt'))
+                let mnemonic = aesDecrypt(encrypt, sha1(password + 'salt'))
                 if (mnemonic && validateMnemonic(mnemonic)) {
                     let days = checked === true ? 30 : 1
                     let address = mnemonicToAddress(mnemonic, 0)
                     let accounts = [{
                         address: address,
-                        balance: 0
+                        balance: 0,
                     }]
                     if (this.props.WalletReducer.accounts && this.props.WalletReducer.accounts.length === 0) {
                         this.props.setAccounts(accounts)
@@ -131,7 +131,7 @@ class OpenWallet extends React.Component {
                                     ...ret,
                                     'accounts': accounts,
                                     'currentAccount': 0,
-                                    'networkId': 0
+                                    'networkId': 0,
                                 },
                                 expires: null,
                             })
@@ -144,7 +144,7 @@ class OpenWallet extends React.Component {
                                 'gesture':false,
                                 'setGesture':true,
                                 'gesturePassword':'',
-                                'expires':(new Date()).valueOf() + 1000 * 3600 * 24 * days
+                                'expires':(new Date()).valueOf() + 1000 * 3600 * 24 * days,
                             },
                             //手势逻辑
                             //设置了:gesture=true,setGesture=true,
@@ -158,7 +158,7 @@ class OpenWallet extends React.Component {
                     this.setState({
                         borderColor: '#F30',
                         alertText: [I18n.t('OpenWalletAlertTxt2')],
-                        buttonDisable: true
+                        buttonDisable: true,
                     })
                     this.shake()
                 }
@@ -166,7 +166,7 @@ class OpenWallet extends React.Component {
                 this.setState({
                     borderColor: '#F30',
                     alertText: [I18n.t('OpenWalletAlertTxt3')],
-                    buttonDisable: true
+                    buttonDisable: true,
                 })
                 this.shake()
             }
@@ -181,7 +181,7 @@ class OpenWallet extends React.Component {
                     onPress={() => this.props.turnPage(-1)}
                 />
                 <Animated.View style={{
-                    marginLeft: this.state.shakeLeft
+                    marginLeft: this.state.shakeLeft,
                 }}>
                     <MyCard
                         screenWidth={global.screenWidth * 0.9}
@@ -193,27 +193,27 @@ class OpenWallet extends React.Component {
                             handleKeybordMargin={this.handleKeybordMargin}
                             placeholder={I18n.t('InputPassword')}
                             borderColor={this.state.borderColor}
-                            borderColorActive='#390'
+                            borderColorActive="#390"
                             buttonDisable={this.state.buttonDisable}
                         />
                         <MyCheckBox
                             handleCheck={this.handleCheck}
-                            checkedCheckBoxColor='#390'
+                            checkedCheckBoxColor="#390"
                             text={I18n.t('Remember')}
                         />
                         <AlertText
                             alertText={this.state.alertText}
-                            textAlign='left'
+                            textAlign="left"
                         />
                         <MyButton
                             screenWidth={global.screenWidth * 0.9 - 30}
                             onPress={(next) => { this.handleSubmit(next) }}
                             text={I18n.t('Login')}
                             height={50}
-                            backgroundColor='#6f0'
-                            backgroundDarker='#390'
-                            textColor='#000'
-                            borderColor='#390'
+                            backgroundColor="#6f0"
+                            backgroundDarker="#390"
+                            textColor="#000"
+                            borderColor="#390"
                             borderWidth={1}
                             textSize={20}
                             progress={true}

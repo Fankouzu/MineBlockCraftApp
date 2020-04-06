@@ -11,7 +11,7 @@ export default function MyButton(props) {
     }, [props.disabled])
     return (
         <AwesomeButton
-            size='small'
+            size="small"
             backgroundActive={props.backgroundActive}
             backgroundColor={props.backgroundColor}
             backgroundDarker={props.backgroundDarker}
@@ -42,7 +42,7 @@ export default function MyButton(props) {
                         fontSize: props.textSize,
                         color: props.textColor,
                         fontFamily: props.textFont,
-                        letterSpacing: props.letterSpacing
+                        letterSpacing: props.letterSpacing,
                     }]}>{props.text}</Text>
                 )
             }
@@ -84,16 +84,16 @@ MyButton.defaultProps = {
     text: 'OK',
     onPress: null,
     style: {
-        marginBottom: 10
+        marginBottom: 10,
     },
     textSize: 20,
     textFont: 'BigYoungMediumGB2.0',
     disabled: false,
     progress: false,
-    letterSpacing: 2
+    letterSpacing: 2,
 }
 const styles = StyleSheet.create({
     buttonText: {
-        lineHeight: 30
+        lineHeight: 30,
     },
 })

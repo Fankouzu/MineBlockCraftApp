@@ -4,7 +4,7 @@ import {
     Text,
     StyleSheet,
     Clipboard,
-    PermissionsAndroid
+    PermissionsAndroid,
 } from 'react-native'
 import { connect } from 'react-redux'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
@@ -12,8 +12,8 @@ import QRCode from 'react-native-qrcode-svg'
 import Jazzicon from '@novaviva/react-native-jazzicon'
 import Ripple from 'react-native-material-ripple'
 import Toast from 'react-native-easy-toast'
-import ViewShot from "react-native-view-shot"
-import CameraRoll from "@react-native-community/cameraroll"
+import ViewShot from 'react-native-view-shot'
+import CameraRoll from '@react-native-community/cameraroll'
 import { I18n } from '../../i18n'
 import { networks } from '../../utils/networks'
 import Topbar from '../Components/Topbar'
@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
     },
     content: {
         alignItems: 'center',
-        marginBottom: 20
+        marginBottom: 20,
     },
     divide: {
         borderWidth: 0.3,
@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
         position: 'relative',
         width: 150,
         height: 150,
-        marginBottom: 20
+        marginBottom: 20,
     },
     jazzIcon: {
         position: 'absolute',
@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
         padding: 4,
         borderRadius: 5,
         marginLeft: -16,
-        marginTop: -16
+        marginTop: -16,
     },
     balanceAddress: {
         color: '#333',
@@ -60,13 +60,13 @@ const styles = StyleSheet.create({
         lineHeight: 30,
         fontWeight: 'bold',
         marginLeft: 15,
-        marginRight: 15
+        marginRight: 15,
     },
     buttonView: {
         flexDirection: 'row',
         justifyContent: 'space-around',
         paddingHorizontal: 10,
-        marginBottom: 10
+        marginBottom: 10,
     },
 })
 class Recive extends React.Component {
@@ -122,16 +122,16 @@ class Recive extends React.Component {
                         top={65}
                         style={{
                             paddingHorizontal: 0,
-                            marginHorizontal: global.screenWidth * 0.05
+                            marginHorizontal: global.screenWidth * 0.05,
                         }}
                     >
                         <ViewShot
-                            ref='viewShot'
-                            options={{ format: "png", quality: 1 }}
+                            ref="viewShot"
+                            options={{ format: 'png', quality: 1 }}
                             style={{ backgroundColor: '#fff' }}
                         >
                             <Title titleText={I18n.t('ReciveTitle')} fontSize={24} />
-                            <View style={styles.divide}></View>
+                            <View style={styles.divide} />
                             <View style={styles.content}>
                                 <View style={styles.QRView}>
                                     <QRCode
@@ -151,7 +151,7 @@ class Recive extends React.Component {
                                     <Text style={styles.balanceAccount}>{I18n.t('Address')}{currentAccount + 1}</Text>
                                 </View>
                                 <Ripple
-                                    rippleColor='#ccc'
+                                    rippleColor="#ccc"
                                     rippleOpacity={0.6}
                                     onPress={() => {
                                         Clipboard.setString(accounts[currentAccount].address)
@@ -168,11 +168,11 @@ class Recive extends React.Component {
                                 raiseLevel={2}
                                 borderRadius={5}
                                 text={'📋' + I18n.t('CopyAddress')}
-                                backgroundColor='#fc0'
-                                backgroundDarker='#960'
-                                backgroundActive='#ff0'
-                                textColor='#333'
-                                borderColor='#960'
+                                backgroundColor="#fc0"
+                                backgroundDarker="#960"
+                                backgroundActive="#ff0"
+                                textColor="#333"
+                                borderColor="#960"
                                 borderWidth={1}
                                 textSize={I18n.t('ButtonFontSize')}
                                 letterSpacing={0}
@@ -187,11 +187,11 @@ class Recive extends React.Component {
                                 raiseLevel={2}
                                 borderRadius={5}
                                 text={'💾' + I18n.t('SavePic')}
-                                backgroundColor='#3f0'
-                                backgroundDarker='#090'
-                                backgroundActive='#3f0'
-                                textColor='#333'
-                                borderColor='#090'
+                                backgroundColor="#3f0"
+                                backgroundDarker="#090"
+                                backgroundActive="#3f0"
+                                textColor="#333"
+                                borderColor="#090"
                                 borderWidth={1}
                                 textSize={I18n.t('ButtonFontSize')}
                                 letterSpacing={0}
@@ -202,7 +202,7 @@ class Recive extends React.Component {
                     </MyCard>
                 </View>
                 <Toast
-                    position='top'
+                    position="top"
                     positionValue={30}
                     ref={(ref) => this.toast = ref} />
             </MyBackground >

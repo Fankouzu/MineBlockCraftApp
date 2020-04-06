@@ -17,7 +17,7 @@ export default function MyCheckBox(props) {
                 rightText={props.text}
                 isChecked={checked}
                 onClick={() => handleCheck()}
-                checkBoxColor='#666'
+                checkBoxColor="#666"
                 checkedCheckBoxColor={props.checkedCheckBoxColor}
                 rightTextStyle={styles.CheckBox}
             />
@@ -28,10 +28,10 @@ export default function MyCheckBox(props) {
 MyCheckBox.propTypes = {
     handleCheck: PropTypes.func.isRequired,
     checkedCheckBoxColor: PropTypes.string,
-    text: PropTypes.string
+    text: PropTypes.string,
 }
 MyCheckBox.defaultProps = {
-    checkedCheckBoxColor: '#390'
+    checkedCheckBoxColor: '#390',
 }
 const styles = StyleSheet.create({
     checkView: {
@@ -40,5 +40,5 @@ const styles = StyleSheet.create({
     CheckBox: {
         color: '#666',
         fontSize: 14,
-    }
+    },
 })

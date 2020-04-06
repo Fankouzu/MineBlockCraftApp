@@ -22,6 +22,6 @@ export default createAppContainer(createAnimatedSwitchNavigator(
                 />
                 <Transition.In type="fade" durationMs={500} />
             </Transition.Together>
-        )
+        ),
     }
 ))

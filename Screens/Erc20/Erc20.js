@@ -19,7 +19,7 @@ class Erc20 extends Component {
             messages: [],
             ViewHeight: global.screenHeight,
             typeMsg: '',
-            tokenTx: { error: -2 }
+            tokenTx: { error: -2 },
         }
     }
 
@@ -60,9 +60,7 @@ class Erc20 extends Component {
                                     >
                                         <View style={[styles.listItem, { height: 30 }]}>
                                             <View style={styles.listLeft}>
-                                                <View style={styles.jazzIcon}>
-
-                                                </View>
+                                                <View style={styles.jazzIcon} />
                                                 <Text style={[styles.tokenName, { fontSize: 12 }]}>
                                                     {I18n.t('TokenName')}
                                                 </Text>
@@ -102,13 +100,13 @@ class Erc20 extends Component {
 const styles = StyleSheet.create({
     Middle: {
         backgroundColor: '#ededed',
-        marginTop: 45
+        marginTop: 45,
     },
     tokenEmpty: {
         fontSize: 16,
         color: '#333',
         textAlign: 'center',
-        lineHeight: 45
+        lineHeight: 45,
     },
     ScrollView: {
         justifyContent: 'flex-start',
@@ -120,26 +118,26 @@ const styles = StyleSheet.create({
         borderBottomColor: '#999',
         flexDirection: 'row',
         justifyContent: 'space-between',
-        paddingHorizontal: 10
+        paddingHorizontal: 10,
     },
     listLeft: {
-        flexDirection: 'row'
+        flexDirection: 'row',
     },
     jazzIcon: {
         width: 20,
         justifyContent: 'center',
-        marginRight: 10
+        marginRight: 10,
     },
     tokenName: {
         color: '#333',
         fontSize: 14,
-        textAlignVertical: 'center'
+        textAlignVertical: 'center',
     },
     balance: {
         fontSize: 14,
         textAlignVertical: 'center',
-        lineHeight: 55
-    }
+        lineHeight: 55,
+    },
 })
 
 const mapStateToProps = state => (state)

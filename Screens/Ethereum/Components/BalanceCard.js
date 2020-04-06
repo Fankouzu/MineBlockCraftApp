@@ -16,13 +16,13 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         marginLeft: 15,
-        marginRight: 15
+        marginRight: 15,
     },
     balanceTitle: {
         color: '#333',
         fontSize: 16,
         fontFamily: 'BigYoungMediumGB2.0',
-        lineHeight: 30
+        lineHeight: 30,
     },
     cardTopRight: {
         flexDirection: 'row',
@@ -33,14 +33,14 @@ const styles = StyleSheet.create({
         fontSize: 14,
         fontFamily: 'BigYoungMediumGB2.0',
         lineHeight: 20,
-        marginLeft: 2
+        marginLeft: 2,
     },
     balanceNumber: {
         color: '#333',
         fontSize: 30,
         lineHeight: 40,
         marginLeft: 15,
-        marginRight: 15
+        marginRight: 15,
     },
     balanceAddress: {
         color: '#333',
@@ -48,8 +48,8 @@ const styles = StyleSheet.create({
         lineHeight: 30,
         fontWeight: 'bold',
         marginLeft: 15,
-        marginRight: 15
-    }
+        marginRight: 15,
+    },
 })
 function BalanceCard(props) {
 
@@ -94,8 +94,8 @@ function BalanceCard(props) {
             </Text>
             <Progress.Bar
                 indeterminate
-                unfilledColor='#ddd'
-                color='#2196F3'
+                unfilledColor="#ddd"
+                color="#2196F3"
                 width={global.screenWidth * 0.9 - 2}
                 height={1}
                 borderRadius={0}
@@ -103,7 +103,7 @@ function BalanceCard(props) {
                 style={{ display: props.WalletMain.isShowBalanceLoading }}
             />
             <Ripple
-                rippleColor='#ccc'
+                rippleColor="#ccc"
                 rippleOpacity={0.6}
                 onPress={() => {
                     Clipboard.setString(accounts[currentAccount].address)

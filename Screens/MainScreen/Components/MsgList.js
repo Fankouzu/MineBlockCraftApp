@@ -7,7 +7,7 @@ import MyCard from '../../Components/MyCard'
 import { I18n } from '../../../i18n'
 import Ripple from 'react-native-material-ripple'
 import Icon from 'react-native-vector-icons/Fontisto'
-var moment = require('moment')
+//var moment = require('moment')
 
 const styles = StyleSheet.create({
     msgView: {
@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
     msgViewTitle: {
         color: '#666',
         marginBottom: 10,
-        paddingLeft: 5
+        paddingLeft: 5,
     },
     listItem: {
         borderTopColor: '#ccc',
@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
         color: '#666',
         marginLeft: 5,
         height: 30,
-        textAlignVertical: 'center'
+        textAlignVertical: 'center',
     },
     Line: {
         flexDirection: 'row',
@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
     jazzIcon: {
         width: 30,
         justifyContent: 'center',
-        marginRight: 10
+        marginRight: 10,
     },
     TypeView: {
         justifyContent: 'center',
@@ -50,7 +50,7 @@ const styles = StyleSheet.create({
     Empty: {
         textAlign: 'center',
         color: '#999',
-        fontSize: 16
+        fontSize: 16,
     },
     address: {
         fontSize: 10,
@@ -59,8 +59,8 @@ const styles = StyleSheet.create({
         position: 'absolute',
         right: 0,
         height: 30,
-        justifyContent: 'center'
-    }
+        justifyContent: 'center',
+    },
 })
 
 
@@ -106,14 +106,13 @@ function MsgList(props) {
                                             <Jazzicon size={30} address={item.address} />
                                         </View>
                                         <View style={styles.TypeView}>
-                                            <Text style={styles.address}>{item.profile[0] === "" ? item.address : item.profile[0]}</Text>
+                                            <Text style={styles.address}>{item.profile[0] === '' ? item.address : item.profile[0]}</Text>
                                         </View>
                                         <View style={styles.right}>
                                             <Icon name="angle-right" size={14} color={'#999'} />
                                         </View>
                                     </View>
-                                    <View style={styles.Line}>
-                                    </View>
+                                    <View style={styles.Line} />
                                 </Ripple>
                             )
                         }))}

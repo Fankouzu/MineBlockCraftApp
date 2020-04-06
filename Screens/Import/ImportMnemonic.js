@@ -3,7 +3,7 @@ import {
     View,
     Animated,
     Keyboard,
-    Clipboard
+    Clipboard,
 } from 'react-native'
 import {connect} from 'react-redux'
 import * as actions from '../../actions'
@@ -35,26 +35,26 @@ class ImportMnemonic extends React.Component {
         Animated.sequence([
             Animated.timing(this.state.shakeLeft, {
                 toValue: global.screenWidth * 0.02,
-                duration: duration
+                duration: duration,
             }),
             Animated.timing(this.state.shakeLeft, {
                 toValue: global.screenWidth * 0.08,
-                duration: duration
+                duration: duration,
             }),
             Animated.timing(this.state.shakeLeft, {
                 toValue: global.screenWidth * 0.03,
-                duration: duration
+                duration: duration,
             }),
             Animated.timing(this.state.shakeLeft, {
                 toValue: global.screenWidth * 0.05,
-                duration: duration
-            })
+                duration: duration,
+            }),
         ]).start(() => {
             setTimeout(() => {
                 this.setState({
                     borderColor: '#999',
                     alertText: alertText,
-                    buttonDisable: false
+                    buttonDisable: false,
                 })
             }, 3000)
         })
@@ -73,7 +73,7 @@ class ImportMnemonic extends React.Component {
     _keyboardWillShow(e) {
         let keyboardHeight = e.endCoordinates.height;
         this.setState({
-            keyBoardHeight:keyboardHeight
+            keyBoardHeight:keyboardHeight,
         })
         this.handleKeybordMargin('up')
     }
@@ -81,7 +81,7 @@ class ImportMnemonic extends React.Component {
     _keyboardWillHide(e) {
         let keyboardHeight = e.endCoordinates.height;
         this.setState({
-            keyBoardHeight:keyboardHeight
+            keyBoardHeight:keyboardHeight,
         })
         this.handleKeybordMargin('down')
     }
@@ -91,7 +91,7 @@ class ImportMnemonic extends React.Component {
     handleKeybordMargin = (action) => {
         Animated.timing(this.state.top, {
             toValue: action === 'up' ? -50 : 0,
-            duration: 200
+            duration: 200,
         }).start()
     }
     next = () => {
@@ -100,14 +100,14 @@ class ImportMnemonic extends React.Component {
             this.setState({
                 borderColor: '#f30',
                 alertText: [I18n.t('ImportMnemonicAlertTxt2')],
-                buttonDisable: true
+                buttonDisable: true,
             })
             this.shake()
         } else if (!validateMnemonic(mnemonic)) {
             this.setState({
                 borderColor: '#f30',
                 alertText: [I18n.t('ImportMnemonicAlertTxt3')],
-                buttonDisable: true
+                buttonDisable: true,
             })
             this.shake()
         } else {
@@ -136,7 +136,7 @@ class ImportMnemonic extends React.Component {
                     marginLeft: this.state.shakeLeft,
                     marginRight: global.screenWidth * 0.05,
                     width: global.screenWidth * 0.9,
-                    marginTop: this.state.top
+                    marginTop: this.state.top,
                 }}>
                     <MyCard
                         screenWidth={global.screenWidth * 0.9}
@@ -150,9 +150,9 @@ class ImportMnemonic extends React.Component {
                             borderColor={this.state.borderColor}
                             onFocus={this.onFocus}
                             value={this.props.LoginReducer.useMnemonic}
-                            borderColorActive='#390'
+                            borderColorActive="#390"
                         />
-                        <AlertText 
+                        <AlertText
                             alertText={this.state.alertText}
                         />
                         <MyButton
@@ -160,10 +160,10 @@ class ImportMnemonic extends React.Component {
                             onPress={() => this.next()}
                             text={I18n.t('NextStep')}
                             height={50}
-                            backgroundColor='#6f0'
-                            backgroundDarker='#390'
-                            textColor='#000'
-                            borderColor='#390'
+                            backgroundColor="#6f0"
+                            backgroundDarker="#390"
+                            textColor="#000"
+                            borderColor="#390"
                             borderWidth={1}
                             textSize={20}
                             disabled={this.state.buttonDisable}

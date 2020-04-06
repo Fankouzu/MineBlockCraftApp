@@ -16,21 +16,21 @@ export default function LoadingDot() {
                 }
             }
             i++
-            if (i > 4) i = 0
+            if (i > 4) {i = 0}
             setStyleArr(activeDot)
         }, 500)
     }, [])
     return (
         <View style={styles.animation}>
-            <View style={[styles.dot, styleArr[0]]}></View>
-            <View style={[styles.dot, styleArr[1]]}></View>
-            <View style={[styles.dot, styleArr[2]]}></View>
-            <View style={[styles.dot, styleArr[3]]}></View>
-            <View style={[styles.dot, styleArr[4]]}></View>
+            <View style={[styles.dot, styleArr[0]]} />
+            <View style={[styles.dot, styleArr[1]]} />
+            <View style={[styles.dot, styleArr[2]]} />
+            <View style={[styles.dot, styleArr[3]]} />
+            <View style={[styles.dot, styleArr[4]]} />
             <Icon
-                name='keyboard-arrow-right'
+                name="keyboard-arrow-right"
                 size={25}
-                color='#390'
+                color="#390"
                 style={styles.arrow}
             />
         </View>
@@ -50,10 +50,10 @@ const styles = StyleSheet.create({
         borderRadius: 5,
         borderWidth: 1,
         borderColor: '#390',
-        marginLeft: 10
+        marginLeft: 10,
     },
     arrow: {
         width: 25,
         height: 25,
-    }
+    },
 })

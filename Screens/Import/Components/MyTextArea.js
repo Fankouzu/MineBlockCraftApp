@@ -31,12 +31,12 @@ export default function MyTextArea(props) {
         Animated.parallel([
             Animated.timing(borderWidth, {
                 toValue: 2,
-                duration: duration
+                duration: duration,
             }),
             Animated.timing(borderRadius, {
                 toValue: 12,
-                duration: duration
-            })
+                duration: duration,
+            }),
         ]).start(() => {
             setBorderColor(props.borderColorActive)
             props.handleKeybordMargin('up')
@@ -47,12 +47,12 @@ export default function MyTextArea(props) {
         Animated.parallel([
             Animated.timing(borderWidth, {
                 toValue: 1,
-                duration: duration
+                duration: duration,
             }),
             Animated.timing(borderRadius, {
                 toValue: 10,
-                duration: duration
-            })
+                duration: duration,
+            }),
         ]).start(() => {
             setBorderColor(props.borderColor)
             props.handleKeybordMargin('down')
@@ -69,11 +69,11 @@ export default function MyTextArea(props) {
                 marginBottom: 10,
             }}>
             <TextInput
-                placeholderTextColor='#666'
+                placeholderTextColor="#666"
                 onChangeText={(value) => handleType(value)}
                 placeholder={props.placeholder}
                 value={value}
-                clearButtonMode='while-editing'
+                clearButtonMode="while-editing"
                 style={styles.textInput}
                 blurOnSubmit={true}
                 onFocus={onFocus}
@@ -94,13 +94,13 @@ MyTextArea.propTypes = {
     placeholder: PropTypes.string,
     borderColor: PropTypes.string,
     borderColorActive: PropTypes.string,
-    value: PropTypes.string
+    value: PropTypes.string,
 }
 MyTextArea.defaultProps = {
     borderColor: '#666',
     borderColorActive: '#666',
     onFocus: () => { },
-    value: ''
+    value: '',
 }
 const styles = StyleSheet.create({
     textInput: {
@@ -112,6 +112,6 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         flex: 1,
         textAlignVertical: 'top',
-        letterSpacing:1
-    }
+        letterSpacing:1,
+    },
 })

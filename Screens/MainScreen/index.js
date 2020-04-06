@@ -27,7 +27,7 @@ class MainScreen extends Component {
             contract: {},
             statusStorage: {},
             currentAccount: '',
-            LoadingDisplay: true
+            LoadingDisplay: true,
         }
         this._bootstrapAsync()
     }
@@ -72,7 +72,7 @@ class MainScreen extends Component {
                 }
                 this.setState({ LoadingDisplay: false })
             })
-        }else{
+        } else {
             this.setState({ LoadingDisplay: false })
         }
         if (address && password && setGesture === true) {
@@ -110,7 +110,7 @@ class MainScreen extends Component {
                     'encrypt': this.props.WalletReducer.encrypt,
                     'accounts': accounts,
                     'currentAccount': currentAccount,
-                    'networkId': this.props.WalletReducer.networkId
+                    'networkId': this.props.WalletReducer.networkId,
                 },
                 expires: null,
             })
@@ -131,7 +131,7 @@ class MainScreen extends Component {
                         'encrypt': this.props.WalletReducer.encrypt,
                         'accounts': this.props.WalletReducer.accounts,
                         'currentAccount': this.props.WalletReducer.currentAccount,
-                        'networkId': id
+                        'networkId': id,
                     },
                     expires: null,
                 })
@@ -154,12 +154,12 @@ class MainScreen extends Component {
 
                     let address = mnemonicToAddress(mnemonic, accounts.length)
                     accounts[accounts.length] = {
-                        address: address
+                        address: address,
                     }
                     let currentAccount = accounts.length - 1
                     this.selectAccount(accounts, currentAccount)
                     this.setState({ spinner: false })
-                }).catch(err => {
+                }).catch(() => {
                     this.props.navigation.navigate('WelcomeNav', { page: 1 })
                 })
         }, 500)
@@ -168,7 +168,7 @@ class MainScreen extends Component {
     OpenProfile = async () => {
         const { networkId } = this.props.WalletReducer
         const UserContractAddress = ContractAddress.MineBlockCraftUser[networkId].address
-        if (UserContractAddress !== "") {
+        if (UserContractAddress !== '') {
             this.props.setProfileModalVisiable(true)
         }
     }

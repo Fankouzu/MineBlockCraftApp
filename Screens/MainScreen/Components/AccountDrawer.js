@@ -11,7 +11,7 @@ function AccountDrawer(props) {
         <ScrollView
             style={[
                 styles.container,
-                { height: global.screenHeight }
+                { height: global.screenHeight },
             ]}
         >
             <SafeAreaView
@@ -21,7 +21,7 @@ function AccountDrawer(props) {
                 {props.WalletReducer.accounts.map((item, index) => {
                     return (
                         <Ripple
-                            rippleColor='#999'
+                            rippleColor="#999"
                             rippleOpacity={0.6}
                             style={styles.itemView}
                             onPress={() => { props.selectAccount(props.WalletReducer.accounts, index) }}
@@ -35,10 +35,10 @@ function AccountDrawer(props) {
                     )
                 })}
                 <Ripple
-                    rippleColor='#999'
+                    rippleColor="#999"
                     rippleOpacity={0.6}
                     style={[styles.itemView, { borderBottomWidth: 0 }]}
-                    onPress={() => { props.newAccount() }} 
+                    onPress={() => { props.newAccount() }}
                 >
                     <Text style={styles.addText}>
                         {I18n.t('AccountDrawerAdd')}
@@ -58,7 +58,7 @@ const styles = StyleSheet.create({
         borderBottomWidth: 0.5,
         borderBottomColor: '#999',
         fontFamily: 'BigYoungMediumGB2.0',
-        letterSpacing: 1
+        letterSpacing: 1,
     },
     container: {
         backgroundColor: '#333',
@@ -71,7 +71,7 @@ const styles = StyleSheet.create({
         padding: 10,
         alignItems: 'center',
         justifyContent: 'center',
-        height: 40
+        height: 40,
     },
     itemText: {
         textAlign: 'center',
@@ -80,7 +80,7 @@ const styles = StyleSheet.create({
         lineHeight: 20,
         fontFamily: 'BigYoungMediumGB2.0',
         letterSpacing: 2,
-        marginLeft: 8
+        marginLeft: 8,
     },
     addText: {
         textAlign: 'center',
@@ -88,8 +88,8 @@ const styles = StyleSheet.create({
         color: '#ddd',
         lineHeight: 20,
         fontFamily: 'BigYoungMediumGB2.0',
-        letterSpacing: 2
-    }
+        letterSpacing: 2,
+    },
 })
 
 const mapStateToProps = state => (state)

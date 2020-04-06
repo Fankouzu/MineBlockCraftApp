@@ -3,7 +3,7 @@ import {
     StyleSheet,
     View,
     Text,
-    TouchableOpacity
+    TouchableOpacity,
 } from 'react-native'
 import { connect } from 'react-redux'
 import * as actions from '../../actions'
@@ -27,7 +27,7 @@ class GesturePassword extends React.Component {
             isWarning: false,
             statusStorage: {},
             verify: true,
-            wrongTimes:0
+            wrongTimes:0,
         }
     }
     componentDidMount() {
@@ -44,10 +44,10 @@ class GesturePassword extends React.Component {
             } else {
                 this.setState({
                     statusStorage: ret,
-                    verify: false
+                    verify: false,
                 })
             }
-        }).catch(err => {
+        }).catch(() => {
             this.props.navigation.navigate('LoginNav')
         })
 
@@ -80,7 +80,7 @@ class GesturePassword extends React.Component {
             this.setState({
                 GestureTitle: I18n.t('GestureTitle2'),
                 gPassword: password,
-                step: 1
+                step: 1,
             })
         } else if (this.state.step === 1) {
             if (password === this.state.gPassword) {
@@ -96,9 +96,9 @@ class GesturePassword extends React.Component {
                                 ...ret,
                                 'password': newPassword,
                                 'gesture': true,
-                                'gesturePassword': gesturePassword
+                                'gesturePassword': gesturePassword,
                             },
-                            expires: this.state.statusStorage.expires - (new Date()).valueOf()
+                            expires: this.state.statusStorage.expires - (new Date()).valueOf(),
                         })
                         this.props.setGesture(gesturePassword)
                         this.props.navigation.navigate('MainScreen')
@@ -111,7 +111,7 @@ class GesturePassword extends React.Component {
                 this.setState({
                     GestureTitle: I18n.t('GestureTitle0'),
                     isWarning: false,
-                    step: 0
+                    step: 0,
                 })
             } else {
                 this.setState({
@@ -131,7 +131,7 @@ class GesturePassword extends React.Component {
                 this.setState({
                     GestureTitle: I18n.t('GestureTitle0'),
                     isWarning: false,
-                    step: 0
+                    step: 0,
                 })
                 this.props.navigation.navigate('WelcomeNav',{page:1})
             } else if (this.state.statusStorage.gesturePassword === sha1(password + 'sugar').toString()) {
@@ -144,7 +144,7 @@ class GesturePassword extends React.Component {
                 this.setState({
                     GestureTitle: I18n.t('GestureTitle5'),
                     isWarning: true,
-                    wrongTimes:this.state.wrongTimes+1
+                    wrongTimes:this.state.wrongTimes + 1,
                 })
                 setTimeout(() => {
                     this.setState({
@@ -159,16 +159,14 @@ class GesturePassword extends React.Component {
     render() {
         return (
             <MyBackground style={{ alignItems: 'center' }}>
-                <LinearGradient colors={["#00b33b", "rgba(255,255,255,0.8)"]}
+                <LinearGradient colors={['#00b33b', 'rgba(255,255,255,0.8)']}
                     style={styles.container}>
                     <View style={styles.headContent}>
                         <View style={styles.top}>
                             <View style={styles.angle}>
                                 <SecurityCode width="60" height="60" />
                             </View>
-                            <Title titleText={this.state.GestureTitle} style={styles.text}>
-
-                            </Title>
+                            <Title titleText={this.state.GestureTitle} style={styles.text} />
                         </View>
                     </View>
                     <OkGesturePassword
@@ -223,7 +221,7 @@ const styles = StyleSheet.create({
         lineHeight: 50,
     },
     headContent: {
-        justifyContent: 'flex-start', flexDirection: 'row'
+        justifyContent: 'flex-start', flexDirection: 'row',
     },
     container: {
         flex: 1,

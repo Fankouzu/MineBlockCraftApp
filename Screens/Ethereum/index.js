@@ -8,16 +8,16 @@ import Ethereum from './Ethereum'
 const AppNavigator = createStackNavigator(
     {
         Ethereum: {
-            screen: Ethereum
+            screen: Ethereum,
         },
         Send: {
-            screen: Send
+            screen: Send,
         },
         Recive: {
-            screen: Recive
+            screen: Recive,
         },
         QRCodeScan: {
-            screen: QRCodeScan
+            screen: QRCodeScan,
         },
     },
     {

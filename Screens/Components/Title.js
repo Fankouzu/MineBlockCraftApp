@@ -9,7 +9,7 @@ export default function Title(props) {
             <Text style={[
                 styles.titleText,{
                     fontFamily: 'BigYoungMediumGB2.0',
-                    fontSize:props.fontSize
+                    fontSize:props.fontSize,
                 },props.style]}>
                 {props.titleText}
             </Text>
@@ -34,12 +34,12 @@ const styles = StyleSheet.create({
     },
     titleText: {
         lineHeight: 40,
-        letterSpacing: 2
+        letterSpacing: 2,
     },
     subText: {
         fontSize: 12,
         lineHeight: 20,
         color: '#333',
-        flex: 0
-    }
+        flex: 0,
+    },
 })

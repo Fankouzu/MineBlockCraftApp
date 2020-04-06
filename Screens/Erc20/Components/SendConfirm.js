@@ -20,7 +20,7 @@ function SendConfirm(props) {
                 top={10}
                 style={{ padding: 10 }}>
                 <Title titleText={I18n.t('SendConfirm')} style={styles.Title} />
-                <View style={styles.divide}></View>
+                <View style={styles.divide} />
                 <View style={styles.addressView}>
                     <Text style={styles.title}>{I18n.t('FromAddress')}:</Text>
                     <View style={styles.rightViewH}>
@@ -41,29 +41,29 @@ function SendConfirm(props) {
                         <Text style={styles.amount}>{amount}</Text>
                     </View>
                 </View>
-                <View style={styles.divide}></View>
+                <View style={styles.divide} />
                 <View style={styles.bottom}>
                     <MyButton
-                        screenWidth='100%'
+                        screenWidth="100%"
                         text={I18n.t('Back')}
                         height={50}
-                        backgroundColor='#ccc'
-                        backgroundDarker='#999'
-                        backgroundActive='#ccc'
-                        textColor='#333'
-                        borderColor='#999'
+                        backgroundColor="#ccc"
+                        backgroundDarker="#999"
+                        backgroundActive="#ccc"
+                        textColor="#333"
+                        borderColor="#999"
                         borderWidth={1}
                         style={{ marginRight: 5, flex: 3 }}
                         onPress={() => { props.handleTurnPage(-1) }}
                     />
                     <MyButton
-                        screenWidth='100%'
+                        screenWidth="100%"
                         text={I18n.t('NextStep')}
                         height={50}
-                        backgroundColor='#6f0'
-                        backgroundDarker='#390'
-                        textColor='#000'
-                        borderColor='#390'
+                        backgroundColor="#6f0"
+                        backgroundDarker="#390"
+                        textColor="#000"
+                        borderColor="#390"
                         borderWidth={1}
                         style={{ marginleft: 5, flex: 7 }}
                         onPress={() => { props.handleTurnPage(1) }}
@@ -101,31 +101,31 @@ const styles = StyleSheet.create({
         height: 16,
         textAlignVertical: 'center',
         fontFamily: 'InputMono Light',
-        textAlign: 'right'
+        textAlign: 'right',
     },
     title: {
         fontSize: 14,
         height: 36,
         textAlignVertical: 'center',
-        color: '#333'
+        color: '#333',
     },
     rightViewH: {
         flexDirection: 'row',
         borderRadius: 5,
         width: 150,
         paddingHorizontal: 6,
-        height: 36
+        height: 36,
     },
     rightViewV: {
         flexDirection: 'column',
         borderRadius: 5,
         width: 150,
         paddingHorizontal: 6,
-        height: 36
+        height: 36,
     },
     jazzIcon: {
         width: 24,
-        justifyContent: 'center'
+        justifyContent: 'center',
     },
     address: {
         width: 110,
@@ -139,7 +139,7 @@ const styles = StyleSheet.create({
     },
     bottom: {
         flexDirection: 'row',
-    }
+    },
 })
 const mapStateToProps = state => (state)
 

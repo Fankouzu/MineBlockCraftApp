@@ -22,7 +22,7 @@ class Send extends React.Component {
             shakeLeft: new Animated.Value(global.screenWidth * 0.025),
             step: 0,
             rollTo: 0,
-            begin: 0
+            begin: 0,
         }
     }
     componentDidMount = async () => {
@@ -46,7 +46,7 @@ class Send extends React.Component {
 
                 let mnemonic = aesDecrypt(encrypt, sha1(orignPassword + 'salt'))
                 this.props.setMnemonic(mnemonic)
-            }).catch(err => {
+            }).catch(() => {
                 this.props.navigation.navigate('WelcomeNav', { page: 1 })
             })
 
@@ -67,20 +67,20 @@ class Send extends React.Component {
         Animated.sequence([
             Animated.timing(this.state.shakeLeft, {
                 toValue: global.screenWidth * 0.08,
-                duration: duration
+                duration: duration,
             }),
             Animated.timing(this.state.shakeLeft, {
                 toValue: 0,
-                duration: duration
+                duration: duration,
             }),
             Animated.timing(this.state.shakeLeft, {
                 toValue: global.screenWidth * 0.07,
-                duration: duration
+                duration: duration,
             }),
             Animated.timing(this.state.shakeLeft, {
                 toValue: global.screenWidth * 0.025,
-                duration: duration
-            })
+                duration: duration,
+            }),
         ]).start()
     }
 

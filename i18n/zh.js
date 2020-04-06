@@ -27,7 +27,7 @@ export default {
   PasswordAlertTxt1: '⚠️密码只保存在你的手机记忆中，不会发送到服务器',
   PasswordAlertTxt2: '⚠️密码一旦丢失请通过助记词找回钱包',
   PasswordAlertTxt3: '⚠️密码输入不相同',
-  PasswordAlertTxt3: '⚠️密码需要最少8位，并且包含数字、大写、小写字母',
+  PasswordAlertTxt4: '⚠️密码需要最少8位，并且包含数字、大写、小写字母',
   InputPassword: '输入密码',
   ConfirmPassword: '确认密码',
   PasswordSubmit: '提交',
@@ -150,10 +150,9 @@ export default {
   EmptyMsg:'空',
   MsgLoading:'读取中...',
   //Tokens
-  TokenName:'代币名称',
   TokenEmpty:'还没有代币',
   MyToken:'我的代币',
   //SendToken
   SendToken:'发送代币',
-  TokenAmountError:'*发送数量错误！'
+  TokenAmountError:'*发送数量错误！',
 }

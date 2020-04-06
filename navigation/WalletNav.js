@@ -11,25 +11,25 @@ import {Dapps} from '../Dapps'
 const AppNavigator = createStackNavigator(
     {
         GesturePassword: {
-            screen: GesturePassword
+            screen: GesturePassword,
         },
         MainScreen: {
-            screen: MainScreen
+            screen: MainScreen,
         },
         Chat: {
-            screen: Chat
+            screen: Chat,
         },
         Ethereum:{
-            screen: Ethereum
+            screen: Ethereum,
         },
         Erc20:{
-            screen: Erc20
+            screen: Erc20,
         },
         MintCoin:{
-            screen: MintCoin
+            screen: MintCoin,
         },
         Dapps:{
-            screen: Dapps
+            screen: Dapps,
         },
     },
     {
@@ -39,5 +39,5 @@ const AppNavigator = createStackNavigator(
         mode: 'card',
         CardStyleInterpolators: 'forRevealFromBottomAndroid',
     }
-)    
+)
 export default createAppContainer(AppNavigator)

@@ -18,7 +18,7 @@ export default class ImportNav extends React.Component {
     turnPage = (index) => {
         Animated.timing(this.state.leftAnim, {
             toValue: global.screenWidth * (this.state.page + index) * -1,
-            duration: 200
+            duration: 200,
         }).start(()=>{
             this.setState({ page:this.state.page + index })
         })

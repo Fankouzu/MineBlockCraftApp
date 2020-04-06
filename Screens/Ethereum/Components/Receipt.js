@@ -25,7 +25,7 @@ function Receipt(props) {
     React.useEffect(() => {
         const { networkId, mnemonic, currentAccount } = props.WalletReducer
         const UserContractAddress = ContractAddress.MineBlockCraftUser[networkId].address
-        if (UserContractAddress !== "") {
+        if (UserContractAddress !== '') {
             const contract = openContract(networks[networkId].name, mnemonic, currentAccount, UserContractAddress, abi)
             contract.isFriends(tx.to).then((ret) => {
                 setAlready(ret)
@@ -41,7 +41,7 @@ function Receipt(props) {
         const UserContractAddress = ContractAddress.MineBlockCraftUser[networkId].address
 
         const contract = openContract(networks[networkId].name, mnemonic, currentAccount, UserContractAddress, abi)
-        contract.addFriend(toAddress, { "gasLimit": 100000 }).then((tx) => {
+        contract.addFriend(toAddress, { 'gasLimit': 100000 }).then((tx) => {
             toast.current.show(I18n.t('Success'))
             setAddDisabled(true)
             setAlready(true)
@@ -56,7 +56,7 @@ function Receipt(props) {
     return (
         <View style={{ alignItems: 'center' }}>
             <Title titleText={I18n.t('Receipt')} style={styles.Title} />
-            <View style={styles.divide}></View>
+            <View style={styles.divide} />
             <View style={styles.addressView}>
                 <Text style={styles.title}>{I18n.t('FromAddress')}:</Text>
                 <View style={styles.rightViewH}>
@@ -88,11 +88,11 @@ function Receipt(props) {
                     screenWidth={global.screenWidth * 0.9 - 30}
                     text={I18n.t('Back')}
                     height={50}
-                    backgroundColor='#fc0'
-                    backgroundDarker='#960'
-                    backgroundActive='#ff0'
-                    textColor='#000'
-                    borderColor='#960'
+                    backgroundColor="#fc0"
+                    backgroundDarker="#960"
+                    backgroundActive="#ff0"
+                    textColor="#000"
+                    borderColor="#960"
                     borderWidth={1}
                     progress={true}
                     disabled={AddDisabled}
@@ -107,15 +107,15 @@ function Receipt(props) {
                 screenWidth={global.screenWidth * 0.9 - 30}
                 text={I18n.t('Back')}
                 height={50}
-                backgroundColor='#6f0'
-                backgroundDarker='#390'
-                textColor='#000'
-                borderColor='#390'
+                backgroundColor="#6f0"
+                backgroundDarker="#390"
+                textColor="#000"
+                borderColor="#390"
                 borderWidth={1}
                 onPress={() => { navigate('Ethereum') }}
             />
             <Toast
-                position='top'
+                position="top"
                 positionValue={30}
                 ref={toast} />
         </View>
@@ -126,7 +126,7 @@ const styles = StyleSheet.create({
         fontSize: 14,
         height: 36,
         textAlignVertical: 'center',
-        color: '#333'
+        color: '#333',
     },
     divide: {
         borderWidth: 0.35,
@@ -134,7 +134,7 @@ const styles = StyleSheet.create({
         borderRadius: 1,
         borderStyle: 'dashed',
         marginBottom: 10,
-        width: '100%'
+        width: '100%',
     },
     addressView: {
         paddingHorizontal: 0,
@@ -142,7 +142,7 @@ const styles = StyleSheet.create({
         overflow: 'hidden',
         flexDirection: 'row',
         justifyContent: 'space-between',
-        width: '100%'
+        width: '100%',
     },
     jazzIconBtn: {
         width: 22,
@@ -151,11 +151,11 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         borderRadius: 12,
         borderColor: '#666',
-        backgroundColor: '#fff'
+        backgroundColor: '#fff',
     },
     jazzIcon: {
         width: 24,
-        justifyContent: 'center'
+        justifyContent: 'center',
     },
     address: {
         width: 110,
@@ -165,7 +165,7 @@ const styles = StyleSheet.create({
         flexWrap: 'wrap',
         marginVertical: 4,
         marginHorizontal: 6,
-        color: '#333'
+        color: '#333',
     },
     hash: {
         width: 130,
@@ -177,7 +177,7 @@ const styles = StyleSheet.create({
         marginHorizontal: 6,
         color: '#333',
         textAlignVertical: 'center',
-        textAlign: 'right'
+        textAlign: 'right',
     },
     textView: {
         paddingHorizontal: 0,
@@ -185,13 +185,13 @@ const styles = StyleSheet.create({
         overflow: 'hidden',
         flexDirection: 'row',
         justifyContent: 'space-between',
-        width: '100%'
+        width: '100%',
     },
     title: {
         fontSize: 14,
         height: 36,
         textAlignVertical: 'center',
-        color: '#333'
+        color: '#333',
     },
     rightView: {
         flexDirection: 'row',
@@ -199,28 +199,28 @@ const styles = StyleSheet.create({
         width: 150,
         paddingHorizontal: 6,
         height: 36,
-        justifyContent: 'flex-start'
+        justifyContent: 'flex-start',
     },
     rightViewH: {
         flexDirection: 'row',
         borderRadius: 5,
         width: 150,
         paddingHorizontal: 6,
-        height: 36
+        height: 36,
     },
     rightViewV: {
         flexDirection: 'column',
         borderRadius: 5,
         width: 150,
         paddingHorizontal: 6,
-        height: 36
+        height: 36,
     },
     addFriend: {
         lineHeight: 30,
         fontFamily: 'BigYoungMediumGB2.0',
         fontSize: 20,
-        letterSpacing: 2
-    }
+        letterSpacing: 2,
+    },
 })
 const mapStateToProps = state => (state)
 

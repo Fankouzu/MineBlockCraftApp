@@ -8,9 +8,9 @@ export default function MyTextInput(props) {
     const borderRadius = new Animated.Value(10)
     const [borderColor,setBorderColor] = React.useState(props.borderColor)
     const [value,setValue] = React.useState('')
-    const duration=100
+    const duration = 100
     const inputRef = React.useRef()
-    
+
     React.useEffect(() => {
         props.focus ? inputRef.current.focus() : inputRef.current.blur()
     }, [])
@@ -22,7 +22,7 @@ export default function MyTextInput(props) {
     React.useEffect(() => {
         setBorderColor(props.borderColor)
     }, [props.borderColor])
-    
+
     const handleType = (value) =>{
         setValue(value)
         props.handleType(value)
@@ -34,12 +34,12 @@ export default function MyTextInput(props) {
         Animated.parallel([
             Animated.timing(borderWidth, {
                 toValue: 2,
-                duration: duration
+                duration: duration,
             }),
             Animated.timing(borderRadius, {
                 toValue: 12,
-                duration: duration
-            })
+                duration: duration,
+            }),
         ]).start(()=>{
             setBorderColor(props.borderColorActive)
             props.handleKeybordMargin('up')
@@ -49,12 +49,12 @@ export default function MyTextInput(props) {
         Animated.parallel([
             Animated.timing(borderWidth, {
                 toValue: 1,
-                duration: duration
+                duration: duration,
             }),
             Animated.timing(borderRadius, {
                 toValue: 10,
-                duration: duration
-            })
+                duration: duration,
+            }),
         ]).start(()=>{
             setBorderColor(props.borderColor)
             props.handleKeybordMargin('down')
@@ -71,11 +71,11 @@ export default function MyTextInput(props) {
             }}>
             <TextInput
                 ref={inputRef}
-                placeholderTextColor='#666'
+                placeholderTextColor="#666"
                 onChangeText={(value) => handleType(value)}
                 placeholder={props.placeholder}
                 value={value}
-                clearButtonMode='while-editing'
+                clearButtonMode="while-editing"
                 style={styles.textInput}
                 blurOnSubmit={true}
                 onFocus={onFocus}
@@ -93,13 +93,13 @@ MyTextInput.propTypes = {
     borderColor: PropTypes.string,
     borderColorActive: PropTypes.string,
     secureTextEntry:PropTypes.bool,
-    keyboardType:PropTypes.string
+    keyboardType:PropTypes.string,
 }
 MyTextInput.defaultProps = {
     borderColor: '#666',
     borderColorActive: '#666',
     secureTextEntry:true,
-    keyboardType:'default'
+    keyboardType:'default',
 }
 const styles = StyleSheet.create({
     textInput: {
@@ -112,5 +112,5 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         flex:1,
-    }
+    },
 })

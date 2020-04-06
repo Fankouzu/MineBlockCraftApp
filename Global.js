@@ -4,9 +4,9 @@ import Storage from 'react-native-storage'
 
 const { width, height, scale } = Dimensions.get('window')
 const OS = Platform.OS
-const ios = (OS == 'ios')
-const android = (OS == 'android')
-const isIPhoneX = (ios && height == 812 && width == 375)
+const ios = (OS === 'ios')
+const android = (OS === 'android')
+const isIPhoneX = (ios && height === 812 && width === 375)
 const statusBarHeight = (ios ? (isIPhoneX ? 44 : 20) : StatusBar.currentHeight)
 
 
@@ -20,7 +20,7 @@ let storage = new Storage({
 const _setTimeout = global.setTimeout;
 const _clearTimeout = global.clearTimeout;
 const MAX_TIMER_DURATION_MS = 60 * 1000;
-if (Platform.OS === "android") {
+if (Platform.OS === 'android') {
     // Work around issue `Setting a timer for long time`
     // see: https://github.com/firebase/firebase-js-sdk/issues/97
     const timerFix = {};
@@ -44,7 +44,7 @@ if (Platform.OS === "android") {
     global.setTimeout = (fn, time, ...args) => {
         if (MAX_TIMER_DURATION_MS < time) {
             const ttl = Date.now() + time;
-            const id = "_lt_" + Object.keys(timerFix).length;
+            const id = '_lt_' + Object.keys(timerFix).length;
             runTask(id, fn, ttl, args);
             return id;
         }
@@ -52,7 +52,7 @@ if (Platform.OS === "android") {
     };
 
     global.clearTimeout = id => {
-        if (typeof id === "string" && id.substr(0, 4) === "_lt_") {
+        if (typeof id === 'string' && id.substr(0, 4) === '_lt_') {
             _clearTimeout(timerFix[id]);
             delete timerFix[id];
             return;

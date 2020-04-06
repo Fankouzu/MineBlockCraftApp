@@ -5,7 +5,7 @@ import {
     View,
     Clipboard,
     TouchableOpacity,
-    StyleSheet
+    StyleSheet,
 } from 'react-native'
 import { connect } from 'react-redux'
 import * as actions from '../../../actions'
@@ -14,7 +14,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import { I18n } from '../../../i18n'
 
 function SendInput(props) {
-    
+
     const {tokenTx,toAddress,amount} = props.TokenReducer
 
     const [addressErrorTxt, setAddressErrorTxt] = React.useState(props.addressError)
@@ -60,9 +60,9 @@ function SendInput(props) {
                         style={styles.actBtn}
                     >
                         <Icon
-                            name='qrcode-scan'
+                            name="qrcode-scan"
                             size={18}
-                            color='#060'
+                            color="#060"
                             style={{ marginRight: 5 }}
                         />
                         <Text style={styles.actTxt}>{I18n.t('ScanQR')}</Text>
@@ -72,9 +72,9 @@ function SendInput(props) {
                         style={styles.actBtn}
                     >
                         <Icon
-                            name='content-paste'
+                            name="content-paste"
                             size={18}
-                            color='#060'
+                            color="#060"
                             style={{ marginRight: 5 }}
                         />
                         <Text style={styles.actTxt}>{I18n.t('PasteAddrss')}</Text>
@@ -94,9 +94,9 @@ function SendInput(props) {
                 <View style={styles.actBtnView}>
                     <View style={styles.actBtn}>
                         <Icon
-                            name='coins'
+                            name="coins"
                             size={18}
-                            color='#060'
+                            color="#060"
                             style={{ marginRight: 5 }}
                         />
                         <Text style={styles.actTxt}>{I18n.t('SendAmount')}</Text>
@@ -109,8 +109,8 @@ function SendInput(props) {
                     <View style={{width:'100%'}}>
                         <TextInput
                             style={[styles.amountInput,amountErrorStyle]}
-                            placeholder='0'
-                            keyboardType='numeric'
+                            placeholder="0"
+                            keyboardType="numeric"
                             onChangeText={(value) => { props.setTokenAmount(value) }}
                             value={amount}
                             onFocus={() => { props.handleRollUp(-135) }}
@@ -141,7 +141,7 @@ const styles = StyleSheet.create({
         fontSize: 10,
         textAlignVertical: 'bottom',
         height: 20,
-        paddingRight: 2
+        paddingRight: 2,
     },
     addressView: {
         marginBottom: 0,
@@ -162,7 +162,7 @@ const styles = StyleSheet.create({
         textAlignVertical: 'center',
     },
     amountView: {
-        marginBottom: 0
+        marginBottom: 0,
     },
     amountInputView: {
         flexDirection: 'row',
@@ -174,7 +174,7 @@ const styles = StyleSheet.create({
         paddingVertical: 5,
         fontSize: 18,
         borderRadius: 5,
-        width: '100%'
+        width: '100%',
     },
 })
 

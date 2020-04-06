@@ -9,28 +9,28 @@ export default function Loading(props) {
 
 
     React.useEffect(() => {
-        if(props.display){
+        if (props.display){
             setDisplay({display:'flex',position:'absolute'})
-        } else{
+        } else {
             setDisplay({display:'none'})
         }
     }, [props.display])
     return (
         <View style={[styles.Container,display,{
-            backgroundColor:props.backgroundColor
+            backgroundColor:props.backgroundColor,
         }]} >
-            <BarIndicator count={5} size={40} color='#0f0' />
+            <BarIndicator count={5} size={40} color="#0f0" />
         </View>
     )
 }
 
 Loading.propTypes = {
     display: PropTypes.bool.isRequired,
-    backgroundColor:PropTypes.string
+    backgroundColor:PropTypes.string,
 }
 Loading.defaultProps = {
     display: false,
-    backgroundColor:'#000'
+    backgroundColor:'#000',
 }
 const styles = StyleSheet.create({
     Container: {

@@ -1,15 +1,12 @@
 import React, { Component } from 'react'
 import { Text, TextInput, StyleSheet, View, ImageBackground, Animated } from 'react-native'
 import { connect } from 'react-redux'
-import Modal from "react-native-modal"
+import Modal from 'react-native-modal'
 import MyButton from '../Components/MyButton'
 import MyCard from '../Components/MyCard'
 import Topbar from '../Components/Topbar'
 import Title from '../Components/Title'
 import { I18n } from '../../i18n'
-import Jazzicon from '@novaviva/react-native-jazzicon'
-import Icon from 'react-native-vector-icons/Fontisto'
-import { ScrollView } from 'react-native-gesture-handler'
 import Bytecode from './Bytecode'
 import Abi from './Abi'
 import { Deploy } from '../../utils/Tools'
@@ -28,7 +25,7 @@ class MintCoin extends Component {
             symbolErrorStyle: {},
             supplyErrorStyle: {},
             shakeLeft: new Animated.Value(0),
-            modalVisible: false
+            modalVisible: false,
         }
     }
 
@@ -46,20 +43,20 @@ class MintCoin extends Component {
         Animated.sequence([
             Animated.timing(this.state.shakeLeft, {
                 toValue: global.screenWidth * 0.05,
-                duration: duration
+                duration: duration,
             }),
             Animated.timing(this.state.shakeLeft, {
                 toValue: global.screenWidth * -0.03,
-                duration: duration
+                duration: duration,
             }),
             Animated.timing(this.state.shakeLeft, {
                 toValue: global.screenWidth * 0.025,
-                duration: duration
+                duration: duration,
             }),
             Animated.timing(this.state.shakeLeft, {
                 toValue: 0,
-                duration: duration
-            })
+                duration: duration,
+            }),
         ]).start()
     }
     handleSubmit = async (next) => {
@@ -85,14 +82,14 @@ class MintCoin extends Component {
             this.setState({
                 nameErrorStyle: {},
                 symbolErrorStyle: {},
-                supplyErrorStyle: {}
+                supplyErrorStyle: {},
             })
             try {
                 let tx = await Deploy(networkName, mnemonic, currentAccount, Abi, Bytecode, {
                     initialSupply: initialSupply,
                     name: name,
                     symbol: symbol,
-                    decimals: 18
+                    decimals: 18,
                 })
                 this.setState({modalVisible:true})
                 next()
@@ -120,7 +117,7 @@ class MintCoin extends Component {
                         screenWidth={global.screenWidth}
                         margin={0.05}
                         top={90}
-                        style={{ padding: 10, marginBottom: 50, }}>
+                        style={{ padding: 10, marginBottom: 50 }}>
                         <Title titleText={I18n.t('MintErc20')} style={{ fontFamily: 'nomal' }} />
                         <View style={{
                             borderWidth: 0.35,
@@ -156,7 +153,7 @@ class MintCoin extends Component {
                                     onChangeText={(initialSupply) => { this.setState({ initialSupply: initialSupply }) }}
                                     value={this.state.initialSupply}
                                     placeholder={I18n.t('SupplyPlaceholder')}
-                                    keyboardType='numeric'
+                                    keyboardType="numeric"
                                 />
                             </View>
                             <MyButton
@@ -164,10 +161,10 @@ class MintCoin extends Component {
                                 onPress={(next) => { this.handleSubmit(next) }}
                                 text={I18n.t('PasswordSubmit')}
                                 height={50}
-                                backgroundColor='#6f0'
-                                backgroundDarker='#390'
-                                textColor='#000'
-                                borderColor='#390'
+                                backgroundColor="#6f0"
+                                backgroundDarker="#390"
+                                textColor="#000"
+                                borderColor="#390"
                                 borderWidth={1}
                                 textSize={20}
                                 progress={true}
@@ -190,10 +187,10 @@ class MintCoin extends Component {
                             onPress={() => { this.setState({modalVisible:false}), navigate('Erc20')}}
                             text={I18n.t('Ok')}
                             height={50}
-                            backgroundColor='#6f0'
-                            backgroundDarker='#390'
-                            textColor='#000'
-                            borderColor='#390'
+                            backgroundColor="#6f0"
+                            backgroundDarker="#390"
+                            textColor="#000"
+                            borderColor="#390"
                             borderWidth={1}
                             textSize={20}
                         />
@@ -229,12 +226,12 @@ const styles = StyleSheet.create({
     },
     InputRow: {
         flexDirection: 'row',
-        marginBottom: 10
+        marginBottom: 10,
     },
     InputTxt: {
         textAlignVertical: 'center',
         textAlign: 'center',
-        flex: 3
+        flex: 3,
     },
     errorTxt: {
         fontSize: 10,
@@ -248,8 +245,8 @@ const styles = StyleSheet.create({
         textAlignVertical:'center',
         height:30,
         marginBottom:20,
-        color:'#0099ff'
-    }
+        color:'#0099ff',
+    },
 })
 
 const mapStateToProps = state => (state)

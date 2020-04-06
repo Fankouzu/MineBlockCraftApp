@@ -3,44 +3,44 @@ import {
     StyleSheet,
     View,
     Text,
-    Animated
+    Animated,
 } from 'react-native'
 import { connect } from 'react-redux'
 import MyCard from '../Components/MyCard'
 import MyButton from '../Components/MyButton'
 import MyBackButton from '../Components/MyBackButton'
 import AlertText from '../Components/AlertText'
-import { I18n, countryCode } from '../../i18n'
+import { I18n } from '../../i18n'
 
 const styles = StyleSheet.create({
     alert: {
-        marginBottom: 10
+        marginBottom: 10,
     },
     alertText: {
         textAlign: 'center',
         fontStyle: 'italic',
-        fontSize: 10
+        fontSize: 10,
     },
     wordButtonView: {
         flexDirection: 'row',
         flexWrap: 'wrap',
         justifyContent: 'center',
-        marginBottom: 10
+        marginBottom: 10,
     },
     wordButton: {
-        margin: 10
+        margin: 10,
     },
     wordSelectView: {
         height: 140,
         flexDirection: 'row',
         flexWrap: 'wrap',
         justifyContent: 'flex-start',
-        paddingTop: 10
+        paddingTop: 10,
     },
     wordSelect: {
         margin: 10,
-        textAlign: 'center'
-    }
+        textAlign: 'center',
+    },
 })
 
 const alertText = [I18n.t('RandomMnemonicAlertTxt')]
@@ -94,30 +94,30 @@ class RandomMnemonic extends React.Component {
         var duration = 100
         this.setState({
             alertText: [I18n.t('RandomMnemonicErrorTxt')],
-            alertColor: '#f30'
+            alertColor: '#f30',
         })
         Animated.sequence([
             Animated.timing(this.state.shakeLeft, {
                 toValue: global.screenWidth * 0.02,
-                duration: duration
+                duration: duration,
             }),
             Animated.timing(this.state.shakeLeft, {
                 toValue: global.screenWidth * 0.08,
-                duration: duration
+                duration: duration,
             }),
             Animated.timing(this.state.shakeLeft, {
                 toValue: global.screenWidth * 0.03,
-                duration: duration
+                duration: duration,
             }),
             Animated.timing(this.state.shakeLeft, {
                 toValue: global.screenWidth * 0.05,
-                duration: duration
-            })
+                duration: duration,
+            }),
         ]).start(() => {
             setTimeout(() => {
                 this.setState({
                     alertText: alertText,
-                    alertColor: alertColor
+                    alertColor: alertColor,
                 })
             }, 3000);
 
@@ -137,7 +137,7 @@ class RandomMnemonic extends React.Component {
                     onPress={() => this.props.turnPage(-1)}
                 />
                 <Animated.View style={{
-                    marginLeft: this.state.shakeLeft
+                    marginLeft: this.state.shakeLeft,
                 }}>
                     <MyCard
                         screenWidth={global.screenWidth * 0.9}
@@ -172,7 +172,7 @@ class RandomMnemonic extends React.Component {
                     {
                         width: global.screenWidth * 0.9,
                         marginLeft: global.screenWidth * 0.05,
-                        marginRight: global.screenWidth * 0.05
+                        marginRight: global.screenWidth * 0.05,
                     }]
                 }>
                     {this.props.LoginReducer.randomMnemonic.map((item, index) => {
@@ -182,10 +182,10 @@ class RandomMnemonic extends React.Component {
                                 screenWidth={80}
                                 text={item}
                                 height={30}
-                                backgroundColor='#fff'
-                                backgroundDarker='#666'
-                                textColor='#000'
-                                borderColor='#666'
+                                backgroundColor="#fff"
+                                backgroundDarker="#666"
+                                textColor="#000"
+                                borderColor="#666"
                                 raiseLevel={2}
                                 borderWidth={1}
                                 textSize={this.props.LoginReducer.lang === 'cn' ? 20 : 12}
@@ -201,10 +201,10 @@ class RandomMnemonic extends React.Component {
                         screenWidth={global.screenWidth * 0.9}
                         text={I18n.t('NextStep')}
                         height={50}
-                        backgroundColor='#6f0'
-                        backgroundDarker='#390'
-                        textColor='#000'
-                        borderColor='#390'
+                        backgroundColor="#6f0"
+                        backgroundDarker="#390"
+                        textColor="#000"
+                        borderColor="#390"
                         borderWidth={1}
                         onPress={() => { this.handleSubmit() }}
                     />

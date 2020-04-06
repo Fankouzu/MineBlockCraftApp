@@ -1,35 +1,35 @@
 const DappJson = [
     {
-        name: "mainnet",
+        name: 'mainnet',
         dapps: [{
             name: 'EthereumDapp',
             icon: require('../assets/ethereum.png'),
-            color: '#690'
-        }]
+            color: '#690',
+        }],
     },
     {
-        name: "ropsten",
+        name: 'ropsten',
         dapps: [{
             name: 'EthereumDapp',
             icon: require('../assets/ethereum.png'),
-            color: '#aaa'
-        }]
+            color: '#aaa',
+        }],
     },
     {
-        name: "rinkeby",
+        name: 'rinkeby',
         dapps: [{
             name: 'EthereumDapp',
             icon: require('../assets/ethereum.png'),
-            color: '#aaa'
-        }]
+            color: '#aaa',
+        }],
     },
     {
-        name: "kovan",
+        name: 'kovan',
         dapps: [{
             name: 'EthereumDapp',
             icon: require('../assets/ethereum.png'),
-            color: '#aaa'
-        }]
+            color: '#aaa',
+        }],
     },
 ]
 

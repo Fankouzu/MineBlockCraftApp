@@ -28,20 +28,20 @@ class AuthLoading extends React.Component {
                     } else {
                         this.props.navigation.navigate('LoginNav')
                     }
-                }).catch(err => {
+                }).catch(_err => {
                     this.props.navigation.navigate('LoginNav')
                 })
             } else {
                 this.props.navigation.navigate('LoginNav')
             }
-        }).catch(err => {
+        }).catch(_err => {
             this.props.navigation.navigate('LoginNav')
         })
     }
     render() {
         return (
             <View style={styles.container}>
-                <BarIndicator count={5} size={40} color='#390' />
+                <BarIndicator count={5} size={40} color="#390" />
                 <StatusBar barStyle="default" />
             </View>
         )

@@ -13,31 +13,31 @@ const TokenReducer = (
     switch (action.type) {
         case Types.SET_TOKENTX:
             return {
-                ...state, tokenTx: action.tokenTx
+                ...state, tokenTx: action.tokenTx,
             }
         case Types.SET_TOKEN_TO_ADDRESS:
             return {
-                ...state, toAddress: action.toAddress
+                ...state, toAddress: action.toAddress,
             }
             case Types.SET_TOKEN_FROM_ADDRESS:
                 return {
-                    ...state, fromAddress: action.fromAddress
+                    ...state, fromAddress: action.fromAddress,
                 }
         case Types.SET_TOKEN_AMOUNT:
             return {
-                ...state, amount: action.amount
+                ...state, amount: action.amount,
             }
         case Types.SET_TOKEN_BALANCE:
             return {
-                ...state, balance: action.balance
+                ...state, balance: action.balance,
             }
         case Types.SET_TOKEN_TRANSFER_TX:
             return {
-                ...state, tx: action.tx
+                ...state, tx: action.tx,
             }
         case Types.SET_TOKEN_RECEIPT:
             return {
-                ...state, receipt: action.receipt
+                ...state, receipt: action.receipt,
             }
         case Types.CLEAR_TOKEN_SEND:
             return {

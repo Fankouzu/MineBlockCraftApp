@@ -1,5 +1,5 @@
-import React, { Component } from 'react'
-import { Text, StyleSheet, View, TouchableOpacity, Keyboard } from 'react-native'
+import React, {Component} from 'react'
+import {Text, StyleSheet, View, Keyboard} from 'react-native'
 import { connect } from 'react-redux'
 import { ethers } from 'ethers'
 import MyButton from '../Components/MyButton'
@@ -41,7 +41,7 @@ class Chat extends Component {
             address: '',
             messages: [],
             ViewHeight: global.screenHeight,
-            typeMsg: ''
+            typeMsg: '',
         }
     }
 
@@ -55,7 +55,7 @@ class Chat extends Component {
             title: profile[0] === '' ? toAddress : profile[0],
             messages: messages,
             toAddress: toAddress,
-            address: accounts[currentAccount].address
+            address: accounts[currentAccount].address,
         })
 
         // this._didFocusSubscription = this.props.navigation.addListener('didFocus',
@@ -63,7 +63,7 @@ class Chat extends Component {
         //     }
         // )
         this._keyboardWillShowSubscription = Keyboard.addListener('keyboardDidShow', (e) => this._keyboardWillShow(e))
-        this._keyboardWillHideSubscription = Keyboard.addListener('keyboardDidHide', (e) => this._keyboardWillHide(e))
+        this._keyboardWillHideSubscription = Keyboard.addListener('keyboardDidHide', (e) => this._keyboardWillHide())
         setTimeout(() => {
             this.ScrollView.scrollToEnd({ animated: true })
         }, 300)
@@ -72,7 +72,7 @@ class Chat extends Component {
     componentWillUnmount = () => {
         this._keyboardWillShowSubscription.remove()
         this._keyboardWillHideSubscription.remove()
-        this.setState = (state, callback) => {
+        this.setState = () => {
             return
         }
         // this._didFocusSubscription.remove()
@@ -80,13 +80,13 @@ class Chat extends Component {
     _keyboardWillShow(e) {
         let keyboardHeight = e.endCoordinates.height
         this.setState({
-            ViewHeight: this.state.ViewHeight - keyboardHeight
+            ViewHeight: this.state.ViewHeight - keyboardHeight,
         })
     }
 
-    _keyboardWillHide(e) {
+    _keyboardWillHide() {
         this.setState({
-            ViewHeight: global.screenHeight
+            ViewHeight: global.screenHeight,
         })
     }
     onBlur = () => {
@@ -105,10 +105,9 @@ class Chat extends Component {
             Keyboard.dismiss()
             messages.push([{ _hex: timestamp }, typeMsg, address, toAddress])
             this.setState({ messages: messages })
-            var messageId = messages.length - 1
             this.props.WalletMain.contract.sendMsg(toAddress, typeMsg, {
-                "gasLimit": 300000,
-                "gasPrice": ethers.utils.parseUnits('1.0', 'gwei')
+                'gasLimit': 300000,
+                'gasPrice': ethers.utils.parseUnits('1.0', 'gwei'),
             }).then((tx) => {
                 console.log('tx', tx)
             }).catch(err => {
@@ -128,13 +127,13 @@ class Chat extends Component {
                 <View style={styles.Middle}>
                     <ImageBackground
                         source={require('../../assets/blockchainBg.png')}
-                        imageStyle={{ resizeMode: 'repeat', opacity: 0.15}}
-                        style={{ height: this.state.ViewHeight - 22,width:'100%', paddingTop: 90 }}>
+                        imageStyle={{ resizeMode: 'repeat', opacity: 0.15 }}
+                        style={{ height: this.state.ViewHeight - 22, width: '100%', paddingTop: 90 }}>
                         <ScrollView
                             contentContainerStyle={styles.ScrollView}
                             ref={(ref) => this.ScrollView = ref}
                         >
-                            {this.state.messages.map((item, index) => {
+                            {this.state.messages.map((item) => {
                                 return (<Messages
                                     myAddress={this.state.address}
                                     fromAddress={item[2]}
@@ -158,10 +157,10 @@ class Chat extends Component {
                             screenWidth={50}
                             text={I18n.t('Send')}
                             height={35}
-                            backgroundColor='#6f0'
-                            backgroundDarker='#390'
-                            textColor='#000'
-                            borderColor='#390'
+                            backgroundColor="#6f0"
+                            backgroundDarker="#390"
+                            textColor="#000"
+                            borderColor="#390"
                             raiseLevel={2}
                             textSize={14}
                             textFont={''}
@@ -199,10 +198,10 @@ const styles = StyleSheet.create({
         lineHeight: 30,
         paddingVertical: 4,
         paddingHorizontal: 10,
-        marginRight: 10
+        marginRight: 10,
     },
     SendBtn: {
-        marginVertical: 5
+        marginVertical: 5,
     },
     ScrollView: {
         justifyContent: 'flex-start',
@@ -220,7 +219,7 @@ const styles = StyleSheet.create({
         fontFamily: 'InputMono Light',
         color: '#666',
         marginBottom: 4,
-        marginHorizontal: 10
+        marginHorizontal: 10,
     },
     Recive: {
         paddingHorizontal: 10,
@@ -233,11 +232,11 @@ const styles = StyleSheet.create({
         width: '100%',
         flexDirection: 'row',
         marginVertical: 10,
-        justifyContent: 'flex-end'
+        justifyContent: 'flex-end',
     },
     Booble: {
         position: 'relative',
-        flexDirection: 'row'
+        flexDirection: 'row',
     },
     arrow: {
         flex: 1,
@@ -246,18 +245,18 @@ const styles = StyleSheet.create({
         width: 14,
         top: 5,
         zIndex: 1,
-        justifyContent: 'center'
+        justifyContent: 'center',
     },
     message: {
         backgroundColor: '#fff',
         padding: 10,
         borderRadius: 5,
-        marginHorizontal: 10
+        marginHorizontal: 10,
     },
 })
 
 const mapStateToProps = state => (state)
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = () => ({
 })
 export default connect(mapStateToProps, mapDispatchToProps)(Chat)

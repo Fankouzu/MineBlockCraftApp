@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { Text, StyleSheet, View } from 'react-native'
-import Modal from "react-native-modal"
+import Modal from 'react-native-modal'
 import ListButton from './ListButton'
 import { networks } from '../../../utils/networks'
 import { I18n } from '../../../i18n'
@@ -20,7 +20,7 @@ function NetworkModal(props) {
                             iconColor={item.color}
                             onPress={() => { props.selectNetwork(index) }}
                             key={index}
-                            iconName='flash-circle'
+                            iconName="flash-circle"
                             width={global.screenWidth * 0.9}
                         />
                     )
@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         alignItems: 'center',
         paddingTop: 10,
-        overflow: 'hidden'
+        overflow: 'hidden',
     },
     modalTitle: {
         fontSize: 25,
@@ -45,8 +45,8 @@ const styles = StyleSheet.create({
         marginBottom: 10,
         lineHeight: 40,
         letterSpacing: 2,
-        fontFamily: 'BigYoungMediumGB2.0'
-    }
+        fontFamily: 'BigYoungMediumGB2.0',
+    },
 })
 const mapStateToProps = state => (state)
 

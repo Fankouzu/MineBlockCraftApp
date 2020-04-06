@@ -14,99 +14,99 @@ import * as Types from './Types'
 
 export const setAccounts = (accounts) => ({
     type: Types.SET_ACCOUNTS,
-    accounts
+    accounts,
 })
 
 export const setCurrentAccount = (currentAccount) => {
     return ({
         type: Types.SET_CURRENT_ACCOUNT,
-        currentAccount
+        currentAccount,
     })
 }
 
 export const setNetworkId = (networkId) => ({
     type: Types.SET_NETWORK_ID,
-    networkId
+    networkId,
 })
 
 export const setEncrypt = (encrypt) => ({
     type: Types.SET_ENCRYPT,
-    encrypt
+    encrypt,
 })
 
 export const setWallet = (wallet) => ({
     type: Types.SET_WALLET,
-    wallet
+    wallet,
 })
 
 export const setMnemonic = (mnemonic) => ({
     type: Types.SET_MNEMONIC,
-    mnemonic
+    mnemonic,
 })
 
 //WalletMain
 
 export const setContract = (contract) => ({
     type: Types.SET_CONTRACT,
-    contract
+    contract,
 })
 export const setMsgList = (msgList) => ({
     type: Types.SET_MSGLIST,
-    msgList
+    msgList,
 })
 export const setProfileModalVisiable = (isProfileModalVisible) => ({
     type: Types.SET_PROFILE_MODAL_VISIABLE,
-    isProfileModalVisible
+    isProfileModalVisible,
 })
 export const setSendPasswordModalVisiable = (isSendPasswordModalVisible) => ({
     type: Types.SET_SEND_PASSWORD_MODAL_VISIABLE,
-    isSendPasswordModalVisible
+    isSendPasswordModalVisible,
 })
 
 export const setNetworkModalVisiable = (isNetworkModalVisible) => ({
     type: Types.SET_NETWORK_MODAL_VISIABLE,
-    isNetworkModalVisible
+    isNetworkModalVisible,
 })
 
 export const setShowBalanceLoading = (isShowBalanceLoading) => ({
     type: Types.SET_SHOW_BALANCE_LOADING,
-    isShowBalanceLoading
+    isShowBalanceLoading,
 })
 export const selectAccount = (accounts, currentAccount, isPasswordModalVisible) => ({
     type: Types.SELECT_ACCOUNT,
     accounts: accounts,
     isPasswordModalVisible,
-    currentAccount
+    currentAccount,
 })
 //Login
 export const setImportMnemonic = (useMnemonic) => ({
     type: Types.SET_IMPORT_MNEMONIC,
-    useMnemonic
+    useMnemonic,
 })
 
 export const setMnemonicCn = (mnemonicCn) => ({
     type: Types.SET_MNEMONIC_CN,
-    mnemonicCn
+    mnemonicCn,
 })
 
 export const setMnemonicEn = (mnemonicEn) => ({
     type: Types.SET_MNEMONIC_EN,
-    mnemonicEn
+    mnemonicEn,
 })
 
 export const setUseMnemonic = (useMnemonic) => ({
     type: Types.SET_USE_MNEMONIC,
-    useMnemonic
+    useMnemonic,
 })
 
 export const setDefaultMnemonic = (mnemonicCn) => ({
     type: Types.SET_DEFAULT_MNEMONIC,
-    mnemonicCn
+    mnemonicCn,
 })
 
 export const setLang = (lang) => ({
     type: Types.SET_LANG,
-    lang
+    lang,
 })
 
 export const setRandomMnemonicCn = (randomMnemonicCn) => {
@@ -120,113 +120,113 @@ export const setRandomMnemonicCn = (randomMnemonicCn) => {
 
 export const setRandomMnemonic = (randomMnemonic) => ({
     type: Types.SET_RANDOM_MNEMONIC,
-    randomMnemonic
+    randomMnemonic,
 })
 
 //Send
 
 export const setFromAddress = (fromAddress) => ({
     type: Types.SET_FROM_ADDRESS,
-    fromAddress
+    fromAddress,
 })
 
 export const setToAddress = (toAddress) => ({
     type: Types.SET_TO_ADDRESS,
-    toAddress
+    toAddress,
 })
 
 export const setAmount = (amount) => ({
     type: Types.SET_AMOUNT,
-    amount
+    amount,
 })
 
 export const setBalance = (balance) => ({
     type: Types.SET_BALANCE,
-    balance
+    balance,
 })
 
 export const setEthPrice = (ethPrice) => ({
     type: Types.SET_ETH_PRICE,
-    ethPrice
+    ethPrice,
 })
 
 export const setNote = (note) => ({
     type: Types.SET_NOTE,
-    note
+    note,
 })
 
 export const setGasPrice = (gasPrice) => ({
     type: Types.SET_GAS_PRICE,
-    gasPrice
+    gasPrice,
 })
 
 export const setMyGasPrice = (myGasPrice) => ({
     type: Types.SET_MY_GAS_PRICE,
-    myGasPrice
+    myGasPrice,
 })
 
 export const setGasLimit = (gasLimit) => ({
     type: Types.SET_GAS_LIMIT,
-    gasLimit
+    gasLimit,
 })
 
 export const setTX = (tx) => ({
     type: Types.SET_TX,
-    tx
+    tx,
 })
 
 export const setReceipt = (receipt) => ({
     type: Types.SET_RECEIPT,
-    receipt
+    receipt,
 })
 
 export const clearSend = () => ({
-    type: Types.CLEAR_SEND
+    type: Types.CLEAR_SEND,
 })
 
 //Gesture
 
 export const setGesture = () => ({
-    type: Types.SET_GESTURE
+    type: Types.SET_GESTURE,
 })
 
 //SendToken
 
 export const setTokenTx = (tokenTx) => ({
     type: Types.SET_TOKENTX,
-    tokenTx
+    tokenTx,
 })
 
 export const setTokenFromAddress = (fromAddress) => ({
     type: Types.SET_TOKEN_FROM_ADDRESS,
-    fromAddress
+    fromAddress,
 })
 
 export const setTokenToAddress = (toAddress) => ({
     type: Types.SET_TOKEN_TO_ADDRESS,
-    toAddress
+    toAddress,
 })
 
 export const setTokenAmount = (amount) => ({
     type: Types.SET_TOKEN_AMOUNT,
-    amount
+    amount,
 })
 
 export const setTokenBalance = (balance) => ({
     type: Types.SET_TOKEN_BALANCE,
-    balance
+    balance,
 })
 
 export const setTokenTransferTx = (tx) => ({
     type: Types.SET_TOKEN_TRANSFER_TX,
-    tx
+    tx,
 })
 
 export const setTokenReceipt = (receipt) => ({
     type: Types.SET_TOKEN_RECEIPT,
-    receipt
+    receipt,
 })
 
 export const clearTokenSend = () => ({
-    type: Types.CLEAR_TOKEN_SEND
+    type: Types.CLEAR_TOKEN_SEND,
 })

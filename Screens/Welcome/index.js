@@ -14,13 +14,13 @@ class WelcomeNav extends React.Component {
             page: 0,
         }
     }
-    componentDidMount() { 
+    componentDidMount() {
         global.storage.load({
             key: 'wallet',
         }).then(ret => {
             if (ret.encrypt) {
                 this.props.setEncrypt(ret.encrypt)
-            }else {
+            } else {
                 this.props.setEncrypt('')
             }
         }).catch(err => {
@@ -53,7 +53,7 @@ class WelcomeNav extends React.Component {
     turnPage = (index) => {
         Animated.timing(this.state.leftAnim, {
             toValue: global.screenWidth * (this.state.page + index) * -1,
-            duration: 200
+            duration: 200,
         }).start(() => {
             this.setState({ page: this.state.page + index })
         })

@@ -31,12 +31,12 @@ export default function MyPasswordInput(props) {
         Animated.parallel([
             Animated.timing(borderWidth, {
                 toValue: 2,
-                duration: duration
+                duration: duration,
             }),
             Animated.timing(borderRadius, {
                 toValue: 12,
-                duration: duration
-            })
+                duration: duration,
+            }),
         ]).start(() => {
             setBorderColor(props.borderColorActive)
             props.handleKeybordMargin('up')
@@ -46,12 +46,12 @@ export default function MyPasswordInput(props) {
         Animated.parallel([
             Animated.timing(borderWidth, {
                 toValue: 1,
-                duration: duration
+                duration: duration,
             }),
             Animated.timing(borderRadius, {
                 toValue: 10,
-                duration: duration
-            })
+                duration: duration,
+            }),
         ]).start(() => {
             setBorderColor(props.borderColor)
             props.handleKeybordMargin('down')
@@ -68,11 +68,11 @@ export default function MyPasswordInput(props) {
             }}>
             <TextInput
                 ref={inputRef}
-                placeholderTextColor='#666'
+                placeholderTextColor="#666"
                 onChangeText={(password) => handleTypePassword(password)}
                 placeholder={props.placeholder}
                 value={password}
-                clearButtonMode='while-editing'
+                clearButtonMode="while-editing"
                 style={styles.textInput}
                 secureTextEntry={props.secureTextEntry}
                 blurOnSubmit={true}
@@ -91,13 +91,13 @@ MyPasswordInput.propTypes = {
     borderColor: PropTypes.string,
     borderColorActive: PropTypes.string,
     secureTextEntry: PropTypes.bool,
-    keyboardType: PropTypes.string
+    keyboardType: PropTypes.string,
 }
 MyPasswordInput.defaultProps = {
     borderColor: '#666',
     borderColorActive: '#666',
     secureTextEntry: true,
-    keyboardType: 'default'
+    keyboardType: 'default',
 }
 const styles = StyleSheet.create({
     textInput: {
@@ -110,5 +110,5 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         flex: 1,
-    }
+    },
 })

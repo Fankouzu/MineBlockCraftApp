@@ -14,7 +14,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         marginLeft: 15,
-        marginRight: 15
+        marginRight: 15,
     },
     listItem: {
         height: 35,
@@ -24,12 +24,12 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
     },
     listLeft: {
-        flexDirection: 'row'
+        flexDirection: 'row',
     },
     jazzIcon: {
         width: 20,
         justifyContent: 'center',
-        marginRight: 10
+        marginRight: 10,
     },
     balance: {
         fontSize: 14,
@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
         color: '#333',
         fontSize: 14,
         fontFamily: 'BigYoungMediumGB2.0',
-        marginLeft: 2
+        marginLeft: 2,
     },
 })
 function BalanceCard(props) {

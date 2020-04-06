@@ -1,14 +1,14 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import * as actions from '../../../actions'
-import { Text, StyleSheet, View, Animated, TouchableOpacity, ActivityIndicator, } from 'react-native'
-import Modal from "react-native-modal"
+import { Text, StyleSheet, View, Animated, TouchableOpacity, ActivityIndicator } from 'react-native'
+import Modal from 'react-native-modal'
 import MyCard from '../../Components/MyCard'
 import Title from '../../Components/Title'
 import MyButton from '../../Components/MyButton'
 import AlertText from '../../Components/AlertText'
 import { aesDecrypt, sha1 } from '../../../utils/Aes'
-import { validateMnemonic, initContract, openContract } from '../../../utils/Tools'
+import { validateMnemonic, openContract } from '../../../utils/Tools'
 import ContractAddress from '../../../Contract/address.js'
 import { networks } from '../../../utils/networks'
 import abi from '../../../Contract/MineBlockCraftUser.abi.js'
@@ -37,12 +37,12 @@ class ProfileModal extends Component {
     Init = async () => {
         this.setState({
             nickName: '',
-            signature: ''
+            signature: '',
         })
         const { networkId, accounts, currentAccount } = this.props.WalletReducer
         const UserContractAddress = ContractAddress.MineBlockCraftUser[networkId].address
 
-        if (UserContractAddress !== "") {
+        if (UserContractAddress !== '') {
             // const contract = initContract(networks[networkId].name, UserContractAddress, abi)
 
             let AddressToId = await this.props.WalletMain.contract.AddressToId(accounts[currentAccount].address)
@@ -59,13 +59,13 @@ class ProfileModal extends Component {
                     title: I18n.t('EditProfile'),
                     nickName: Profile[0],
                     signature: Profile[1],
-                    Profile: Profile
+                    Profile: Profile,
                 })
             }
         }
     }
 
-    async componentDidUpdate(nextProps, nextState) {
+    async componentDidUpdate(nextProps, _nextState) {
         if (nextProps.isVisible !== this.props.isVisible && this.props.isVisible) {
             await this.Init()
         }
@@ -102,7 +102,7 @@ class ProfileModal extends Component {
                             console.log(error)
                             next()
                             this.setState({
-                                alertText: ['余额不足,账户中没有足够的Eth']
+                                alertText: ['余额不足,账户中没有足够的Eth'],
                             })
                             setTimeout(() => {
                                 this.Cancel()
@@ -110,7 +110,7 @@ class ProfileModal extends Component {
                         })
 
                     }
-                }).catch(err => {
+                }).catch(_err => {
                     this.Cancel()
                     this.props.navigation.navigate('WelcomeNav', { page: 1 })
                 })
@@ -146,10 +146,9 @@ class ProfileModal extends Component {
                                 <TextField
                                     label={I18n.t('InputNickName')}
                                     onChangeText={(nickName) => { this.setState({ nickName: nickName }) }}
-                                    fontSize={14}
                                     tintColor={'#390'}
                                     fontSize={18}
-                                    containerStyle={{ marginTop: -30, }}
+                                    containerStyle={{ marginTop: -30 }}
                                     labelTextStyle={{ paddingTop: 2.5, top: 5 }}
                                     renderLeftAccessory={() => { return (<Text>😎 </Text>) }}
                                     labelOffset={{ y0: -4, y1: -10 }}
@@ -158,10 +157,9 @@ class ProfileModal extends Component {
                                 <TextField
                                     label={I18n.t('InputSignature')}
                                     onChangeText={(signature) => { this.setState({ signature: signature }) }}
-                                    fontSize={14}
                                     tintColor={'#390'}
                                     fontSize={18}
-                                    containerStyle={{ marginTop: -20, }}
+                                    containerStyle={{ marginTop: -20 }}
                                     labelTextStyle={{ paddingTop: 2.5, top: 5 }}
                                     renderLeftAccessory={() => { return (<Text>📝 </Text>) }}
                                     labelOffset={{ y0: -4, y1: -10 }}
@@ -169,7 +167,7 @@ class ProfileModal extends Component {
                                 />
                                 <AlertText
                                     alertText={this.state.alertText}
-                                    textAlign='left'
+                                    textAlign="left"
                                     alertColor={this.state.alertColor}
                                 />
                                 <MyButton
@@ -177,10 +175,10 @@ class ProfileModal extends Component {
                                     onPress={(next) => { this.handleSubmit(next) }}
                                     text={I18n.t('PasswordSubmit')}
                                     height={50}
-                                    backgroundColor='#6f0'
-                                    backgroundDarker='#390'
-                                    textColor='#000'
-                                    borderColor='#390'
+                                    backgroundColor="#6f0"
+                                    backgroundDarker="#390"
+                                    textColor="#000"
+                                    borderColor="#390"
                                     borderWidth={1}
                                     textSize={20}
                                     progress={true}
@@ -206,7 +204,7 @@ const styles = StyleSheet.create({
         backgroundColor: 'rgba(0,0,0,0.5)',
         borderRadius: 10,
         alignItems: 'center',
-        paddingTop: 10
+        paddingTop: 10,
     },
     modalTitle: {
         fontSize: 25,
@@ -214,20 +212,20 @@ const styles = StyleSheet.create({
         marginBottom: 10,
         lineHeight: 40,
         letterSpacing: 2,
-        fontFamily: 'BigYoungMediumGB2.0'
+        fontFamily: 'BigYoungMediumGB2.0',
     },
     bottom: {
         alignItems: 'center',
         padding: 5,
     },
     bottomLink: {
-        color: '#390'
-    }
+        color: '#390',
+    },
 })
 
 const mapStateToProps = state => (state)
 
 const mapDispatchToProps = dispatch => ({
-    setMnemonic: (value) => dispatch(actions.setMnemonic(value))
+    setMnemonic: (value) => dispatch(actions.setMnemonic(value)),
 })
 export default connect(mapStateToProps, mapDispatchToProps)(ProfileModal)

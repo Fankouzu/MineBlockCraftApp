@@ -21,10 +21,10 @@ export default function Topbar(props) {
 }
 Topbar.propTypes = {
     onPress: PropTypes.func.isRequired,
-    titleTxt:PropTypes.string
+    titleTxt:PropTypes.string,
 }
 Topbar.defaultProps = {
-    titleTxt:''
+    titleTxt:'',
 }
 const styles = StyleSheet.create({
     TopBar: {
@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
         borderBottomColor: '#ddd',
         position: 'absolute',
         top: 0,
-        zIndex: 1
+        zIndex: 1,
     },
     left: {
         height: 45,
@@ -44,7 +44,7 @@ const styles = StyleSheet.create({
         position: 'absolute',
         justifyContent: 'center',
         alignItems: 'center',
-        zIndex: 1
+        zIndex: 1,
     },
     title: {
         height: 45,
@@ -55,6 +55,6 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         textAlignVertical: 'center',
         paddingHorizontal: 40,
-        overflow: 'hidden'
+        overflow: 'hidden',
     },
 })

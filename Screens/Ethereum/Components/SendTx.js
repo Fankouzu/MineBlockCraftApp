@@ -45,7 +45,7 @@ function SendTx(props) {
                 borderRadius: 1,
                 borderStyle: 'dashed',
                 marginBottom: 10,
-                width: '100%'
+                width: '100%',
             }}/>
             <SendInput
                 addressError={addressError}
@@ -58,10 +58,10 @@ function SendTx(props) {
                 screenWidth={global.screenWidth * 0.9 - 30}
                 text={I18n.t('NextStep')}
                 height={50}
-                backgroundColor='#6f0'
-                backgroundDarker='#390'
-                textColor='#000'
-                borderColor='#390'
+                backgroundColor="#6f0"
+                backgroundDarker="#390"
+                textColor="#000"
+                borderColor="#390"
                 borderWidth={1}
                 disabled={buttonDisable}
                 onPress={() => handleNext()}

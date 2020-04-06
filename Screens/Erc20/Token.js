@@ -15,7 +15,7 @@ class Token extends React.Component {
         super(props);
         this.state = {
             tokenTx: { error: -2 },
-            title: ''
+            title: '',
         }
     }
 
@@ -64,7 +64,7 @@ class Token extends React.Component {
 const styles = StyleSheet.create({
     Middle: {
         marginTop: 45,
-        paddingTop: 20
+        paddingTop: 20,
     },
 })
 

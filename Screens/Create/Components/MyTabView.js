@@ -9,26 +9,26 @@ import { I18n,countryCode } from '../../../i18n'
 
 function MyTabView(props) {
     const [index, setIndex] = React.useState(0)
-    const [routes] = React.useState(countryCode==='CN' ? [
+    const [routes] = React.useState(countryCode === 'CN' ? [
         { key: 'chinese', title: I18n.t('MnemonicCn') },
         { key: 'english', title: I18n.t('MnemonicEn') },
-    ]:[
+    ] : [
         { key: 'english', title: I18n.t('MnemonicEn') },
         { key: 'chinese', title: I18n.t('MnemonicCn') },
     ])
     React.useEffect(() => {
         props.changeLang(index)
     }, [index])
-    
+
     const renderScene = SceneMap({
-        chinese: () => 
+        chinese: () =>
             <View style={styles.scene}>
-                <Text 
+                <Text
                     style={[
                         styles.mnemonic_cn,
                         {
-                            letterSpacing:(global.screenWidth*0.9-10)/4 - 30
-                        }]} 
+                            letterSpacing:(global.screenWidth * 0.9 - 10) / 4 - 30,
+                        }]}
                     onPress={()=>{
                         Clipboard.setString(props.LoginReducer.mnemonicCn)
                     }}
@@ -36,9 +36,9 @@ function MyTabView(props) {
                     {props.LoginReducer.mnemonicCn.replace(/ /g,'')}
                 </Text>
             </View>,
-        english: () => 
+        english: () =>
             <View style={styles.scene} >
-                <Text 
+                <Text
                 style={styles.mnemonic_en}
                 onPress={()=>{
                     Clipboard.setString(props.LoginReducer.mnemonicEn)
@@ -46,16 +46,15 @@ function MyTabView(props) {
                 >
                 {props.LoginReducer.mnemonicEn.replace(/ /g,'        ')}
                 </Text>
-            </View>
+            </View>,
     })
-    const renderTabBar = props => (
+    const renderTabBar = (props) => (
         <TabBar
             {...props}
             indicatorStyle={{ backgroundColor: '#390' }}
-            style={{ backgroundColor: 'red',borderRadius:10 }}
-            labelStyle={{ color: 'black', shadowColor: '#0f0',fontSize:countryCode==='CN' ? 14:12}}
-            pressColor='#6f0'
-            inactiveColor='#f00'
+            labelStyle={{ color: 'black', shadowColor: '#0f0',fontSize:countryCode === 'CN' ? 14 : 12}}
+            pressColor="#6f0"
+            inactiveColor="#f00"
             swipeEnabled={true}
             style={{ backgroundColor: '#fff', elevation: 0 ,borderRadius:10}}
         />
@@ -81,7 +80,7 @@ MyTabView.propTypes = {
 }
 const styles = StyleSheet.create({
     scene: {
-        flex: 0
+        flex: 0,
     },
     mnemonic_cn: {
         fontSize:24,
@@ -90,7 +89,7 @@ const styles = StyleSheet.create({
         lineHeight:52,
         paddingLeft:5,
         paddingRight:5,
-        fontFamily: 'BigYoungMediumGB2.0'
+        fontFamily: 'BigYoungMediumGB2.0',
     },
     mnemonic_en: {
         fontSize:16,
@@ -99,8 +98,8 @@ const styles = StyleSheet.create({
         lineHeight:50,
         paddingLeft:10,
         paddingRight:10,
-        fontFamily: 'InputMono light'
-    }
+        fontFamily: 'InputMono light',
+    },
 })
 const mapStateToProps = state => (state)
 

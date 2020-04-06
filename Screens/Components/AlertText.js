@@ -36,11 +36,11 @@ export default function AlertText(props) {
 AlertText.propTypes = {
     alertText: PropTypes.array.isRequired,
     alertColor: PropTypes.string,
-    textAlign: PropTypes.string
+    textAlign: PropTypes.string,
 }
 AlertText.defaultProps = {
     alertColor: '#F30',
-    textAlign: 'center'
+    textAlign: 'center',
 }
 const styles = StyleSheet.create({
     alert: {
@@ -52,6 +52,6 @@ const styles = StyleSheet.create({
         textAlign: 'left',
         fontStyle: 'italic',
         fontSize: 12,
-        lineHeight: 20
+        lineHeight: 20,
     },
 })

@@ -6,7 +6,7 @@ import SendReducer from './SendReducer'
 import TokenReducer from './TokenReducer'
 
 
-export default rootReducer = combineReducers({
+export default combineReducers({
     WalletReducer: WalletReducer,
     WalletMain: WalletMain,
     LoginReducer:LoginReducer,

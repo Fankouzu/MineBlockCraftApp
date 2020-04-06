@@ -53,10 +53,10 @@ class SendToken extends React.Component {
     handleTurnPage = (index) => {
         Animated.timing(this.state.leftAnim, {
             toValue: global.screenWidth * (this.state.step + index) * -1,
-            duration: 200
+            duration: 200,
         }).start(() => {
             this.setState({ step: this.state.step + index })
-            if(this.state.step === 2){
+            if (this.state.step === 2){
                 this.handleSendTransaction()
             }
         })

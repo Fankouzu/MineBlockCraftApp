@@ -18,8 +18,8 @@ const styles = StyleSheet.create({
         color: '#eee',
         marginLeft: 2,
         letterSpacing: 1,
-        fontFamily: 'BigYoungMediumGB2.0'
-    }
+        fontFamily: 'BigYoungMediumGB2.0',
+    },
 })
 export default function ListButton(props) {
 

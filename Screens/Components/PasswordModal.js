@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import {connect} from 'react-redux'
 import * as actions from '../../actions'
 import { Text, StyleSheet, View, Animated, TouchableOpacity } from 'react-native'
-import Modal from "react-native-modal"
+import Modal from 'react-native-modal'
 import MyCard from './MyCard'
 import Title from './Title'
 import MyPasswordInput from './MyPasswordInput'
@@ -22,7 +22,7 @@ class PasswordModal extends Component {
             alertText: [],
             borderColor: '#999',
             buttonDisable: false,
-            top: new Animated.Value(-150)
+            top: new Animated.Value(-150),
         }
     }
     shake = () => {
@@ -30,26 +30,26 @@ class PasswordModal extends Component {
         Animated.sequence([
             Animated.timing(this.state.shakeLeft, {
                 toValue: global.screenWidth * -0.05,
-                duration: duration
+                duration: duration,
             }),
             Animated.timing(this.state.shakeLeft, {
                 toValue: global.screenWidth * -0.03,
-                duration: duration
+                duration: duration,
             }),
             Animated.timing(this.state.shakeLeft, {
                 toValue: global.screenWidth * 0.03,
-                duration: duration
+                duration: duration,
             }),
             Animated.timing(this.state.shakeLeft, {
                 toValue: 0,
-                duration: duration
-            })
+                duration: duration,
+            }),
         ]).start(() => {
             setTimeout(() => {
                 this.setState({
                     borderColor: '#999',
                     alertText: [],
-                    buttonDisable: false
+                    buttonDisable: false,
                 })
             }, 3000)
         })
@@ -57,7 +57,7 @@ class PasswordModal extends Component {
     handleKeybordMargin = (action) => {
         Animated.timing(this.state.top, {
             toValue: action === 'up' ? 0 : -150,
-            duration: 200
+            duration: 200,
         }).start()
     }
     handleTypePassword = (password) => {
@@ -68,7 +68,7 @@ class PasswordModal extends Component {
             this.setState({
                 borderColor: '#F30',
                 alertText: [I18n.t('OpenWalletAlertTxt1')],
-                buttonDisable: true
+                buttonDisable: true,
             })
             this.shake()
         } else {
@@ -83,7 +83,7 @@ class PasswordModal extends Component {
                 this.setState({
                     borderColor: '#F30',
                     alertText: [I18n.t('OpenWalletAlertTxt2')],
-                    buttonDisable: true
+                    buttonDisable: true,
                 })
                 this.shake()
             }
@@ -107,23 +107,23 @@ class PasswordModal extends Component {
                             handleKeybordMargin={this.handleKeybordMargin}
                             placeholder={I18n.t('InputPassword')}
                             borderColor={this.state.borderColor}
-                            borderColorActive='#390'
+                            borderColorActive="#390"
                             buttonDisable={this.state.buttonDisable}
                             focus={true}
                         />
                         <AlertText
                             alertText={this.state.alertText}
-                            textAlign='left'
+                            textAlign="left"
                         />
                         <MyButton
                             screenWidth={global.screenWidth * 0.9 - 30}
                             onPress={(next) => { this.handleSubmit(next) }}
                             text={I18n.t('PasswordSubmit')}
                             height={50}
-                            backgroundColor='#6f0'
-                            backgroundDarker='#390'
-                            textColor='#000'
-                            borderColor='#390'
+                            backgroundColor="#6f0"
+                            backgroundDarker="#390"
+                            textColor="#000"
+                            borderColor="#390"
                             borderWidth={1}
                             textSize={20}
                             progress={true}
@@ -146,7 +146,7 @@ const styles = StyleSheet.create({
         backgroundColor: 'rgba(0,0,0,0.5)',
         borderRadius: 10,
         alignItems: 'center',
-        paddingTop: 10
+        paddingTop: 10,
     },
     modalTitle: {
         fontSize: 25,
@@ -154,20 +154,20 @@ const styles = StyleSheet.create({
         marginBottom: 10,
         lineHeight: 40,
         letterSpacing: 2,
-        fontFamily: 'BigYoungMediumGB2.0'
+        fontFamily: 'BigYoungMediumGB2.0',
     },
     bottom: {
         alignItems: 'center',
         padding: 5,
     },
     bottomLink: {
-        color: '#390'
-    }
+        color: '#390',
+    },
 })
 
 const mapStateToProps = state => (state)
 
 const mapDispatchToProps = dispatch => ({
-    setMnemonic: (value) => dispatch(actions.setMnemonic(value))
+    setMnemonic: (value) => dispatch(actions.setMnemonic(value)),
 })
 export default connect(mapStateToProps,mapDispatchToProps)(PasswordModal)

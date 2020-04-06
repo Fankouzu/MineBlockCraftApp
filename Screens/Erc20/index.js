@@ -8,16 +8,16 @@ import Erc20 from './Erc20'
 const AppNavigator = createStackNavigator(
     {
         Erc20: {
-            screen: Erc20
+            screen: Erc20,
         },
         Token: {
-            screen: Token
+            screen: Token,
         },
         SendToken: {
-            screen: SendToken
+            screen: SendToken,
         },
         ReciveToken: {
-            screen: ReciveToken
+            screen: ReciveToken,
         },
     },
     {

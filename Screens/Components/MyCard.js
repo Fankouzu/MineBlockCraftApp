@@ -10,7 +10,7 @@ export default function MyCard(props) {
             marginHorizontal: props.screenWidth * props.margin,
             marginTop: props.top,
             padding: props.padding,
-            height:props.height
+            height:props.height,
         },props.style]}>
             {props.children}
         </View>
@@ -21,7 +21,7 @@ MyCard.defaultProps = {
     top: 0,
     margin: 0.1,
     children: null,
-    padding: 15
+    padding: 15,
 }
 MyCard.propTypes = {
     screenWidth: PropTypes.number.isRequired,
@@ -29,7 +29,7 @@ MyCard.propTypes = {
     top: PropTypes.number,
     padding: PropTypes.number,
     height: PropTypes.number,
-    children: PropTypes.node
+    children: PropTypes.node,
 }
 const styles = StyleSheet.create({
     MyCard: {
@@ -44,10 +44,10 @@ const styles = StyleSheet.create({
         shadowRadius: 10,
         shadowOffset: {
             height: 10,
-            width: 10
+            width: 10,
         },
         flex: 0,
         marginBottom: 10,
-        overflow:'hidden'
-    }
+        overflow:'hidden',
+    },
 })

@@ -12,5 +12,5 @@ export default {
         {
             address:'0xa683E086E49F5BA78AF251E95C1464DfB05b4aC2',//Kovan
         },
-    ]
+    ],
 }

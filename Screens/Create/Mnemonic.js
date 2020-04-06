@@ -2,7 +2,7 @@ import React from 'react'
 import {
     StyleSheet,
     View,
-    Text
+    Text,
 } from 'react-native'
 import { connect } from 'react-redux'
 import * as actions from '../../actions'
@@ -15,18 +15,18 @@ import { I18n, countryCode } from '../../i18n'
 
 const styles = StyleSheet.create({
     alert: {
-        marginBottom: 10
+        marginBottom: 10,
     },
     alertText: {
         color: '#f00',
         textAlign: 'center',
         fontSize: countryCode === 'CN' ? 14 : 12,
-    }
+    },
 })
 function Mnemonic(props) {
     const { navigate } = props.navigation
 
-    changeLang = (index) => {
+    const changeLang = (index) => {
         if (countryCode === 'CN') {
             if (index === 0) {
                 props.setLang('cn')
@@ -69,10 +69,10 @@ function Mnemonic(props) {
                         screenWidth={global.screenWidth * 0.9 - 30}
                         text={I18n.t('NextStep')}
                         height={50}
-                        backgroundColor='#6f0'
-                        backgroundDarker='#390'
-                        textColor='#000'
-                        borderColor='#390'
+                        backgroundColor="#6f0"
+                        backgroundDarker="#390"
+                        textColor="#000"
+                        borderColor="#390"
                         borderWidth={1}
                         onPress={() => props.turnPage(1)}
                     />

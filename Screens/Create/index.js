@@ -15,7 +15,7 @@ class CreateNav extends React.Component {
         super(props)
         this.state = {
             leftAnim: new Animated.Value(0),
-            page: 0
+            page: 0,
         }
     }
     componentDidMount() {
@@ -30,7 +30,7 @@ class CreateNav extends React.Component {
     turnPage = (index) => {
         Animated.timing(this.state.leftAnim, {
             toValue: global.screenWidth * (this.state.page + index) * -1,
-            duration: 200
+            duration: 200,
         }).start(() => {
             this.setState({ page: this.state.page + index })
         })
@@ -54,14 +54,14 @@ class CreateNav extends React.Component {
                     <Mnemonic
                         navigation={this.props.navigation}
                         turnPage={this.turnPage}
-                    ></Mnemonic>
+                     />
                     <RandomMnemonic
                         turnPage={this.turnPage}
-                    ></RandomMnemonic>
+                     />
                     <Password
                         navigation={this.props.navigation}
                         turnPage={this.turnPage}
-                    ></Password>
+                     />
                 </Animated.View>
             </MyBackground>
         )

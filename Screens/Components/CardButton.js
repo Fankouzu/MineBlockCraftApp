@@ -9,7 +9,7 @@ const styles = StyleSheet.create({
         color: '#eee',
         marginLeft: 2,
         fontFamily: 'BigYoungMediumGB2.0',
-        letterSpacing: 3
+        letterSpacing: 3,
     },
     ListButton: {
         height: 40,
@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
         borderRightWidth: 0.5,
         borderRightColor: '#fff',
         flex: 1,
-    }
+    },
 })
 export default function CardButton(props) {
 

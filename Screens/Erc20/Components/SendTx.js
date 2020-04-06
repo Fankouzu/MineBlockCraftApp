@@ -53,20 +53,20 @@ class SendTx extends React.Component {
         Animated.sequence([
             Animated.timing(this.state.shakeLeft, {
                 toValue: global.screenWidth * 0.08,
-                duration: duration
+                duration: duration,
             }),
             Animated.timing(this.state.shakeLeft, {
                 toValue: global.screenWidth * -0.03,
-                duration: duration
+                duration: duration,
             }),
             Animated.timing(this.state.shakeLeft, {
                 toValue: global.screenWidth * 0.03,
-                duration: duration
+                duration: duration,
             }),
             Animated.timing(this.state.shakeLeft, {
                 toValue: 0,
-                duration: duration
-            })
+                duration: duration,
+            }),
         ]).start(() => {
         })
     }
@@ -79,7 +79,7 @@ class SendTx extends React.Component {
                     screenWidth={global.screenWidth}
                     margin={0.05}
                     top={10}
-                    style={{ padding: 10, marginBottom: 50, }}>
+                    style={{ padding: 10, marginBottom: 50 }}>
                     <Title titleText={I18n.t('SendToken')} />
                     <View style={{
                         borderWidth: 0.35,
@@ -87,7 +87,7 @@ class SendTx extends React.Component {
                         borderRadius: 1,
                         borderStyle: 'dashed',
                         marginBottom: 10,
-                        width: '100%'
+                        width: '100%',
                     }} />
                     <SendInput
                         addressError={this.state.addressError}
@@ -99,10 +99,10 @@ class SendTx extends React.Component {
                         screenWidth={global.screenWidth * 0.9 - 30}
                         text={I18n.t('NextStep')}
                         height={50}
-                        backgroundColor='#6f0'
-                        backgroundDarker='#390'
-                        textColor='#000'
-                        borderColor='#390'
+                        backgroundColor="#6f0"
+                        backgroundDarker="#390"
+                        textColor="#000"
+                        borderColor="#390"
                         borderWidth={1}
                         disabled={this.state.buttonDisable}
                         onPress={() => this.handleNext()}

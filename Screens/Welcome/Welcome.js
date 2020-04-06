@@ -21,11 +21,11 @@ function Welcome(props) {
                     screenWidth={global.screenWidth * 0.9 - 30}
                     height={50}
                     borderRadius={15}
-                    text={'😃'+I18n.t('NextStep')}
-                    backgroundColor='#6f0'
-                    backgroundDarker='#390'
-                    textColor='#000'
-                    borderColor='#390'
+                    text={'😃' + I18n.t('NextStep')}
+                    backgroundColor="#6f0"
+                    backgroundDarker="#390"
+                    textColor="#000"
+                    borderColor="#390"
                     borderWidth={1}
                     textSize={I18n.t('WelcomeButtonFontSize')}
                     onPress={() => props.turnPage(1)}
@@ -37,11 +37,11 @@ function Welcome(props) {
                             height={50}
                             borderRadius={15}
                             text={I18n.t('ImportAccount')}
-                            backgroundColor='#fc0'
-                            backgroundDarker='#960'
-                            backgroundActive='#ff0'
-                            textColor='#000'
-                            borderColor='#960'
+                            backgroundColor="#fc0"
+                            backgroundDarker="#960"
+                            backgroundActive="#ff0"
+                            textColor="#000"
+                            borderColor="#960"
                             borderWidth={1}
                             textSize={I18n.t('WelcomeButtonFontSize')}
                             onPress={() => navigate('ImportNav')}
@@ -52,10 +52,10 @@ function Welcome(props) {
                             height={50}
                             borderRadius={15}
                             text={I18n.t('CreateAccount')}
-                            backgroundColor='#6f0'
-                            backgroundDarker='#390'
-                            textColor='#000'
-                            borderColor='#390'
+                            backgroundColor="#6f0"
+                            backgroundDarker="#390"
+                            textColor="#000"
+                            borderColor="#390"
                             borderWidth={1}
                             textSize={I18n.t('WelcomeButtonFontSize')}
                             onPress={() => navigate('CreateNav')}
