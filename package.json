@@ -4,6 +4,7 @@
   "private": false,
   "scripts": {
     "android": "react-native run-android && react-native start",
+    "androidrelease": "react-native run-android --variant=release",
     "ios": "react-native run-ios",
     "start": "react-native start",
     "test": "jest",
@@ -32,6 +33,7 @@
     "ethereum-hdwallet": "^0.0.26",
     "ethers": "^4.0.43",
     "etherscan-api-cn": "^10.0.5",
+    "ethjs-ens": "^2.0.1",
     "events": "^1.0.0",
     "https-browserify": "~0.0.0",
     "is-ethereum-address": "^1.0.2",

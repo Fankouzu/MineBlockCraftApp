@@ -116,9 +116,10 @@ export default {
   NamePlaceholder:'输入代币全称',
   SymbolPlaceholder:'输入代币缩写',
   SupplyPlaceholder:'输入发行总量',
-  DeploySuccess:'创建成功',
-  DeployTxt:'返回Erc20列表中查看你创建的代币',
+  DeploySuccess:'合约布署成功',
+  DeployTxt:'等待区块确认成功后,在Erc20列表中就可以看到你创建的代币',
   Ok:'确定',
+  InsufficientFunds:'账户中没有足够的Eth支付Gas,布署合约需要约0.003Eth',
   //TxList
   TxListTitle:'交易记录',
   Deploy:'部署合约',

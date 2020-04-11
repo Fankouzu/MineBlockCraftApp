@@ -26,6 +26,7 @@ class MintCoin extends Component {
             supplyErrorStyle: {},
             shakeLeft: new Animated.Value(0),
             modalVisible: false,
+            errorTxt: 'none',
         }
     }
 
@@ -85,13 +86,18 @@ class MintCoin extends Component {
                 supplyErrorStyle: {},
             })
             try {
-                let tx = await Deploy(networkName, mnemonic, currentAccount, Abi, Bytecode, {
+                const result = await Deploy(networkName, mnemonic, currentAccount, Abi, Bytecode, {
                     initialSupply: initialSupply,
                     name: name,
                     symbol: symbol,
                     decimals: 18,
                 })
-                this.setState({modalVisible:true})
+                if (result.error === -1) {
+                    this.setState({ errorTxt: 'flex' })
+                    this.shake()
+                } else {
+                    this.setState({ modalVisible: true })
+                }
                 next()
             } catch (e) {
                 console.log('Deploy Error:', e)
@@ -156,6 +162,9 @@ class MintCoin extends Component {
                                     keyboardType="numeric"
                                 />
                             </View>
+                            <Text style={[styles.errorTxt, { display: this.state.errorTxt }]}>
+                                {I18n.t('InsufficientFunds')}
+                            </Text>
                             <MyButton
                                 screenWidth={global.screenWidth * 0.9 - 20}
                                 onPress={(next) => { this.handleSubmit(next) }}
@@ -184,7 +193,7 @@ class MintCoin extends Component {
                         </Text>
                         <MyButton
                             screenWidth={global.screenWidth * 0.9 - 30}
-                            onPress={() => { this.setState({modalVisible:false}), navigate('Erc20')}}
+                            onPress={() => { this.setState({ modalVisible: false }); navigate('Erc20') }}
                             text={I18n.t('Ok')}
                             height={50}
                             backgroundColor="#6f0"
@@ -234,18 +243,18 @@ const styles = StyleSheet.create({
         flex: 3,
     },
     errorTxt: {
-        fontSize: 10,
-        height: 14,
+        fontSize: 14,
         color: '#f30',
         paddingLeft: 5,
         textAlignVertical: 'center',
+        marginBottom: 10,
+        paddingHorizontal: 10,
     },
-    DeployTxt:{
-        textAlign:'center',
-        textAlignVertical:'center',
-        height:30,
-        marginBottom:20,
-        color:'#0099ff',
+    DeployTxt: {
+        textAlign: 'center',
+        textAlignVertical: 'center',
+        marginBottom: 20,
+        color: '#0099ff',
     },
 })
 

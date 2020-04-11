@@ -6,6 +6,7 @@ import GesturePassword from '../Screens/GesturePassword'
 import Chat from '../Screens/Chat'
 import Erc20 from '../Screens/Erc20'
 import MintCoin from '../Screens/MintCoin'
+import Ens from '../Screens/Ens'
 import {Dapps} from '../Dapps'
 
 const AppNavigator = createStackNavigator(
@@ -30,6 +31,9 @@ const AppNavigator = createStackNavigator(
         },
         Dapps:{
             screen: Dapps,
+        },
+        Ens:{
+            screen: Ens,
         },
     },
     {

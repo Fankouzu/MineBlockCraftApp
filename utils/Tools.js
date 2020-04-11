@@ -2,18 +2,20 @@ import { aesDecrypt } from './Aes'
 import 'ethers/dist/shims.js'
 import { ethers } from 'ethers'
 import bip39 from 'react-native-bip39'
+import { networks } from './networks'
 const HDWallet = require('ethereum-hdwallet')
 //const isBuffer = require('is-buffer')
 ethers.errors.setLogLevel('error')
 
 const etherscanApi = 'MIQDQDRUD5XENBPYQ8HAB3GJP2Z6T8ZZ1J'
 export function mnemonicToAddress(mnemonic, n) {
-    var seed = bip39.mnemonicToSeed(mnemonic.trim())
+    const seed = bip39.mnemonicToSeed(mnemonic.trim())
     const hdwallet = HDWallet.fromSeed(seed)
     return `0x${hdwallet.derive('m/44\'/60\'/0\'/0/' + n).getAddress().toString('hex')}`
 }
 export function mnemonicToPrivate(mnemonic, n) {
-    const hdwallet = HDWallet.fromMnemonic(mnemonic)
+    const seed = bip39.mnemonicToSeed(mnemonic.trim())
+    const hdwallet = HDWallet.fromSeed(seed)
     return hdwallet.derive('m/44\'/60\'/0\'/0/' + n).getPrivateKey().toString('hex')
 }
 export function jsNumberForAddress(address) {
@@ -156,7 +158,7 @@ export async function getTokens(networkName, address) {
             for (var i = 0; i < tokentx.length; i++) {
                 if (!inArray(tokentx[i].contractAddress, contractAddress)) {
                     var balance = await ethapi.account.tokenbalance(address, '', tokentx[i].contractAddress)
-                    tokentx[i].balance = balance.result / Math.pow(10,tokentx[i].tokenDecimal)
+                    tokentx[i].balance = balance.result / Math.pow(10, tokentx[i].tokenDecimal)
                     result.push(tokentx[i])
                     contractAddress.push(tokentx[i].contractAddress)
                 }
@@ -241,18 +243,24 @@ export async function sendTransaction(to, networkName, mnemonic, currentAccount,
     let tx = await wallet.sendTransaction(transaction)
     return tx
 }
-export async function Deploy(networkName, mnemonic, currentAccount,abi, bytecode, param) {
+export async function Deploy(networkName, mnemonic, currentAccount, abi, bytecode, param) {
     let infuraProvider = new ethers.providers.InfuraProvider(networkName)
     let privateKey = mnemonicToPrivate(mnemonic, currentAccount)
     let wallet = new ethers.Wallet(privateKey, infuraProvider)
     let factory = new ethers.ContractFactory(abi, bytecode, wallet)
 
     try {
-        let contract = await factory.deploy(param.initialSupply,param.name,param.symbol,param.decimals)
-        let tx = await contract.deployed()
-        return tx
+        let contract = await factory.deploy(param.initialSupply, param.name, param.symbol, param.decimals)
+        //console.log('contract:',contract)
+        //let tx = await contract.deployed()
+        return {error:0,contract:contract}
     } catch (e) {
         console.log('Deploy:', e)
+        if (e.toString().indexOf('insufficient funds') !== -1){
+            return {error:-1}
+        } else {
+            return {error:-2}
+        }
     }
 
 }
@@ -302,4 +310,18 @@ export function openContract(networkName, mnemonic, currentAccount, contractAddr
     let privateKey = mnemonicToPrivate(mnemonic, currentAccount)
     let wallet = new ethers.Wallet(privateKey, infuraProvider);
     return new ethers.Contract(contractAddress, abi, wallet)
+}
+const ENS = require('ethjs-ens')
+export function getENS(networkId) {
+    let infuraProvider = new ethers.providers.InfuraProvider(networks[networkId].name)
+    console.log('infuraProvider', infuraProvider)
+    try {
+
+        const ens = new ENS({ infuraProvider, network: '3' })
+        console.log('ens', ens)
+        return ens
+    } catch (e) {
+        console.log(e)
+    }
+
 }

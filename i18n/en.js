@@ -116,9 +116,10 @@ export default {
     NamePlaceholder:'Enter full token name',
     SymbolPlaceholder:'Enter token symbol',
     SupplyPlaceholder:'Enter totle Supply',
-    DeploySuccess:'Mint complete',
-    DeployTxt:'Return to the erc20 token list to see the token you created',
+    DeploySuccess:'Successful contract deployment',
+    DeployTxt:'After waiting for the block to be confirmed, you can see the token you created in the erc20 list',
     Ok:'Ok',
+    InsufficientFunds:'There is not enough eth in the account to pay gas, and the deployment contract needs about 0.003eth',
     //TxList
     TxListTitle:'Transactions',
     Deploy:'Contract Creation',

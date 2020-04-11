@@ -4655,6 +4655,14 @@ eth-ens-namehash@2.0.8:
     idna-uts46-hx "^2.3.1"
     js-sha3 "^0.5.7"
 
+eth-ens-namehash@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.npm.taobao.org/eth-ens-namehash/download/eth-ens-namehash-1.0.2.tgz#05ecdd6bac2d7fd7bc5ca84a993c6bad9da4edb9"
+  integrity sha1-Bezda6wtf9e8XKhKmTxrrZ2k7bk=
+  dependencies:
+    idna-uts46 "^1.0.1"
+    js-sha3 "^0.5.7"
+
 eth-json-rpc-infura@^3.1.0:
   version "3.2.1"
   resolved "https://registry.npm.taobao.org/eth-json-rpc-infura/download/eth-json-rpc-infura-3.2.1.tgz#26702a821067862b72d979c016fd611502c6057f"
@@ -4754,6 +4762,11 @@ ethereum-common@^0.0.18:
   version "0.0.18"
   resolved "https://registry.yarnpkg.com/ethereum-common/-/ethereum-common-0.0.18.tgz#2fdc3576f232903358976eb39da783213ff9523f"
   integrity sha1-L9w1dvIykDNYl26znaeDIT/5Uj8=
+
+ethereum-ens-network-map@^1.0.0:
+  version "1.0.2"
+  resolved "https://registry.npm.taobao.org/ethereum-ens-network-map/download/ethereum-ens-network-map-1.0.2.tgz#4e27bad18dae7bd95d84edbcac2c9e739fc959b9"
+  integrity sha1-Tie60Y2ue9ldhO28rCyec5/JWbk=
 
 ethereum-hdwallet@^0.0.26:
   version "0.0.26"
@@ -4983,6 +4996,70 @@ etherscan-api-cn@^10.0.5:
     gh-pages "^2.1.1"
     querystring "^0.2.0"
 
+ethjs-abi@0.2.0:
+  version "0.2.0"
+  resolved "https://registry.npm.taobao.org/ethjs-abi/download/ethjs-abi-0.2.0.tgz#d3e2c221011520fc499b71682036c14fcc2f5b25"
+  integrity sha1-0+LCIQEVIPxJm3FoIDbBT8wvWyU=
+  dependencies:
+    bn.js "4.11.6"
+    js-sha3 "0.5.5"
+    number-to-bn "1.7.0"
+
+ethjs-contract@^0.1.7:
+  version "0.1.9"
+  resolved "https://registry.npm.taobao.org/ethjs-contract/download/ethjs-contract-0.1.9.tgz#1c2766896a56d47ec1d6d661829c49cc38a5520a"
+  integrity sha1-HCdmiWpW1H7B1tZhgpxJzDilUgo=
+  dependencies:
+    ethjs-abi "0.2.0"
+    ethjs-filter "0.1.5"
+    ethjs-util "0.1.3"
+    js-sha3 "0.5.5"
+
+ethjs-ens@^2.0.1:
+  version "2.0.1"
+  resolved "https://registry.npm.taobao.org/ethjs-ens/download/ethjs-ens-2.0.1.tgz#eda0a21aacbdac2f60c4a01034df21c48a5a325b"
+  integrity sha1-7aCiGqy9rC9gxKAQNN8hxIpaMls=
+  dependencies:
+    eth-ens-namehash "^1.0.2"
+    ethereum-ens-network-map "^1.0.0"
+    ethjs-contract "^0.1.7"
+    ethjs-query "^0.2.4"
+
+ethjs-filter@0.1.5:
+  version "0.1.5"
+  resolved "https://registry.npm.taobao.org/ethjs-filter/download/ethjs-filter-0.1.5.tgz#0112af6017c24677e32b8fdeb20e6196019b7598"
+  integrity sha1-ARKvYBfCRnfjK4/esg5hlgGbdZg=
+
+ethjs-format@0.2.2:
+  version "0.2.2"
+  resolved "https://registry.npm.taobao.org/ethjs-format/download/ethjs-format-0.2.2.tgz#d73b3a605c2e1257079f7077fd5448e998ce0fcd"
+  integrity sha1-1zs6YFwuElcHn3B3/VRI6ZjOD80=
+  dependencies:
+    bn.js "4.11.6"
+    ethjs-schema "0.1.5"
+    ethjs-util "0.1.3"
+    is-hex-prefixed "1.0.0"
+    number-to-bn "1.7.0"
+    strip-hex-prefix "1.0.0"
+
+ethjs-query@^0.2.4:
+  version "0.2.9"
+  resolved "https://registry.npm.taobao.org/ethjs-query/download/ethjs-query-0.2.9.tgz#a26e6b4f38699e92f34b2184e75c7894329c42f1"
+  integrity sha1-om5rTzhpnpLzSyGE51x4lDKcQvE=
+  dependencies:
+    ethjs-format "0.2.2"
+    ethjs-rpc "0.1.5"
+
+ethjs-rpc@0.1.5:
+  version "0.1.5"
+  resolved "https://registry.npm.taobao.org/ethjs-rpc/download/ethjs-rpc-0.1.5.tgz#099e22f27dc4c18b6978a485fc36b1b0f7969080"
+  integrity sha1-CZ4i8n3EwYtpeKSF/DaxsPeWkIA=
+
+ethjs-schema@0.1.5:
+  version "0.1.5"
+  resolved "https://registry.npm.taobao.org/ethjs-schema/download/ethjs-schema-0.1.5.tgz#59740e3b3977bcdbb9b11bc3068201e8aceabb0d"
+  integrity sha1-WXQOOzl3vNu5sRvDBoIB6Kzquw0=
+
 ethjs-unit@0.1.6:
   version "0.1.6"
   resolved "https://registry.npm.taobao.org/ethjs-unit/download/ethjs-unit-0.1.6.tgz#c665921e476e87bce2a9d588a6fe0405b2c41699"
@@ -4990,6 +5067,14 @@ ethjs-unit@0.1.6:
   dependencies:
     bn.js "4.11.6"
     number-to-bn "1.7.0"
+
+ethjs-util@0.1.3:
+  version "0.1.3"
+  resolved "https://registry.npm.taobao.org/ethjs-util/download/ethjs-util-0.1.3.tgz#dfd5ea4a400dc5e421a889caf47e081ada78bb55"
+  integrity sha1-39XqSkANxeQhqInK9H4IGtp4u1U=
+  dependencies:
+    is-hex-prefixed "1.0.0"
+    strip-hex-prefix "1.0.0"
 
 ethjs-util@0.1.6, ethjs-util@^0.1.3:
   version "0.1.6"
@@ -6086,6 +6171,13 @@ idna-uts46-hx@^2.3.1:
   dependencies:
     punycode "2.1.0"
 
+idna-uts46@^1.0.1:
+  version "1.1.0"
+  resolved "https://registry.npm.taobao.org/idna-uts46/download/idna-uts46-1.1.0.tgz#be098b2b7c1cabfbef87a8b80f626fac37366aea"
+  integrity sha1-vgmLK3wcq/vvh6i4D2JvrDc2auo=
+  dependencies:
+    punycode "^2.1.0"
+
 ieee754@^1.1.4:
   version "1.1.13"
   resolved "https://registry.yarnpkg.com/ieee754/-/ieee754-1.1.13.tgz#ec168558e95aa181fd87d37f55c32bbcb6708b84"
@@ -7051,6 +7143,11 @@ jetifier@^1.6.2:
   version "1.6.5"
   resolved "https://registry.yarnpkg.com/jetifier/-/jetifier-1.6.5.tgz#ea87324a4230bef20a9651178ecab978ee54a8cb"
   integrity sha512-T7yzBSu9PR+DqjYt+I0KVO1XTb1QhAfHnXV5Nd3xpbXM6Xg4e3vP60Q4qkNU8Fh6PHC2PivPUNN3rY7G2MxcDQ==
+
+js-sha3@0.5.5:
+  version "0.5.5"
+  resolved "https://registry.npm.taobao.org/js-sha3/download/js-sha3-0.5.5.tgz#baf0c0e8c54ad5903447df96ade7a4a1bca79a4a"
+  integrity sha1-uvDA6MVK1ZA0R9+Wreekobynmko=
 
 js-sha3@0.5.7, js-sha3@^0.5.7:
   version "0.5.7"

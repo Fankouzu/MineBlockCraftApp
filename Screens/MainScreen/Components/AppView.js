@@ -80,7 +80,7 @@ function Appview(props) {
                         <Text style={styles.AppName}>{I18n.t('Mint')}</Text>
                     </View>
                 </AwesomeButton>
-                <AwesomeButton
+                {/* <AwesomeButton
                     backgroundActive="#fff"
                     backgroundColor="#fff"
                     backgroundDarker="#390"
@@ -93,7 +93,7 @@ function Appview(props) {
                     height={90}
                     width={60}
                     style={styles.AppCard}
-                    onPress={() => { navigate('MintCoin') }}
+                    onPress={() => { navigate('Ens') }}
                 >
                     <View style={{ alignItems: 'center' }}>
                         <Image
@@ -103,7 +103,7 @@ function Appview(props) {
                         />
                         <Text style={styles.AppName}>{I18n.t('Ens')}</Text>
                     </View>
-                </AwesomeButton>
+                </AwesomeButton> */}
                 {/* {DappJson[networkId].dapps.map((item, key) => {
                     return (
                         <AwesomeButton
