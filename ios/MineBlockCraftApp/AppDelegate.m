@@ -10,7 +10,8 @@
 #import <React/RCTBridge.h>
 #import <React/RCTBundleURLProvider.h>
 #import <React/RCTRootView.h>
-
+//https://github.com/crazycodeboy/react-native-splash-screen
+#import "RNSplashScreen.h"  // here
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -27,6 +28,8 @@
   rootViewController.view = rootView;
   self.window.rootViewController = rootViewController;
   [self.window makeKeyAndVisible];
+  //https://github.com/crazycodeboy/react-native-splash-screen
+  [RNSplashScreen show];  // here
   return YES;
 }
 

@@ -14,7 +14,7 @@ import MyCard from '../Components/MyCard'
 import Title from '../Components/Title'
 import AlertText from '../Components/AlertText'
 import { validateMnemonic } from '../../utils/Tools'
-import { I18n } from '../../i18n'
+import { I18n,countryCode } from '../../i18n'
 
 const alertText = [I18n.t('ImportMnemonicAlertTxt1')]
 class ImportMnemonic extends React.Component {
@@ -143,7 +143,7 @@ class ImportMnemonic extends React.Component {
                         margin={0}
                         top={0}
                     >
-                        <Title titleText={I18n.t('ImportMnemonic')} />
+                        <Title titleText={I18n.t('ImportMnemonic')} fontSize={countryCode === 'CN' ? 30 : 26}/>
                         <MyTextArea
                             handleType={this.handleType}
                             handleKeybordMargin={this.handleKeybordMargin}

@@ -28,7 +28,7 @@ build/
 .gradle
 local.properties
 *.iml
-android/gradle.properties
+android/*.properties
 android/app/my-release-key.keystore
 
 # node.js

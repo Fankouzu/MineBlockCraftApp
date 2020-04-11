@@ -4,7 +4,7 @@ import { View } from 'react-native'
 import Title from '../Components/Title'
 import MyButton from '../Components/MyButton'
 import MyCard from '../Components/MyCard'
-import {I18n} from '../../i18n'
+import {I18n,countryCode} from '../../i18n'
 
 function Welcome(props) {
     const { navigate } = props.navigation
@@ -15,7 +15,7 @@ function Welcome(props) {
             top={60}
             height={160}
         >
-            <Title titleText={I18n.t('AppName')} subText={I18n.t('SubTitle')} />
+            <Title titleText={I18n.t('AppName')} subText={I18n.t('SubTitle')} fontSize={countryCode === 'CN' ? 30 : 26} />
             {props.WalletReducer.encrypt ? (
                 <MyButton
                     screenWidth={global.screenWidth * 0.9 - 30}
@@ -45,6 +45,7 @@ function Welcome(props) {
                             borderWidth={1}
                             textSize={I18n.t('WelcomeButtonFontSize')}
                             onPress={() => navigate('ImportNav')}
+                            textFont={countryCode === 'CN' ? 'BigYoungMediumGB2.0' : 'nomal'}
                             style={{ marginRight: 5 }}
                         />
                         <MyButton
@@ -58,6 +59,7 @@ function Welcome(props) {
                             borderColor="#390"
                             borderWidth={1}
                             textSize={I18n.t('WelcomeButtonFontSize')}
+                            textFont={countryCode === 'CN' ? 'BigYoungMediumGB2.0' : 'nomal'}
                             onPress={() => navigate('CreateNav')}
                             style={{ marginLeft: 5 }}
                         />

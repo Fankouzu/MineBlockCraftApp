@@ -16,7 +16,7 @@ import AlertText from '../Components/AlertText'
 import { checkPasswordLevel } from '../../utils/Tools'
 import Modal from 'react-native-modal'
 import { aesEncrypt, sha1 } from '../../utils/Aes'
-import { I18n } from '../../i18n'
+import { I18n,countryCode } from '../../i18n'
 
 const styles = StyleSheet.create({
     modalView: {
@@ -172,7 +172,7 @@ class Password extends React.Component {
                         top={0}
                         padding={10}
                     >
-                        <Title titleText={I18n.t('InputPassword')} />
+                        <Title titleText={I18n.t('InputPassword')} fontSize={countryCode === 'CN' ? 30 : 26}/>
                         <MyPasswordInput
                             handleTypePassword={(password) => this.handleTypePassword(password)}
                             handleKeybordMargin={() => { }}

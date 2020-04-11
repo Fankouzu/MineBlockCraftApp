@@ -18,7 +18,7 @@ import Title from '../Components/Title'
 import AlertText from '../Components/AlertText'
 import { aesDecrypt, sha1 } from '../../utils/Aes'
 import { validateMnemonic, mnemonicToAddress } from '../../utils/Tools'
-import { I18n } from '../../i18n'
+import { I18n,countryCode } from '../../i18n'
 
 const styles = StyleSheet.create({
     bottom: {
@@ -187,7 +187,7 @@ class OpenWallet extends React.Component {
                         screenWidth={global.screenWidth * 0.9}
                         margin={0}
                     >
-                        <Title titleText={I18n.t('AppName')} />
+                        <Title titleText={I18n.t('AppName')} fontSize={countryCode === 'CN' ? 30 : 26}/>
                         <MyPasswordInput
                             handleTypePassword={this.handleTypePassword}
                             handleKeybordMargin={this.handleKeybordMargin}
