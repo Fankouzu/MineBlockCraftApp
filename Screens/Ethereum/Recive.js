@@ -14,7 +14,7 @@ import Ripple from 'react-native-material-ripple'
 import Toast from 'react-native-easy-toast'
 import ViewShot from 'react-native-view-shot'
 import CameraRoll from '@react-native-community/cameraroll'
-import { I18n } from '../../i18n'
+import { I18n,countryCode } from '../../i18n'
 import { networks } from '../../utils/networks'
 import MyBackButton from '../Components/MyBackButton'
 import MyBackground from '../Components/MyBackground'
@@ -163,7 +163,7 @@ class Recive extends React.Component {
                             options={{ format: 'png', quality: 1 }}
                             style={{ backgroundColor: '#fff' }}
                         >
-                            <Title titleText={I18n.t('ReciveTitle')} fontSize={24} />
+                            <Title titleText={I18n.t('ReciveTitle')} fontSize={countryCode === 'CN' ? 24 : 20} />
                             <View style={styles.divide} />
                             <View style={styles.content}>
                                 <View style={styles.QRView}>

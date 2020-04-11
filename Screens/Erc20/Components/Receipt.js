@@ -4,7 +4,7 @@ import { View, Text, StyleSheet } from 'react-native'
 import Title from '../../Components/Title'
 import Jazzicon from '@novaviva/react-native-jazzicon'
 import MyButton from '../../Components/MyButton'
-import { I18n } from '../../../i18n'
+import { I18n,countryCode } from '../../../i18n'
 import { networks } from '../../../utils/networks'
 import { openContract } from '../../../utils/Tools'
 import abi from '../../../Contract/MineBlockCraftUser.abi.js'
@@ -41,7 +41,7 @@ function Receipt(props) {
         const UserContractAddress = ContractAddress.MineBlockCraftUser[networkId].address
 
         const contract = openContract(networks[networkId].name, mnemonic, currentAccount, UserContractAddress, abi)
-        contract.addFriend(toAddress, { 'gasLimit': 100000 }).then((tx) => {
+        contract.addFriend(toAddress, { 'gasLimit': 200000 }).then((tx) => {
             toast.current.show(I18n.t('Success'))
             setAddDisabled(true)
             setAlready(true)
@@ -104,7 +104,7 @@ function Receipt(props) {
                         onPress={(next) => { addFriend(toAddress, next) }}
                     >
                         <View style={styles.jazzIconBtn}><Jazzicon size={20} address={toAddress} /></View>
-                        <Text style={styles.addFriend}>将地址加为好友</Text>
+                        <Text style={[styles.addFriend,{fontSize:countryCode === 'CN' ? 20 : 16}]}>{I18n.t('AddFriend')}</Text>
                     </MyButton>
                 )}
 

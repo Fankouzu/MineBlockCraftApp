@@ -219,6 +219,7 @@ const styles = StyleSheet.create({
     text: {
         height: 50,
         lineHeight: 50,
+        textAlign:'center',
     },
     headContent: {
         justifyContent: 'flex-start', flexDirection: 'row',

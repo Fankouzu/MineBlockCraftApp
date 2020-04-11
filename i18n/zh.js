@@ -93,6 +93,7 @@ export default {
   Hash: '交易哈希',
   Block: '区块高度',
   FunctionError:'失败，请稍后再试',
+  AddFriend:'将地址加为好友',
   //Recive
   ReciveTitle:'我的以太坊地址',
   CopyAddress:'拷贝地址',

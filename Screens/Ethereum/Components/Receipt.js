@@ -4,7 +4,7 @@ import { View, Text, StyleSheet } from 'react-native'
 import Title from '../../Components/Title'
 import Jazzicon from '@novaviva/react-native-jazzicon'
 import MyButton from '../../Components/MyButton'
-import { I18n } from '../../../i18n'
+import { I18n,countryCode } from '../../../i18n'
 import { networks } from '../../../utils/networks'
 import { openContract } from '../../../utils/Tools'
 import abi from '../../../Contract/MineBlockCraftUser.abi.js'
@@ -99,7 +99,7 @@ function Receipt(props) {
                     onPress={(next) => { addFriend(tx.to, next) }}
                 >
                     <View style={styles.jazzIconBtn}><Jazzicon size={20} address={tx.to} /></View>
-                    <Text style={styles.addFriend}>将地址加为好友</Text>
+                    <Text style={[styles.addFriend,{fontSize:countryCode === 'CN' ? 20 : 16}]}>{I18n.t('AddFriend')}</Text>
                 </MyButton>
             )}
 
@@ -122,12 +122,6 @@ function Receipt(props) {
     )
 }
 const styles = StyleSheet.create({
-    title: {
-        fontSize: 14,
-        height: 36,
-        textAlignVertical: 'center',
-        color: '#333',
-    },
     divide: {
         borderWidth: 0.35,
         borderColor: '#000',
@@ -218,7 +212,6 @@ const styles = StyleSheet.create({
     addFriend: {
         lineHeight: 30,
         fontFamily: 'BigYoungMediumGB2.0',
-        fontSize: 20,
         letterSpacing: 2,
     },
 })

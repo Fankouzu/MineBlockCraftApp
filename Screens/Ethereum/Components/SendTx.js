@@ -6,7 +6,7 @@ import MyButton from '../../Components/MyButton'
 import SendInput from './SendInput'
 import GasView from './GasView'
 import isEthereumAddress from 'is-ethereum-address'
-import { I18n } from '../../../i18n'
+import { I18n,countryCode } from '../../../i18n'
 
 function SendTx(props) {
 
@@ -38,7 +38,7 @@ function SendTx(props) {
     }
     return (
         <View>
-            <Title titleText={I18n.t('SendTransaction')} />
+            <Title titleText={I18n.t('SendTransaction')} fontSize={countryCode === 'CN' ? 24 : 20}  />
             <View style={{
                 borderWidth: 0.35,
                 borderColor: '#000',

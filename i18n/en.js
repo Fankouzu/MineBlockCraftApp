@@ -93,6 +93,7 @@ export default {
     Hash:'Tx Hash',
     Block:'Block',
     FunctionError:'Failed, please try again later',
+    AddFriend:'Add address as friend',
     //Recive
     ReciveTitle:'My Ethereum Address',
     CopyAddress:'Copy Address',
