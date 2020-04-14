@@ -15,7 +15,7 @@ export default class App extends React.Component {
     return (
       <Provider store={store}>
         <View style={styles.container}>
-          {global.ios && <StatusBar barStyle="default" />}
+          <StatusBar barStyle="light-content" />
           <MainNav />
         </View>
       </Provider>

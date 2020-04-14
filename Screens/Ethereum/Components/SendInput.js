@@ -6,8 +6,10 @@ import {
     Clipboard,
     TouchableOpacity,
     StyleSheet,
+    PermissionsAndroid
 } from 'react-native'
 import { connect } from 'react-redux'
+import Toast from 'react-native-easy-toast'
 import * as actions from '../../../actions'
 import isEthereumAddress from 'is-ethereum-address'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
@@ -15,7 +17,7 @@ import { I18n } from '../../../i18n'
 
 function SendInput(props) {
 
-    const {toAddress,balance,amount,ethPrice,note} = props.SendReducer
+    const { toAddress, balance, amount, ethPrice, note } = props.SendReducer
 
     const [addressErrorTxt, setAddressErrorTxt] = React.useState(props.addressError)
     const [amountErrorTxt, setAmountErrorTxt] = React.useState(props.amountError)
@@ -50,13 +52,29 @@ function SendInput(props) {
             }
         })
     }
+    const toast = React.useRef()
 
+    const QRCodeScan = async() => {
+        try {
+            const granted = await PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.CAMERA)
+            if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+                props.navigate('QRCodeScan', { back: 'Send' })
+                return true
+            } else {
+                toast.current.show(I18n.t('PermissionsAndroid'))
+                return false
+            }
+        } catch (err) {
+            console.log('Send Eth PermissionsAndroid.PERMISSIONS.CAMERA Error', err)
+            toast.current.show(I18n.t('PermissionsAndroid'))
+        }
+    }
     return (
         <View>
             <View style={styles.addressView}>
                 <View style={styles.actBtnView}>
                     <TouchableOpacity
-                        onPress={() => props.navigate('QRCodeScan',{back:'Send'})}
+                        onPress={() => QRCodeScan()}
                         style={styles.actBtn}
                     >
                         <Icon
@@ -106,9 +124,9 @@ function SendInput(props) {
                     </View>
                 </View>
                 <View style={styles.amountInputView}>
-                    <View style={{width:'60%'}}>
+                    <View style={{ width: '60%' }}>
                         <TextInput
-                            style={[styles.amountInput,amountErrorStyle]}
+                            style={[styles.amountInput, amountErrorStyle]}
                             placeholder="0"
                             keyboardType="numeric"
                             onChangeText={(value) => { props.setAmount(value) }}
@@ -145,6 +163,10 @@ function SendInput(props) {
                     onBlur={() => { props.handleRollUp(0) }}
                     value={note}
                 />
+                <Toast
+                    position="top"
+                    positionValue={30}
+                    ref={toast} />
             </View>
         </View>
     )

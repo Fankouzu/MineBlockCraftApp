@@ -1,4 +1,4 @@
-pragma solidity >=0.4.22 <0.7.0;
+pragma solidity >=0.6.0 <0.7.0;
 pragma experimental ABIEncoderV2;
 
 contract Owner {
@@ -114,9 +114,9 @@ contract MBCMessage is MBCUser {
         address toUser;
     }
 
-    Message[] public Messages;
+    Message[] internal Messages;
 
-    mapping(address => mapping(address => uint256)) public messageCount;
+    mapping(address => mapping(address => uint256)) internal messageCount;
     mapping(address => address[]) internal messageList;
 
     event newMessage(
@@ -131,59 +131,27 @@ contract MBCMessage is MBCUser {
         Messages.push(Message(block.timestamp, _content, msg.sender, _toUser));
         uint256 MessageId = Messages.length - 1;
         emit newMessage(msg.sender, _toUser, MessageId);
-        messageList[msg.sender] = _updatemessageList(msg.sender, _toUser);
-        messageList[_toUser] = _updatemessageList(_toUser, msg.sender);
+        messageList[msg.sender] = _toUser;
+        messageList[_toUser] = msg.sender;
 
         messageCount[msg.sender][_toUser]++;
         messageCount[_toUser][msg.sender]++;
+        delete MessageId;
         delete _content;
     }
 
-    function _updatemessageList(address _fromUser, address _toUser)
-        internal
-        view
-        returns (address[] memory)
-    {
-        bool exists = false;
-        for (uint256 i = 0; i < messageList[_fromUser].length; i++) {
-            if (messageList[_fromUser][i] == _toUser) {
-                exists = true;
-            }
-        }
-
-        address[] memory messages = new address[](
-            exists
-                ? messageList[_fromUser].length
-                : messageList[_fromUser].length + 1
-        );
-
-        messages[0] = _toUser;
-        for (uint256 i = 0; i < messageList[_fromUser].length; i++) {
-            if (messageList[_fromUser][i] != _toUser) {
-                messages[i + 1] = messageList[_fromUser][i];
-            }
-        }
-
-        return messages;
-    }
 
     function getMessages(address _toUser)
         public
         view
         returns (Message[] memory)
     {
-        Message[] memory result = new Message[](
-            messageCount[msg.sender][_toUser]
-        );
+        Message[] memory result = new Message[](messageCount[msg.sender][_toUser]);
 
         uint256 counter = 0;
         for (uint256 i = 0; i < Messages.length; i++) {
-            if (
-                (Messages[i].fromUser == msg.sender &&
-                    Messages[i].toUser == _toUser) ||
-                (Messages[i].fromUser == _toUser &&
-                    Messages[i].toUser == msg.sender)
-            ) {
+            if ((Messages[i].fromUser == msg.sender && Messages[i].toUser == _toUser) 
+            || (Messages[i].fromUser == _toUser && Messages[i].toUser == msg.sender)) {
                 result[counter] = Messages[i];
                 counter++;
             }
@@ -194,6 +162,7 @@ contract MBCMessage is MBCUser {
     function msgList() public view returns (address[] memory) {
         return messageList[msg.sender];
     }
+    
 }
 
 contract MBCFriend is MBCUser, MBCMessage {

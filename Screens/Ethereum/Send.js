@@ -13,7 +13,6 @@ import SendConfirm from './Components/SendConfirm'
 import Sending from './Components/Sending'
 import Receipt from './Components/Receipt'
 import { ethprice } from '../../utils/Tools'
-import { aesDecrypt, sha1 } from '../../utils/Aes'
 
 class Send extends React.Component {
     constructor(props) {
@@ -27,7 +26,7 @@ class Send extends React.Component {
     }
     componentDidMount = async () => {
 
-        const { accounts, currentAccount, encrypt } = this.props.WalletReducer
+        const { accounts, currentAccount } = this.props.WalletReducer
         const fromAddress = accounts[currentAccount].address
 
         this._didFocusSubscription = this.props.navigation.addListener('didFocus',
@@ -37,19 +36,6 @@ class Send extends React.Component {
             }
         )
         this.props.setFromAddress(fromAddress)
-
-        global.storage.load({ key: 'status' })
-            .then(ret => {
-                const { password, setGesture, gesturePassword } = ret
-                let orignPassword = setGesture && password && gesturePassword ?
-                    aesDecrypt(password, gesturePassword) : password
-
-                let mnemonic = aesDecrypt(encrypt, sha1(orignPassword + 'salt'))
-                this.props.setMnemonic(mnemonic)
-            }).catch(() => {
-                this.props.navigation.navigate('WelcomeNav', { page: 1 })
-            })
-
         ethprice().then((res) => {
             this.props.setEthPrice(res.result.ethusd)
             this.setState({ begin: 1 })
@@ -147,7 +133,6 @@ const mapStateToProps = state => (state)
 const mapDispatchToProps = dispatch => ({
     setFromAddress: (value) => dispatch(actions.setFromAddress(value)),
     setEthPrice: (value) => dispatch(actions.setEthPrice(value)),
-    setMnemonic: (value) => dispatch(actions.setMnemonic(value)),
     setToAddress: (value) => dispatch(actions.setToAddress(value)),
     setAmount: (value) => dispatch(actions.setAmount(value)),
     clearSend: () => dispatch(actions.clearSend()),

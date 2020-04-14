@@ -1,5 +1,5 @@
-import React, {Component} from 'react'
-import {Text, StyleSheet, View, Keyboard} from 'react-native'
+import React, { Component } from 'react'
+import { Text, StyleSheet, View, Keyboard } from 'react-native'
 import { connect } from 'react-redux'
 import { ethers } from 'ethers'
 import MyButton from '../Components/MyButton'
@@ -42,6 +42,7 @@ class Chat extends Component {
             messages: [],
             ViewHeight: global.screenHeight,
             typeMsg: '',
+            keyboardHeight: 0,
         }
     }
 
@@ -81,12 +82,14 @@ class Chat extends Component {
         let keyboardHeight = e.endCoordinates.height
         this.setState({
             ViewHeight: this.state.ViewHeight - keyboardHeight,
+            keyboardHeight: keyboardHeight,
         })
     }
 
     _keyboardWillHide() {
         this.setState({
             ViewHeight: global.screenHeight,
+            keyboardHeight: 0,
         })
     }
     onBlur = () => {
@@ -119,16 +122,16 @@ class Chat extends Component {
     render() {
         const { navigate } = this.props.navigation
         return (
-            <View style={{ position: 'relative', justifyContent: 'flex-end' }}>
+            <ImageBackground
+                source={require('../../assets/blockchainBg.png')}
+                imageStyle={{ resizeMode: 'repeat', opacity: 0.15 }}
+                style={{ height: global.screenHeight - 22, width: global.screenWidth }}>
                 <Topbar
                     onPress={() => { navigate('MainScreen') }}
                     titleTxt={this.state.title}
                 />
-                <View style={styles.Middle}>
-                    <ImageBackground
-                        source={require('../../assets/blockchainBg.png')}
-                        imageStyle={{ resizeMode: 'repeat', opacity: 0.15 }}
-                        style={{ height: this.state.ViewHeight - 22, width: '100%', paddingTop: 90 }}>
+                <View style={{ position: 'relative', justifyContent: 'flex-end' }}>
+                    <View style={[styles.Middle, { height: global.screenHeight - 90 - this.state.keyboardHeight}]}>
                         <ScrollView
                             contentContainerStyle={styles.ScrollView}
                             ref={(ref) => this.ScrollView = ref}
@@ -143,42 +146,41 @@ class Chat extends Component {
                                 />)
                             })}
                         </ScrollView>
-                    </ImageBackground>
-                    <View style={styles.Bottom}>
-                        <TextInput
-                            style={styles.Input}
-                            onChangeText={(typeMsg) => { this.setState({ typeMsg: typeMsg }) }}
-                            onFocus={() => { this.onFocus() }}
-                            onBlur={() => { this.onBlur() }}
-                            value={this.state.typeMsg}
-                            placeholder={''}
-                        />
-                        <MyButton
-                            screenWidth={50}
-                            text={I18n.t('Send')}
-                            height={35}
-                            backgroundColor="#6f0"
-                            backgroundDarker="#390"
-                            textColor="#000"
-                            borderColor="#390"
-                            raiseLevel={2}
-                            textSize={14}
-                            textFont={''}
-                            borderRadius={20}
-                            borderWidth={1}
-                            onPress={() => { this.onSubmit() }}
-                            style={styles.SendBtn}
-                        />
                     </View>
                 </View>
-            </View>
+                <View style={[styles.Bottom, { bottom: this.state.keyboardHeight }]}>
+                    <TextInput
+                        style={styles.Input}
+                        onChangeText={(typeMsg) => { this.setState({ typeMsg: typeMsg }) }}
+                        onFocus={() => { this.onFocus() }}
+                        onBlur={() => { this.onBlur() }}
+                        value={this.state.typeMsg}
+                        placeholder={''}
+                    />
+                    <MyButton
+                        screenWidth={50}
+                        text={I18n.t('Send')}
+                        height={35}
+                        backgroundColor="#6f0"
+                        backgroundDarker="#390"
+                        textColor="#000"
+                        borderColor="#390"
+                        raiseLevel={2}
+                        textSize={14}
+                        textFont={''}
+                        borderRadius={20}
+                        borderWidth={1}
+                        onPress={() => { this.onSubmit() }}
+                        style={styles.SendBtn}
+                    />
+                </View>
+            </ImageBackground>
         )
     }
 }
 
 const styles = StyleSheet.create({
     Middle: {
-        backgroundColor: '#ededed',
     },
     Bottom: {
         height: 45,
@@ -188,6 +190,7 @@ const styles = StyleSheet.create({
         borderTopWidth: 0.5,
         borderTopColor: '#ddd',
         paddingHorizontal: 10,
+        position: 'absolute',
     },
     Input: {
         flex: 1,
@@ -205,6 +208,8 @@ const styles = StyleSheet.create({
     },
     ScrollView: {
         justifyContent: 'flex-start',
+        marginTop: 45,
+        paddingBottom:45,
     },
     jazzIcon: {
         width: 40,

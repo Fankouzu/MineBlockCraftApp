@@ -6,8 +6,10 @@ import {
     Clipboard,
     TouchableOpacity,
     StyleSheet,
+    PermissionsAndroid
 } from 'react-native'
 import { connect } from 'react-redux'
+import Toast from 'react-native-easy-toast'
 import * as actions from '../../../actions'
 import isEthereumAddress from 'is-ethereum-address'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
@@ -51,12 +53,29 @@ function SendInput(props) {
         })
     }
 
+    const toast = React.useRef()
+
+    const QRCodeScan = async() => {
+        try {
+            const granted = await PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.CAMERA)
+            if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+                props.navigate('QRCodeScan', { back: 'SendToken' })
+                return true
+            } else {
+                toast.current.show(I18n.t('PermissionsAndroid'))
+                return false
+            }
+        } catch (err) {
+            console.log('Send Eth PermissionsAndroid.PERMISSIONS.CAMERA Error', err)
+            toast.current.show(I18n.t('PermissionsAndroid'))
+        }
+    }
     return (
         <View>
             <View style={styles.addressView}>
                 <View style={styles.actBtnView}>
                     <TouchableOpacity
-                        onPress={() => props.navigate('QRCodeScan',{back:'SendToken'})}
+                        onPress={() => QRCodeScan()}
                         style={styles.actBtn}
                     >
                         <Icon
@@ -119,6 +138,10 @@ function SendInput(props) {
                         <Text style={styles.errorTxt}>{amountErrorTxt}</Text>
                     </View>
                 </View>
+                <Toast
+                    position="top"
+                    positionValue={30}
+                    ref={toast} />
             </View>
         </View>
     )

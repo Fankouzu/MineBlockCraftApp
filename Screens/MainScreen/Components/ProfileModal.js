@@ -73,47 +73,31 @@ class ProfileModal extends Component {
 
     handleSubmit = async (next) => {
 
-        if (this.state.nickName !== '' && this.state.nickName !== this.state.Profile[0] && this.state.signature != this.state.Profile[1]) {
-            global.storage.load({ key: 'status' })
-                .then(ret => {
-                    const { encrypt, currentAccount } = this.props.WalletReducer
-                    const { password, setGesture, gesturePassword } = ret
-                    let orignPassword = setGesture && password && gesturePassword ?
-                        aesDecrypt(password, gesturePassword) : password
+        if (this.state.nickName !== '' && this.state.nickName !== this.state.Profile[0] && this.state.signature !== this.state.Profile[1]) {
+            const { networkId,mnemonic,currentAccount } = this.props.WalletReducer
+            const UserContractAddress = ContractAddress.MineBlockCraftUser[networkId].address
 
-                    let mnemonic = aesDecrypt(encrypt, sha1(orignPassword + 'salt'))
-
-                    if (validateMnemonic(mnemonic)) {
-                        const { networkId } = this.props.WalletReducer
-                        const UserContractAddress = ContractAddress.MineBlockCraftUser[networkId].address
-
-                        const contract = openContract(networks[networkId].name, mnemonic, currentAccount, UserContractAddress, abi)
-                        contract.newProfile(this.state.nickName, this.state.signature).then((tx) => {
-                            console.log(tx)
-                            this.setState({
-                                alertText: [I18n.t('Success')],
-                                alertColor: '#390',
-                            })
-                            setTimeout(() => {
-                                this.Cancel()
-                            }, 2000)
-                            next()
-                        }).catch((error) => {
-                            console.log(error)
-                            next()
-                            this.setState({
-                                alertText: ['余额不足,账户中没有足够的Eth'],
-                            })
-                            setTimeout(() => {
-                                this.Cancel()
-                            }, 5000)
-                        })
-
-                    }
-                }).catch(_err => {
-                    this.Cancel()
-                    this.props.navigation.navigate('WelcomeNav', { page: 1 })
+            const contract = openContract(networks[networkId].name, mnemonic, currentAccount, UserContractAddress, abi)
+            contract.newProfile(this.state.nickName, this.state.signature).then((tx) => {
+                console.log(tx)
+                this.setState({
+                    alertText: [I18n.t('Success')],
+                    alertColor: '#390',
                 })
+                setTimeout(() => {
+                    this.Cancel()
+                }, 2000)
+                next()
+            }).catch((error) => {
+                console.log(error)
+                next()
+                this.setState({
+                    alertText: ['余额不足,账户中没有足够的Eth'],
+                })
+                setTimeout(() => {
+                    this.Cancel()
+                }, 5000)
+            })
         } else {
             this.Cancel()
         }

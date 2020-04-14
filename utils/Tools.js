@@ -216,8 +216,7 @@ export function gasPrice(networkName) {
 }
 export async function ethprice() {
     const ethapi = require('etherscan-api-cn').init(etherscanApi, 'mainnet', 3000)
-    let ethprice = await ethapi.stats.ethprice()
-    return ethprice
+    return await ethapi.stats.ethprice()
 }
 export async function sendTransaction(to, networkName, mnemonic, currentAccount, value, gasLimit, myGasprice, note) {
     let infuraProvider = new ethers.providers.InfuraProvider(networkName)

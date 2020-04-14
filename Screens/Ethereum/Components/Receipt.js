@@ -41,7 +41,7 @@ function Receipt(props) {
         const UserContractAddress = ContractAddress.MineBlockCraftUser[networkId].address
 
         const contract = openContract(networks[networkId].name, mnemonic, currentAccount, UserContractAddress, abi)
-        contract.addFriend(toAddress, { 'gasLimit': 100000 }).then((tx) => {
+        contract.addFriend(toAddress, { 'gasLimit': 200000 }).then((tx) => {
             toast.current.show(I18n.t('Success'))
             setAddDisabled(true)
             setAlready(true)
