@@ -43,7 +43,14 @@ class MainScreen extends Component {
             this.props.navigation.navigate('WelcomeNav', { page: 1 })
         })
     }
-
+    inArray = (search, array) => {
+        for (var i in array) {
+            if (array[i] === search) {
+                return true;
+            }
+        }
+        return false;
+    }
     getContract = () => {
         const { address, password, setGesture, gesturePassword } = this.state.statusStorage
         const { encrypt, networkId, currentAccount } = this.props.WalletReducer
@@ -64,9 +71,13 @@ class MainScreen extends Component {
                     this.props.setMsgList({ error: 0, result: [] })
                 } else {
                     let result = [];
+                    let addresses = [];
                     for (var i = 0; i < msgList.length; i++) {
-                        var profile = await contract.getProfile(msgList[i])
-                        result[i] = { address: msgList[i], profile: profile }
+                        if (!this.inArray(msgList[i], addresses)) {
+                            var profile = await contract.getProfile(msgList[i])
+                            result[i] = { address: msgList[i], profile: profile }
+                            addresses.push(msgList[i])
+                        }
                     }
                     this.props.setMsgList({ error: 1, result: result })
                 }
